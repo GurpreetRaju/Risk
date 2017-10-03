@@ -1,6 +1,6 @@
 package main;
 
-import view.MainView;
+import controller.GameDriver;
 
 public class start {
 	public static void main(String[] args) {
@@ -8,7 +8,7 @@ public class start {
         //creating and showing this application's GUI.
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                MainView.getInstance();
+                GameDriver.getInstance().runGame();
             }
         });
     }
