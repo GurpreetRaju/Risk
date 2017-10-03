@@ -44,7 +44,7 @@ public class MapFrame extends JFrame {
 	public MapFrame() {
 		this.setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(140, 140, 500, 340);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.GRAY);
 		contentPane.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
@@ -94,7 +94,7 @@ public class MapFrame extends JFrame {
 		gbc_lblSelectOne.gridx = 5;
 		gbc_lblSelectOne.gridy = 5;
 		contentPane.add(lblSelectOne, gbc_lblSelectOne);
-		btnNewMap.setBackground(Color.LIGHT_GRAY);
+		btnNewMap.setBackground(new Color(240, 255, 255));
 		GridBagConstraints gbc_btnNewMap = new GridBagConstraints();
 		gbc_btnNewMap.gridwidth = 3;
 		gbc_btnNewMap.fill = GridBagConstraints.HORIZONTAL;
@@ -107,7 +107,7 @@ public class MapFrame extends JFrame {
 		btnExistingMap.setForeground(Color.BLACK);
 		btnExistingMap.setToolTipText("Click here...");
 		btnExistingMap.setFont(new Font("Bookman Old Style", Font.BOLD | Font.ITALIC, 18));
-		btnExistingMap.setBackground(Color.LIGHT_GRAY);
+		btnExistingMap.setBackground(new Color(240, 255, 255));
 		GridBagConstraints gbc_btnExistingMap = new GridBagConstraints();
 		gbc_btnExistingMap.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnExistingMap.gridwidth = 3;
