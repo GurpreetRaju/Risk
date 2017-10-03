@@ -1,4 +1,4 @@
-package View;
+package view;
 
 import java.awt.Container;
 import java.awt.Dimension;
@@ -10,31 +10,43 @@ public class MainView extends JFrame{
 	
 	private static final long serialVersionUID = 1L;
 	private static MainView mainView;
+	private PlayerInfoView playerData;
+	private MapView map;
+	private DiceRollView diceArea;
+	private CardsView cardsArea;
+	private ControlsView controlsArea;
 	
-	private MainView(){
+	private MainView()
+	{
+		playerData = new PlayerInfoView();
+        map = new MapView();
+        diceArea = new DiceRollView();
+        cardsArea = new CardsView();
+        controlsArea = new ControlsView();
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        
         init();
-        
         this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
-        //this.setUndecorated(true);
-        SetUpDialog setupBox = new SetUpDialog();
-        setupBox.getPlayerInfo();
-        
         this.setVisible(true);
 	}
 	
+	private MainView(PlayerInfoView newPlayerInfo, MapView newMap, DiceRollView newDice, CardsView newCards, ControlsView newControls) 
+	{	
+		playerData = newPlayerInfo;
+        map = newMap;
+        diceArea = newDice;
+        cardsArea = newCards;
+        controlsArea = newControls;
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        init();
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
+        this.setVisible(true);
+	}
+
 	private void init(){
 			
 		Container contentPane = this.getContentPane();
         SpringLayout layout = new SpringLayout();
         contentPane.setLayout(layout);
-        
-        PlayerInfoView playerData = new PlayerInfoView();
-        MapView map = new MapView();
-        DiceRollView diceArea = new DiceRollView();
-        CardsView cardsArea = new CardsView();
-        ControlsView controlsArea = new ControlsView();
         
         diceArea.setPreferredSize(new Dimension(400,playerData.getHeight()));
         
@@ -71,8 +83,16 @@ public class MainView extends JFrame{
 
 	public static MainView getInstance() {
 		if(mainView == null){
-            mainView = new MainView();
+			mainView = new MainView();
         }
         return mainView;
     }
+	
+	public static void createInstance(PlayerInfoView newPlayerInfo, MapView newMap, DiceRollView newDice, CardsView newCards, ControlsView newControls)
+	{
+		if(mainView == null){
+			mainView = new MainView(newPlayerInfo, newMap, newDice, newCards, newControls);
+		}
+	}
+	
 }
