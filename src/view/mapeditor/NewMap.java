@@ -1,6 +1,5 @@
-package MapEditor;
+package view.mapeditor;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -28,7 +27,7 @@ public class NewMap extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public static void newMap() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -46,7 +45,7 @@ public class NewMap extends JFrame {
 	 */
 	public NewMap() {
 		this.setLocationRelativeTo(null);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(140, 140, 631, 489);
 		this.setTitle("New Map");
 

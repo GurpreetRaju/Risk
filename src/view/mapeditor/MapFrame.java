@@ -1,12 +1,9 @@
-package MapEditor;
+package view.mapeditor;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import java.awt.FlowLayout;
 import javax.swing.JLabel;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
@@ -43,7 +40,7 @@ public class MapFrame extends JFrame {
 	 */
 	public MapFrame() {
 		this.setLocationRelativeTo(null);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(140, 140, 500, 340);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.GRAY);
@@ -82,6 +79,8 @@ public class MapFrame extends JFrame {
 		btnNewMap.setForeground(Color.BLACK);
 		btnNewMap.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				NewMap newMap= new NewMap();
+				newMap.newMap();
 			}
 		});
 		

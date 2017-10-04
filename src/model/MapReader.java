@@ -80,22 +80,5 @@ public class MapReader {
 		}
 		return map;
 	}
-	
-//	public static void main(String[] arg){
-//		MapReader mr = new MapReader();
-//		ArrayList<MapNode> map = mr.readMap("D:\\Gurpreet\\Study\\M eng\\SEM6\\SOEN6441\\project\\Equalizer.map");
-//		for(MapNode m : map)
-//		{
-//			System.out.println("Continent Name: "+m.getContinentName()+", Control Value: "+m.getControlValue());
-//			for(CountryNode n : m.getCountries())
-//			{
-//				System.out.println("\tCountry Name: "+n.getCountryName()+", Coordinates: "+ n.getCoordinates()[0] +":"+n.getCoordinates()[1]+", Neighbours: ");
-//				for(String s: n.getNeighbourCountries())
-//				{
-//					System.out.println("\t\t"+s);
-//				}
-//			}
-//		}
-//	}
-	
+		
 }
