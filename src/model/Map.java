@@ -6,20 +6,24 @@ public class Map {
 		
 	private ArrayList<MapNode> mapData;
 	
-	public Map(String filename){
+	public Map(String filename)
+	{
 		MapReader reader = new MapReader();
 		mapData = reader.readMap(filename);
 	}
 	
-	public ArrayList<MapNode> getMapData(){
+	public ArrayList<MapNode> getMapData()
+	{
 		return this.mapData;
 	}
 	
-	public void updateMapData(){
+	public void updateMapData()
+	{
 		
 	}
 	
-	public String[][] getMapDataObject(){
+	public String[][] getMapDataObject()
+	{
 		ArrayList<Object[]> newData = new ArrayList<Object[]>();
 		for(MapNode m : mapData)
 		{
@@ -47,7 +51,8 @@ public class Map {
 		return newData.toArray(new String[newData.size()][]);
 	}
 	
-	public void mapConsolePrint(){
+	public void mapConsolePrint()
+	{
 		Object[][] map = this.getMapDataObject();
 		for(Object[] m : map)
 		{

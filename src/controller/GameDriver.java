@@ -35,10 +35,10 @@ public class GameDriver {
 		return driver;
 	}
 	
-	public void runGame(){
+	public void runGame()
+	{
 		refreshMap();
 		startUpPhase();
-		map.mapConsolePrint();
 		refreshMap();
 	}
 	
@@ -48,7 +48,8 @@ public class GameDriver {
         setupBox.getPlayerInfo();
 	}
 	
-	public void refreshMap(){
+	public void refreshMap()
+	{
 		mapGUI.setMap(map.getMapDataObject());
 	}
 	
