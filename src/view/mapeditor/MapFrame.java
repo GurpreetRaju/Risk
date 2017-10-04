@@ -1,4 +1,4 @@
-package MapEditor;
+package mapeditor;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -43,7 +43,7 @@ public class MapFrame extends JFrame {
 	 */
 	public MapFrame() {
 		this.setLocationRelativeTo(null);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(140, 140, 500, 340);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.GRAY);
@@ -82,6 +82,8 @@ public class MapFrame extends JFrame {
 		btnNewMap.setForeground(Color.BLACK);
 		btnNewMap.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				NewMap newMap= new NewMap();
+				newMap.newMap();
 			}
 		});
 		
