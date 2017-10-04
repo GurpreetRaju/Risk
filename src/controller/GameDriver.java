@@ -38,6 +38,8 @@ public class GameDriver {
 	public void runGame(){
 		refreshMap();
 		startUpPhase();
+		map.mapConsolePrint();
+		refreshMap();
 	}
 	
 	public void startUpPhase()

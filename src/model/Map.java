@@ -19,19 +19,19 @@ public class Map {
 		
 	}
 	
-	public Object[][] getMapDataObject(){
+	public String[][] getMapDataObject(){
 		ArrayList<Object[]> newData = new ArrayList<Object[]>();
 		for(MapNode m : mapData)
 		{
-			Object[] tempObject = new Object[5];
-			tempObject[0] = m.getContinentName() +", "+ m.getControlValue();
 			for(CountryNode n : m.getCountries())
 			{
+				String[] tempObject = new String[5];
+				tempObject[0] = m.getContinentName() +", "+ m.getControlValue();
 				tempObject[1] = n.getCountryName();
 				String neighbours = "";
 				for(String s: n.getNeighbourCountries())
 				{
-					neighbours = s + ", ";
+					neighbours = neighbours + s + ", ";
 				}
 				tempObject[4] = neighbours;
 				if(n.getOwner()!=null){
@@ -40,28 +40,20 @@ public class Map {
 				else{
 					tempObject[3] = "";
 				}
-				tempObject[2] = n.getArmiesCount();
+				tempObject[2] = String.valueOf(n.getArmiesCount());
+				newData.add(tempObject);
 			}
-			
 		}
-		return newData.toArray(new Object[newData.size()][]);
+		return newData.toArray(new String[newData.size()][]);
 	}
 	
-//	public static void main(String[] arg){
-//		MapReader mr = new MapReader();
-//		ArrayList<MapNode> map = mr.readMap("D:\\Gurpreet\\Study\\M eng\\SEM6\\SOEN6441\\project\\Equalizer.map");
-//		for(MapNode m : map)
-//		{
-//			System.out.println("Continent Name: "+m.getContinentName()+", Control Value: "+m.getControlValue());
-//			for(CountryNode n : m.getCountries())
-//			{
-//				System.out.println("\tCountry Name: "+n.getCountryName()+", Coordinates: "+ n.getCoordinates()[0] +":"+n.getCoordinates()[1]+", Neighbours: ");
-//				for(String s: n.getNeighbourCountries())
-//				{
-//					System.out.println("\t\t"+s);
-//				}
-//			}
-//		}
-//	}
+	public void mapConsolePrint(){
+		Object[][] map = this.getMapDataObject();
+		for(Object[] m : map)
+		{
+			System.out.println("Continent Name: "+m[0]);
+			System.out.println("\tCountry Name: "+m[1]+", Neighbours: "+m[4]+", Owner: "+m[3]+", Armies: "+m[2]);
+		}
+	}
 	
 }
