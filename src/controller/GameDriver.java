@@ -1,26 +1,29 @@
 package controller;
 
+import model.Map;
 import view.*;
 
 public class GameDriver {
 	
 	private static GameDriver driver;
 	private MainView gameView;
-	private CardsView cards;
-	private ControlsView controls;
-	private DiceRollView diceRoll;
-	private MapView map;
-	private PlayerInfoView playerInfo;
+	private CardsView cardsGUI;
+	private ControlsView controlsGUI;
+	private DiceRollView diceRollGUI;
+	private MapView mapGUI;
+	private PlayerInfoView playerInfoGUI;
+	private Map map;
 	
 	private GameDriver()
 	{
-        playerInfo = new PlayerInfoView();
-        map = new MapView();
-        diceRoll = new DiceRollView();
-        cards = new CardsView();
-        controls = new ControlsView();
-        MainView.createInstance(playerInfo, map, diceRoll, cards, controls);
+        playerInfoGUI = new PlayerInfoView();
+        mapGUI = new MapView();
+        diceRollGUI = new DiceRollView();
+        cardsGUI = new CardsView();
+        controlsGUI = new ControlsView();
+        MainView.createInstance(playerInfoGUI, mapGUI, diceRollGUI, cardsGUI, controlsGUI);
 		gameView = MainView.getInstance();
+		map = new Map("D:\\Gurpreet\\Study\\M eng\\SEM6\\SOEN6441\\project\\Equalizer.map");
 	}
 	
 	public static GameDriver getInstance()
@@ -33,6 +36,7 @@ public class GameDriver {
 	}
 	
 	public void runGame(){
+		refreshMap();
 		startUpPhase();
 	}
 	
@@ -40,6 +44,10 @@ public class GameDriver {
 	{
 		SetUpDialog setupBox = new SetUpDialog();
         setupBox.getPlayerInfo();
+	}
+	
+	public void refreshMap(){
+		mapGUI.setMap(map.getMapDataObject());
 	}
 	
 }
