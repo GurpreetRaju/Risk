@@ -37,9 +37,17 @@ public class MapFrame extends JFrame {
 	}
 
 	/**
-	 * Create the frame.
+	 * Create the application.
 	 */
-	public MapFrame() {
+	public MapFrame()
+	{
+		initialize();
+	}
+	
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	public void initialize() {
 		this.setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(140, 140, 500, 340);
@@ -81,7 +89,8 @@ public class MapFrame extends JFrame {
 		btnNewMap.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				NewMap newMap= new NewMap();
-				newMap.newMap();
+				newMap.setVisible(true);
+				
 			}
 		});
 		
@@ -133,8 +142,8 @@ public class MapFrame extends JFrame {
 					e.printStackTrace();
 				}
 				
-				//ExistingMap existingMap= new ExistingMap();
-				//existingMap.existingMap();
+				ExistingMap existingMap= new ExistingMap();
+				existingMap.setVisible(true);
 			}
 		});
 	}
