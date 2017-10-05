@@ -1,7 +1,7 @@
 package controller;
 
-import Model.Map;
-import View.*;
+import model.Map;
+import view.*;
 
 public class GameDriver {
 	
