@@ -1,4 +1,4 @@
-package mapeditor;
+package view.mapeditor;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
