@@ -1,12 +1,10 @@
-package mapeditor;
+package view.mapeditor;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import java.awt.FlowLayout;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.JLabel;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
@@ -117,6 +115,28 @@ public class MapFrame extends JFrame {
 		gbc_btnExistingMap.gridx = 5;
 		gbc_btnExistingMap.gridy = 7;
 		contentPane.add(btnExistingMap, gbc_btnExistingMap);
+		btnExistingMap.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					MapFileChooser obj= new MapFileChooser();
+				} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (InstantiationException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IllegalAccessException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (UnsupportedLookAndFeelException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				//ExistingMap existingMap= new ExistingMap();
+				//existingMap.existingMap();
+			}
+		});
 	}
 
 }
