@@ -1,4 +1,4 @@
-package view.mapeditor;
+package View.mapeditor;
 
 import java.awt.EventQueue;
 
@@ -114,6 +114,12 @@ public class MapFrame extends JFrame {
 		gbc_btnExistingMap.gridx = 5;
 		gbc_btnExistingMap.gridy = 7;
 		contentPane.add(btnExistingMap, gbc_btnExistingMap);
+		btnExistingMap.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				ExistingMap existingMap= new ExistingMap();
+				existingMap.existingMap();
+			}
+		});
 	}
 
 }
