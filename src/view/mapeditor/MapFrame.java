@@ -1,4 +1,4 @@
-package View.mapeditor;
+package view.mapeditor;
 
 import java.awt.EventQueue;
 
