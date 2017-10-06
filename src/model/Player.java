@@ -8,6 +8,7 @@ public class Player {
 	private ArrayList<CountryNode> countries;
 	private ArrayList<MapNode> continents;
 	private ArrayList<Card> cards;
+	private int cardsusedCount = 1;
 	
 	
 	Player(String name)
@@ -27,9 +28,7 @@ public class Player {
 	
 	ArrayList<CountryNode> getCountries()
 	{
-		
-		return this.countries ;
-		
+		return this.countries ;	
 	}
 	
 	void removeCountry(CountryNode country)
@@ -56,6 +55,44 @@ public class Player {
 	void removeContinent(MapNode continent)
 	{
 		this.continents.remove(continent);
+	}
+	
+	void checkContinent() throws InstantiationException, IllegalAccessException
+	{
+		for (MapNode continent : Map.class.newInstance().getMapData())
+		{
+			if (this.countries.contains(continent.getCountries()))
+			{
+				addContinent(continent);
+				//Should we remove the countries in the continent from the list of 
+				//all countries owned by player?
+			}
+		}
+	}
+	
+	int getArmies()
+	{
+		int countriesCount = this.countries.size();
+		int continentsCount = this.continents.size();
+		int cardsCount = this.cards.size();
+		if (continentsCount > 0)
+		{
+			for (MapNode continent : this.continents)
+			{
+				continentsCount =+ continent.getControlValue();
+			}
+		}
+		
+		int armycount = (int) Math.ceil(countriesCount/3) + continentsCount;
+		
+		if (cardsCount > 5)
+		{
+			//do something here with the cards count
+			armycount =+ 5* this.cardsusedCount;
+			this.cardsusedCount++;
+			//remove cards here
+		}
+		return armycount;
 	}
 }
 
