@@ -16,6 +16,8 @@ import java.awt.event.ActionEvent;
 import java.awt.Font;
 import javax.swing.border.MatteBorder;
 
+import controller.mapeditor.mapEditorController;
+
 public class MapFrame extends JFrame {
 
 	private JPanel contentPane;
@@ -29,6 +31,8 @@ public class MapFrame extends JFrame {
 				try {
 					MapFrame frame = new MapFrame();
 					frame.setVisible(true);
+					frame.setExtendedState(JFrame.MAXIMIZED_BOTH); 
+
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -63,7 +67,7 @@ public class MapFrame extends JFrame {
 		contentPane.setLayout(gbl_contentPane);
 		
 		JLabel lblThisIsYour = new JLabel("This is your Map Editor");
-		lblThisIsYour.setFont(new Font("Script MT Bold", Font.PLAIN, 28));
+		lblThisIsYour.setFont(new Font("Script MT Bold", Font.PLAIN, 48));
 		GridBagConstraints gbc_lblThisIsYour = new GridBagConstraints();
 		gbc_lblThisIsYour.insets = new Insets(0, 0, 5, 0);
 		gbc_lblThisIsYour.gridwidth = 10;
@@ -73,7 +77,7 @@ public class MapFrame extends JFrame {
 		contentPane.add(lblThisIsYour, gbc_lblThisIsYour);
 		
 		JLabel lblYouCanChoose = new JLabel("You can choose to play with an existing map or create your own map.");
-		lblYouCanChoose.setFont(new Font("Monotype Corsiva", Font.PLAIN, 19));
+		lblYouCanChoose.setFont(new Font("Monotype Corsiva", Font.PLAIN, 29));
 		GridBagConstraints gbc_lblYouCanChoose = new GridBagConstraints();
 		gbc_lblYouCanChoose.gridheight = 3;
 		gbc_lblYouCanChoose.gridwidth = 7;
@@ -126,24 +130,10 @@ public class MapFrame extends JFrame {
 		contentPane.add(btnExistingMap, gbc_btnExistingMap);
 		btnExistingMap.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				try {
-					MapFileChooser obj= new MapFileChooser();
-				} catch (ClassNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (InstantiationException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IllegalAccessException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (UnsupportedLookAndFeelException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
-				ExistingMap existingMap= new ExistingMap();
-				existingMap.setVisible(true);
+				mapEditorController obj = new mapEditorController();
+				obj.MapFileChooserActions();
+				//ExistingMap existingMap= new ExistingMap();
+				//existingMap.setVisible(true);
 			}
 		});
 	}

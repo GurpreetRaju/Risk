@@ -40,6 +40,7 @@ public class NewMap extends JFrame {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(140, 140, 500, 340);
 		this.setTitle("New Map");
+		this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
 
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.GRAY);
