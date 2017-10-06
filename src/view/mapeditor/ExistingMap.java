@@ -55,6 +55,8 @@ public class ExistingMap extends JFrame {
 		this.setTitle("Existing Map");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(140, 140, 500, 340);
+		this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
+		
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.GRAY);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
