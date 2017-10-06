@@ -25,25 +25,17 @@ public class NewMap extends JFrame {
 	private JTextField txtCountryName;
 
 	/**
-	 * Launch the application.
+	 * Create the application.
 	 */
-	public static void newMap() {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					NewMap frame = new NewMap();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+	public NewMap()
+	{
+		initialize();
 	}
-
+	
 	/**
-	 * Create the frame.
+	 * Initialize the contents of the frame.
 	 */
-	public NewMap() {
+	public void initialize() {
 		this.setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(140, 140, 500, 340);

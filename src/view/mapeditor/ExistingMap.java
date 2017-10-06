@@ -38,26 +38,19 @@ public class ExistingMap extends JFrame {
 	private JButton btnAddCountry;
 	private JLabel lblPickContinent;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void existingMap() {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ExistingMap frame = new ExistingMap();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
-	 * Create the frame.
+	 * Create the application.
 	 */
-	public ExistingMap() {
+	public ExistingMap()
+	{
+		initialize();
+	}
+	
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	public void initialize() {
 		this.setLocationRelativeTo(null);
 		this.setTitle("Existing Map");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
