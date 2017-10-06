@@ -21,6 +21,7 @@ import controller.mapeditor.mapEditorController;
 public class MapFrame extends JFrame {
 
 	private JPanel contentPane;
+	mapEditorController obj = new mapEditorController();
 
 	/**
 	 * Launch the application.
@@ -92,9 +93,7 @@ public class MapFrame extends JFrame {
 		btnNewMap.setForeground(Color.BLACK);
 		btnNewMap.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				NewMap newMap= new NewMap();
-				newMap.setVisible(true);
-				
+				obj.newMapActions();
 			}
 		});
 		
@@ -130,8 +129,7 @@ public class MapFrame extends JFrame {
 		contentPane.add(btnExistingMap, gbc_btnExistingMap);
 		btnExistingMap.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				mapEditorController obj = new mapEditorController();
-				obj.MapFileChooserActions();
+				obj.mapFileChooserActions();
 				//ExistingMap existingMap= new ExistingMap();
 				//existingMap.setVisible(true);
 			}

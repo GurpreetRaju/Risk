@@ -48,13 +48,13 @@ public class NewMap extends JFrame {
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		gbl_contentPane.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0};
-		gbl_contentPane.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gbl_contentPane.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, Double.MIN_VALUE};
-		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPane.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_contentPane.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 1.0, Double.MIN_VALUE};
+		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
 		JLabel lblCreateYourOwn = new JLabel("Create your own Game Map!");
-		lblCreateYourOwn.setFont(new Font("Script MT Bold", Font.PLAIN, 28));
+		lblCreateYourOwn.setFont(new Font("Script MT Bold", Font.PLAIN, 48));
 		GridBagConstraints gbc_lblCreateYourOwn = new GridBagConstraints();
 		gbc_lblCreateYourOwn.insets = new Insets(0, 0, 5, 0);
 		gbc_lblCreateYourOwn.gridwidth = 7;
@@ -67,6 +67,7 @@ public class NewMap extends JFrame {
 		btnAddContinent.setFont(new Font("Bookman Old Style", Font.BOLD | Font.ITALIC, 18));
 		btnAddContinent.setBackground(new Color(240, 255, 255));
 		GridBagConstraints gbc_btnAddContinent = new GridBagConstraints();
+		gbc_btnAddContinent.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnAddContinent.insets = new Insets(0, 0, 5, 5);
 		gbc_btnAddContinent.gridx = 1;
 		gbc_btnAddContinent.gridy = 2;
@@ -141,9 +142,10 @@ public class NewMap extends JFrame {
 		JComboBox comboBox = new JComboBox();
 		comboBox.setToolTipText("Choose existing continent to add new country");
 		GridBagConstraints gbc_comboBox = new GridBagConstraints();
+		gbc_comboBox.gridwidth = 3;
 		gbc_comboBox.insets = new Insets(0, 0, 5, 5);
 		gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
-		gbc_comboBox.gridx = 5;
+		gbc_comboBox.gridx = 2;
 		gbc_comboBox.gridy = 5;
 		contentPane.add(comboBox, gbc_comboBox);
 		
@@ -184,14 +186,53 @@ public class NewMap extends JFrame {
 		gbc_comboBox_1.gridy = 7;
 		contentPane.add(comboBox_1, gbc_comboBox_1);
 		
+		JButton btnDeleteCountry = new JButton("Delete Country");
+		btnDeleteCountry.setFont(new Font("Bookman Old Style", Font.BOLD | Font.ITALIC, 18));
+		btnDeleteCountry.setForeground(Color.BLACK);
+		GridBagConstraints gbc_btnDeleteCountry = new GridBagConstraints();
+		gbc_btnDeleteCountry.fill = GridBagConstraints.HORIZONTAL;
+		gbc_btnDeleteCountry.insets = new Insets(0, 0, 5, 5);
+		gbc_btnDeleteCountry.gridx = 1;
+		gbc_btnDeleteCountry.gridy = 8;
+		contentPane.add(btnDeleteCountry, gbc_btnDeleteCountry);
+		
+		JComboBox comboBox_2 = new JComboBox();
+		GridBagConstraints gbc_comboBox_2 = new GridBagConstraints();
+		gbc_comboBox_2.gridwidth = 3;
+		gbc_comboBox_2.insets = new Insets(0, 0, 5, 5);
+		gbc_comboBox_2.fill = GridBagConstraints.HORIZONTAL;
+		gbc_comboBox_2.gridx = 2;
+		gbc_comboBox_2.gridy = 8;
+		contentPane.add(comboBox_2, gbc_comboBox_2);
+		
 		JButton btnAdd = new JButton("Add");
 		btnAdd.setBackground(new Color(240, 255, 255));
 		btnAdd.setFont(new Font("Bookman Old Style", Font.BOLD, 13));
 		GridBagConstraints gbc_btnAdd = new GridBagConstraints();
+		gbc_btnAdd.insets = new Insets(0, 0, 5, 0);
 		gbc_btnAdd.anchor = GridBagConstraints.EAST;
 		gbc_btnAdd.gridx = 6;
 		gbc_btnAdd.gridy = 8;
 		contentPane.add(btnAdd, gbc_btnAdd);
+		
+		JButton btnDeleteContinent = new JButton("Delete Continent");
+		btnDeleteContinent.setFont(new Font("Bookman Old Style", Font.BOLD | Font.ITALIC, 18));
+		btnDeleteContinent.setForeground(Color.BLACK);
+		GridBagConstraints gbc_btnDeleteContinent = new GridBagConstraints();
+		gbc_btnDeleteContinent.fill = GridBagConstraints.HORIZONTAL;
+		gbc_btnDeleteContinent.insets = new Insets(0, 0, 0, 5);
+		gbc_btnDeleteContinent.gridx = 1;
+		gbc_btnDeleteContinent.gridy = 11;
+		contentPane.add(btnDeleteContinent, gbc_btnDeleteContinent);
+		
+		JComboBox comboBox_3 = new JComboBox();
+		GridBagConstraints gbc_comboBox_3 = new GridBagConstraints();
+		gbc_comboBox_3.gridwidth = 3;
+		gbc_comboBox_3.insets = new Insets(0, 0, 0, 5);
+		gbc_comboBox_3.fill = GridBagConstraints.HORIZONTAL;
+		gbc_comboBox_3.gridx = 2;
+		gbc_comboBox_3.gridy = 11;
+		contentPane.add(comboBox_3, gbc_comboBox_3);
 	}
 
 }
