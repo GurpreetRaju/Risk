@@ -37,6 +37,10 @@ public class ExistingMap extends JFrame {
 	private JComboBox comboBox_1;
 	private JButton btnAddCountry;
 	private JLabel lblPickContinent;
+	private JButton btnDeleteContinent;
+	private JComboBox comboBox_2;
+	private JButton btnDeleteCountry;
+	private JComboBox comboBox_3;
 
 
 	/**
@@ -63,9 +67,9 @@ public class ExistingMap extends JFrame {
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		gbl_contentPane.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gbl_contentPane.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_contentPane.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gbl_contentPane.columnWeights = new double[]{0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_contentPane.rowWeights = new double[]{1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPane.rowWeights = new double[]{1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
 		table = new JTable();
@@ -100,6 +104,7 @@ public class ExistingMap extends JFrame {
 		
 		btnAddCountry = new JButton("Add Country");
 		GridBagConstraints gbc_btnAddCountry = new GridBagConstraints();
+		gbc_btnAddCountry.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnAddCountry.insets = new Insets(0, 0, 5, 5);
 		gbc_btnAddCountry.gridx = 9;
 		gbc_btnAddCountry.gridy = 3;
@@ -118,7 +123,7 @@ public class ExistingMap extends JFrame {
 		txtContinentName_1.setFont(new Font("Tahoma", Font.ITALIC, 13));
 		txtContinentName_1.setText("Continent Name...");
 		GridBagConstraints gbc_txtContinentName_1 = new GridBagConstraints();
-		gbc_txtContinentName_1.gridwidth = 4;
+		gbc_txtContinentName_1.gridwidth = 2;
 		gbc_txtContinentName_1.insets = new Insets(0, 0, 5, 5);
 		gbc_txtContinentName_1.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtContinentName_1.gridx = 2;
@@ -157,7 +162,7 @@ public class ExistingMap extends JFrame {
 		txtControlValue_1.setFont(new Font("Tahoma", Font.ITALIC, 13));
 		txtControlValue_1.setText("Control Value...");
 		GridBagConstraints gbc_txtControlValue_1 = new GridBagConstraints();
-		gbc_txtControlValue_1.gridwidth = 4;
+		gbc_txtControlValue_1.gridwidth = 2;
 		gbc_txtControlValue_1.insets = new Insets(0, 0, 5, 5);
 		gbc_txtControlValue_1.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtControlValue_1.gridx = 2;
@@ -186,10 +191,26 @@ public class ExistingMap extends JFrame {
 		contentPane.add(txtCountryName, gbc_txtCountryName);
 		txtCountryName.setColumns(10);
 		
+		btnDeleteContinent = new JButton("Delete Continent");
+		GridBagConstraints gbc_btnDeleteContinent = new GridBagConstraints();
+		gbc_btnDeleteContinent.insets = new Insets(0, 0, 5, 5);
+		gbc_btnDeleteContinent.gridx = 2;
+		gbc_btnDeleteContinent.gridy = 6;
+		contentPane.add(btnDeleteContinent, gbc_btnDeleteContinent);
+		
+		comboBox_2 = new JComboBox();
+		comboBox_2.setToolTipText("Select a continent to delete...");
+		GridBagConstraints gbc_comboBox_2 = new GridBagConstraints();
+		gbc_comboBox_2.insets = new Insets(0, 0, 5, 5);
+		gbc_comboBox_2.fill = GridBagConstraints.HORIZONTAL;
+		gbc_comboBox_2.gridx = 3;
+		gbc_comboBox_2.gridy = 6;
+		contentPane.add(comboBox_2, gbc_comboBox_2);
+		
 		lblNeighbours = new JLabel("Neighbours");
 		GridBagConstraints gbc_lblNeighbours = new GridBagConstraints();
 		gbc_lblNeighbours.anchor = GridBagConstraints.EAST;
-		gbc_lblNeighbours.insets = new Insets(0, 0, 0, 5);
+		gbc_lblNeighbours.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNeighbours.gridx = 8;
 		gbc_lblNeighbours.gridy = 6;
 		contentPane.add(lblNeighbours, gbc_lblNeighbours);
@@ -197,12 +218,28 @@ public class ExistingMap extends JFrame {
 		comboBox_1 = new JComboBox();
 		comboBox_1.setToolTipText("Select neighbours");
 		GridBagConstraints gbc_comboBox_1 = new GridBagConstraints();
-		gbc_comboBox_1.insets = new Insets(0, 0, 0, 5);
+		gbc_comboBox_1.insets = new Insets(0, 0, 5, 5);
 		gbc_comboBox_1.gridwidth = 6;
 		gbc_comboBox_1.fill = GridBagConstraints.HORIZONTAL;
 		gbc_comboBox_1.gridx = 9;
 		gbc_comboBox_1.gridy = 6;
 		contentPane.add(comboBox_1, gbc_comboBox_1);
+		
+		btnDeleteCountry = new JButton("Delete Country");
+		GridBagConstraints gbc_btnDeleteCountry = new GridBagConstraints();
+		gbc_btnDeleteCountry.insets = new Insets(0, 0, 0, 5);
+		gbc_btnDeleteCountry.gridx = 9;
+		gbc_btnDeleteCountry.gridy = 7;
+		contentPane.add(btnDeleteCountry, gbc_btnDeleteCountry);
+		
+		comboBox_3 = new JComboBox();
+		comboBox_3.setToolTipText("Select a country to delete...");
+		GridBagConstraints gbc_comboBox_3 = new GridBagConstraints();
+		gbc_comboBox_3.insets = new Insets(0, 0, 0, 5);
+		gbc_comboBox_3.fill = GridBagConstraints.HORIZONTAL;
+		gbc_comboBox_3.gridx = 10;
+		gbc_comboBox_3.gridy = 7;
+		contentPane.add(comboBox_3, gbc_comboBox_3);
 		
 		
 	}

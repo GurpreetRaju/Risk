@@ -32,7 +32,7 @@ public class mapEditorController {
 		} catch (UnsupportedLookAndFeelException e1) {
 			e1.printStackTrace();
 		}
-		((JFileChooser) existingBtnAction).addActionListener(new ActionListener(){
+		existingBtnAction=(new ActionListener(){
 	        public void actionPerformed(ActionEvent e) {
 	        	final JFileChooser fc = new JFileChooser();
 	            fc.setCurrentDirectory(new java.io.File("user.home"));

@@ -16,6 +16,8 @@ import java.awt.event.ActionEvent;
 import java.awt.Font;
 import javax.swing.border.MatteBorder;
 
+import controller.mapeditor.mapEditorController;
+
 public class MapFrame extends JFrame {
 
 	private JPanel contentPane;
@@ -128,24 +130,10 @@ public class MapFrame extends JFrame {
 		contentPane.add(btnExistingMap, gbc_btnExistingMap);
 		btnExistingMap.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				try {
-					MapFileChooser obj= new MapFileChooser();
-				} catch (ClassNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (InstantiationException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IllegalAccessException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (UnsupportedLookAndFeelException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
-				ExistingMap existingMap= new ExistingMap();
-				existingMap.setVisible(true);
+				mapEditorController obj = new mapEditorController();
+				obj.MapFileChooserActions();
+				//ExistingMap existingMap= new ExistingMap();
+				//existingMap.setVisible(true);
 			}
 		});
 	}
