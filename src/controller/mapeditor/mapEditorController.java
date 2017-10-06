@@ -8,11 +8,12 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 import model.MapReader;
 import view.mapeditor.MapFileChooser;
+import view.mapeditor.NewMap;
 
 public class mapEditorController {
 	
 	private MapFileChooser mapChooser;
-	private ActionListener existingBtnAction;
+	private ActionListener existingBtnAction, newButtonAction;
 	
 	public void MapRead(String filename) {
 		MapReader mapReader = new MapReader();
@@ -20,7 +21,7 @@ public class mapEditorController {
 
 	}
 	
-	public void MapFileChooserActions() {
+	public void mapFileChooserActions() {
 		try {
 			this.mapChooser = new MapFileChooser();
 		} catch (ClassNotFoundException e1) {
@@ -46,4 +47,10 @@ public class mapEditorController {
 		this.mapChooser.openFileChooseBtnAction(existingBtnAction);
 	}
 	
-}
+	public void newMapActions() {
+				NewMap newMap = new NewMap();
+				newMap.setVisible(true);
+			}
+		
+	}
+	
