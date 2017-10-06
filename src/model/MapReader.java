@@ -12,6 +12,7 @@ public class MapReader {
 		BufferedReader br = null;
 		FileReader fr = null;
 		ArrayList<MapNode> map = new ArrayList<MapNode>();
+		ArrayList<CountryNode> stack = new ArrayList<CountryNode>();
 		try 
 		{
 			String sCurrentLine;
@@ -47,10 +48,19 @@ public class MapReader {
 						{
 							if(n.getContinentName().equals(temp[3]))
 							{
+								if(!CountryNode.contains(stack, temp[0])){
+									stack.add(new CountryNode(temp[0], null, null));
+								}
+								CountryNode newCountry = CountryNode.getCounrty(stack, temp[0]);
 								int[] newCoordinates = {Integer.parseInt(temp[1]),Integer.parseInt(temp[2])};
-								CountryNode newCountry = new CountryNode(temp[0], null, newCoordinates);
-								for(int i=4;i<temp.length;i++){
-									newCountry.addNeighbour(temp[i]);
+								newCountry.setCoordinates(newCoordinates);
+								for(int i=4;i<temp.length;i++)
+								{
+									if(!CountryNode.contains(stack, temp[i]))
+									{
+										stack.add(new CountryNode(temp[i], null, null));
+									}
+									newCountry.addNeighbour(CountryNode.getCounrty(stack, temp[i]));
 								}
 								n.addCountry(newCountry);
 								break;
@@ -78,7 +88,9 @@ public class MapReader {
 				ex.printStackTrace();
 			}
 		}
-		return map;
+		return map;		
 	}
 		
+	
+	
 }

@@ -33,7 +33,7 @@ public class Map {
 				tempObject[0] = m.getContinentName() +", "+ m.getControlValue();
 				tempObject[1] = n.getCountryName();
 				String neighbours = "";
-				for(String s: n.getNeighbourCountries())
+				for(String s: n.getNeighbourCountriesString())
 				{
 					neighbours = neighbours + s + ", ";
 				}
