@@ -7,7 +7,7 @@ public class CountryNode {
 	private String countryName;
 	private ArrayList<CountryNode> neighbourCountries;
 	private int[] coordiantes;
-	private String owner;
+	private Player owner;
 	private int armies;
 	
 	public CountryNode(String newName,ArrayList<CountryNode> newNeighbours, int[] newCoordinates)
@@ -43,7 +43,7 @@ public class CountryNode {
 		return this.coordiantes;
 	}
 	
-	public String getOwner()
+	public Player getOwner()
 	{
 		return this.owner;
 	}
@@ -53,9 +53,9 @@ public class CountryNode {
 		return this.armies;
 	}
 	
-	public void setOwner(String newOwner)
+	public void setOwner(Player player)
 	{
-		this.owner = newOwner;
+		this.owner = player;
 	}
 	
 	public void setArmies(int newArmies)

@@ -1,6 +1,11 @@
 package controller;
 
+import java.util.ArrayList;
+
+import model.CountryNode;
 import model.Map;
+import model.MapNode;
+import model.Player;
 import view.*;
 
 public class GameDriver {
@@ -13,6 +18,7 @@ public class GameDriver {
 	private MapView mapGUI;
 	private PlayerInfoView playerInfoGUI;
 	private Map map;
+	private ArrayList<Player> players;
 	
 	private GameDriver()
 	{
@@ -45,12 +51,42 @@ public class GameDriver {
 	public void startUpPhase()
 	{
 		SetUpDialog setupBox = new SetUpDialog();
-        setupBox.getPlayerInfo();
+        String[] newPlayerData = setupBox.getPlayerInfo();
+        players = new ArrayList<Player>();
+        for(String newPlayer: newPlayerData)
+        {
+        	players.add(new Player(newPlayer));
+        }
+        updatePlayerView();
+        int i = 0;
+        for(MapNode m : map.getMapData())
+        {
+        	for(CountryNode c: m.getCountries())
+        	{
+        		c.setOwner(players.get(i));
+        		players.get(i).addCountry(c);
+        		if(++i>=players.size())
+        		{
+        			i=0;
+        		}
+        	}
+        }
 	}
 	
 	public void refreshMap()
 	{
 		mapGUI.setMap(map.getMapDataObject());
+	}
+	
+	public void updatePlayerView(){
+		String[] playerNames = new String[players.size()];
+		int i=0;
+		for(Player p: players)
+		{
+			playerNames[i] = p.getName();
+			i++;
+		}
+		playerInfoGUI.setPlayerInfo(playerNames);
 	}
 	
 }

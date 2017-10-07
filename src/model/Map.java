@@ -39,7 +39,7 @@ public class Map {
 				}
 				tempObject[4] = neighbours;
 				if(n.getOwner()!=null){
-					tempObject[3] = n.getOwner();
+					tempObject[3] = n.getOwner().getName();
 				}
 				else{
 					tempObject[3] = "";

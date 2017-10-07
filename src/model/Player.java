@@ -11,53 +11,56 @@ public class Player {
 	private int cardsusedCount = 1;
 	
 	
-	Player(String name)
+	public Player(String name)
 	{
 		this.name = name;
+		this.countries = new ArrayList<CountryNode>();
+		this.continents = new ArrayList<MapNode>();
+		this.cards = new ArrayList<Card>();
 	}
 	
-	String getName()
+	public String getName()
 	{
 		return this.name;
 	}
 	
-	void addCountry(CountryNode country)
+	public void addCountry(CountryNode country)
 	{
 		this.countries.add(country);
 	}
 	
-	ArrayList<CountryNode> getCountries()
+	public ArrayList<CountryNode> getCountries()
 	{
 		return this.countries ;	
 	}
 	
-	void removeCountry(CountryNode country)
+	public void removeCountry(CountryNode country)
 	{
 		this.countries.remove(country);
 	}
 	
-	void addCard(Card card)
+	public void addCard(Card card)
 	{
 		this.cards.add(card);
 	}
 
 	
-	void removeCard(Card card)
+	public void removeCard(Card card)
 	{
 		this.cards.remove(card);
 	}
 	
-	void addContinent(MapNode continent)
+	public void addContinent(MapNode continent)
 	{
 		this.continents.add(continent);
 	}
 	
-	void removeContinent(MapNode continent)
+	public void removeContinent(MapNode continent)
 	{
 		this.continents.remove(continent);
 	}
 	
-	void checkContinent() throws InstantiationException, IllegalAccessException
+	public void checkContinent() throws InstantiationException, IllegalAccessException
 	{
 		for (MapNode continent : Map.class.newInstance().getMapData())
 		{
@@ -70,7 +73,7 @@ public class Player {
 		}
 	}
 	
-	int getArmies()
+	public int getArmies()
 	{
 		int countriesCount = this.countries.size();
 		int continentsCount = this.continents.size();
