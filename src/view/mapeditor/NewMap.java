@@ -17,6 +17,10 @@ import javax.swing.JComboBox;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+/**
+ * New map class opens the JFrame view for  
+ *  add/delete country and continent
+ */
 public class NewMap extends JFrame {
 
 	private JPanel contentPane;
@@ -25,7 +29,7 @@ public class NewMap extends JFrame {
 	private JTextField txtCountryName;
 
 	/**
-	 * Create the application.
+	 * NewMap constructor calls initialize method of the class
 	 */
 	public NewMap()
 	{
