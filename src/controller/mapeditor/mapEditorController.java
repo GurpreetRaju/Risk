@@ -15,18 +15,23 @@ import view.mapeditor.NewMap;
  * New Map and Existing Map buttons in @see MapFrame view 
  * and choosing map file action
  * 
- * @param mapChooser object of MapFileChooser class used for calling the class methods 
- * @param existingBtnAction action listener applied on button "Choose Map File" for selecting map file
- * @param newButtonAction 
- * 
  * @see MapFileChooser
  * @author jyotsna
  *
  */
 public class mapEditorController {
-	
+	/**
+	 * object of MapFileChooser class used for calling the class methods 
+	 */
 	private MapFileChooser mapChooser;
-	private ActionListener existingBtnAction, newButtonAction;
+	/**
+	 * action listener applied on button "Choose Map File" for selecting map file
+	 */	
+	private ActionListener existingBtnAction;
+	/**
+	 * action listener applied on button "Choose Map File" for selecting map file
+	 */
+	private ActionListener newButtonAction;
 	
 	public void MapRead(String filename) {
 		MapReader mapReader = new MapReader();
