@@ -1,27 +1,50 @@
 package model;
 
 import java.util.ArrayList;
-
+/**
+ * This class perform functions related to map for example storing map data,
+ * update map etc.
+ * 
+ * @author Gurpreet
+ * @version 1.0
+ */
 public class Map {
-		
+	/**
+	 * ArrayList containing map data.
+	 * @see MapNode	
+	 */
 	private ArrayList<MapNode> mapData;
 	
+	/**
+	 * This constructor create object of MapReader class and read data from map.
+	 * @param filename address of the mapfile to be loaded.
+	 */
 	public Map(String filename)
 	{
 		MapReader reader = new MapReader();
 		mapData = reader.readMap(filename);
 	}
 	
+	/** 
+	 * @return return map data in form of arraylist.
+	 */
 	public ArrayList<MapNode> getMapData()
 	{
 		return this.mapData;
 	}
 	
+	/**
+	 * This method update map data.
+	 */
 	public void updateMapData()
 	{
 		
 	}
 	
+	/**
+	 * Return map data.
+	 * @return multidimensional array containing map data.
+	 */
 	public String[][] getMapDataObject()
 	{
 		ArrayList<Object[]> newData = new ArrayList<Object[]>();
@@ -51,6 +74,9 @@ public class Map {
 		return newData.toArray(new String[newData.size()][]);
 	}
 	
+	/**
+	 * Print map data on console.
+	 */
 	public void mapConsolePrint()
 	{
 		Object[][] map = this.getMapDataObject();
