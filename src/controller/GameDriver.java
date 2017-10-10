@@ -38,7 +38,7 @@ public class GameDriver {
         controlsGUI = new ControlsView();
         MainView.createInstance(playerInfoGUI, mapGUI, diceRollGUI, cardsGUI, controlsGUI);
 		gameView = MainView.getInstance();
-		map = new Map("D:\\Gurpreet\\Study\\M eng\\SEM6\\SOEN6441\\project\\Equalizer.map");
+		map = new Map("Equalizer.map");
 	}
 	/**
 	 * <p>
