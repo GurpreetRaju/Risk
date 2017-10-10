@@ -7,7 +7,12 @@ import model.Map;
 import model.MapNode;
 import model.Player;
 import view.*;
-
+/**
+ * This class controls the turns - Startup phase, Fortification, reinfircement and attack phase.
+ * 
+ * @author Gurpreet
+ * @version 1.0
+ */
 public class GameDriver {
 	
 	private static GameDriver driver;
@@ -20,6 +25,10 @@ public class GameDriver {
 	private Map map;
 	private ArrayList<Player> players;
 	
+	/**
+	 * Constructor initialize the GUI and  map class object.
+	 * Constructor is private so objects can not be created directly for this class.
+	 */
 	private GameDriver()
 	{
         playerInfoGUI = new PlayerInfoView();
@@ -31,7 +40,13 @@ public class GameDriver {
 		gameView = MainView.getInstance();
 		map = new Map("D:\\Gurpreet\\Study\\M eng\\SEM6\\SOEN6441\\project\\Equalizer.map");
 	}
-	
+	/**
+	 * <p>
+	 * This method create <b>one and only one</b> instance of GameDriver class.
+	 * This method is used to access only object of this class.
+	 * </p>
+	 * @return instance of GameDriver class.
+	 */
 	public static GameDriver getInstance()
 	{
 		if(driver==null)
@@ -40,14 +55,19 @@ public class GameDriver {
 		}
 		return driver;
 	}
-	
+	/**
+	 * This method starts the game.
+	 */
 	public void runGame()
 	{
 		refreshMap();
 		startUpPhase();
 		refreshMap();
 	}
-	
+	/**
+	 * This method starts the startup phase of game.
+	 * It assigns countries to players.
+	 */
 	public void startUpPhase()
 	{
 		SetUpDialog setupBox = new SetUpDialog();
@@ -72,12 +92,16 @@ public class GameDriver {
         	}
         }
 	}
-	
+	/**
+	 * This method show territories information on GUI.
+	 */
 	public void refreshMap()
 	{
 		mapGUI.setMap(map.getMapDataObject());
 	}
-	
+	/**
+	 * This method show players information on GUI.
+	 */
 	public void updatePlayerView(){
 		String[] playerNames = new String[players.size()];
 		int i=0;
