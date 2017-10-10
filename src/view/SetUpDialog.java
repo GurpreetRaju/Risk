@@ -5,11 +5,22 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
-
+/**
+ * This class display a dialog to ask user for number of players and map file to use.
+ * 
+ * @author Gurpreet
+ * @version 1.0
+ */
 public class SetUpDialog {
 	
+	/**
+	 * Array to store the names of players entered by user.
+	 */
 	private String[] playerNames;
-	
+	/**
+	 * Ask user to enter the number of players.
+	 * @return number of players entered by user or by default 2.
+	 */
 	private int getPlayerCount(){
 		 JPanel box = new JPanel();
 		 JSpinner inputSpinner = new JSpinner();
@@ -22,7 +33,10 @@ public class SetUpDialog {
          }
 		return 2;
 	}
-	
+	/**
+	 * Ask user to enetr name of player one by one.
+	 * @return string array containing number of players.
+	 */
 	public String[] getPlayerInfo(){
 		
 		int n = getPlayerCount();
