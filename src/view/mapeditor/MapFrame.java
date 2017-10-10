@@ -18,6 +18,10 @@ import javax.swing.border.MatteBorder;
 
 import controller.mapeditor.mapEditorController;
 
+/**
+ * MapFrame class opens the JFrame view for selecting 
+ * New map and Existing map
+ */
 public class MapFrame extends JFrame {
 
 	private JPanel contentPane;
@@ -42,7 +46,7 @@ public class MapFrame extends JFrame {
 	}
 
 	/**
-	 * Create the application.
+	 * MapFrame constructor calls initialize method of the class
 	 */
 	public MapFrame()
 	{
@@ -51,6 +55,8 @@ public class MapFrame extends JFrame {
 	
 	/**
 	 * Initialize the contents of the frame.
+	 * includes New Map button and Existing Map button
+	 * together with three text labels
 	 */
 	public void initialize() {
 		this.setLocationRelativeTo(null);

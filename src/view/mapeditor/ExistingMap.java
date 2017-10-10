@@ -20,6 +20,10 @@ import javax.swing.JComboBox;
 import java.awt.Color;
 import java.awt.Font;
 
+/**
+ *Existing Map class opens the JFrame view for
+ *choosing map file
+ */
 public class ExistingMap extends JFrame {
 
 	private JPanel contentPane;
@@ -42,10 +46,10 @@ public class ExistingMap extends JFrame {
 	private JButton btnDeleteCountry;
 	private JComboBox comboBox_3;
 
-
 	/**
-	 * Create the application.
+	 * Existing Map constructor calls initialize method of the class
 	 */
+	
 	public ExistingMap()
 	{
 		initialize();
