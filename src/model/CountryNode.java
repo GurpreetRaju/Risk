@@ -126,8 +126,8 @@ public class CountryNode {
 	}
 	/**
 	 * Check if two objects of this class are same.
-	 * @param o
-	 * @return
+	 * @param o object of CountryNode
+	 * @return true of two objects are same; false if not.
 	 */
 	public boolean equal(Object o)
 	{
