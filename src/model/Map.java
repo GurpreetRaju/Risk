@@ -1,6 +1,8 @@
 package model;
 
 import java.util.ArrayList;
+
+import view.MapView;
 /**
  * This class perform functions related to map for example storing map data,
  * update map etc.
@@ -11,9 +13,11 @@ import java.util.ArrayList;
 public class Map {
 	/**
 	 * ArrayList containing map data.
-	 * @see MapNode	
+	 * @see MapNode
 	 */
 	private ArrayList<MapNode> mapData;
+	
+	private MapView mapView;
 	
 	/**
 	 * This constructor create object of MapReader class and read data from map.
@@ -33,12 +37,16 @@ public class Map {
 		return this.mapData;
 	}
 	
+	public void addObserver(MapView newMapView){
+		this.mapView = newMapView;
+	}
+	
 	/**
-	 * This method update map data.
+	 * This method notify MapView to update countries information on GUI.
 	 */
-	public void updateMapData()
+	public void updateMapView()
 	{
-		
+		mapView.setMap(this.getMapDataObject());
 	}
 	
 	/**

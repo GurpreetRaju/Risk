@@ -2,37 +2,37 @@ package model;
 
 import java.util.ArrayList;
 /**
- * This class store the information of a territory.
+ * This class store the information of a country.
  * @author Gurpreet
  * @version 1.0
  */
 public class CountryNode {
 	
 	/**
-	 * Stores name of territory.
+	 * Stores name of country.
 	 */
 	private String countryName;
 	/**
-	 * Stores neighbouring territories in ArrayList.
+	 * Stores neighbouring countries in ArrayList.
 	 */
 	private ArrayList<CountryNode> neighbourCountries;
 	/**
-	 * Stores the x nd y coordnates of territory at index 0 and 1 respectively.
+	 * Stores the x nd y coordnates of country at index 0 and 1 respectively.
 	 */
 	private int[] coordiantes;
 	/**
-	 * Store name of player to whom this territory belongs.
+	 * Store name of player to whom this country belongs.
 	 */
 	private Player owner;
 	/**
-	 * Stores number of armies in this territory placed by owner.
+	 * Stores number of armies in this country placed by owner.
 	 */
 	private int armies;
 	/**
-	 * This constructor initialize the attributes of this territory.
-	 * @param newName name of territory.
-	 * @param newNeighbours neighbouring countries of this territory.
-	 * @param newCoordinates x and y coordinates of territory.
+	 * This constructor initialize the attributes of this country.
+	 * @param newName name of country.
+	 * @param newNeighbours neighbouring countries of this country.
+	 * @param newCoordinates x and y coordinates of country.
 	 */
 	public CountryNode(String newName,ArrayList<CountryNode> newNeighbours, int[] newCoordinates)
 	{
@@ -44,7 +44,7 @@ public class CountryNode {
 	}
 	
 	/**
-	 * @return Returns the name of territory.
+	 * @return Returns the name of country.
 	 */
 	public String getCountryName()
 	{
@@ -53,7 +53,7 @@ public class CountryNode {
 	
 	/**
 	 * 
-	 * @return Array containing neighbouring territories.
+	 * @return Array containing neighbouring countries.
 	 */
 	public CountryNode[] getNeighbourCountries()
 	{
@@ -61,7 +61,7 @@ public class CountryNode {
 	}
 	
 	/**
-	 * @return Array containing names of neighbouring territories.
+	 * @return Array containing names of neighbouring countries.
 	 */
 	public String[] getNeighbourCountriesString()
 	{
@@ -73,7 +73,7 @@ public class CountryNode {
 	}
 
 	/**
-	 * @return coordinates of territory.
+	 * @return coordinates of country.
 	 */
 	public int[] getCoordinates()
 	{
@@ -81,7 +81,7 @@ public class CountryNode {
 	}
 	
 	/**
-	 * @return player who owns this territory.
+	 * @return player who owns this country.
 	 */
 	public Player getOwner()
 	{
@@ -89,14 +89,14 @@ public class CountryNode {
 	}
 	
 	/**
-	 * @return number of armies placed in this territory.
+	 * @return number of armies placed in this country.
 	 */
 	public int getArmiesCount()
 	{
 		return this.armies;
 	}
 	/**
-	 * Set owner of this territory.
+	 * Set owner of this country.
 	 * @param player player instance.
 	 */
 	public void setOwner(Player player)
@@ -105,7 +105,7 @@ public class CountryNode {
 	}
 	
 	/**
-	 * Place armies in this territory.
+	 * Place armies in this country.
 	 * @param newArmies number of armies
 	 */
 	public void setArmies(int newArmies)
@@ -113,8 +113,8 @@ public class CountryNode {
 		this.armies = newArmies;
 	}
 	/**
-	 * Adds new neighbour territory.
-	 * @param newNeighbour Territory
+	 * Adds new neighbour country.
+	 * @param newNeighbour country
 	 */
 	public void addNeighbour(CountryNode newNeighbour)
 	{
@@ -141,9 +141,9 @@ public class CountryNode {
 		return false;
 	}
 	/**
-	 * Check if an ArrayList contains a Territory.
-	 * @param list ArrayList of territories
-	 * @param country territory to be found in list
+	 * Check if an ArrayList contains a country.
+	 * @param list ArrayList of countries
+	 * @param country country to be found in list
 	 * @return ture if list conatins country; false if not.
 	 */
 	public static boolean contains(ArrayList<CountryNode> list, String country)
@@ -159,9 +159,9 @@ public class CountryNode {
 	}
 	/**
 	 * To get object of a CountryNode using name.
-	 * @param list list of territories.
-	 * @param name name of required territory.
-	 * @return object of required Territory
+	 * @param list list of countries.
+	 * @param name name of required country.
+	 * @return object of required country
 	 */
 	public static CountryNode getCounrty(ArrayList<CountryNode>list, String name)
 	{
@@ -176,7 +176,7 @@ public class CountryNode {
 	}
 	
 	/**
-	 * Set new coordinates of territory.
+	 * Set new coordinates of country.
 	 * @param newCoordinates x and y coordinates
 	 */
 	public void setCoordinates(int[] newCoordinates) 

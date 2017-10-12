@@ -27,6 +27,10 @@ public class Player {
 	 * number of times player exchanged the cards.
 	 */
 	private int cardsusedCount = 1;
+	/**
+	 * number of armies player has.
+	 */
+	private int armiesCount;
 	
 	/**
 	 * Initialize player object with name.
@@ -158,5 +162,26 @@ public class Player {
 		}
 		return armycount;
 	}
+	
+	/**
+	 *  Assign armies to the player.
+	 */
+	public void assignArmies(int newCount){
+		this.armiesCount += newCount;
+	}
+	
+	/**
+	 *  Remove Armies from player
+	 */
+	public void removeArmies(int newCount){
+		this.armiesCount -= newCount;
+	}
+	/**
+	 * @return number of armies player has.
+	 */
+	public int getArmiesCount(){
+		return this.armiesCount;
+	}
 }
+
 

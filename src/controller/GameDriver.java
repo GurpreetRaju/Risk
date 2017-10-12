@@ -16,7 +16,6 @@ import view.*;
 public class GameDriver {
 	
 	private static GameDriver driver;
-	private MainView gameView;
 	private CardsView cardsGUI;
 	private ControlsView controlsGUI;
 	private DiceRollView diceRollGUI;
@@ -37,8 +36,8 @@ public class GameDriver {
         cardsGUI = new CardsView();
         controlsGUI = new ControlsView();
         MainView.createInstance(playerInfoGUI, mapGUI, diceRollGUI, cardsGUI, controlsGUI);
-		gameView = MainView.getInstance();
 		map = new Map("Equalizer.map");
+		map.addObserver(mapGUI);
 	}
 	/**
 	 * <p>
@@ -60,9 +59,7 @@ public class GameDriver {
 	 */
 	public void runGame()
 	{
-		refreshMap();
 		startUpPhase();
-		refreshMap();
 	}
 	/**
 	 * This method starts the startup phase of game.
@@ -92,13 +89,7 @@ public class GameDriver {
         	}
         }
 	}
-	/**
-	 * This method show territories information on GUI.
-	 */
-	public void refreshMap()
-	{
-		mapGUI.setMap(map.getMapDataObject());
-	}
+	
 	/**
 	 * This method show players information on GUI.
 	 */
