@@ -43,6 +43,13 @@ public class Player {
 		this.continents = new ArrayList<MapNode>();
 		this.cards = new ArrayList<Card>();
 	}
+	public Player(String name, int newArmies){
+		this.name = name;
+		this.countries = new ArrayList<CountryNode>();
+		this.continents = new ArrayList<MapNode>();
+		this.cards = new ArrayList<Card>();
+		this.armiesCount = newArmies;
+	}
 	
 	/**
 	 * return name of the player.

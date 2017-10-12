@@ -6,6 +6,7 @@ import model.CountryNode;
 import model.Map;
 import model.MapNode;
 import model.Player;
+import model.RiskData;
 import view.*;
 /**
  * This class controls the turns - Startup phase, Fortification, reinfircement and attack phase.
@@ -72,7 +73,7 @@ public class GameDriver {
         players = new ArrayList<Player>();
         for(String newPlayer: newPlayerData)
         {
-        	players.add(new Player(newPlayer));
+        	players.add(new Player(newPlayer,RiskData.InitialArmiesCount.getArmiesCount(newPlayerData.length)));
         }
         updatePlayerView();
         int i = 0;
