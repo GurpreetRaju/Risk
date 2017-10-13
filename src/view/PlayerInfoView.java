@@ -14,11 +14,20 @@ public class PlayerInfoView extends JPanel{
 	 */
 	private static final long serialVersionUID = -7512274442706727095L;
 
-	public PlayerInfoView(){
+	public PlayerInfoView()
+	{
 		JLabel label = new JLabel("Players data Here.");
 		this.setLayout(new FlowLayout());
-		this.add(label);
 		this.setBorder(BorderFactory.createLineBorder(Color.black));
+	}
+
+	public void setPlayerInfo(String[] playerNames) 
+	{
+		for(String name : playerNames)
+		{
+			this.add(new JLabel(name));
+		}
+		this.validate();
 	}
 	
 	

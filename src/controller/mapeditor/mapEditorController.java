@@ -10,10 +10,28 @@ import model.MapReader;
 import view.mapeditor.MapFileChooser;
 import view.mapeditor.NewMap;
 
+/**
+ * mapEditorController perform action listeners for 
+ * New Map and Existing Map buttons in @see MapFrame view 
+ * and choosing map file action
+ * 
+ * @see MapFileChooser
+ * @author jyotsna
+ *
+ */
 public class mapEditorController {
-	
+	/**
+	 * object of MapFileChooser class used for calling the class methods 
+	 */
 	private MapFileChooser mapChooser;
-	private ActionListener existingBtnAction, newButtonAction;
+	/**
+	 * action listener applied on button "Choose Map File" for selecting map file
+	 */	
+	private ActionListener existingBtnAction;
+	/**
+	 * action listener applied on button "Choose Map File" for selecting map file
+	 */
+	private ActionListener newButtonAction;
 	
 	public void MapRead(String filename) {
 		MapReader mapReader = new MapReader();
@@ -47,6 +65,9 @@ public class mapEditorController {
 		this.mapChooser.openFileChooseBtnAction(existingBtnAction);
 	}
 	
+	/**
+	 * NewMap Frame get initialize with this method
+	 */
 	public void newMapActions() {
 				NewMap newMap = new NewMap();
 				newMap.setVisible(true);

@@ -4,9 +4,23 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-
+/**
+ * 
+ * This class read map file.
+ * 
+ * @author Gurpreet
+ * @version 1.0
+ *
+ */
 public class MapReader {
 	
+	/**
+	 * This method read map file.
+	 * 
+	 * @see MapNode
+	 * @param filename URL of map file.
+	 * @return map data in form of <code>ArrayList</code>
+	 */
 	public ArrayList<MapNode> readMap(String filename)
 	{	
 		BufferedReader br = null;
