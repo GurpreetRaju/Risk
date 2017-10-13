@@ -61,6 +61,7 @@ public class GameDriver {
 	public void runGame()
 	{
 		startUpPhase();
+		map.updateMap();
 	}
 	/**
 	 * This method starts the startup phase of game.
@@ -89,6 +90,21 @@ public class GameDriver {
         		}
         	}
         }
+        
+        for(int i1=0;i1<players.get(0).getArmiesCount();i1++)
+        {
+        	for(Player p: players){
+        		String s;
+        		if(p.getCountriesNamesNoArmy().length!=0){
+        			s = setupBox.placeArmyDialog(p.getCountriesNamesNoArmy());
+        		}
+        		else{
+        			s= setupBox.placeArmyDialog(p.getCountriesNames());
+        		}
+        		p.getCountry(s).addArmy(1);
+        	}
+        }
+        
 	}
 	
 	/**

@@ -65,7 +65,7 @@ public class MapReader {
 								if(!CountryNode.contains(stack, temp[0])){
 									stack.add(new CountryNode(temp[0], null, null));
 								}
-								CountryNode newCountry = CountryNode.getCounrty(stack, temp[0]);
+								CountryNode newCountry = CountryNode.getCountry(stack, temp[0]);
 								int[] newCoordinates = {Integer.parseInt(temp[1]),Integer.parseInt(temp[2])};
 								newCountry.setCoordinates(newCoordinates);
 								for(int i=4;i<temp.length;i++)
@@ -74,7 +74,7 @@ public class MapReader {
 									{
 										stack.add(new CountryNode(temp[i], null, null));
 									}
-									newCountry.addNeighbour(CountryNode.getCounrty(stack, temp[i]));
+									newCountry.addNeighbour(CountryNode.getCountry(stack, temp[i]));
 								}
 								n.addCountry(newCountry);
 								break;

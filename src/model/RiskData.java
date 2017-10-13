@@ -4,10 +4,10 @@ public enum RiskData {
 	
 	InitialArmiesCount{
 		public int getArmiesCount(int n){
-			int armies;
+			int armies = 0;
 			switch(n){
 				case 2:
-					armies = 40;
+					armies = 10;
 					break;
 				case 3:
 					armies = 35;
@@ -22,7 +22,7 @@ public enum RiskData {
 					armies = 20;
 					break;
 			}
-			return 0;
+			return armies;
 		}
 	};
 	
