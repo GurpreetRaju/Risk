@@ -5,10 +5,17 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
+
+import model.MapNode;
+
 import java.awt.GridLayout;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Vector;
 import java.awt.event.ActionEvent;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
@@ -45,13 +52,15 @@ public class ExistingMap extends JFrame {
 	private JComboBox comboBox_2;
 	private JButton btnDeleteCountry;
 	private JComboBox comboBox_3;
+	ArrayList<MapNode> existingMap = new ArrayList<MapNode>();
 
 	/**
 	 * Existing Map constructor calls initialize method of the class
 	 */
 	
-	public ExistingMap()
+	public ExistingMap(ArrayList<MapNode> map)
 	{
+		existingMap = map;
 		initialize();
 	}
 	
@@ -59,6 +68,9 @@ public class ExistingMap extends JFrame {
 	 * Initialize the contents of the frame.
 	 */
 	public void initialize() {
+//		for (int i = 0; i < existingMap.size(); i++) {
+//			System.out.println(existingMap.get(i).getContinentName());
+//		}
 		this.setLocationRelativeTo(null);
 		this.setTitle("Existing Map");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -76,7 +88,23 @@ public class ExistingMap extends JFrame {
 		gbl_contentPane.rowWeights = new double[]{1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
-		table = new JTable();
+		String[] columns = {"col 1","col 2"};
+//		 Vector colHdrs;
+
+		    //create column headers
+
+//		    colHdrs = new Vector(10);
+//		    colHdrs.addElement(new String("Ticker"));
+//		    colHdrs.addElement(new String("Ticker2"));
+
+		String[] rows = {"row 1","row 2"};
+		DefaultTableModel model = new DefaultTableModel(columns, 0);
+//		model.setColumnIdentifiers(colHdrs);
+		model.addRow(rows);
+//		model.addColumn(columns);
+		table = new JTable(model);
+//		table.setShowGrid(true);
+//		table.setShowHorizontalLines(true);
 		table.setToolTipText("Map file displayed here");
 		GridBagConstraints gbc_table = new GridBagConstraints();
 		gbc_table.gridwidth = 16;
@@ -85,7 +113,7 @@ public class ExistingMap extends JFrame {
 		gbc_table.fill = GridBagConstraints.BOTH;
 		gbc_table.gridx = 0;
 		gbc_table.gridy = 0;
-		contentPane.add(table, gbc_table);
+		contentPane.add(add(new JScrollPane(table)), gbc_table);
 		
 		JButton btnEdit = new JButton("Edit");
 		GridBagConstraints gbc_btnEdit = new GridBagConstraints();

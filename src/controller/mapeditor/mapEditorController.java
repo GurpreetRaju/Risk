@@ -7,6 +7,7 @@ import javax.swing.JFileChooser;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import model.MapReader;
+import view.mapeditor.ExistingMap;
 import view.mapeditor.MapFileChooser;
 import view.mapeditor.NewMap;
 
@@ -67,6 +68,10 @@ public class mapEditorController {
 	            fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
 	            if (fc.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
 	                fc.getSelectedFile().getAbsolutePath();
+	                MapReader mapReader = new MapReader();
+	                ExistingMap existingMap = new ExistingMap(mapReader.readMap(fc.getSelectedFile().getAbsolutePath()));
+//	                existingMap.SetExistingMap(mapReader.readMap(fc.getSelectedFile().getAbsolutePath()));
+	                existingMap.setVisible(true);
 	            }
 	        }
 	    });

@@ -98,7 +98,7 @@ public class Player {
 	}
 	
 	/**
-	 * Removes country from list of coutries owned by player.
+	 * Removes country from list of countries owned by player.
 	 * @param country Country object to be removed from list
 	 */
 	public void removeCountry(CountryNode country)
