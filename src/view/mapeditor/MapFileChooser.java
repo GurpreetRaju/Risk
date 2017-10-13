@@ -25,10 +25,6 @@ public class MapFileChooser {
 	
 	/**
 	 * Constructor to do the frame setting
-	 * @throws ClassNotFoundException
-	 * @throws InstantiationException
-	 * @throws IllegalAccessException
-	 * @throws UnsupportedLookAndFeelException
 	 */
     public MapFileChooser() throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
         UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
