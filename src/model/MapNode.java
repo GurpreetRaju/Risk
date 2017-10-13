@@ -2,7 +2,7 @@ package model;
 
 import java.util.ArrayList;
 /**
- * This class stores the mao data.
+ * This class stores the map data.
  * @author Gurpreet
  * @version 1.0
  */
@@ -34,7 +34,7 @@ public class MapNode {
 	}
 	
 	/**
-	 * retun name of continent.
+	 * return name of continent.
 	 * @return String continent name
 	 */
 	public String getContinentName()

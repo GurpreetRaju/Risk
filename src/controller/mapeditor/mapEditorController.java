@@ -33,12 +33,20 @@ public class mapEditorController {
 	 */
 	private ActionListener newButtonAction;
 	
+	/**
+	 * Calls the readMap function of MapReader to read the map file
+	 * @param filename address of the map file to be loaded
+	 */
 	public void MapRead(String filename) {
 		MapReader mapReader = new MapReader();
 		mapReader.readMap(filename);
 
 	}
 	
+	/**
+	 * Function to browse the map file on the local system
+	 * This function implements the ActionListener events for the map file chooser button
+	 */
 	public void mapFileChooserActions() {
 		try {
 			this.mapChooser = new MapFileChooser();

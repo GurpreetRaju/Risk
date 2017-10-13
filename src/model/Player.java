@@ -62,7 +62,7 @@ public class Player {
 	
 	/**
 	 * Add country to the list of countries owned by player.
-	 * @param country coutry owned by player
+	 * @param country country owned by player
 	 */
 	public void addCountry(CountryNode country)
 	{
@@ -71,7 +71,7 @@ public class Player {
 	
 	/**
 	 * returns list of countries owned by the player.
-	 * @return ArrayList containing coutries.
+	 * @return ArrayList containing countries.
 	 */
 	public ArrayList<CountryNode> getCountries()
 	{
