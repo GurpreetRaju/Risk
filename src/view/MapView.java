@@ -3,13 +3,17 @@ package view;
 import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-public class MapView extends JPanel {
+import model.Map;
+
+public class MapView extends JPanel implements Observer{
 	
 	/**
 	 * 
@@ -46,6 +50,11 @@ public class MapView extends JPanel {
 		scroll.setPreferredSize(getSize());
 		this.add(scroll);
 		this.validate();
+	}
+
+	@Override
+	public void update(Observable obs, Object map) {
+		setMap(((Map) obs).getMapDataObject());
 	}
 	
 }

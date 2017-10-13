@@ -1,10 +1,15 @@
 package view;
 
+import java.awt.Label;
+
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
+import javax.swing.SpinnerModel;
+import javax.swing.SpinnerNumberModel;
 /**
  * This class display a dialog to ask user for number of players and map file to use.
  * 
@@ -57,6 +62,16 @@ public class SetUpDialog {
 			}
 		}
 		return playerNames;
+	}
+	
+	public String placeArmyDialog(String[] countryList){
+		JComboBox<String> countriesList = new JComboBox<String>(countryList);
+		String[] options = {"OK"};
+		int selection = JOptionPane.showOptionDialog(null, countriesList, "Place your army",
+        JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null,
+        options, options[0]);
+		String country = countryList[countriesList.getSelectedIndex()];
+		return country;
 	}
 	
 }

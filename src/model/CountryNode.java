@@ -112,6 +112,14 @@ public class CountryNode {
 	{
 		this.armies = newArmies;
 	}
+	
+	/**
+	 * Add more armies in this country.
+	 * @param newArmies number of armies
+	 */
+	public void addArmy(int newCount){
+		this.armies += newCount;
+	}
 	/**
 	 * Adds new neighbour country.
 	 * @param newNeighbour country
@@ -163,7 +171,7 @@ public class CountryNode {
 	 * @param name name of required country.
 	 * @return object of required country
 	 */
-	public static CountryNode getCounrty(ArrayList<CountryNode>list, String name)
+	public static CountryNode getCountry(ArrayList<CountryNode>list, String name)
 	{
 		for(CountryNode c: list)
 		{

@@ -78,6 +78,25 @@ public class Player {
 		return this.countries ;	
 	}
 	
+	public String[] getCountriesNames(){
+		String[] names = new String[this.countries.size()];
+		
+		for(int i=0;i<names.length;i++){
+			names[i] = this.countries.get(i).getCountryName();
+		}
+		return names;
+	}
+	
+	public String[] getCountriesNamesNoArmy(){
+		ArrayList<String> names = new ArrayList<String>();
+		
+		for(CountryNode c : this.countries){
+			if(c.getArmiesCount()==0)
+				names.add(c.getCountryName());
+		}
+		return names.toArray(new String[names.size()]);
+	}
+	
 	/**
 	 * Removes country from list of coutries owned by player.
 	 * @param country Country object to be removed from list
@@ -188,6 +207,9 @@ public class Player {
 	 */
 	public int getArmiesCount(){
 		return this.armiesCount;
+	}
+	public CountryNode getCountry(String newCountry) {
+		return CountryNode.getCountry(countries, newCountry);
 	}
 }
 

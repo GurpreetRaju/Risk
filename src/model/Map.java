@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Observable;
 
 import view.MapView;
 /**
@@ -10,15 +11,13 @@ import view.MapView;
  * @author Gurpreet
  * @version 1.0
  */
-public class Map {
+public class Map extends Observable{
 	/**
 	 * ArrayList containing map data.
 	 * @see MapNode
 	 */
 	private ArrayList<MapNode> mapData;
-	
-	private MapView mapView;
-	
+		
 	/**
 	 * This constructor create object of MapReader class and read data from map.
 	 * @param filename address of the mapfile to be loaded.
@@ -35,18 +34,6 @@ public class Map {
 	public ArrayList<MapNode> getMapData()
 	{
 		return this.mapData;
-	}
-	
-	public void addObserver(MapView newMapView){
-		this.mapView = newMapView;
-	}
-	
-	/**
-	 * This method notify MapView to update countries information on GUI.
-	 */
-	public void updateMapView()
-	{
-		mapView.setMap(this.getMapDataObject());
 	}
 	
 	/**
@@ -93,6 +80,11 @@ public class Map {
 			System.out.println("Continent Name: "+m[0]);
 			System.out.println("\tCountry Name: "+m[1]+", Neighbours: "+m[4]+", Owner: "+m[3]+", Armies: "+m[2]);
 		}
+	}
+	
+	public void updateMap(){
+		setChanged();
+		notifyObservers(this);
 	}
 	
 }
