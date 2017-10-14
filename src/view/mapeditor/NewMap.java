@@ -5,6 +5,10 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import model.CountryNode;
+import model.MapNode;
+
 import java.awt.GridBagLayout;
 import java.awt.Color;
 import javax.swing.JLabel;
@@ -15,6 +19,7 @@ import java.awt.Insets;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 
 /**
@@ -27,6 +32,9 @@ public class NewMap extends JFrame {
 	private JTextField txtContinentNameHere;
 	private JTextField txtContinentControlValue;
 	private JTextField txtCountryName;
+	private JComboBox comboBox;
+	MapNode mapNode;
+	ArrayList<MapNode> continents = new ArrayList<MapNode>();
 
 	/**
 	 * NewMap constructor calls initialize method of the class
@@ -35,7 +43,7 @@ public class NewMap extends JFrame {
 	{
 		initialize();
 	}
-	
+
 	/**
 	 * Initialize the contents of the frame.
 	 */
@@ -56,7 +64,7 @@ public class NewMap extends JFrame {
 		gbl_contentPane.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 1.0, Double.MIN_VALUE};
 		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
-		
+
 		JLabel lblCreateYourOwn = new JLabel("Create your own Game Map!");
 		lblCreateYourOwn.setFont(new Font("Script MT Bold", Font.PLAIN, 48));
 		GridBagConstraints gbc_lblCreateYourOwn = new GridBagConstraints();
@@ -65,7 +73,7 @@ public class NewMap extends JFrame {
 		gbc_lblCreateYourOwn.gridx = 0;
 		gbc_lblCreateYourOwn.gridy = 0;
 		contentPane.add(lblCreateYourOwn, gbc_lblCreateYourOwn);
-		
+
 		JButton btnAddContinent = new JButton("Add Continent");
 		btnAddContinent.setForeground(Color.BLACK);
 		btnAddContinent.setFont(new Font("Bookman Old Style", Font.BOLD | Font.ITALIC, 18));
@@ -76,7 +84,7 @@ public class NewMap extends JFrame {
 		gbc_btnAddContinent.gridx = 1;
 		gbc_btnAddContinent.gridy = 2;
 		contentPane.add(btnAddContinent, gbc_btnAddContinent);
-		
+
 		JLabel lblName = new JLabel("Name");
 		GridBagConstraints gbc_lblName = new GridBagConstraints();
 		gbc_lblName.anchor = GridBagConstraints.EAST;
@@ -84,31 +92,25 @@ public class NewMap extends JFrame {
 		gbc_lblName.gridx = 5;
 		gbc_lblName.gridy = 2;
 		contentPane.add(lblName, gbc_lblName);
-		
+
 		txtContinentNameHere = new JTextField();
 		txtContinentNameHere.setFont(new Font("Tahoma", Font.ITALIC, 13));
-		txtContinentNameHere.setForeground(Color.GRAY);
-		txtContinentNameHere.setText("Continent Name here...");
+		txtContinentNameHere.setForeground(Color.BLACK);
 		GridBagConstraints gbc_txtContinentNameHere = new GridBagConstraints();
 		gbc_txtContinentNameHere.insets = new Insets(0, 0, 5, 0);
 		gbc_txtContinentNameHere.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtContinentNameHere.gridx = 6;
 		gbc_txtContinentNameHere.gridy = 2;
+		txtContinentNameHere.setEnabled(false);
+		txtContinentNameHere.setText("Continent Name here...");
 		contentPane.add(txtContinentNameHere, gbc_txtContinentNameHere);
 		txtContinentNameHere.setColumns(10);
-		
-		JLabel lblValue = new JLabel("Value");
-		GridBagConstraints gbc_lblValue = new GridBagConstraints();
-		gbc_lblValue.anchor = GridBagConstraints.EAST;
-		gbc_lblValue.insets = new Insets(0, 0, 5, 5);
-		gbc_lblValue.gridx = 5;
-		gbc_lblValue.gridy = 3;
-		contentPane.add(lblValue, gbc_lblValue);
-		
+
 		txtContinentControlValue = new JTextField();
 		txtContinentControlValue.setFont(new Font("Tahoma", Font.ITALIC, 13));
-		txtContinentControlValue.setForeground(Color.GRAY);
+		txtContinentControlValue.setForeground(Color.BLACK);
 		txtContinentControlValue.setText("Continent Control value..");
+		txtContinentControlValue.setEnabled(false);
 		GridBagConstraints gbc_txtContinentControlValue = new GridBagConstraints();
 		gbc_txtContinentControlValue.insets = new Insets(0, 0, 5, 0);
 		gbc_txtContinentControlValue.fill = GridBagConstraints.HORIZONTAL;
@@ -116,12 +118,29 @@ public class NewMap extends JFrame {
 		gbc_txtContinentControlValue.gridy = 3;
 		contentPane.add(txtContinentControlValue, gbc_txtContinentControlValue);
 		txtContinentControlValue.setColumns(10);
-		
+
+
+		btnAddContinent.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e)
+			{
+				if (e.getSource() == btnAddContinent) {
+					txtContinentNameHere.setText("");
+					txtContinentControlValue.setText("");
+					txtContinentNameHere.setEnabled(true);
+					txtContinentControlValue.setEnabled(true);
+				}
+			}});
+
+
+		JLabel lblValue = new JLabel("Value");
+		GridBagConstraints gbc_lblValue = new GridBagConstraints();
+		gbc_lblValue.anchor = GridBagConstraints.EAST;
+		gbc_lblValue.insets = new Insets(0, 0, 5, 5);
+		gbc_lblValue.gridx = 5;
+		gbc_lblValue.gridy = 3;
+		contentPane.add(lblValue, gbc_lblValue);
+
 		JButton btnDone = new JButton("Add");
-		btnDone.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
 		btnDone.setBackground(new Color(240, 255, 255));
 		btnDone.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnDone.setForeground(Color.BLACK);
@@ -131,7 +150,7 @@ public class NewMap extends JFrame {
 		gbc_btnDone.gridx = 6;
 		gbc_btnDone.gridy = 4;
 		contentPane.add(btnDone, gbc_btnDone);
-		
+
 		JButton btnAddCountry = new JButton("Add Country");
 		btnAddCountry.setFont(new Font("Bookman Old Style", Font.BOLD | Font.ITALIC, 18));
 		btnAddCountry.setForeground(Color.BLACK);
@@ -142,8 +161,8 @@ public class NewMap extends JFrame {
 		gbc_btnAddCountry.gridx = 1;
 		gbc_btnAddCountry.gridy = 5;
 		contentPane.add(btnAddCountry, gbc_btnAddCountry);
-		
-		JComboBox comboBox = new JComboBox();
+
+		comboBox = new JComboBox();
 		comboBox.setToolTipText("Choose existing continent to add new country");
 		GridBagConstraints gbc_comboBox = new GridBagConstraints();
 		gbc_comboBox.gridwidth = 3;
@@ -151,8 +170,9 @@ public class NewMap extends JFrame {
 		gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
 		gbc_comboBox.gridx = 2;
 		gbc_comboBox.gridy = 5;
+
 		contentPane.add(comboBox, gbc_comboBox);
-		
+
 		JLabel lblName_1 = new JLabel("Name");
 		GridBagConstraints gbc_lblName_1 = new GridBagConstraints();
 		gbc_lblName_1.anchor = GridBagConstraints.EAST;
@@ -160,11 +180,11 @@ public class NewMap extends JFrame {
 		gbc_lblName_1.gridx = 5;
 		gbc_lblName_1.gridy = 6;
 		contentPane.add(lblName_1, gbc_lblName_1);
-		
+
 		txtCountryName = new JTextField();
 		txtCountryName.setFont(new Font("Tahoma", Font.ITALIC, 13));
-		txtCountryName.setForeground(Color.GRAY);
-		txtCountryName.setText("Country name...");
+		txtCountryName.setForeground(Color.BLACK);
+		txtCountryName.setEnabled(false);
 		GridBagConstraints gbc_txtCountryName = new GridBagConstraints();
 		gbc_txtCountryName.insets = new Insets(0, 0, 5, 0);
 		gbc_txtCountryName.fill = GridBagConstraints.HORIZONTAL;
@@ -172,7 +192,7 @@ public class NewMap extends JFrame {
 		gbc_txtCountryName.gridy = 6;
 		contentPane.add(txtCountryName, gbc_txtCountryName);
 		txtCountryName.setColumns(10);
-		
+
 		JLabel lblNeighbours = new JLabel("Neighbours");
 		GridBagConstraints gbc_lblNeighbours = new GridBagConstraints();
 		gbc_lblNeighbours.anchor = GridBagConstraints.EAST;
@@ -180,7 +200,7 @@ public class NewMap extends JFrame {
 		gbc_lblNeighbours.gridx = 5;
 		gbc_lblNeighbours.gridy = 7;
 		contentPane.add(lblNeighbours, gbc_lblNeighbours);
-		
+
 		JComboBox comboBox_1 = new JComboBox();
 		comboBox_1.setToolTipText("Choose neighbours...");
 		GridBagConstraints gbc_comboBox_1 = new GridBagConstraints();
@@ -189,7 +209,7 @@ public class NewMap extends JFrame {
 		gbc_comboBox_1.gridx = 6;
 		gbc_comboBox_1.gridy = 7;
 		contentPane.add(comboBox_1, gbc_comboBox_1);
-		
+
 		JButton btnDeleteCountry = new JButton("Delete Country");
 		btnDeleteCountry.setFont(new Font("Bookman Old Style", Font.BOLD | Font.ITALIC, 18));
 		btnDeleteCountry.setForeground(Color.BLACK);
@@ -199,16 +219,27 @@ public class NewMap extends JFrame {
 		gbc_btnDeleteCountry.gridx = 1;
 		gbc_btnDeleteCountry.gridy = 8;
 		contentPane.add(btnDeleteCountry, gbc_btnDeleteCountry);
-		
+
 		JComboBox comboBox_2 = new JComboBox();
 		GridBagConstraints gbc_comboBox_2 = new GridBagConstraints();
+		ArrayList<String> choice = new ArrayList<>();
 		gbc_comboBox_2.gridwidth = 3;
 		gbc_comboBox_2.insets = new Insets(0, 0, 5, 5);
 		gbc_comboBox_2.fill = GridBagConstraints.HORIZONTAL;
 		gbc_comboBox_2.gridx = 2;
 		gbc_comboBox_2.gridy = 8;
 		contentPane.add(comboBox_2, gbc_comboBox_2);
-		
+
+		btnDeleteCountry.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (e.getSource() == btnDeleteCountry) {
+					//continent_name.remove(comboBox_2.getSelectedIndex());
+					//comboBox_2.getSelectedIndex();
+				}
+			}
+		});
+
+
 		JButton btnAdd = new JButton("Add");
 		btnAdd.setBackground(new Color(240, 255, 255));
 		btnAdd.setFont(new Font("Bookman Old Style", Font.BOLD, 13));
@@ -218,7 +249,7 @@ public class NewMap extends JFrame {
 		gbc_btnAdd.gridx = 6;
 		gbc_btnAdd.gridy = 8;
 		contentPane.add(btnAdd, gbc_btnAdd);
-		
+
 		JButton btnDeleteContinent = new JButton("Delete Continent");
 		btnDeleteContinent.setFont(new Font("Bookman Old Style", Font.BOLD | Font.ITALIC, 18));
 		btnDeleteContinent.setForeground(Color.BLACK);
@@ -228,7 +259,7 @@ public class NewMap extends JFrame {
 		gbc_btnDeleteContinent.gridx = 1;
 		gbc_btnDeleteContinent.gridy = 11;
 		contentPane.add(btnDeleteContinent, gbc_btnDeleteContinent);
-		
+
 		JComboBox comboBox_3 = new JComboBox();
 		GridBagConstraints gbc_comboBox_3 = new GridBagConstraints();
 		gbc_comboBox_3.gridwidth = 3;
@@ -236,7 +267,85 @@ public class NewMap extends JFrame {
 		gbc_comboBox_3.fill = GridBagConstraints.HORIZONTAL;
 		gbc_comboBox_3.gridx = 2;
 		gbc_comboBox_3.gridy = 11;
+		//		for(String temp: continent) {
+		//			comboBox_3.addItem(temp);
+		//		}
+
 		contentPane.add(comboBox_3, gbc_comboBox_3);
+
+		btnDone.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (e.getSource() == btnDone) {
+					String cn = txtContinentNameHere.getText(); //perform your operation	     
+					int cv = Integer.parseInt(txtContinentControlValue.getText()); //perform your operation
+
+					continents.add(new MapNode(cn, null, cv));
+					//			            for(MapNode node: continents)		    
+					//			            mapNode = new MapNode(cn, null, cv);
+					//System.out.println( continent_name.get(0));
+					//			            System.out.println(control_value.get(0));
+					comboBox.removeAllItems();
+					comboBox_3.removeAllItems();
+					for(MapNode i: continents) {
+						comboBox.addItem(i.getContinentName());
+						comboBox_3.addItem(i.getContinentName());
+					}
+					txtContinentNameHere.setText("");
+					txtContinentControlValue.setText("");
+					txtContinentNameHere.setEnabled(false);
+					txtContinentControlValue.setEnabled(false);
+				}
+			}
+		});
+
+
+		btnAddCountry.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (e.getSource() == btnAddCountry) {
+					txtCountryName.setEnabled(true);
+					txtCountryName.setText("");
+				}
+			}
+		});
+		
+		btnAdd.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (e.getSource() == btnAdd) {
+					String selectedContinent = comboBox.getSelectedItem().toString();
+					for (MapNode node: continents) {
+						if(selectedContinent.compareTo(node.getContinentName())==0) {
+							String cn1 = txtCountryName.getText();
+							CountryNode newCountry = new CountryNode(cn1, null, null);
+							node.addCountry(newCountry);
+							System.out.println(node.getContinentName()+ "----" +node.getCountries()[0].getCountryName());
+						} 
+						
+					}
+				}
+			 }
+			});
+
+
+		btnDeleteContinent.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (e.getSource() == btnDeleteContinent) {
+					for (MapNode i :continents) {
+						if(i.getContinentName().compareTo(comboBox_3.getSelectedItem().toString())==0) {
+							continents.remove(i);
+							break;
+						}
+					}
+
+
+					comboBox.removeAllItems();
+					comboBox_3.removeAllItems();
+					for(MapNode i: continents) {
+						comboBox.addItem(i.getContinentName());
+						comboBox_3.addItem(i.getContinentName());
+					}
+				}
+			}
+		});
 	}
 
 }
