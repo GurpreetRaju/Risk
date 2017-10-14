@@ -46,5 +46,6 @@ public class MapFileChooser {
      */
     public void openFileChooseBtnAction(ActionListener newAction) {
     	openFileChooser.addActionListener(newAction);
+    	
     }
 }
