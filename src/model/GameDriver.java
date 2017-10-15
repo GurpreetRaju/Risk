@@ -1,12 +1,8 @@
-package controller;
+package model;
 
 import java.util.ArrayList;
 
-import model.CountryNode;
-import model.Map;
-import model.MapNode;
-import model.Player;
-import model.RiskData;
+import controller.Controller;
 import view.*;
 /**
  * This class controls the turns - Startup phase, Fortification, reinfircement and attack phase.
@@ -17,28 +13,29 @@ import view.*;
 public class GameDriver {
 	
 	private static GameDriver driver;
-	private CardsView cardsGUI;
-	private ControlsView controlsGUI;
-	private DiceRollView diceRollGUI;
-	private MapView mapGUI;
+//	private CardsView cardsGUI;
+//	private ControlsView controlsGUI;
+//	private DiceRollView diceRollGUI;
+//	private MapView mapGUI;
 	private PlayerInfoView playerInfoGUI;
 	private Map map;
 	private ArrayList<Player> players;
-	
+	private Controller controller;
 	/**
 	 * Constructor initialize the GUI and  map class object.
 	 * Constructor is private so objects can not be created directly for this class.
 	 */
 	private GameDriver()
 	{
-        playerInfoGUI = new PlayerInfoView();
-        mapGUI = new MapView();
-        diceRollGUI = new DiceRollView();
-        cardsGUI = new CardsView();
-        controlsGUI = new ControlsView();
-        MainView.createInstance(playerInfoGUI, mapGUI, diceRollGUI, cardsGUI, controlsGUI);
+//        playerInfoGUI = new PlayerInfoView();
+//        mapGUI = new MapView();
+//        diceRollGUI = new DiceRollView();
+//        cardsGUI = new CardsView();
+//        controlsGUI = new ControlsView();
+//        MainView.createInstance(playerInfoGUI, mapGUI, diceRollGUI, cardsGUI, controlsGUI);
 		map = new Map("Equalizer.map");
-		map.addObserver(mapGUI);
+		controller = new Controller(this);
+//		map.addObserver(mapGUI);
 	}
 	/**
 	 * <p>
@@ -103,8 +100,15 @@ public class GameDriver {
         		}
         		p.getCountry(s).addArmy(1);
         	}
-        }
-        
+        }  
+	}
+	
+	public void setPlayerView(PlayerInfoView newView){
+		this.playerInfoGUI = newView;
+	}
+	
+	public void setMapView(MapView newGui){
+		map.addObserver(newGui);
 	}
 	
 	/**

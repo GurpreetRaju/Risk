@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Label;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -13,6 +14,11 @@ import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
+import model.CountryNode;
+import model.Player;
 
 public class ControlsView extends JPanel {
 	
@@ -48,6 +54,55 @@ public class ControlsView extends JPanel {
 		this.add(playMove);
 		this.add(doneButton);
 		this.validate();
+	}
+	
+	public void fortificationControls(String[] countryList){
+		this.removeAll();
+		
+		countriesList = new JComboBox<String>(countryList);
+		countriesList.setSelectedIndex(0);
+		
+		this.add(new Label("Country"));
+		this.add(countriesList);
+		this.validate();
+		
+		String neighbourSelected;
+		int selectedArmies;
+		String countrySelected = (String) countriesList.getSelectedItem();
+		
+		Player p = Player.getCurrentPlayer();
+		ArrayList<CountryNode> c = p.getCountries();
+		
+		for(CountryNode i : c){
+			if(i.getCountryName() == countrySelected){
+				JComboBox<String> neighborList = new JComboBox<String>(i.getNeighbourCountriesString());
+				neighborList.setSelectedIndex(0);
+				
+				this.add(new Label("Country"));
+				this.add(neighborList);
+				this.validate();
+				
+				neighbourSelected = (String) neighborList.getSelectedItem();
+				
+				int armies = i.getArmiesCount();
+				SpinnerModel sm = new SpinnerNumberModel(1, 1, armies-1, 1); 
+				JSpinner armiesSpinner = new JSpinner(sm);
+				armiesSpinner.addChangeListener(new ChangeListener() {
+					public void stateChanged(ChangeEvent e){
+						selectedArmies = (int) ((JSpinner)e.getSource()).getValue();
+					}
+				});
+				i.setArmies(i.getArmiesCount()-selectedArmies); 
+				for(CountryNode j : i.getNeighbourCountries()){
+					if(j.getCountryName() == neighbourSelected){
+						j.setArmies(j.getArmiesCount() + selectedArmies);
+						break;
+					}
+				}
+				break;
+			}
+		}
+		
 	}
 	
 	public void playButtonAction(ActionListener a){
