@@ -93,6 +93,8 @@ public class ControlsView extends JPanel {
 		
 		this.add(new Label("Country"));
 		this.add(countriesList);
+		this.add(playMove);
+		this.add(doneButton);
 		this.validate();
 		
 		String neighbourSelected;
