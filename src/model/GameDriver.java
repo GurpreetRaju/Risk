@@ -21,6 +21,7 @@ public class GameDriver {
 	private Map map;
 	private ArrayList<Player> players;
 	private Controller controller;
+	private ControlsView controlsGUI;
 	/**
 	 * Constructor initialize the GUI and  map class object.
 	 * Constructor is private so objects can not be created directly for this class.
@@ -61,6 +62,7 @@ public class GameDriver {
 	{
 		startUpPhase();
 		map.updateMap();
+		this.controlsGUI.reinforcementConrols(getCurrentPlayer().getArmies(), getCurrentPlayer().getCountriesNames());
 	}
 	/**
 	 * This method starts the startup phase of game.
@@ -75,6 +77,7 @@ public class GameDriver {
         {
         	players.add(new Player(newPlayer,RiskData.InitialArmiesCount.getArmiesCount(newPlayerData.length)));
         }
+        players.get(0).setTurnTrue();
         updatePlayerView();
         int i = 0;
         for(MapNode m : map.getMapData()){
@@ -110,6 +113,10 @@ public class GameDriver {
 		map.addObserver(newGui);
 	}
 	
+	public void setControlsView(ControlsView controlView){
+		this.controlsGUI = controlView;
+	}
+	
 	/**
 	 * This method show players information on GUI.
 	 */
@@ -136,5 +143,15 @@ public class GameDriver {
 		return null;
 	}
 	
+	public void setNextPlayerTurn(){
+		int currentPlayerIndex = players.indexOf(getCurrentPlayer());
+		getCurrentPlayer().setTurnFalse();
+		if (currentPlayerIndex == players.size()-1){
+			players.get(0).setTurnTrue();
+		}
+		else{
+			players.get(currentPlayerIndex+1).setTurnTrue();
+		}
+	}
 	
 }

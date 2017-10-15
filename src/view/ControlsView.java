@@ -56,7 +56,6 @@ public class ControlsView extends JPanel {
 		JLabel label = new JLabel("Controls Here.");
 		this.setLayout(new FlowLayout());
 		this.add(label);
-		
 		this.setBorder(BorderFactory.createLineBorder(Color.black));
 	}
 	
@@ -76,8 +75,8 @@ public class ControlsView extends JPanel {
 		this.add(armiesSpinner);
 		this.add(new Label("Country"));
 		this.add(countriesList);
-		this.add(playMove);
-		this.add(doneButton);
+		//this.add(playMove);
+		//this.add(doneButton);
 		this.validate();
 	}
 	
