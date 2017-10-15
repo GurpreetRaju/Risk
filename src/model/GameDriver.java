@@ -125,4 +125,17 @@ public class GameDriver {
 		playerInfoGUI.setPlayerInfo(playerNames);
 	}
 	
+	/**
+	 * @return current player 
+	 */
+	public Player getCurrentPlayer(){
+		for(Player player:players){
+			if(player.getTurn()){
+				return player;
+			}
+		}
+		return null;
+	}
+	
+	
 }
