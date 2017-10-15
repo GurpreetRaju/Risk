@@ -33,6 +33,11 @@ public class Player {
 	private int armiesCount;
 	
 	/**
+	 * turn of player
+	 */
+	private boolean turn = false;
+	
+	/**
 	 * Initialize player object with name.
 	 * @param name name of player.
 	 */
@@ -202,14 +207,40 @@ public class Player {
 	public void removeArmies(int newCount){
 		this.armiesCount -= newCount;
 	}
+	
 	/**
 	 * @return number of armies player has.
 	 */
 	public int getArmiesCount(){
 		return this.armiesCount;
 	}
+	
+	/**
+	 * @return country matching the string 
+	 */
 	public CountryNode getCountry(String newCountry) {
 		return CountryNode.getCountry(countries, newCountry);
+	}
+	
+	/**
+	 *  sets player turn to true
+	 */
+	public void setTurnTrue(){
+		this.turn = true;
+	}
+	
+	/**
+	 *  sets player turn to false
+	 */
+	public void setTurnFalse(){
+		this.turn = false;
+	}
+	
+	/**
+	 *  @return turn of player
+	 */
+	public boolean getTurn(){
+		return this.turn;
 	}
 }
 
