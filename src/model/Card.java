@@ -9,4 +9,14 @@ public class Card {
 		this.name = name;
 		this.type = type;
 	}
+	
+	String getName()
+	{
+		return this.name;
+	}
+	
+	String getType()
+	{
+		return this.type;
+	}
 }
