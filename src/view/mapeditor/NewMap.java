@@ -12,8 +12,12 @@ import model.MapNode;
 import java.awt.GridBagLayout;
 import java.awt.Color;
 import javax.swing.JLabel;
+import javax.swing.JList;
+
 import java.awt.GridBagConstraints;
 import java.awt.Font;
+
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import java.awt.Insets;
 import javax.swing.JTextField;
@@ -201,14 +205,15 @@ public class NewMap extends JFrame {
 		gbc_lblNeighbours.gridy = 7;
 		contentPane.add(lblNeighbours, gbc_lblNeighbours);
 
-		JComboBox comboBox_1 = new JComboBox();
-		comboBox_1.setToolTipText("Choose neighbours...");
+		DefaultListModel model1 = new DefaultListModel();
+		JList items = new JList(model1);
+		items.setToolTipText("Choose neighbours...");
 		GridBagConstraints gbc_comboBox_1 = new GridBagConstraints();
 		gbc_comboBox_1.insets = new Insets(0, 0, 5, 0);
 		gbc_comboBox_1.fill = GridBagConstraints.HORIZONTAL;
 		gbc_comboBox_1.gridx = 6;
 		gbc_comboBox_1.gridy = 7;
-		contentPane.add(comboBox_1, gbc_comboBox_1);
+		contentPane.add(items, gbc_comboBox_1);
 
 		JButton btnDeleteCountry = new JButton("Delete Country");
 		btnDeleteCountry.setFont(new Font("Bookman Old Style", Font.BOLD | Font.ITALIC, 18));
@@ -229,16 +234,7 @@ public class NewMap extends JFrame {
 		gbc_comboBox_2.gridx = 2;
 		gbc_comboBox_2.gridy = 8;
 		contentPane.add(comboBox_2, gbc_comboBox_2);
-
-		btnDeleteCountry.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (e.getSource() == btnDeleteCountry) {
-					//continent_name.remove(comboBox_2.getSelectedIndex());
-					//comboBox_2.getSelectedIndex();
-				}
-			}
-		});
-
+		//comboBox_2.addItem("hello");
 
 		JButton btnAdd = new JButton("Add");
 		btnAdd.setBackground(new Color(240, 255, 255));
@@ -279,7 +275,8 @@ public class NewMap extends JFrame {
 					String cn = txtContinentNameHere.getText(); //perform your operation	     
 					int cv = Integer.parseInt(txtContinentControlValue.getText()); //perform your operation
 
-					continents.add(new MapNode(cn, null, cv));
+					ArrayList<CountryNode> countryArr = new ArrayList<CountryNode>();
+					continents.add(new MapNode(cn, countryArr, cv));
 					//			            for(MapNode node: continents)		    
 					//			            mapNode = new MapNode(cn, null, cv);
 					//System.out.println( continent_name.get(0));
@@ -307,23 +304,52 @@ public class NewMap extends JFrame {
 				}
 			}
 		});
-		
+
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (e.getSource() == btnAdd) {
 					String selectedContinent = comboBox.getSelectedItem().toString();
+					model1.removeAllElements();
+					comboBox_2.removeAllItems();
 					for (MapNode node: continents) {
 						if(selectedContinent.compareTo(node.getContinentName())==0) {
 							String cn1 = txtCountryName.getText();
 							CountryNode newCountry = new CountryNode(cn1, null, null);
 							node.addCountry(newCountry);
-							System.out.println(node.getContinentName()+ "----" +node.getCountries()[0].getCountryName());
-						} 
-						
+						}
+						for (CountryNode temp : node.getCountries()) {
+							model1.addElement(temp.getCountryName());
+							comboBox_2.addItem(temp.getCountryName());
+						}
+
 					}
 				}
-			 }
-			});
+			}
+		});
+
+
+		btnDeleteCountry.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (e.getSource() == btnDeleteCountry) {
+					String selectedcountry = comboBox_2.getSelectedItem().toString();
+					comboBox_2.removeAllItems();
+					model1.removeAllElements();
+					for (MapNode node: continents) {
+						for (CountryNode temp : node.getCountries()) {
+							if(temp.getCountryName().compareTo(selectedcountry)==0) {
+								node.removeCountry(temp);
+							}
+						}
+					}
+					for (MapNode node: continents) {
+						for (CountryNode temp : node.getCountries()) {
+							model1.addElement(temp.getCountryName());
+							comboBox_2.addItem(temp.getCountryName());
+						}
+					}
+				}
+			}
+		});
 
 
 		btnDeleteContinent.addActionListener(new ActionListener() {
