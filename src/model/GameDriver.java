@@ -33,7 +33,9 @@ public class GameDriver {
 //        cardsGUI = new CardsView();
 //        controlsGUI = new ControlsView();
 //        MainView.createInstance(playerInfoGUI, mapGUI, diceRollGUI, cardsGUI, controlsGUI);
-		map = new Map("Equalizer.map");
+		SetUpDialog mapBox = new SetUpDialog();
+		String mapPath = mapBox.getMapInfo();
+		map = new Map(mapPath);
 		controller = new Controller(this);
 //		map.addObserver(mapGUI);
 	}
@@ -75,10 +77,8 @@ public class GameDriver {
         }
         updatePlayerView();
         int i = 0;
-        for(MapNode m : map.getMapData())
-        {
-        	for(CountryNode c: m.getCountries())
-        	{
+        for(MapNode m : map.getMapData()){
+        	for(CountryNode c: m.getCountries()){
         		c.setOwner(players.get(i));
         		players.get(i).addCountry(c);
         		if(++i>=players.size())
@@ -88,8 +88,7 @@ public class GameDriver {
         	}
         }
         
-        for(int i1=0;i1<players.get(0).getArmiesCount();i1++)
-        {
+        for(int i1=0;i1<players.get(0).getArmiesCount();i1++){
         	for(Player p: players){
         		String s;
         		if(p.getCountriesNamesNoArmy().length!=0){
@@ -100,7 +99,7 @@ public class GameDriver {
         		}
         		p.getCountry(s).addArmy(1);
         	}
-        }  
+        }
 	}
 	
 	public void setPlayerView(PlayerInfoView newView){

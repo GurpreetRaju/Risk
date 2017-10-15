@@ -1,8 +1,10 @@
 package view;
 
 import java.awt.Label;
+import java.io.File;
 
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -10,6 +12,10 @@ import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.filechooser.FileSystemView;
+
+import model.Map;
+import model.MapReader;
 /**
  * This class display a dialog to ask user for number of players and map file to use.
  * 
@@ -39,7 +45,7 @@ public class SetUpDialog {
 		return 2;
 	}
 	/**
-	 * Ask user to enetr name of player one by one.
+	 * Ask user to enter name of player one by one.
 	 * @return string array containing number of players.
 	 */
 	public String[] getPlayerInfo(){
@@ -72,6 +78,17 @@ public class SetUpDialog {
         options, options[0]);
 		String country = countryList[countriesList.getSelectedIndex()];
 		return country;
+	}
+	
+	public String getMapInfo(){
+		JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+		int returnValue = jfc.showOpenDialog(null);
+		String mapRead = null;
+		if (returnValue == JFileChooser.APPROVE_OPTION) {
+			File selectedFile = jfc.getSelectedFile();
+			mapRead = selectedFile.getAbsolutePath();
+		}
+		return mapRead;
 	}
 	
 }
