@@ -18,6 +18,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import model.CountryNode;
+import model.GameDriver;
 import model.Player;
 
 public class ControlsView extends JPanel {
@@ -26,11 +27,30 @@ public class ControlsView extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = -2537156060382941763L;
+	/**
+	 * Spinner to display armies count available to the player for Reinforcement phase
+	 */
 	private JSpinner armiesSpinner;
+	/**
+	 * ComboBox to display the countries owned by the current player
+	 */
 	private JComboBox<String> countriesList;
+	/**
+	 * Button to start the phase
+	 */
 	private JButton playMove;
+	/**
+	 * Button to end the phase
+	 */
 	private JButton doneButton;
+	/**
+	 * Number of armies selected to move to the neighboring country for Fortification phase
+	 */
+	private int selectedArmies;
 
+	/**
+	 * Constructor to display the Control section of the game for Reinforcement, Attack and Fortification phases
+	 */
 	public ControlsView(){
 		
 		JLabel label = new JLabel("Controls Here.");
@@ -40,6 +60,11 @@ public class ControlsView extends JPanel {
 		this.setBorder(BorderFactory.createLineBorder(Color.black));
 	}
 	
+	/**
+	 * Displays the Reinforcement Phase controls
+	 * @param armiesCount Number of armies available to the player for Reinforcement phase
+	 * @param countryList String array containing the countries owned by the current player
+	 */
 	public void reinforcementConrols(int armiesCount, String[] countryList){
 		this.removeAll();
 		SpinnerModel sm = new SpinnerNumberModel(1, 1, armiesCount, 1); 
@@ -56,9 +81,13 @@ public class ControlsView extends JPanel {
 		this.validate();
 	}
 	
+	/**
+	 * This function implements the Fortification Phase
+	 * @param countryList String array that contains the names of the country owned by the current player
+	 */
 	public void fortificationControls(String[] countryList){
 		this.removeAll();
-		
+
 		countriesList = new JComboBox<String>(countryList);
 		countriesList.setSelectedIndex(0);
 		
@@ -67,10 +96,10 @@ public class ControlsView extends JPanel {
 		this.validate();
 		
 		String neighbourSelected;
-		int selectedArmies;
+		
 		String countrySelected = (String) countriesList.getSelectedItem();
 		
-		Player p = Player.getCurrentPlayer();
+		Player p = GameDriver.getInstance().getCurrentPlayer();
 		ArrayList<CountryNode> c = p.getCountries();
 		
 		for(CountryNode i : c){
@@ -86,8 +115,8 @@ public class ControlsView extends JPanel {
 				
 				int armies = i.getArmiesCount();
 				SpinnerModel sm = new SpinnerNumberModel(1, 1, armies-1, 1); 
-				JSpinner armiesSpinner = new JSpinner(sm);
-				armiesSpinner.addChangeListener(new ChangeListener() {
+				JSpinner armiesCountSpinner = new JSpinner(sm);
+				armiesCountSpinner.addChangeListener(new ChangeListener() {
 					public void stateChanged(ChangeEvent e){
 						selectedArmies = (int) ((JSpinner)e.getSource()).getValue();
 					}
@@ -104,7 +133,11 @@ public class ControlsView extends JPanel {
 		}
 		
 	}
-	
+
+	/**
+	 * 
+	 * @param a
+	 */
 	public void playButtonAction(ActionListener a){
 		this.playMove.addActionListener(a);
 	}
