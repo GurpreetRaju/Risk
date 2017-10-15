@@ -28,28 +28,28 @@ public class ControlsView extends JPanel {
 	 */
 	private static final long serialVersionUID = -2537156060382941763L;
 	/**
-	 * Spinner to display armies count available to the player for Reinforcement phase
+	 * Spinner to display armies count available to the player for Reinforcement phase.
 	 */
 	private JSpinner armiesSpinner;
 	/**
-	 * ComboBox to display the countries owned by the current player
+	 * ComboBox to display the countries owned by the current player.
 	 */
 	private JComboBox<String> countriesList;
 	/**
-	 * Button to start the phase
+	 * Button to start the phase.
 	 */
 	private JButton playMove;
 	/**
-	 * Button to end the phase
+	 * Button to end the phase.
 	 */
 	private JButton doneButton;
 	/**
-	 * Number of armies selected to move to the neighboring country for Fortification phase
+	 * Number of armies selected to move to the neighboring country for Fortification phase.
 	 */
 	private int selectedArmies;
 
 	/**
-	 * Constructor to display the Control section of the game for Reinforcement, Attack and Fortification phases
+	 * Constructor to display the Control section of the game for Reinforcement, Attack and Fortification phases.
 	 */
 	public ControlsView(){
 		
@@ -61,9 +61,9 @@ public class ControlsView extends JPanel {
 	}
 	
 	/**
-	 * Displays the Reinforcement Phase controls
-	 * @param armiesCount Number of armies available to the player for Reinforcement phase
-	 * @param countryList String array containing the countries owned by the current player
+	 * Displays the Reinforcement Phase controls.
+	 * @param armiesCount Number of armies available to the player for Reinforcement phase.
+	 * @param countryList String array containing the countries owned by the current player.
 	 */
 	public void reinforcementConrols(int armiesCount, String[] countryList){
 		this.removeAll();
@@ -82,8 +82,8 @@ public class ControlsView extends JPanel {
 	}
 	
 	/**
-	 * This function implements the Fortification Phase
-	 * @param countryList String array that contains the names of the country owned by the current player
+	 * This function implements the Fortification Phase.
+	 * @param countryList String array that contains the names of the country owned by the current player.
 	 */
 	public void fortificationControls(String[] countryList){
 		this.removeAll();

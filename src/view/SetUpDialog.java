@@ -1,8 +1,8 @@
 package view;
 
-import java.awt.Label;
 import java.io.File;
 
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -10,12 +10,10 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
-import javax.swing.SpinnerModel;
-import javax.swing.SpinnerNumberModel;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
 
-import model.Map;
-import model.MapReader;
+
 /**
  * This class display a dialog to ask user for number of players and map file to use.
  * 
@@ -28,6 +26,8 @@ public class SetUpDialog {
 	 * Array to store the names of players entered by user.
 	 */
 	private String[] playerNames;
+	
+	private String mapRead = null;
 	/**
 	 * Ask user to enter the number of players.
 	 * @return number of players entered by user or by default 2.
@@ -80,15 +80,41 @@ public class SetUpDialog {
 		return country;
 	}
 	
+	/**
+	 * Ask user for the map file to be used for the game.
+	 * @return mapRead Stores the absolute path of the map file read.
+	 */
 	public String getMapInfo(){
+		JFrame frame = new JFrame("Map File Chooser");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+//		JButton btn = new JButton("Choose File");
+//		frame.add(btn);
 		JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
-		int returnValue = jfc.showOpenDialog(null);
-		String mapRead = null;
-		if (returnValue == JFileChooser.APPROVE_OPTION) {
-			File selectedFile = jfc.getSelectedFile();
-			mapRead = selectedFile.getAbsolutePath();
-		}
-		return mapRead;
+		FileNameExtensionFilter filter = new FileNameExtensionFilter("Map Files", "map");
+		jfc.setFileFilter(filter);
+//		btn.addActionListener(e -> {
+			int returnValue = jfc.showOpenDialog(frame);
+			
+			if (returnValue == JFileChooser.APPROVE_OPTION) {
+				File selectedFile = jfc.getSelectedFile();
+				mapRead = selectedFile.getAbsolutePath();
+				if(mapRead.substring(mapRead.lastIndexOf("."),mapRead.length()).equalsIgnoreCase(".map")){
+					return mapRead;
+				}
+				else{
+					String extension = mapRead.substring(mapRead.lastIndexOf("."),mapRead.length());
+					JOptionPane.showMessageDialog(frame, extension + ": Incorrect File format. Select another file.");
+					getMapInfo();
+				}
+			}
+			
+		return "Equalizer.map";
+
+//		});
+//		frame.pack();
+//		frame.setVisible(true);
+		
 	}
 	
 }
