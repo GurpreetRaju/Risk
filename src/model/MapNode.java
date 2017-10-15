@@ -67,6 +67,10 @@ public class MapNode {
 		this.countries = newCountries;
 	}
 	
+	public void removeCountry(CountryNode countryNode) {
+		countries.remove(countryNode);
+	}
+	
 	/**
 	 * Add country to the continent.
 	 * @param newCountry country object
