@@ -36,5 +36,6 @@ public class Controller {
 	private void init(){
 		driver.setPlayerView(playerInfoGUI);
 		driver.setMapView(mapGUI);
+		driver.setControlsView(controlsGUI);
 	}
 }
