@@ -19,7 +19,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 public class MapFileChooser {
 	
 	/**
-	 * Button to select a map file
+	 *@param openFileChooser Button to select a map file
 	 */
 	final JButton openFileChooser = new JButton("Choose Map File");
 	
