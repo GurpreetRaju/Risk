@@ -13,10 +13,6 @@ import view.*;
 public class GameDriver {
 	
 	private static GameDriver driver;
-//	private CardsView cardsGUI;
-//	private ControlsView controlsGUI;
-//	private DiceRollView diceRollGUI;
-//	private MapView mapGUI;
 	private PlayerInfoView playerInfoGUI;
 	private Map map;
 	private ArrayList<Player> players;
@@ -27,17 +23,10 @@ public class GameDriver {
 	 */
 	private GameDriver()
 	{
-//        playerInfoGUI = new PlayerInfoView();
-//        mapGUI = new MapView();
-//        diceRollGUI = new DiceRollView();
-//        cardsGUI = new CardsView();
-//        controlsGUI = new ControlsView();
-//        MainView.createInstance(playerInfoGUI, mapGUI, diceRollGUI, cardsGUI, controlsGUI);
 		SetUpDialog mapBox = new SetUpDialog();
 		String mapPath = mapBox.getMapInfo();
 		map = new Map(mapPath);
 		controller = new Controller(this);
-//		map.addObserver(mapGUI);
 	}
 	/**
 	 * <p>

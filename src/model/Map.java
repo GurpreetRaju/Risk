@@ -48,14 +48,14 @@ public class Map extends Observable{
 			for(CountryNode n : m.getCountries())
 			{
 				String[] tempObject = new String[5];
-				tempObject[0] = m.getContinentName() +", "+ m.getControlValue();
+//				tempObject[0] = m.getContinentName() +", "+ m.getControlValue();
 				tempObject[1] = n.getCountryName();
-				String neighbours = "";
-				for(String s: n.getNeighbourCountriesString())
-				{
-					neighbours = neighbours + s + ", ";
-				}
-				tempObject[4] = neighbours;
+//				String neighbours = "";
+//				for(String s: n.getNeighbourCountriesString())
+//				{
+//					neighbours = neighbours + s + ", ";
+//				}
+//				tempObject[4] = neighbours;
 				if(n.getOwner()!=null){
 					tempObject[3] = n.getOwner().getName();
 				}
@@ -64,6 +64,8 @@ public class Map extends Observable{
 				}
 				tempObject[2] = String.valueOf(n.getArmiesCount());
 				newData.add(tempObject);
+				tempObject[0] = Integer.toString(n.getCoordinates()[0]);
+				tempObject[4] = Integer.toString(n.getCoordinates()[1]);
 			}
 		}
 		return newData.toArray(new String[newData.size()][]);

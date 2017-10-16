@@ -23,6 +23,9 @@ public class MapView extends JPanel implements Observer{
 	public MapView()
 	{
 		this.setBorder(BorderFactory.createLineBorder(Color.black));
+		this.setOpaque(true);
+	    this.setBackground(Color.WHITE);
+	    this.setLayout(null);
 	}
 
 	public void setMap(String[][] newMapData) 
@@ -51,10 +54,25 @@ public class MapView extends JPanel implements Observer{
 		this.add(scroll);
 		this.validate();
 	}
+	
+	public void setGraphicalMap(String[][] newMapData){
+		this.removeAll();
+		for(String[] o: newMapData){
+			JPanel panel = new JPanel();
+			panel.setSize(100, 100);
+			panel.setLocation(Integer.parseInt(o[0]), Integer.parseInt(o[4]));
+			for(int i=1;i<4;i++){
+				panel.add(new JLabel(o[i]));				
+			}
+			this.add(panel);
+			System.out.print("Debug message");
+		}
+		this.validate();
+	}
 
 	@Override
 	public void update(Observable obs, Object map) {
-		setMap(((Map) obs).getMapDataObject());
+		setGraphicalMap(((Map) obs).getMapDataObject());
 	}
 	
 }
