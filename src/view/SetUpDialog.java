@@ -1,6 +1,9 @@
 package view;
 
 import java.io.File;
+import java.net.URL;
+import java.security.CodeSource;
+import java.security.ProtectionDomain;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -82,16 +85,18 @@ public class SetUpDialog {
 	
 	/**
 	 * Ask user for the map file to be used for the game.
+	 * @param extension 
 	 * @return mapRead Stores the absolute path of the map file read.
 	 */
-	public String getMapInfo(){
+	public String getMapInfo(String newExtension){
 		JFrame frame = new JFrame("Map File Chooser");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 //		JButton btn = new JButton("Choose File");
 //		frame.add(btn);
-		JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
-		FileNameExtensionFilter filter = new FileNameExtensionFilter("Map Files", "map");
+		JFileChooser jfc = new JFileChooser();
+		jfc.setCurrentDirectory(new File("./data/map"));
+		FileNameExtensionFilter filter = new FileNameExtensionFilter("Map Files", newExtension);
 		jfc.setFileFilter(filter);
 //		btn.addActionListener(e -> {
 			int returnValue = jfc.showOpenDialog(frame);
@@ -99,13 +104,14 @@ public class SetUpDialog {
 			if (returnValue == JFileChooser.APPROVE_OPTION) {
 				File selectedFile = jfc.getSelectedFile();
 				mapRead = selectedFile.getAbsolutePath();
-				if(mapRead.substring(mapRead.lastIndexOf("."),mapRead.length()).equalsIgnoreCase(".map")){
+				if(mapRead.substring(mapRead.lastIndexOf("."),mapRead.length()).equalsIgnoreCase(".map")
+						|| mapRead.substring(mapRead.lastIndexOf("."),mapRead.length()).equalsIgnoreCase(".bmp")){
 					return mapRead;
 				}
 				else{
 					String extension = mapRead.substring(mapRead.lastIndexOf("."),mapRead.length());
 					JOptionPane.showMessageDialog(frame, extension + ": Incorrect File format. Select another file.");
-					getMapInfo();
+					getMapInfo(newExtension);
 				}
 			}
 			

@@ -13,10 +13,6 @@ import view.*;
 public class GameDriver {
 	
 	private static GameDriver driver;
-//	private CardsView cardsGUI;
-//	private ControlsView controlsGUI;
-//	private DiceRollView diceRollGUI;
-//	private MapView mapGUI;
 	private PlayerInfoView playerInfoGUI;
 	private Map map;
 	private ArrayList<Player> players;
@@ -28,17 +24,7 @@ public class GameDriver {
 	 */
 	private GameDriver()
 	{
-//        playerInfoGUI = new PlayerInfoView();
-//        mapGUI = new MapView();
-//        diceRollGUI = new DiceRollView();
-//        cardsGUI = new CardsView();
-//        controlsGUI = new ControlsView();
-//        MainView.createInstance(playerInfoGUI, mapGUI, diceRollGUI, cardsGUI, controlsGUI);
-		SetUpDialog mapBox = new SetUpDialog();
-		String mapPath = mapBox.getMapInfo();
-		map = new Map(mapPath);
 		controller = new Controller(this);
-//		map.addObserver(mapGUI);
 	}
 	/**
 	 * <p>
@@ -60,18 +46,14 @@ public class GameDriver {
 	 */
 	public void runGame()
 	{
-		startUpPhase();
-		map.updateMap();
 		this.controlsGUI.reinforcementConrols(getCurrentPlayer().getArmies(), getCurrentPlayer().getCountriesNames());
 	}
 	/**
 	 * This method starts the startup phase of game.
 	 * It assigns countries to players.
 	 */
-	public void startUpPhase()
+	public void startUpPhase(String[] newPlayerData)
 	{
-		SetUpDialog setupBox = new SetUpDialog();
-        String[] newPlayerData = setupBox.getPlayerInfo();
         players = new ArrayList<Player>();
         for(String newPlayer: newPlayerData)
         {
@@ -95,14 +77,15 @@ public class GameDriver {
         	for(Player p: players){
         		String s;
         		if(p.getCountriesNamesNoArmy().length!=0){
-        			s = setupBox.placeArmyDialog(p.getCountriesNamesNoArmy());
+        			s = controller.placeArmyDialog(p.getCountriesNamesNoArmy());
         		}
         		else{
-        			s= setupBox.placeArmyDialog(p.getCountriesNames());
+        			s= controller.placeArmyDialog(p.getCountriesNames());
         		}
         		p.getCountry(s).addArmy(1);
         	}
         }
+        map.updateMap();
 	}
 	
 	public void setPlayerView(PlayerInfoView newView){
@@ -152,6 +135,10 @@ public class GameDriver {
 		else{
 			players.get(currentPlayerIndex+1).setTurnTrue();
 		}
+	}
+	
+	public void createMapObject(String mapPath){
+		map = new Map(mapPath);
 	}
 	
 }
