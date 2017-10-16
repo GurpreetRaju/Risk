@@ -13,7 +13,8 @@ import view.MapView;
 import view.PlayerInfoView;
 import view.SetUpDialog;
 
-public class Controller {
+public class Controller 
+{
 	
 	private GameDriver driver;
 	private CardsView cardsGUI;
@@ -21,10 +22,12 @@ public class Controller {
 	private DiceRollView diceRollGUI;
 	private MapView mapGUI;
 	private PlayerInfoView playerInfoGUI;
+	private SetUpDialog setupBox;
 	
-	public Controller(GameDriver newDriver){
+	public Controller(GameDriver newDriver)
+	{
 		this.driver = newDriver;
-		SetUpDialog setupBox = new SetUpDialog();
+		setupBox = new SetUpDialog();
 		driver.createMapObject(setupBox.getMapInfo("map"));
 		playerInfoGUI = new PlayerInfoView();
         mapGUI = new MapView(setupBox.getMapInfo("bmp"));
@@ -32,15 +35,17 @@ public class Controller {
         cardsGUI = new CardsView();
         controlsGUI = new ControlsView();
         MainView.createInstance(playerInfoGUI, mapGUI, diceRollGUI, cardsGUI, controlsGUI);
-        setupBox.getPlayerInfo();
         driver.setPlayerView(playerInfoGUI);
 		driver.setMapView(mapGUI);
 		driver.setControlsView(controlsGUI);
-		driver.runGame();
+	}
+	
+	public String[] getPlayerInfo(){
+		return setupBox.getPlayerInfo();
 	}
 
-	public String placeArmyDialog(String[] countriesNamesNoArmy) {
-		SetUpDialog setupBox = new SetUpDialog();
+	public String placeArmyDialog(String[] countriesNamesNoArmy) 
+	{
 		return setupBox.placeArmyDialog(countriesNamesNoArmy);
 	}
 	

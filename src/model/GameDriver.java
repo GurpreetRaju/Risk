@@ -10,8 +10,8 @@ import view.*;
  * @author Gurpreet
  * @version 1.0
  */
-public class GameDriver {
-	
+public class GameDriver 
+{
 	private static GameDriver driver;
 	private PlayerInfoView playerInfoGUI;
 	private Map map;
@@ -46,14 +46,16 @@ public class GameDriver {
 	 */
 	public void runGame()
 	{
+		startUpPhase();
 		this.controlsGUI.reinforcementConrols(getCurrentPlayer().getArmies(), getCurrentPlayer().getCountriesNames());
 	}
 	/**
 	 * This method starts the startup phase of game.
 	 * It assigns countries to players.
 	 */
-	public void startUpPhase(String[] newPlayerData)
+	public void startUpPhase()
 	{
+		String[] newPlayerData = controller.getPlayerInfo();
         players = new ArrayList<Player>();
         for(String newPlayer: newPlayerData)
         {
@@ -62,8 +64,10 @@ public class GameDriver {
         players.get(0).setTurnTrue();
         updatePlayerView();
         int i = 0;
-        for(MapNode m : map.getMapData()){
-        	for(CountryNode c: m.getCountries()){
+        for(MapNode m : map.getMapData())
+        {
+        	for(CountryNode c: m.getCountries())
+        	{
         		c.setOwner(players.get(i));
         		players.get(i).addCountry(c);
         		if(++i>=players.size())
@@ -73,13 +77,17 @@ public class GameDriver {
         	}
         }
         
-        for(int i1=0;i1<players.get(0).getArmiesCount();i1++){
-        	for(Player p: players){
+        for(int i1=0;i1<players.get(0).getArmiesCount();i1++)
+        {
+        	for(Player p: players)
+        	{
         		String s;
-        		if(p.getCountriesNamesNoArmy().length!=0){
+        		if(p.getCountriesNamesNoArmy().length!=0)
+        		{
         			s = controller.placeArmyDialog(p.getCountriesNamesNoArmy());
         		}
-        		else{
+        		else
+        		{
         			s= controller.placeArmyDialog(p.getCountriesNames());
         		}
         		p.getCountry(s).addArmy(1);
@@ -88,22 +96,26 @@ public class GameDriver {
         map.updateMap();
 	}
 	
-	public void setPlayerView(PlayerInfoView newView){
+	public void setPlayerView(PlayerInfoView newView)
+	{
 		this.playerInfoGUI = newView;
 	}
 	
-	public void setMapView(MapView newGui){
+	public void setMapView(MapView newGui)
+	{
 		map.addObserver(newGui);
 	}
 	
-	public void setControlsView(ControlsView controlView){
+	public void setControlsView(ControlsView controlView)
+	{
 		this.controlsGUI = controlView;
 	}
 	
 	/**
 	 * This method show players information on GUI.
 	 */
-	public void updatePlayerView(){
+	public void updatePlayerView()
+	{
 		String[] playerNames = new String[players.size()];
 		int i=0;
 		for(Player p: players)
@@ -117,28 +129,34 @@ public class GameDriver {
 	/**
 	 * @return current player 
 	 */
-	public Player getCurrentPlayer(){
-		for(Player player:players){
-			if(player.getTurn()){
+	public Player getCurrentPlayer()
+	{
+		for(Player player:players)
+		{
+			if(player.getTurn())
+			{
 				return player;
 			}
 		}
 		return null;
 	}
 	
-	public void setNextPlayerTurn(){
+	public void setNextPlayerTurn()
+	{
 		int currentPlayerIndex = players.indexOf(getCurrentPlayer());
 		getCurrentPlayer().setTurnFalse();
-		if (currentPlayerIndex == players.size()-1){
+		if (currentPlayerIndex == players.size()-1)
+		{
 			players.get(0).setTurnTrue();
 		}
-		else{
+		else
+		{
 			players.get(currentPlayerIndex+1).setTurnTrue();
 		}
 	}
 	
-	public void createMapObject(String mapPath){
+	public void createMapObject(String mapPath)
+	{
 		map = new Map(mapPath);
 	}
-	
 }
