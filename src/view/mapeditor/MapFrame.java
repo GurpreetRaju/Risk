@@ -26,15 +26,16 @@ public class MapFrame extends JFrame {
 
 	private JPanel contentPane;
 	mapEditorController obj = new mapEditorController();
+	static MapFrame frame = new MapFrame();
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					MapFrame frame = new MapFrame();
 					frame.setVisible(true);
 					frame.setExtendedState(JFrame.MAXIMIZED_BOTH); 
 
@@ -99,6 +100,7 @@ public class MapFrame extends JFrame {
 		btnNewMap.setForeground(Color.BLACK);
 		btnNewMap.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				frame.setVisible(false);
 				obj.newMapActions();
 			}
 		});

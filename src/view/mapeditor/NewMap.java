@@ -70,7 +70,7 @@ public class NewMap extends JFrame {
 		gbl_contentPane.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0};
 		gbl_contentPane.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gbl_contentPane.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 1.0, Double.MIN_VALUE};
-		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 
 		JLabel lblCreateYourOwn = new JLabel("Create your own Game Map!");
@@ -178,7 +178,6 @@ public class NewMap extends JFrame {
 		gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
 		gbc_comboBox.gridx = 2;
 		gbc_comboBox.gridy = 5;
-
 		contentPane.add(comboBox, gbc_comboBox);
 
 		JLabel lblName_1 = new JLabel("Name");
@@ -201,30 +200,10 @@ public class NewMap extends JFrame {
 		contentPane.add(txtCountryName, gbc_txtCountryName);
 		txtCountryName.setColumns(10);
 
-		JLabel lblNeighbours = new JLabel("Neighbours");
-		GridBagConstraints gbc_lblNeighbours = new GridBagConstraints();
-		gbc_lblNeighbours.anchor = GridBagConstraints.EAST;
-		gbc_lblNeighbours.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNeighbours.gridx = 5;
-		gbc_lblNeighbours.gridy = 7;
-		contentPane.add(lblNeighbours, gbc_lblNeighbours);
-
-		DefaultListModel<String> model1 = new DefaultListModel<String>();
-		//		model1.addElement("ele1");
-		JList items = new JList();
-		//		items.setToolTipText("Choose neighbours...");
-		items.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-		items.setModel(model1);
-		GridBagConstraints gbc_comboBox_1 = new GridBagConstraints();
-		gbc_comboBox_1.insets = new Insets(0, 0, 5, 0);
-		gbc_comboBox_1.fill = GridBagConstraints.HORIZONTAL;
-		gbc_comboBox_1.gridx = 6;
-		gbc_comboBox_1.gridy = 7;
-		contentPane.add(items, gbc_comboBox_1);
-
 		JButton btnDeleteCountry = new JButton("Delete Country");
 		btnDeleteCountry.setFont(new Font("Bookman Old Style", Font.BOLD | Font.ITALIC, 18));
 		btnDeleteCountry.setForeground(Color.BLACK);
+		btnDeleteCountry.setBackground(new Color(240, 255, 255));
 		GridBagConstraints gbc_btnDeleteCountry = new GridBagConstraints();
 		gbc_btnDeleteCountry.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnDeleteCountry.insets = new Insets(0, 0, 5, 5);
@@ -254,6 +233,7 @@ public class NewMap extends JFrame {
 		contentPane.add(btnAdd, gbc_btnAdd);
 
 		JButton btnDeleteContinent = new JButton("Delete Continent");
+		btnDeleteContinent.setBackground(new Color(240, 255, 255));
 		btnDeleteContinent.setFont(new Font("Bookman Old Style", Font.BOLD | Font.ITALIC, 18));
 		btnDeleteContinent.setForeground(Color.BLACK);
 		GridBagConstraints gbc_btnDeleteContinent = new GridBagConstraints();
@@ -270,11 +250,46 @@ public class NewMap extends JFrame {
 		gbc_comboBox_3.fill = GridBagConstraints.HORIZONTAL;
 		gbc_comboBox_3.gridx = 2;
 		gbc_comboBox_3.gridy = 11;
-		//		for(String temp: continent) {
-		//			comboBox_3.addItem(temp);
-		//		}
 
 		contentPane.add(comboBox_3, gbc_comboBox_3);
+
+		JButton btnAddNeighbours = new JButton("Add Neighbours");
+		btnAddNeighbours.setFont(new Font("Bookman Old Style", Font.BOLD | Font.ITALIC, 18));
+		GridBagConstraints gbc_btnAddNeighbours = new GridBagConstraints();
+		gbc_btnAddNeighbours.fill = GridBagConstraints.HORIZONTAL;
+		gbc_btnAddNeighbours.insets = new Insets(0, 0, 5, 5);
+		gbc_btnAddNeighbours.gridx = 1;
+		gbc_btnAddNeighbours.gridy = 14;
+		contentPane.add(btnAddNeighbours, gbc_btnAddNeighbours);
+
+		JComboBox comboBox_1 = new JComboBox();
+		GridBagConstraints gbc_comboBox_11 = new GridBagConstraints();
+		comboBox_1.setToolTipText("Select country for adding neighbours");
+		gbc_comboBox_11.insets = new Insets(0, 0, 5, 5);
+		gbc_comboBox_11.fill = GridBagConstraints.HORIZONTAL;
+		gbc_comboBox_11.gridx = 2;
+		gbc_comboBox_11.gridy = 14;
+		comboBox_1.setEnabled(false);
+		contentPane.add(comboBox_1, gbc_comboBox_11);
+		
+		JLabel lblChooseNeighbours = new JLabel("Choose Neighbours");
+		lblChooseNeighbours.setFont(new Font("Bookman Old Style", Font.BOLD | Font.ITALIC, 18));
+		GridBagConstraints gbc_lblChooseNeighbours = new GridBagConstraints();
+		gbc_lblChooseNeighbours.insets = new Insets(0, 0, 5, 5);
+		gbc_lblChooseNeighbours.gridx = 1;
+		gbc_lblChooseNeighbours.gridy = 16;
+		contentPane.add(lblChooseNeighbours, gbc_lblChooseNeighbours);
+		
+		DefaultListModel<String> model2 = new DefaultListModel<String>();
+		JList list = new JList();
+		list.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+		list.setModel(model2);
+		GridBagConstraints gbc_list = new GridBagConstraints();
+		gbc_list.insets = new Insets(0, 0, 5, 5);
+		gbc_list.fill = GridBagConstraints.BOTH;
+		gbc_list.gridx = 2;
+		gbc_list.gridy = 16;
+		contentPane.add(list, gbc_list);
 
 		JButton btnSaveMap = new JButton("Save Map");
 		btnSaveMap.setBackground(new Color(152, 251, 152));
@@ -285,6 +300,14 @@ public class NewMap extends JFrame {
 		gbc_btnSaveMap.gridy = 29;
 		contentPane.add(btnSaveMap, gbc_btnSaveMap);
 
+		btnAddNeighbours.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (e.getSource() == btnAddNeighbours) {
+					comboBox_1.setEnabled(true);
+				}
+			}
+		});
+
 		btnDone.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (e.getSource() == btnDone) {
@@ -292,11 +315,7 @@ public class NewMap extends JFrame {
 
 					if(cn.compareTo("")==0 || txtContinentControlValue.getText().compareTo("")==0) {
 						JOptionPane.showMessageDialog(contentPane, "Enter values first", "Error", JOptionPane.ERROR_MESSAGE);
-
-
-					}
-					//System.out.println("hi");
-					else {
+					}else {
 						int cv = Integer.parseInt(txtContinentControlValue.getText()); //perform your operation
 						ArrayList<CountryNode> countryArr = new ArrayList<CountryNode>();
 						Boolean continentExist = false;
@@ -349,8 +368,6 @@ public class NewMap extends JFrame {
 					String cn1 = txtCountryName.getText();
 					if(cn1.compareTo("")==0) {
 						JOptionPane.showMessageDialog(contentPane, "Enter values first", "Error", JOptionPane.ERROR_MESSAGE);
-
-
 					}else {
 						String selectedContinent = comboBox.getSelectedItem().toString();
 						Boolean countryExist = false;
@@ -360,18 +377,18 @@ public class NewMap extends JFrame {
 									countryExist=true;
 								}
 							}
-
 						}
 
 						if(!countryExist) {
 							ArrayList<CountryNode> neighbours= new ArrayList<CountryNode>();
 
-							for (Object ncountry : items.getSelectedValuesList()) {
+							for (Object ncountry : list.getSelectedValuesList()) {
 								CountryNode cn =  new CountryNode(ncountry.toString(), null, null);
 								neighbours.add(cn);
 							}
-							model1.removeAllElements();
+							model2.removeAllElements();
 							comboBox_2.removeAllItems();
+							comboBox_1.removeAllItems();
 
 							for (MapNode node: continents) {
 								if(selectedContinent.compareTo(node.getContinentName())==0) {
@@ -382,17 +399,15 @@ public class NewMap extends JFrame {
 									node.addCountry(newCountry);
 								}
 								for (CountryNode temp : node.getCountries()) {
-									model1.addElement(temp.getCountryName());
+									model2.addElement(temp.getCountryName());
 									comboBox_2.addItem(temp.getCountryName());
+									comboBox_1.addItem(temp.getCountryName());
 								}
 
 							}	
 						}else {
 							JOptionPane.showMessageDialog(contentPane, "Country already exist", "Error", JOptionPane.ERROR_MESSAGE);
 						}
-
-
-
 					}
 				}
 			}
@@ -404,7 +419,8 @@ public class NewMap extends JFrame {
 				if (e.getSource() == btnDeleteCountry) {
 					String selectedcountry = comboBox_2.getSelectedItem().toString();
 					comboBox_2.removeAllItems();
-					model1.removeAllElements();
+					model2.removeAllElements();
+					comboBox_1.removeAllItems();
 					for (MapNode node: continents) {
 						for (CountryNode temp : node.getCountries()) {
 							if(temp.getCountryName().compareTo(selectedcountry)==0) {
@@ -414,8 +430,9 @@ public class NewMap extends JFrame {
 					}
 					for (MapNode node: continents) {
 						for (CountryNode temp : node.getCountries()) {
-							model1.addElement(temp.getCountryName());
+							model2.addElement(temp.getCountryName());
 							comboBox_2.addItem(temp.getCountryName());
+							comboBox_1.addItem(temp.getCountryName());
 						}
 					}
 				}
@@ -432,7 +449,6 @@ public class NewMap extends JFrame {
 							break;
 						}
 					}
-
 
 					comboBox.removeAllItems();
 					comboBox_3.removeAllItems();
@@ -451,15 +467,14 @@ public class NewMap extends JFrame {
 					for (MapNode i :continents) {	
 						if(i.getCountries().length == 0) {
 							saveMap = false;
-							
 						}
-				}
-					if(saveMap) {
-					mapWriter.writeMap(continents);
-			}else {
-				JOptionPane.showMessageDialog(contentPane, "Enter atleast one country", "Error", JOptionPane.ERROR_MESSAGE);
-			}
 					}
+					if(saveMap) {
+						mapWriter.writeMap(continents);
+					}else {
+						JOptionPane.showMessageDialog(contentPane, "Enter atleast one country", "Error", JOptionPane.ERROR_MESSAGE);
+					}
+				}
 			}
 		});
 
