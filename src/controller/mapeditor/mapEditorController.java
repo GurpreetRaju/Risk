@@ -34,7 +34,7 @@ public class mapEditorController {
 	 * action listener applied on button "Choose Map File" for selecting map file
 	 */
 	private ActionListener newButtonAction;
-	
+
 	/**
 	 * Calls the readMap function of MapReader to read the map file
 	 * @param filename address of the map file to be loaded
@@ -44,7 +44,7 @@ public class mapEditorController {
 		mapReader.readMap(filename);
 
 	}
-	
+
 	/**
 	 * Function to browse the map file on the local system
 	 * This function implements the ActionListener events for the map file chooser button
@@ -62,31 +62,31 @@ public class mapEditorController {
 			e1.printStackTrace();
 		}
 		existingBtnAction=(new ActionListener(){
-	        public void actionPerformed(ActionEvent e) {
-	        	final JFileChooser fc = new JFileChooser();
-	            fc.setCurrentDirectory(new java.io.File("user.home"));
-	            fc.setDialogTitle("Choose your Conquest Map File");
-	            fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-	            if (fc.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-	                fc.getSelectedFile().getAbsolutePath();
-	                MapReader mapReader = new MapReader();
-//	                ExistingMap existingMap = new ExistingMap(mapReader.readMap(fc.getSelectedFile().getAbsolutePath()));
-//	                existingMap.setVisible(true);
-	                MapWriter mapWriter = new MapWriter();
-	                mapWriter.writeMap(mapReader.readMap(fc.getSelectedFile().getAbsolutePath()));
-	            }
-	        }
-	    });
+			public void actionPerformed(ActionEvent e) {
+				final JFileChooser fc = new JFileChooser();
+				fc.setCurrentDirectory(new java.io.File("user.home"));
+				fc.setDialogTitle("Choose your Conquest Map File");
+				fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+				if (fc.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+					fc.getSelectedFile().getAbsolutePath();
+					MapReader mapReader = new MapReader();
+					ExistingMap existingMap = new ExistingMap(mapReader.readMap(fc.getSelectedFile().getAbsolutePath()));
+					existingMap.setVisible(true);
+					// MapWriter mapWriter = new MapWriter();
+					// mapWriter.writeMap(mapReader.readMap(fc.getSelectedFile().getAbsolutePath()));
+				}
+			}
+		});
 		this.mapChooser.openFileChooseBtnAction(existingBtnAction);
 	}
-	
+
 	/**
 	 * NewMap Frame get initialize with this method
 	 */
 	public void newMapActions() {
-				NewMap newMap = new NewMap();
-				newMap.setVisible(true);
-			}
-		
+		NewMap newMap = new NewMap();
+		newMap.setVisible(true);
 	}
-	
+
+}
+
