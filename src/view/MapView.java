@@ -18,7 +18,8 @@ import javax.swing.JScrollPane;
 
 import model.Map;
 
-public class MapView extends JPanel implements Observer{
+public class MapView extends JPanel implements Observer
+{
 	
 	private BufferedImage image;
 	/**
@@ -32,11 +33,17 @@ public class MapView extends JPanel implements Observer{
 		this.setOpaque(true);
 	    this.setBackground(Color.WHITE);
 	    this.setLayout(null);
-	    try {
-			image = ImageIO.read(new File(newImage));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+	    if(newImage!=null)
+	    {
+	    	try 
+	    	{
+	    		image = ImageIO.read(new File(newImage));
+	    	} 
+	    	catch (IOException e) 
+	    	{
+	    		e.printStackTrace();
+	    	}
+	    }
 	}
 	
 	protected void paintComponent(Graphics g) {
@@ -88,7 +95,14 @@ public class MapView extends JPanel implements Observer{
 
 	@Override
 	public void update(Observable obs, Object map) {
-		setGraphicalMap(((Map) obs).getMapDataObject());
+		if(image!=null)
+		{
+			setGraphicalMap(((Map) obs).getMapDataObject());
+		}
+		else
+		{
+			setMap(((Map) obs).getMapObject());
+		}
 	}
 	
 }
