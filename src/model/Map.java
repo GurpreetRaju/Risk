@@ -71,6 +71,35 @@ public class Map extends Observable{
 		return newData.toArray(new String[newData.size()][]);
 	}
 	
+	public String[][] getMapObject()
+	{
+		ArrayList<Object[]> newData = new ArrayList<Object[]>();
+		for(MapNode m : mapData)
+		{
+			for(CountryNode n : m.getCountries())
+			{
+				String[] tempObject = new String[5];
+				tempObject[0] = m.getContinentName() +", "+ m.getControlValue();
+				tempObject[1] = n.getCountryName();
+				String neighbours = "";
+				for(String s: n.getNeighbourCountriesString())
+				{
+					neighbours = neighbours + s + ", ";
+				}
+				tempObject[4] = neighbours;
+				if(n.getOwner()!=null){
+					tempObject[3] = n.getOwner().getName();
+				}
+				else{
+					tempObject[3] = "";
+				}
+				tempObject[2] = String.valueOf(n.getArmiesCount());
+				newData.add(tempObject);
+			}
+		}
+		return newData.toArray(new String[newData.size()][]);
+	}
+	
 	/**
 	 * Print map data on console.
 	 */
