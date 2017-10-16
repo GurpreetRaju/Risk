@@ -46,18 +46,14 @@ public class GameDriver {
 	 */
 	public void runGame()
 	{
-		startUpPhase();
-		map.updateMap();
 		this.controlsGUI.reinforcementConrols(getCurrentPlayer().getArmies(), getCurrentPlayer().getCountriesNames());
 	}
 	/**
 	 * This method starts the startup phase of game.
 	 * It assigns countries to players.
 	 */
-	public void startUpPhase()
+	public void startUpPhase(String[] newPlayerData)
 	{
-		SetUpDialog setupBox = new SetUpDialog();
-        String[] newPlayerData = setupBox.getPlayerInfo();
         players = new ArrayList<Player>();
         for(String newPlayer: newPlayerData)
         {
@@ -81,14 +77,15 @@ public class GameDriver {
         	for(Player p: players){
         		String s;
         		if(p.getCountriesNamesNoArmy().length!=0){
-        			s = setupBox.placeArmyDialog(p.getCountriesNamesNoArmy());
+        			s = controller.placeArmyDialog(p.getCountriesNamesNoArmy());
         		}
         		else{
-        			s= setupBox.placeArmyDialog(p.getCountriesNames());
+        			s= controller.placeArmyDialog(p.getCountriesNames());
         		}
         		p.getCountry(s).addArmy(1);
         	}
         }
+        map.updateMap();
 	}
 	
 	public void setPlayerView(PlayerInfoView newView){
