@@ -24,9 +24,6 @@ public class GameDriver {
 	 */
 	private GameDriver()
 	{
-		SetUpDialog mapBox = new SetUpDialog();
-		String mapPath = mapBox.getMapInfo();
-		map = new Map(mapPath);
 		controller = new Controller(this);
 	}
 	/**
@@ -141,6 +138,10 @@ public class GameDriver {
 		else{
 			players.get(currentPlayerIndex+1).setTurnTrue();
 		}
+	}
+	
+	public void createMapObject(String mapPath){
+		map = new Map(mapPath);
 	}
 	
 }

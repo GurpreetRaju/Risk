@@ -1,11 +1,16 @@
 package view;
 
 import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -15,17 +20,28 @@ import model.Map;
 
 public class MapView extends JPanel implements Observer{
 	
+	private BufferedImage image;
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 2353535256045293828L;
 
-	public MapView()
+	public MapView(String newImage)
 	{
 		this.setBorder(BorderFactory.createLineBorder(Color.black));
 		this.setOpaque(true);
 	    this.setBackground(Color.WHITE);
 	    this.setLayout(null);
+	    try {
+			image = ImageIO.read(new File(newImage));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	protected void paintComponent(Graphics g) {
+	    super.paintComponent(g); // paint the background image and scale it to fill the entire space
+	    g.drawImage(image, 0, 0, this);
 	}
 
 	public void setMap(String[][] newMapData) 
@@ -59,13 +75,13 @@ public class MapView extends JPanel implements Observer{
 		this.removeAll();
 		for(String[] o: newMapData){
 			JPanel panel = new JPanel();
-			panel.setSize(100, 100);
+			panel.setSize(5, 5);
+			panel.setBackground(Color.BLACK);
 			panel.setLocation(Integer.parseInt(o[0]), Integer.parseInt(o[4]));
-			for(int i=1;i<4;i++){
-				panel.add(new JLabel(o[i]));				
-			}
+			panel.add(new JLabel(" "));
+			String text = o[1]+" "+o[3]+" "+o[2];
+			panel.setToolTipText(text);
 			this.add(panel);
-			System.out.print("Debug message");
 		}
 		this.validate();
 	}

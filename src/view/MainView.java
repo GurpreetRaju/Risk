@@ -16,19 +16,6 @@ public class MainView extends JFrame{
 	private CardsView cardsArea;
 	private ControlsView controlsArea;
 	
-	private MainView()
-	{
-		playerData = new PlayerInfoView();
-        map = new MapView();
-        diceArea = new DiceRollView();
-        cardsArea = new CardsView();
-        controlsArea = new ControlsView();
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        init();
-        this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
-        this.setVisible(true);
-	}
-	
 	private MainView(PlayerInfoView newPlayerInfo, MapView newMap, DiceRollView newDice, CardsView newCards, ControlsView newControls) 
 	{	
 		playerData = newPlayerInfo;
@@ -82,10 +69,7 @@ public class MainView extends JFrame{
 	}
 
 	public static MainView getInstance() {
-		if(mainView == null){
-			mainView = new MainView();
-        }
-        return mainView;
+		return mainView;
     }
 	
 	public static void createInstance(PlayerInfoView newPlayerInfo, MapView newMap, DiceRollView newDice, CardsView newCards, ControlsView newControls)

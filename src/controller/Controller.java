@@ -11,6 +11,7 @@ import view.DiceRollView;
 import view.MainView;
 import view.MapView;
 import view.PlayerInfoView;
+import view.SetUpDialog;
 
 public class Controller {
 	
@@ -23,13 +24,15 @@ public class Controller {
 	private ArrayList<Player> players;
 	
 	public Controller(GameDriver newDriver){
+		this.driver = newDriver;
+		SetUpDialog mapBox = new SetUpDialog();
+		driver.createMapObject(mapBox.getMapInfo("map"));
 		playerInfoGUI = new PlayerInfoView();
-        mapGUI = new MapView();
+        mapGUI = new MapView(mapBox.getMapInfo("bmp"));
         diceRollGUI = new DiceRollView();
         cardsGUI = new CardsView();
         controlsGUI = new ControlsView();
         MainView.createInstance(playerInfoGUI, mapGUI, diceRollGUI, cardsGUI, controlsGUI);
-        this.driver = newDriver;
         init();
 	}
 	
