@@ -21,6 +21,7 @@ public class GameDriver {
 	private Map map;
 	private ArrayList<Player> players;
 	private Controller controller;
+	private ControlsView controlsGUI;
 	/**
 	 * Constructor initialize the GUI and  map class object.
 	 * Constructor is private so objects can not be created directly for this class.
@@ -33,7 +34,9 @@ public class GameDriver {
 //        cardsGUI = new CardsView();
 //        controlsGUI = new ControlsView();
 //        MainView.createInstance(playerInfoGUI, mapGUI, diceRollGUI, cardsGUI, controlsGUI);
-		map = new Map("Equalizer.map");
+		SetUpDialog mapBox = new SetUpDialog();
+		String mapPath = mapBox.getMapInfo();
+		map = new Map(mapPath);
 		controller = new Controller(this);
 //		map.addObserver(mapGUI);
 	}
@@ -59,6 +62,7 @@ public class GameDriver {
 	{
 		startUpPhase();
 		map.updateMap();
+		this.controlsGUI.reinforcementConrols(getCurrentPlayer().getArmies(), getCurrentPlayer().getCountriesNames());
 	}
 	/**
 	 * This method starts the startup phase of game.
@@ -73,12 +77,11 @@ public class GameDriver {
         {
         	players.add(new Player(newPlayer,RiskData.InitialArmiesCount.getArmiesCount(newPlayerData.length)));
         }
+        players.get(0).setTurnTrue();
         updatePlayerView();
         int i = 0;
-        for(MapNode m : map.getMapData())
-        {
-        	for(CountryNode c: m.getCountries())
-        	{
+        for(MapNode m : map.getMapData()){
+        	for(CountryNode c: m.getCountries()){
         		c.setOwner(players.get(i));
         		players.get(i).addCountry(c);
         		if(++i>=players.size())
@@ -88,8 +91,7 @@ public class GameDriver {
         	}
         }
         
-        for(int i1=0;i1<players.get(0).getArmiesCount();i1++)
-        {
+        for(int i1=0;i1<players.get(0).getArmiesCount();i1++){
         	for(Player p: players){
         		String s;
         		if(p.getCountriesNamesNoArmy().length!=0){
@@ -100,7 +102,7 @@ public class GameDriver {
         		}
         		p.getCountry(s).addArmy(1);
         	}
-        }  
+        }
 	}
 	
 	public void setPlayerView(PlayerInfoView newView){
@@ -109,6 +111,10 @@ public class GameDriver {
 	
 	public void setMapView(MapView newGui){
 		map.addObserver(newGui);
+	}
+	
+	public void setControlsView(ControlsView controlView){
+		this.controlsGUI = controlView;
 	}
 	
 	/**
@@ -137,5 +143,15 @@ public class GameDriver {
 		return null;
 	}
 	
+	public void setNextPlayerTurn(){
+		int currentPlayerIndex = players.indexOf(getCurrentPlayer());
+		getCurrentPlayer().setTurnFalse();
+		if (currentPlayerIndex == players.size()-1){
+			players.get(0).setTurnTrue();
+		}
+		else{
+			players.get(currentPlayerIndex+1).setTurnTrue();
+		}
+	}
 	
 }
