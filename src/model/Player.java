@@ -242,6 +242,11 @@ public class Player {
 	public boolean getTurn(){
 		return this.turn;
 	}
+	
+	public void setArmies(int newArmies)
+	{
+		this.armiesCount = newArmies;
+	}
 }
 
 

@@ -1,7 +1,10 @@
 package controller;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import model.CountryNode;
 import model.GameDriver;
 import model.Map;
 import model.Player;
@@ -38,6 +41,25 @@ public class Controller
         driver.setPlayerView(playerInfoGUI);
 		driver.setMapView(mapGUI);
 		driver.setControlsView(controlsGUI);
+		controlsGUI.addArmiesButtonAction(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				controlsGUI.countrieslistAction(new ActionListener() {
+					
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						String countryName = controlsGUI.getCountrySelected();
+						CountryNode country = driver.getCountry(countryName);
+						int armies = controlsGUI.getArmiesValue();
+						country.addArmy(armies);
+						driver.getCurrentPlayer().removeArmies(armies);
+						
+					}
+				});
+				
+			}
+		});
 	}
 	
 	public String[] getPlayerInfo(){
@@ -47,6 +69,11 @@ public class Controller
 	public String placeArmyDialog(String[] countriesNamesNoArmy) 
 	{
 		return setupBox.placeArmyDialog(countriesNamesNoArmy);
+	}
+	
+	public GameDriver getGameDriver()
+	{
+		return this.driver;
 	}
 	
 }

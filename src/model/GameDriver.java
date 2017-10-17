@@ -159,4 +159,56 @@ public class GameDriver
 	{
 		map = new Map(mapPath);
 	}
+	
+	public String [] getNeighbourCountryNames(String countryname)
+	{
+		for(CountryNode country: getCurrentPlayer().getCountries())
+		{
+			if(country.getCountryName().equals(countryname))
+			{
+				return country.getNeighbourCountriesString();
+			}
+		}
+		return null;
+	}
+	
+	public int getPlayerArmies()
+	{
+		return getCurrentPlayer().getArmies();
+	}
+	
+	public String [] getPlayerCountryNames()
+	{
+		return getCurrentPlayer().getCountriesNames();
+	}
+	
+	public ArrayList<CountryNode> getPlayerCountries()
+	{
+		return getCurrentPlayer().getCountries();
+	}
+	
+	public CountryNode [] getNeighbourCountries(CountryNode countrynode)
+	{
+		for(CountryNode country: getCurrentPlayer().getCountries())
+		{
+			if(country.getCountryName().equals(countrynode.getCountryName()))
+			{
+				return country.getNeighbourCountries();
+			}
+		}
+		return null;
+	}
+	
+	public CountryNode getCountry(String countryname)
+	{
+		for(CountryNode country : getCurrentPlayer().getCountries())
+		{
+			if(country.getCountryName().equals(countryname))
+			{
+				return country;
+			}
+		}
+		
+		return null;
+	}
 }
