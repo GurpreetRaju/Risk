@@ -47,7 +47,6 @@ public class GameDriver
 	public void runGame()
 	{
 		startUpPhase();
-		this.controlsGUI.reinforcementConrols(getCurrentPlayer().getArmies(), getCurrentPlayer().getCountriesNames());
 	}
 	/**
 	 * This method starts the startup phase of game.
@@ -94,6 +93,7 @@ public class GameDriver
         	}
         }
         map.updateMap();
+        reinforcementPhase();
 	}
 	
 	public void setPlayerView(PlayerInfoView newView)
@@ -210,5 +210,17 @@ public class GameDriver
 		}
 		
 		return null;
+	}
+	
+	public void reinforcementPhase()
+	{
+		this.controlsGUI.reinforcementConrols(getPlayerArmies(), getPlayerCountryNames());
+		//System.out.println(getPlayerArmies());
+		this.controller.setActionListner();
+	}
+	
+	public void fortificationPhase()
+	{
+		this.controlsGUI.fortificationControls(getPlayerCountryNames());
 	}
 }
