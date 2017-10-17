@@ -215,9 +215,8 @@ public class ExistingMapEditor extends JFrame {
 		contentPane.add(lblNeighbours, gbc_lblNeighbours);
 
 		DefaultListModel<String> model1 = new DefaultListModel<String>();
-		//		model1.addElement("ele1");
 		JList items = new JList();
-		//		items.setToolTipText("Choose neighbours...");
+		items.setToolTipText("Choose neighbours...");
 		items.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 		items.setModel(model1);
 		GridBagConstraints gbc_comboBox_1 = new GridBagConstraints();
