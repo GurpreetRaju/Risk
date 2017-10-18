@@ -47,7 +47,7 @@ public class GameDriver
 	public void runGame()
 	{
 		startUpPhase();
-		this.controlsGUI.reinforcementConrols(getCurrentPlayer().getArmies(), getCurrentPlayer().getCountriesNames());
+		reinforcementPhase();
 	}
 	/**
 	 * This method starts the startup phase of game.
@@ -158,5 +158,69 @@ public class GameDriver
 	public void createMapObject(String mapPath)
 	{
 		map = new Map(mapPath);
+	}
+	
+	public String [] getNeighbourCountryNames(String countryname)
+	{
+		for(CountryNode country: getCurrentPlayer().getCountries())
+		{
+			if(country.getCountryName().equals(countryname))
+			{
+				return country.getNeighbourCountriesString();
+			}
+		}
+		return null;
+	}
+	
+	public int getPlayerArmies()
+	{
+		return getCurrentPlayer().getArmiesCount();
+	}
+	
+	public String [] getPlayerCountryNames()
+	{
+		return getCurrentPlayer().getCountriesNames();
+	}
+	
+	public ArrayList<CountryNode> getPlayerCountries()
+	{
+		return getCurrentPlayer().getCountries();
+	}
+	
+	public CountryNode [] getNeighbourCountries(CountryNode countrynode)
+	{
+		for(CountryNode country: getCurrentPlayer().getCountries())
+		{
+			if(country.getCountryName().equals(countrynode.getCountryName()))
+			{
+				return country.getNeighbourCountries();
+			}
+		}
+		return null;
+	}
+	
+	public CountryNode getCountry(String countryname)
+	{
+		for(CountryNode country : getCurrentPlayer().getCountries())
+		{
+			if(country.getCountryName().equals(countryname))
+			{
+				return country;
+			}
+		}
+		
+		return null;
+	}
+	
+	public void reinforcementPhase()
+	{
+		this.controlsGUI.reinforcementConrols(getPlayerArmies(), getPlayerCountryNames());
+		//System.out.println(getPlayerArmies());
+		this.controller.setActionListner();
+	}
+	
+	public void fortificationPhase()
+	{
+		this.controlsGUI.fortificationControls(getPlayerCountryNames());
 	}
 }

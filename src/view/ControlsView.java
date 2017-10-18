@@ -15,6 +15,8 @@ import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
+
+import controller.Controller;
 import model.CountryNode;
 import model.GameDriver;
 import model.Player;
@@ -48,11 +50,16 @@ public class ControlsView extends JPanel {
 	JComboBox<String> neighborList;
 	CountryNode countrySelect =null;
 	private String neighbourSelected;
+	private String armiesAvailable;
+	private JButton addArmies;
+	private JButton endReinforcement;
+	
+	private Controller controller;
 	/**
 	 * Constructor to display the Control section of the game for Reinforcement, Attack and Fortification phases.
 	 */
 	public ControlsView(){
-		
+	
 		JLabel label = new JLabel("Controls Here.");
 		this.setLayout(new FlowLayout());
 		this.add(label);
@@ -66,15 +73,20 @@ public class ControlsView extends JPanel {
 	 */
 	public void reinforcementConrols(int armiesCount, String[] countryList){
 		this.removeAll();
+		armiesAvailable = "Armies Available:" + String.valueOf(armiesCount);
 		SpinnerModel sm = new SpinnerNumberModel(1, 1, armiesCount, 1); 
 		armiesSpinner = new JSpinner(sm);
 		countriesList = new JComboBox<String>(countryList);
 		countriesList.setSelectedIndex(0);
+		addArmies = new JButton("Add Armies");
+		endReinforcement = new JButton("End Reinforcement Phase");
 		
-		this.add(new Label("Armies"));
-		this.add(armiesSpinner);
+		this.add(new Label(armiesAvailable));
 		this.add(new Label("Country"));
 		this.add(countriesList);
+		this.add(armiesSpinner);
+		this.add(addArmies);
+		this.add(endReinforcement);
 		//this.add(playMove);
 		//this.add(doneButton);
 		this.validate();
@@ -161,6 +173,31 @@ public class ControlsView extends JPanel {
 	
 	public void doneButtonAction(ActionListener newAction){
 		this.doneButton.addActionListener(newAction);
+	}
+	
+	public void addArmiesButtonAction(ActionListener newAction)
+	{
+		this.addArmies.addActionListener(newAction);
+	}
+	
+	public void endReinforcementAction(ActionListener newAction)
+	{
+		this.endReinforcement.addActionListener(newAction);
+	}
+	
+	public void countrieslistAction(ActionListener newAction)
+	{
+		this.countriesList.addActionListener(newAction);
+	}
+	
+	public int getArmiesValue()
+	{
+		return (int) this.armiesSpinner.getValue();
+	}
+	
+	public String getCountrySelected()
+	{
+		return (String) this.countriesList.getSelectedItem();
 	}
 	
 }
