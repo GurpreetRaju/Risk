@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -46,13 +47,11 @@ public class ControlsView extends JPanel {
 	/**
 	 * Number of armies selected to move to the neighboring country for Fortification phase.
 	 */
-	private int selectedArmies;
+	
 	JComboBox<String> neighborList;
-	CountryNode countrySelect =null;
-	private String neighbourSelected;
 	private String armiesAvailable;
 	private JButton addArmies;
-	private JButton endReinforcement;
+	private JButton endPhase;
 	
 	private Controller controller;
 	/**
@@ -79,17 +78,18 @@ public class ControlsView extends JPanel {
 		countriesList = new JComboBox<String>(countryList);
 		countriesList.setSelectedIndex(0);
 		addArmies = new JButton("Add Armies");
-		endReinforcement = new JButton("End Reinforcement Phase");
+		endPhase = new JButton("End Reinforcement Phase");
 		
 		this.add(new Label(armiesAvailable));
 		this.add(new Label("Country"));
 		this.add(countriesList);
 		this.add(armiesSpinner);
 		this.add(addArmies);
-		this.add(endReinforcement);
+		this.add(endPhase);
 		//this.add(playMove);
 		//this.add(doneButton);
-		this.validate();
+		this.revalidate();
+		this.repaint();
 	}
 	
 	/**
@@ -102,65 +102,21 @@ public class ControlsView extends JPanel {
 		countriesList = new JComboBox<String>(countryList);
 		countriesList.setSelectedIndex(0);
 		
+		neighborList = new JComboBox<String>();
+		neighborList.setEnabled(false);;
+		armiesSpinner = new JSpinner();
+		armiesSpinner.setEnabled(false);;
+		playMove = new JButton("Move Armies");
+		
 		this.add(new Label("Country "));
 		this.add(countriesList);
-		//this.add(playMove);
-		//this.add(doneButton);
-		this.validate();
+		this.add(new Label("Neighbours"));
+		this.add(neighborList);
+		this.add(armiesSpinner);
+		this.add(playMove);
 		
-		Player p = GameDriver.getInstance().getCurrentPlayer();
-		ArrayList<CountryNode> c = p.getCountries();
-		add(new Label("Neighbours"));
-		neighborList = new JComboBox<String>();
-		
-		countriesList.addActionListener(new ActionListener() {
-			
-			@Override
-            public void actionPerformed(ActionEvent e) {
-				String countrySelected = (String) countriesList.getSelectedItem();
-				for(CountryNode i : c){
-					if(i.getCountryName() == countrySelected){
-						neighborList.removeAllItems();
-						for(String name: i.getNeighbourCountriesString()){
-							neighborList.addItem(name);
-						}
-						neighborList.setSelectedIndex(0);
-						countrySelect = i;
-						add(neighborList);
-						validate();
-						break;
-					}
-				}
-				neighbourSelected = (String) neighborList.getSelectedItem();
-				
-				//int armies = i.getArmiesCount();
-				int armies = 10;
-				SpinnerModel sm = new SpinnerNumberModel(1, 0, armies-1, 1); 
-				JSpinner armiesCountSpinner = new JSpinner(sm);
-				add(armiesCountSpinner);
-				validate();
-				JButton button = new JButton("Done");
-				add(button);
-				validate();
-				button.addActionListener(new ActionListener() {
-					@Override
-					public void actionPerformed(ActionEvent e){
-						selectedArmies = (int) armiesCountSpinner.getValue();
-						countrySelect.setArmies(countrySelect.getArmiesCount()-selectedArmies); 
-						for(CountryNode j : countrySelect.getNeighbourCountries()){
-							if(j.getCountryName() == neighbourSelected){
-								j.setArmies(j.getArmiesCount() + selectedArmies);
-								//call end turn
-								
-								break;
-							}
-						}
-					}
-				});
-				
-            }
-		});
-		
+		this.revalidate();
+		this.repaint();
 	}
 
 	/**
@@ -180,14 +136,24 @@ public class ControlsView extends JPanel {
 		this.addArmies.addActionListener(newAction);
 	}
 	
-	public void endReinforcementAction(ActionListener newAction)
+	public void endPhaseAction(ActionListener newAction)
 	{
-		this.endReinforcement.addActionListener(newAction);
+		this.endPhase.addActionListener(newAction);
 	}
 	
 	public void countrieslistAction(ActionListener newAction)
 	{
 		this.countriesList.addActionListener(newAction);
+	}
+	
+	public void updateFortification(int armies, String[] neighbourNames)
+	{
+		this.armiesSpinner.setModel(new SpinnerNumberModel(1, 0, armies-1, 1));
+		this.armiesSpinner.setEnabled(true);;
+		this.neighborList.setModel(new DefaultComboBoxModel<String>(neighbourNames));
+		this.neighborList.setSelectedIndex(0);
+		this.neighborList.setEnabled(true);;
+		this.playMove.setEnabled(true);;
 	}
 	
 	public int getArmiesValue()
@@ -198,6 +164,14 @@ public class ControlsView extends JPanel {
 	public String getCountrySelected()
 	{
 		return (String) this.countriesList.getSelectedItem();
+	}
+
+	public String getNeighborSelected() {
+		return (String) this.neighborList.getSelectedItem();
+	}
+	
+	public boolean isNeighbourSelected(){
+		return this.neighborList.isEnabled();
 	}
 	
 }
