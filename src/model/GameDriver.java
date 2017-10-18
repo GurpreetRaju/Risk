@@ -47,6 +47,7 @@ public class GameDriver
 	public void runGame()
 	{
 		startUpPhase();
+		reinforcementPhase();
 	}
 	/**
 	 * This method starts the startup phase of game.
@@ -93,7 +94,6 @@ public class GameDriver
         	}
         }
         map.updateMap();
-        reinforcementPhase();
 	}
 	
 	public void setPlayerView(PlayerInfoView newView)
@@ -174,7 +174,7 @@ public class GameDriver
 	
 	public int getPlayerArmies()
 	{
-		return getCurrentPlayer().getArmies();
+		return getCurrentPlayer().getArmiesCount();
 	}
 	
 	public String [] getPlayerCountryNames()

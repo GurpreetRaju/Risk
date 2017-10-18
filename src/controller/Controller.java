@@ -65,22 +65,11 @@ public class Controller
 	public void setActionListner()
 	{
 		
-		countryListListner = new ActionListener() {
+				addArmiesListner = new ActionListener() {
 			
 			@Override
-			public void actionPerformed(ActionEvent e) {
-				countryName = controlsGUI.getCountrySelected();
-				
-				
-				
-			}
-		};
-		addArmiesListner = new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				controlsGUI.countrieslistAction(countryListListner);
-				CountryNode country = driver.getCountry(countryName);
+			public void actionPerformed(ActionEvent e) {				
+				CountryNode country = driver.getCountry(controlsGUI.getCountrySelected());
 				int armies = controlsGUI.getArmiesValue();
 				System.out.println(armies);
 				System.out.println(countryName + country.getCountryName());
