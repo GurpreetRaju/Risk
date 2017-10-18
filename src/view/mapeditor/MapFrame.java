@@ -61,7 +61,7 @@ public class MapFrame extends JFrame {
 	 */
 	public void initialize() {
 		this.setLocationRelativeTo(null);
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(140, 140, 500, 340);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.GRAY);

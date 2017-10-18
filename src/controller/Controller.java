@@ -190,7 +190,7 @@ public class Controller
 			public void actionPerformed(ActionEvent e) {
 				mapFrame = new MapFrame();
 				String[] a =null;
-				mapFrame.main(a);
+				MapFrame.main(a);
 				setupBox.chooseOptionFrame().dispose();
 			}
 		};
