@@ -18,6 +18,8 @@ public class GameDriver
 	private ArrayList<Player> players;
 	private Controller controller;
 	private ControlsView controlsGUI;
+	private Phase currentPhase;
+	private Player currentPlayer;
 	/**
 	 * Constructor initialize the GUI and  map class object.
 	 * Constructor is private so objects can not be created directly for this class.
@@ -25,6 +27,7 @@ public class GameDriver
 	private GameDriver()
 	{
 		controller = new Controller(this);
+		currentPhase = new Phase("reinforcement"); 
 	}
 	/**
 	 * <p>
@@ -47,7 +50,7 @@ public class GameDriver
 	public void runGame()
 	{
 		startUpPhase();
-		reinforcementPhase();
+		currentPhase.reinforcementPhase();
 	}
 	/**
 	 * This method starts the startup phase of game.
@@ -56,61 +59,61 @@ public class GameDriver
 	public void startUpPhase()
 	{
 		String[] newPlayerData = controller.getPlayerInfo();
-        players = new ArrayList<Player>();
-        for(String newPlayer: newPlayerData)
-        {
-        	players.add(new Player(newPlayer,RiskData.InitialArmiesCount.getArmiesCount(newPlayerData.length)));
-        }
-        players.get(0).setTurnTrue();
-        updatePlayerView();
-        int i = 0;
-        for(MapNode m : map.getMapData())
-        {
-        	for(CountryNode c: m.getCountries())
-        	{
-        		c.setOwner(players.get(i));
-        		players.get(i).addCountry(c);
-        		if(++i>=players.size())
-        		{
-        			i=0;
-        		}
-        	}
-        }
-        
-        for(int i1=0;i1<players.get(0).getArmiesCount();i1++)
-        {
-        	for(Player p: players)
-        	{
-        		String s;
-        		if(p.getCountriesNamesNoArmy().length!=0)
-        		{
-        			s = controller.placeArmyDialog(p.getCountriesNamesNoArmy());
-        		}
-        		else
-        		{
-        			s= controller.placeArmyDialog(p.getCountriesNames());
-        		}
-        		p.getCountry(s).addArmy(1);
-        	}
-        }
-        map.updateMap();
+		players = new ArrayList<Player>();
+		for(String newPlayer: newPlayerData)
+		{
+			players.add(new Player(newPlayer,RiskData.InitialArmiesCount.getArmiesCount(newPlayerData.length)));
+		}
+		players.get(0).setTurnTrue();
+		updatePlayerView();
+		int i = 0;
+		for(MapNode m : map.getMapData())
+		{
+			for(CountryNode c: m.getCountries())
+			{
+				c.setOwner(players.get(i));
+				players.get(i).addCountry(c);
+				if(++i>=players.size())
+				{
+					i=0;
+				}
+			}
+		}
+
+		for(int i1=0;i1<players.get(0).getArmiesCount();i1++)
+		{
+			for(Player p: players)
+			{
+				String s;
+				if(p.getCountriesNamesNoArmy().length!=0)
+				{
+					s = controller.placeArmyDialog(p.getCountriesNamesNoArmy());
+				}
+				else
+				{
+					s= controller.placeArmyDialog(p.getCountriesNames());
+				}
+				p.getCountry(s).addArmy(1);
+			}
+		}
+		map.updateMap();
 	}
-	
+
 	public void setPlayerView(PlayerInfoView newView)
 	{
 		this.playerInfoGUI = newView;
 	}
-	
+
 	public void setMapView(MapView newGui)
 	{
 		map.addObserver(newGui);
 	}
-	
+
 	public void setControlsView(ControlsView controlView)
 	{
 		this.controlsGUI = controlView;
 	}
-	
+
 	/**
 	 * This method show players information on GUI.
 	 */
@@ -125,7 +128,7 @@ public class GameDriver
 		}
 		playerInfoGUI.setPlayerInfo(playerNames);
 	}
-	
+
 	/**
 	 * @return current player 
 	 */
@@ -140,7 +143,7 @@ public class GameDriver
 		}
 		return null;
 	}
-	
+
 	public void setNextPlayerTurn()
 	{
 		int currentPlayerIndex = players.indexOf(getCurrentPlayer());
@@ -154,12 +157,12 @@ public class GameDriver
 			players.get(currentPlayerIndex+1).setTurnTrue();
 		}
 	}
-	
+
 	public void createMapObject(String mapPath)
 	{
 		map = new Map(mapPath);
 	}
-	
+
 	public String [] getNeighbourCountryNames(String countryname)
 	{
 		for(CountryNode country: getCurrentPlayer().getCountries())
@@ -171,22 +174,22 @@ public class GameDriver
 		}
 		return null;
 	}
-	
+
 	public int getPlayerArmies()
 	{
 		return getCurrentPlayer().getArmiesCount();
 	}
-	
+
 	public String [] getPlayerCountryNames()
 	{
 		return getCurrentPlayer().getCountriesNames();
 	}
-	
+
 	public ArrayList<CountryNode> getPlayerCountries()
 	{
 		return getCurrentPlayer().getCountries();
 	}
-	
+
 	public CountryNode [] getNeighbourCountries(CountryNode countrynode)
 	{
 		for(CountryNode country: getCurrentPlayer().getCountries())
@@ -198,7 +201,7 @@ public class GameDriver
 		}
 		return null;
 	}
-	
+
 	public CountryNode getCountry(String countryname)
 	{
 		for(CountryNode country : getCurrentPlayer().getCountries())
@@ -208,19 +211,40 @@ public class GameDriver
 				return country;
 			}
 		}
-		
 		return null;
 	}
-	
-	public void reinforcementPhase()
-	{
-		this.controlsGUI.reinforcementConrols(getPlayerArmies(), getPlayerCountryNames());
-		//System.out.println(getPlayerArmies());
+	public void setControlsActionListeners(){
 		this.controller.setActionListner();
 	}
-	
-	public void fortificationPhase()
-	{
-		this.controlsGUI.fortificationControls(getPlayerCountryNames());
+	public ControlsView getControlGUI() {
+		return this.controlsGUI;
 	}
+
+	public void changePhase() {
+		if(this.currentPhase.equals(Phase.reinforcement)) {
+			currentPhase.attackPhase();
+		}
+		else if(this.currentPhase.equals(Phase.attack)) {
+			currentPhase.fortificationPhase();
+		}
+		else if(this.currentPhase.equals(Phase.fortification)) {
+			this.setNextPlayerTurn();
+			currentPhase.reinforcementPhase();
+		}
+	}
+	public void continuePhase() {
+		if(this.currentPhase.equals(Phase.reinforcement)) {
+			currentPhase.reinforcementPhase();;
+		}
+		else if(this.currentPhase.equals(Phase.attack)) {
+			currentPhase.attackPhase();
+		}
+		else if(this.currentPhase.equals(Phase.fortification)) {
+			currentPhase.fortificationPhase();
+		}
+	}
+	public void setFortificationLiteners() {
+		this.controller.setFortificationListeners();
+	}
+
 }

@@ -4,6 +4,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.JButton;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerModel;
+import javax.swing.SpinnerNumberModel;
+
 import model.CountryNode;
 import model.GameDriver;
 import model.Map;
@@ -44,8 +49,6 @@ public class Controller
         driver.setPlayerView(playerInfoGUI);
 		driver.setMapView(mapGUI);
 		driver.setControlsView(controlsGUI);
-			
-		
 	}
 	
 	public String[] getPlayerInfo(){
@@ -65,24 +68,66 @@ public class Controller
 	public void setActionListner()
 	{
 		
-				addArmiesListner = new ActionListener() {
-			
+		addArmiesListner = new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {				
 				CountryNode country = driver.getCountry(controlsGUI.getCountrySelected());
 				int armies = controlsGUI.getArmiesValue();
 				System.out.println(armies);
-				System.out.println(countryName + country.getCountryName());
+				System.out.println(country.getCountryName());
 				country.addArmy(armies);
 				System.out.println(country.getArmiesCount());
 				//driver.getCurrentPlayer().removeArmies(armies);
-				driver.getCurrentPlayer().setArmies(driver.getPlayerArmies()-armies);
+				driver.getCurrentPlayer().removeArmies(armies);
 				System.out.println(driver.getPlayerArmies());
-				driver.reinforcementPhase();
+				driver.continuePhase();
 			}
 		};
 		//call reinforcement phase first
 		controlsGUI.addArmiesButtonAction(this.addArmiesListner);
+		
+		controlsGUI.endPhaseAction(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				driver.changePhase();
+			}
+		});
+	}
+	
+	public void setFortificationListeners(){
+		controlsGUI.countrieslistAction(new ActionListener() {
+			@Override
+            public void actionPerformed(ActionEvent e) {
+				String countrySelected = (String) controlsGUI.getCountrySelected();
+				CountryNode countrySelect = GameDriver.getInstance().getCurrentPlayer().getCountry(countrySelected);
+				if(countrySelect.getArmiesCount()>1){
+					ArrayList<String> neighborList = new ArrayList<String>();
+					for(String name: countrySelect.getNeighbourCountriesString()){
+						neighborList.add(name);
+					}
+					controlsGUI.updateFortification(countrySelect.getArmiesCount(), neighborList.toArray(new String[neighborList.size()]));
+				}
+			}
+		});
+		
+		controlsGUI.playButtonAction(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				if(controlsGUI.isNeighbourSelected()) {
+					String countrySelected = (String) controlsGUI.getCountrySelected();
+					int selectedArmies = controlsGUI.getArmiesValue();
+					CountryNode countrySelect = GameDriver.getInstance().getCurrentPlayer().getCountry(countrySelected);
+					String neighbourSelected = controlsGUI.getNeighborSelected();
+					countrySelect.setArmies(countrySelect.getArmiesCount()-selectedArmies); 
+					for(CountryNode j : countrySelect.getNeighbourCountries()){
+						if(j.getCountryName() == neighbourSelected){
+							j.setArmies(j.getArmiesCount() + selectedArmies);
+						}
+					}
+				}
+				driver.changePhase();
+			}
+		});
 	}
 	
 }
