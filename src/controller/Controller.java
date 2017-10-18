@@ -189,7 +189,8 @@ public class Controller
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				mapFrame = new MapFrame();
-				mapFrame.initialize();
+				String[] a =null;
+				mapFrame.main(a);
 				setupBox.chooseOptionFrame().dispose();
 			}
 		};
