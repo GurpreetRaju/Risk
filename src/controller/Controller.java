@@ -1,7 +1,10 @@
 package controller;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import model.CountryNode;
 import model.GameDriver;
 import model.Map;
 import model.Player;
@@ -23,6 +26,9 @@ public class Controller
 	private MapView mapGUI;
 	private PlayerInfoView playerInfoGUI;
 	private SetUpDialog setupBox;
+	private ActionListener addArmiesListner;
+	private ActionListener countryListListner;
+	private String countryName;
 	
 	public Controller(GameDriver newDriver)
 	{
@@ -38,6 +44,8 @@ public class Controller
         driver.setPlayerView(playerInfoGUI);
 		driver.setMapView(mapGUI);
 		driver.setControlsView(controlsGUI);
+			
+		
 	}
 	
 	public String[] getPlayerInfo(){
@@ -47,6 +55,34 @@ public class Controller
 	public String placeArmyDialog(String[] countriesNamesNoArmy) 
 	{
 		return setupBox.placeArmyDialog(countriesNamesNoArmy);
+	}
+	
+	public GameDriver getGameDriver()
+	{
+		return this.driver;
+	}
+	
+	public void setActionListner()
+	{
+		
+				addArmiesListner = new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {				
+				CountryNode country = driver.getCountry(controlsGUI.getCountrySelected());
+				int armies = controlsGUI.getArmiesValue();
+				System.out.println(armies);
+				System.out.println(countryName + country.getCountryName());
+				country.addArmy(armies);
+				System.out.println(country.getArmiesCount());
+				//driver.getCurrentPlayer().removeArmies(armies);
+				driver.getCurrentPlayer().setArmies(driver.getPlayerArmies()-armies);
+				System.out.println(driver.getPlayerArmies());
+				driver.reinforcementPhase();
+			}
+		};
+		//call reinforcement phase first
+		controlsGUI.addArmiesButtonAction(this.addArmiesListner);
 	}
 	
 }
