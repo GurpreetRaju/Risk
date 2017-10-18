@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
+import controller.mapeditor.mapEditorController;
 import model.CountryNode;
 import model.MapNode;
 import model.MapWriter;
@@ -527,7 +528,8 @@ public class ExistingMapEditor extends JFrame {
 						}
 					}
 					if(saveMap) {
-						mapWriter.writeMap(continents);
+						mapWriter.writeMapExisting(continents,mapEditorController.path);
+						System.out.println("hello again");
 					}else {
 						JOptionPane.showMessageDialog(contentPane, "Enter atleast one country", "Error", JOptionPane.ERROR_MESSAGE);
 					}
