@@ -20,6 +20,7 @@ import view.MainView;
 import view.MapView;
 import view.PlayerInfoView;
 import view.SetUpDialog;
+import view.mapeditor.MapFrame;
 
 public class Controller 
 {
@@ -33,22 +34,15 @@ public class Controller
 	private SetUpDialog setupBox;
 	private ActionListener addArmiesListner;
 	private ActionListener countryListListner;
+	private ActionListener mapEditListener;
+	private ActionListener playGameListener;
 	private String countryName;
+	private MapFrame mapFrame;
 	
 	public Controller(GameDriver newDriver)
 	{
 		this.driver = newDriver;
 		setupBox = new SetUpDialog();
-		driver.createMapObject(setupBox.getMapInfo("map"));
-		playerInfoGUI = new PlayerInfoView();
-        mapGUI = new MapView(setupBox.getMapInfo("bmp"));
-        diceRollGUI = new DiceRollView();
-        cardsGUI = new CardsView();
-        controlsGUI = new ControlsView();
-        MainView.createInstance(playerInfoGUI, mapGUI, diceRollGUI, cardsGUI, controlsGUI);
-        driver.setPlayerView(playerInfoGUI);
-		driver.setMapView(mapGUI);
-		driver.setControlsView(controlsGUI);
 	}
 	
 	public String[] getPlayerInfo(){
@@ -130,4 +124,43 @@ public class Controller
 		});
 	}
 	
+	public void chooseMapEditorOrPlayGame(){
+		this.setupBox.chooseMapEditorOrPlayGame();
+	}
+
+	public void mapEditorListener() {
+		mapEditListener =  new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				mapFrame = new MapFrame();
+				mapFrame.initialize();
+				setupBox.chooseOptionFrame().dispose();
+			}
+		};
+		this.setupBox.mapEditAction(mapEditListener);
+	}
+	
+	public void playGameListener() {
+		playGameListener =  new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				init();
+				setupBox.chooseOptionFrame().dispose();
+			}
+		};
+		this.setupBox.playGameAction(playGameListener);
+	}
+	private void init(){
+		driver.createMapObject(setupBox.getMapInfo("map"));
+		playerInfoGUI = new PlayerInfoView();
+        mapGUI = new MapView(setupBox.getMapInfo("bmp"));
+        diceRollGUI = new DiceRollView();
+        cardsGUI = new CardsView();
+        controlsGUI = new ControlsView();
+        MainView.createInstance(playerInfoGUI, mapGUI, diceRollGUI, cardsGUI, controlsGUI);
+        driver.setPlayerView(playerInfoGUI);
+		driver.setMapView(mapGUI);
+		driver.setControlsView(controlsGUI);
+		driver.runGame();
+	}
 }

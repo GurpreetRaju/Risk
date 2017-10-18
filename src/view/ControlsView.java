@@ -73,6 +73,7 @@ public class ControlsView extends JPanel {
 	public void reinforcementConrols(int armiesCount, String[] countryList){
 		this.removeAll();
 		armiesAvailable = "Armies Available:" + String.valueOf(armiesCount);
+		System.out.println(armiesCount);
 		SpinnerModel sm = new SpinnerNumberModel(1, 1, armiesCount, 1); 
 		armiesSpinner = new JSpinner(sm);
 		countriesList = new JComboBox<String>(countryList);

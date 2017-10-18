@@ -6,8 +6,11 @@ public enum RiskData {
 		public int getArmiesCount(int n){
 			int armies = 0;
 			switch(n){
+				case 1:
+					armies = 45;
+					break;
 				case 2:
-					armies = 10;
+					armies = 40;
 					break;
 				case 3:
 					armies = 35;

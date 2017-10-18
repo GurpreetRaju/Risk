@@ -1,5 +1,8 @@
 package view;
 
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.net.URL;
 import java.security.CodeSource;
@@ -13,6 +16,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
+import javax.swing.SpinnerModel;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
 
@@ -21,6 +26,7 @@ import javax.swing.filechooser.FileSystemView;
  * This class display a dialog to ask user for number of players and map file to use.
  * 
  * @author Gurpreet
+ * @author Gunpreet
  * @version 1.0
  */
 public class SetUpDialog {
@@ -30,6 +36,12 @@ public class SetUpDialog {
 	 */
 	private String[] playerNames;
 	
+	private JFrame frame;
+	
+	private JButton mapEdit;
+	
+	private JButton playGame;
+	
 	private String mapRead = null;
 	/**
 	 * Ask user to enter the number of players.
@@ -37,7 +49,8 @@ public class SetUpDialog {
 	 */
 	private int getPlayerCount(){
 		 JPanel box = new JPanel();
-		 JSpinner inputSpinner = new JSpinner();
+		 SpinnerModel sm = new SpinnerNumberModel(1, 1, Integer.MAX_VALUE, 1); 
+		 JSpinner inputSpinner = new JSpinner(sm);
          box.add(new JLabel("Number of players: "));
          box.add(inputSpinner);
          
@@ -91,7 +104,8 @@ public class SetUpDialog {
 	public String getMapInfo(String newExtension){
 		JFrame frame = new JFrame("Map File Chooser");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+		frame.validate();
+		frame.setVisible(true);
 //		JButton btn = new JButton("Choose File");
 //		frame.add(btn);
 		JFileChooser jfc = new JFileChooser();
@@ -123,4 +137,30 @@ public class SetUpDialog {
 		
 	}
 	
+	public void chooseMapEditorOrPlayGame(){
+		frame = new JFrame("Choose one:");
+		frame.setSize(new Dimension(200,200));//set size
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		mapEdit = new JButton("Edit Map");
+		playGame = new JButton("Play Game");
+		frame.setLayout(new FlowLayout());
+		frame.add(mapEdit);
+		frame.add(playGame);
+		frame.validate();
+		frame.setVisible(true);
+	}
+	
+	public JFrame chooseOptionFrame(){
+		return this.frame;
+	}
+	
+	public void mapEditAction(ActionListener newAction)
+	{
+		this.mapEdit.addActionListener(newAction);
+	}
+	
+	public void playGameAction(ActionListener newAction)
+	{
+		this.playGame.addActionListener(newAction);
+	}
 }
