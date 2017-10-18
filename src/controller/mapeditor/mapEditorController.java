@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JFileChooser;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import model.MapModel;
 import model.MapReader;
 import model.MapWriter;
 import view.mapeditor.ExistingMap;
@@ -40,6 +41,8 @@ public class mapEditorController {
 	 * Stores the path of the file chosen
 	 */
 	public static String path = "";
+	
+	MapModel mapModel = new MapModel();
 
 	/**
 	 * Calls the readMap function of MapReader to read the map file
@@ -91,6 +94,23 @@ public class mapEditorController {
 	 */
 	public void newMapActions() {
 		NewMap newMap = new NewMap();
+		
+		newMap.addActionsToBtnDone(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String cn = newMap.getContinentName();
+				String cv = newMap.getControlValue();
+				if(cn.compareTo("")==0 || cv.compareTo("")==0) {
+					newMap.enterValuesError();
+				}else {
+					int control_value= Integer.parseInt(cv);
+					Boolean continentExist1 = mapModel.checkContinentExist(cn);
+					if(!continentExist1) {
+						newMap.addNewContinent(cn, control_value );
+						newMap.eraseContinentFields();
+					}
+				}
+			}});
+		
 		newMap.setVisible(true);
 	}
 

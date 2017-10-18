@@ -8,6 +8,7 @@ import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
 import model.CountryNode;
+import model.MapModel;
 import model.MapNode;
 import model.MapWriter;
 
@@ -41,9 +42,14 @@ public class NewMap extends JFrame {
 	private JTextField txtContinentControlValue;
 	private JTextField txtCountryName;
 	private JComboBox comboBox;
+	JComboBox comboBox_3;
 	MapNode mapNode;
+	JButton btnDone;
 	ArrayList<MapNode> continents = new ArrayList<MapNode>();
 	MapWriter mapWriter = new MapWriter();
+	MapModel mapModel = new MapModel();
+	private String continentName;
+	private String cv;
 
 	/**
 	 * NewMap constructor calls initialize method of the class
@@ -134,7 +140,7 @@ public class NewMap extends JFrame {
 		gbc_lblValue.gridy = 3;
 		contentPane.add(lblValue, gbc_lblValue);
 
-		JButton btnDone = new JButton("Add Continent");
+		btnDone = new JButton("Add Continent");
 		btnDone.setBackground(new Color(240, 255, 255));
 		btnDone.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnDone.setForeground(Color.BLACK);
@@ -228,7 +234,7 @@ public class NewMap extends JFrame {
 		gbc_btnDeleteContinent.gridy = 11;
 		contentPane.add(btnDeleteContinent, gbc_btnDeleteContinent);
 
-		JComboBox comboBox_3 = new JComboBox();
+		comboBox_3 = new JComboBox();
 		GridBagConstraints gbc_comboBox_3 = new GridBagConstraints();
 		gbc_comboBox_3.gridwidth = 3;
 		gbc_comboBox_3.insets = new Insets(0, 0, 5, 5);
@@ -310,36 +316,7 @@ public class NewMap extends JFrame {
 		btnDone.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (e.getSource() == btnDone) {
-					String cn = txtContinentNameHere.getText(); //perform your operation	     
-
-					if(cn.compareTo("")==0 || txtContinentControlValue.getText().compareTo("")==0) {
-						JOptionPane.showMessageDialog(contentPane, "Enter values first", "Error", JOptionPane.ERROR_MESSAGE);
-					}else {
-						int cv = Integer.parseInt(txtContinentControlValue.getText()); //perform your operation
-						ArrayList<CountryNode> countryArr = new ArrayList<CountryNode>();
-						Boolean continentExist = false;
-						for (MapNode con: continents) {
-							if(con.getContinentName().compareTo(cn)==0) {
-								continentExist = true;
-							}
-						}
-						if(!continentExist) {
-							continents.add(new MapNode(cn, countryArr, cv));
-							comboBox.removeAllItems();
-							comboBox_3.removeAllItems();
-							for(MapNode i: continents) {
-								comboBox.addItem(i.getContinentName());
-								comboBox_3.addItem(i.getContinentName());
-							}
-							txtContinentNameHere.setText("");
-							txtContinentControlValue.setText("");
-							txtContinentNameHere.setEnabled(false);
-							txtContinentControlValue.setEnabled(false);
-						}
-						else {
-							JOptionPane.showMessageDialog(contentPane, "Continent already exist", "Error", JOptionPane.ERROR_MESSAGE);
-						}
-					}
+					
 				}
 			}
 		});
@@ -376,27 +353,27 @@ public class NewMap extends JFrame {
 								}
 							}
 							if(!countryExist) {
-								System.out.println("hello");
+								//System.out.println("hello");
 								ArrayList<CountryNode> neighbours= new ArrayList<CountryNode>();
 								for (Object ncountry : list.getSelectedValuesList()) {
 									CountryNode cn =  new CountryNode(ncountry.toString(), null, null);
 									neighbours.add(cn);
 								}
-									model2.removeAllElements();
-									comboBox_2.removeAllItems();
-									comboBox_1.removeAllItems();
-									for (MapNode node: continents) {
-										if(selectedContinent.compareTo(node.getContinentName())==0) {
-											int a[]= {250,250};
-											CountryNode newCountry = new CountryNode(cn1,  neighbours , a);
-											node.addCountry(newCountry);
-										}
-										for (CountryNode temp : node.getCountries()) {
-											model2.addElement(temp.getCountryName());
-											comboBox_2.addItem(temp.getCountryName());
-											comboBox_1.addItem(temp.getCountryName());
-										}
+								model2.removeAllElements();
+								comboBox_2.removeAllItems();
+								comboBox_1.removeAllItems();
+								for (MapNode node: continents) {
+									if(selectedContinent.compareTo(node.getContinentName())==0) {
+										int a[]= {250,250};
+										CountryNode newCountry = new CountryNode(cn1,  neighbours , a);
+										node.addCountry(newCountry);
 									}
+									for (CountryNode temp : node.getCountries()) {
+										model2.addElement(temp.getCountryName());
+										comboBox_2.addItem(temp.getCountryName());
+										comboBox_1.addItem(temp.getCountryName());
+									}
+								}
 							}else {
 								JOptionPane.showMessageDialog(contentPane, "Country already exist", "Error", JOptionPane.ERROR_MESSAGE);
 							}
@@ -439,12 +416,14 @@ public class NewMap extends JFrame {
 					}
 					for (MapNode node : continents) {
 						for (CountryNode cNode : node.getCountries()) {
-							String sCountrytToAddNeighbour = comboBox_1.getSelectedItem().toString();
+							String sCountrytToAddNeighbour = (String )comboBox_1.getSelectedItem().toString();
 							if(sCountrytToAddNeighbour.compareTo(cNode.getCountryName())==0)
 								for (CountryNode neighbourNode : neighbours) {
-									cNode.addNeighbour(neighbourNode);
-									System.out.println(cNode.getNeighbourCountries().toString());
+									cNode.addNeighbour(neighbourNode);	
 								}
+							for (CountryNode country : cNode.getNeighbourCountries()) {
+								System.out.println(country.toString());
+							}
 						}
 					}
 				}
@@ -516,4 +495,44 @@ public class NewMap extends JFrame {
 		});
 
 	}
+	public void addActionsToBtnDone(ActionListener newAction) {
+	    	btnDone.addActionListener(newAction);
+	}
+	
+	public String getContinentName() {
+		continentName = txtContinentNameHere.getText();
+		return continentName;
+	}
+	
+	public void enterValuesError() {
+		JOptionPane.showMessageDialog(contentPane, "Enter values first", "Error", JOptionPane.ERROR_MESSAGE);
+	}
+	
+	public void continentAlreadyExistError() {
+		JOptionPane.showMessageDialog(contentPane, "Continent already exist", "Error", JOptionPane.ERROR_MESSAGE);
+	}
+	
+	public String getControlValue() {
+		cv = (txtContinentControlValue.getText());
+		return cv;
+	}
+	
+	public void eraseContinentFields() {
+		txtContinentNameHere.setText("");
+		txtContinentControlValue.setText("");
+		txtContinentNameHere.setEnabled(false);
+		txtContinentControlValue.setEnabled(false);
+	}
+	
+	public void addNewContinent(String cn1, int cv1 ) {
+		ArrayList<CountryNode> countryArr = new ArrayList<CountryNode>();
+		continents.add(new MapNode(cn1, countryArr, cv1));
+		comboBox.removeAllItems();
+		comboBox_3.removeAllItems();
+		for(MapNode i: continents) {
+			comboBox.addItem(i.getContinentName());
+			comboBox_3.addItem(i.getContinentName());
+		}
+	}
 }
+
