@@ -79,4 +79,71 @@ public class MapWriter {
 
 	};
 
+
+	public void writeMapExisting(ArrayList<MapNode> map, String path) {
+		//erase the contents of file
+		
+		String FILENAME = path;
+		
+		BufferedWriter bw = null;
+		FileWriter fw = null;
+
+		try {
+
+			String mapInfo = "[Map]\r\n" + 
+					"author=Iceworm72\r\n" + 
+					"image=001_I72_Ghtroc 720.bmp\r\n" + 
+					"wrap=no\r\n" + 
+					"scroll=vertical\r\n" + 
+					"warn=no\r\n\r\n";
+
+			fw = new FileWriter(FILENAME);
+			bw = new BufferedWriter(fw);
+
+			bw.write("");
+			bw.write(mapInfo);
+			bw.write("[Continents]\r\n");
+
+			for (MapNode node : map) {
+				bw.write(node.getContinentName() + "=" + Integer.toString(node.getControlValue()) + "\r\n");
+			}
+
+			bw.write("\r\n[Territories]\r\n");
+
+			for (MapNode node : map) {
+
+				for (CountryNode country : node.getCountries()) {
+					String nCountryNames = "";
+					for (CountryNode nCountry : country.getNeighbourCountries()) {
+						nCountryNames = nCountryNames + "," + nCountry.getCountryName();
+					}
+					bw.write(country.getCountryName()+","+ Integer.toString(250) + "," + Integer.toString(250) + "," +
+							node.getContinentName() + nCountryNames + "\r\n");
+				}
+
+			}
+
+		} catch (IOException e) {
+
+			e.printStackTrace();
+
+		} finally {
+
+			try {
+
+				if (bw != null)
+					bw.close();
+
+				if (fw != null)
+					fw.close();
+
+			} catch (IOException ex) {
+
+				ex.printStackTrace();
+
+			}
+
+		}
+
+	}
 }

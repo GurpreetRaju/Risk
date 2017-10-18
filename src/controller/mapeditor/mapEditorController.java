@@ -35,6 +35,11 @@ public class mapEditorController {
 	 * action listener applied on button "Choose Map File" for selecting map file
 	 */
 	private ActionListener newButtonAction;
+	
+	/**
+	 * Stores the path of the file chosen
+	 */
+	public static String path = "";
 
 	/**
 	 * Calls the readMap function of MapReader to read the map file
@@ -69,7 +74,7 @@ public class mapEditorController {
 				fc.setDialogTitle("Choose your Conquest Map File");
 				fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
 				if (fc.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-					fc.getSelectedFile().getAbsolutePath();
+					path = fc.getSelectedFile().getAbsolutePath();
 					MapReader mapReader = new MapReader();
 					ExistingMap existingMap = new ExistingMap(mapReader.readMap(fc.getSelectedFile().getAbsolutePath()));
 					existingMap.setVisible(true);
