@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * This implements the model code for map editor.
  * It contains the main logic for map editor
  * @author Harinder
- *
+ * @author Jyotsna
  */
 public class MapModel {
 	
@@ -27,8 +27,8 @@ public class MapModel {
 	
 	public boolean checkContinentExist(String cn) {
 		Boolean continentExist = false;
-		for (MapNode con: continents) {
-			if(con.getContinentName().compareTo(cn)==0) {
+		for (MapNode con: continents){
+			if(con.getContinentName().compareTo(cn)==0){
 				continentExist = true;
 			}
 		}
@@ -39,7 +39,7 @@ public class MapModel {
 		continents.add(new MapNode(cn1, countryArr, cv1));
 	}
 	
-	public ArrayList<MapNode> getContinents(){
+	public ArrayList<MapNode> getContinents() {
 		return continents;
 	}
 }

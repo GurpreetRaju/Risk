@@ -4,10 +4,12 @@ package model;
  * This class defines the card user-defined type.
  */
 public class Card {
+	
 	/**
 	 * Stores the name of the card.
 	 */
 	String name;
+	
 	/**
 	 * Stores the type of the card.
 	 */
@@ -18,8 +20,7 @@ public class Card {
 	 * @param name Stores the name of the card.
 	 * @param type Stores the type of the card.
 	 */
-	Card(String name, String type)
-	{
+	Card(String name, String type) {
 		this.name = name;
 		this.type = type;
 	}
@@ -28,8 +29,7 @@ public class Card {
 	 * Function to get the name of the card.
 	 * @return name of the card.
 	 */
-	String getName()
-	{
+	String getName() {
 		return this.name;
 	}
 	
@@ -37,8 +37,7 @@ public class Card {
 	 * Function to get the type of the card.
 	 * @return type of the card.
 	 */
-	String getType()
-	{
+	String getType() {
 		return this.type;
 	}
 }

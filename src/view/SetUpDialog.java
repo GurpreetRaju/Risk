@@ -21,7 +21,6 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
 
-
 /**
  * This class display a dialog to ask user for number of players and map file to use.
  * 
@@ -43,6 +42,7 @@ public class SetUpDialog {
 	private JButton playGame;
 	
 	private String mapRead = null;
+	
 	/**
 	 * Ask user to enter the number of players.
 	 * @return number of players entered by user or by default 2.
@@ -60,12 +60,12 @@ public class SetUpDialog {
          }
 		return 2;
 	}
+	
 	/**
 	 * Ask user to enter name of player one by one.
 	 * @return string array containing number of players.
 	 */
 	public String[] getPlayerInfo(){
-		
 		int n = getPlayerCount();
 		System.out.println(n);
 		playerNames = new String[n];
@@ -129,7 +129,6 @@ public class SetUpDialog {
 //		});
 //		frame.pack();
 //		frame.setVisible(true);
-		
 	}
 	
 	public void chooseMapEditorOrPlayGame(){
@@ -149,13 +148,11 @@ public class SetUpDialog {
 		return this.frame;
 	}
 	
-	public void mapEditAction(ActionListener newAction)
-	{
+	public void mapEditAction(ActionListener newAction) {
 		this.mapEdit.addActionListener(newAction);
 	}
 	
-	public void playGameAction(ActionListener newAction)
-	{
+	public void playGameAction(ActionListener newAction) {
 		this.playGame.addActionListener(newAction);
 	}
 }

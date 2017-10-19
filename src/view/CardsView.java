@@ -8,7 +8,6 @@ import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-
 public class CardsView extends JPanel {
 	
 	/**
@@ -16,7 +15,7 @@ public class CardsView extends JPanel {
 	 */
 	private static final long serialVersionUID = 9127819244400811786L;
 
-	public CardsView(){
+	public CardsView() {
 		JLabel label = new JLabel("Cards Here.");
 		this.setLayout(new FlowLayout());
 		this.add(label);
@@ -24,5 +23,4 @@ public class CardsView extends JPanel {
 		this.setBorder(BorderFactory.createLineBorder(Color.black));
 		this.setPreferredSize(new Dimension(400,150));
 	}
-	
 }

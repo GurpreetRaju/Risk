@@ -11,24 +11,21 @@ import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 
-public class PlayerInfoView extends JPanel{
+public class PlayerInfoView extends JPanel {
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -7512274442706727095L;
 
-	public PlayerInfoView()
-	{
+	public PlayerInfoView() {
 		JLabel label = new JLabel("Players data Here.");
 		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 		this.setBorder(BorderFactory.createLineBorder(Color.black));
 	}
 
-	public void setPlayerInfo(String[] playerNames) 
-	{
-		for(String name : playerNames)
-		{
+	public void setPlayerInfo(String[] playerNames) {
+		for(String name : playerNames){
 			JLabel comp = new JLabel(name);
 			Border border = comp.getBorder();
 			Border margin = new EmptyBorder(10,10,10,10);
@@ -37,7 +34,4 @@ public class PlayerInfoView extends JPanel{
 		}
 		this.validate();
 	}
-	
-	
-	
 }

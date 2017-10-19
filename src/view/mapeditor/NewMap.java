@@ -35,6 +35,7 @@ import java.awt.event.ActionEvent;
 /**
  * New map class opens the JFrame view for  
  *  add/delete country and continent
+ *  @author Jyotsna
  */
 public class NewMap extends JFrame {
 
@@ -60,8 +61,7 @@ public class NewMap extends JFrame {
 	/**
 	 * NewMap constructor calls initialize method of the class
 	 */
-	public NewMap()
-	{
+	public NewMap() {
 		initialize();
 	}
 
@@ -168,7 +168,7 @@ public class NewMap extends JFrame {
 		gbc_btnAddCountry.gridy = 5;
 		contentPane.add(btnAddCountry, gbc_btnAddCountry);
 
-		comboBox = new JComboBox();//continent list
+		comboBox = new JComboBox();			/*continent list*/
 		comboBox.setToolTipText("Choose existing continent to add new country");
 		GridBagConstraints gbc_comboBox = new GridBagConstraints();
 		gbc_comboBox.gridwidth = 3;
@@ -209,7 +209,7 @@ public class NewMap extends JFrame {
 		gbc_btnDeleteCountry.gridy = 8;
 		contentPane.add(btnDeleteCountry, gbc_btnDeleteCountry);
 
-		JComboBox comboBox_2 = new JComboBox();//list of countries
+		JComboBox comboBox_2 = new JComboBox();			/*list of countries.*/
 		GridBagConstraints gbc_comboBox_2 = new GridBagConstraints();
 		ArrayList<String> choice = new ArrayList<>();
 		gbc_comboBox_2.gridwidth = 3;
@@ -308,15 +308,15 @@ public class NewMap extends JFrame {
 		contentPane.add(btnSaveMap, gbc_btnSaveMap);
 
 		btnAddContinent.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e)
-			{
-				if (e.getSource() == btnAddContinent) {
+			public void actionPerformed(ActionEvent e){
+				if (e.getSource() == btnAddContinent){
 					txtContinentNameHere.setText("");
 					txtContinentControlValue.setText("");
 					txtContinentNameHere.setEnabled(true);
 					txtContinentControlValue.setEnabled(true);
 				}
-			}});
+			}
+		});
 
 		btnAddCountry.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -427,7 +427,6 @@ public class NewMap extends JFrame {
 							break;
 						}
 					}
-
 					comboBox.removeAllItems();
 					comboBox_3.removeAllItems();
 					for(MapNode i: continents) {

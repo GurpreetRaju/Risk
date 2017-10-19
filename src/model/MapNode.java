@@ -1,20 +1,24 @@
 package model;
 
 import java.util.ArrayList;
+
 /**
  * This class stores the map data.
  * @author Gurpreet
  * @version 1.0
  */
 public class MapNode {
+	
 	/**
 	 * name of continent.
 	 */
 	private String continentName;
+	
 	/**
 	 * ArrayList containing countries of this continent.
 	 */
 	private ArrayList<CountryNode> countries;
+	
 	/**
 	 * Store control value of the continent
 	 */
@@ -26,8 +30,7 @@ public class MapNode {
 	 * @param newCountries arraylist containing countries belong to this continent
 	 * @param newValue control value for the continent
 	 */
-	public MapNode(String newName,ArrayList<CountryNode> newCountries,int newValue)
-	{
+	public MapNode(String newName,ArrayList<CountryNode> newCountries,int newValue) {
 		this.continentName = newName;
 		this.countries = newCountries;
 		this.controlValue = newValue;
@@ -37,8 +40,7 @@ public class MapNode {
 	 * return name of continent.
 	 * @return String continent name
 	 */
-	public String getContinentName()
-	{
+	public String getContinentName() {
 		return this.continentName;
 	}
 	
@@ -46,8 +48,7 @@ public class MapNode {
 	 * return array of countries belong to this continent.
 	 * @return Array of countries
 	 */
-	public CountryNode[] getCountries()
-	{
+	public CountryNode[] getCountries() {
 		return this.countries.toArray(new CountryNode[this.countries.size()]);
 	}
 	
@@ -55,7 +56,7 @@ public class MapNode {
 	 * return control value for this continent
 	 * @return integer control value of continent
 	 */
-	public int getControlValue(){
+	public int getControlValue() {
 		return this.controlValue;
 	}
 	
@@ -63,7 +64,7 @@ public class MapNode {
 	 * Assign list of countries to current continent.
 	 * @param newCountries ArrayList containing countries.
 	 */
-	public void setCountries(ArrayList<CountryNode> newCountries){
+	public void setCountries(ArrayList<CountryNode> newCountries) {
 		this.countries = newCountries;
 	}
 	
@@ -79,7 +80,7 @@ public class MapNode {
 	 * Add country to the continent.
 	 * @param newCountry country object
 	 */
-	public void addCountry(CountryNode newCountry){
+	public void addCountry(CountryNode newCountry) {
 		if(this.countries==null){
 			this.countries = new ArrayList<CountryNode>();
 		}

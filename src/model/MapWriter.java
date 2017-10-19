@@ -23,19 +23,33 @@ public class MapWriter {
 	 */
 	public void writeMap(ArrayList<MapNode> map) {
 		
-		//Date object for writing the date and time of creation map file
+		/**
+		 * Date object for writing the date and time of creation map file
+		 */
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd-HH-mm");
-		//Stores the Date Object.
+		
+		/**
+		 * Stores the Date Object.
+		 */
 		Date date = new Date();
-		//Stores the file name of the newly created map file.
+		
+		/**
+		 * FILENAME Stores the file name of the newly created map file.
+		 */
 		String FILENAME = System.getProperty("user.dir") + "\\data\\map\\map-"+ dateFormat.format(date) + ".map";
-		//Stores BufferedWriter object.
+		
+		/**
+		 * Stores BufferedWriter object.
+		 */
 		BufferedWriter bw = null;
-		//Stores FileWriter object.
+		
+		/**
+		 * Stores FileWriter object.
+		 */
 		FileWriter fw = null;
 
 		try {
-			//mapInfo stores basic map information to be written in map file.
+			/*mapInfo stores basic map information to be written in map file.*/
 			String mapInfo = "[Map]\r\n" + 
 					"author=Iceworm72\r\n" + 
 					"image=001_I72_Ghtroc 720.bmp\r\n" + 
@@ -43,23 +57,19 @@ public class MapWriter {
 					"scroll=vertical\r\n" + 
 					"warn=no\r\n\r\n";
 			
-			//FileWriter object for writing character files
+			/*FileWriter object for writing character files.*/
 			fw = new FileWriter(FILENAME);
 			
-			//BufferedReader object to write text to character output stream
+			/*BufferedReader object to write text to character output stream.*/
 			bw = new BufferedWriter(fw);
 
 			bw.write(mapInfo);
 			bw.write("[Continents]\r\n");
-
-			for (MapNode node : map) {
+			for (MapNode node : map){
 				bw.write(node.getContinentName() + "=" + Integer.toString(node.getControlValue()) + "\r\n");
 			}
-
 			bw.write("\r\n[Territories]\r\n");
-
 			for (MapNode node : map) {
-
 				for (CountryNode country : node.getCountries()) {
 					String nCountryNames = "";
 					for (CountryNode nCountry : country.getNeighbourCountries()) {
@@ -68,17 +78,11 @@ public class MapWriter {
 					bw.write(country.getCountryName()+","+ Integer.toString(250) + "," + Integer.toString(250) + "," +
 							node.getContinentName() + nCountryNames + "\r\n");
 				}
-
 			}
-
 		} catch (IOException e) {
-
 			e.printStackTrace();
-
 		} finally {
-
 			try {
-
 				if (bw != null)
 					bw.close();
 
@@ -86,13 +90,9 @@ public class MapWriter {
 					fw.close();
 
 			} catch (IOException ex) {
-
 				ex.printStackTrace();
-
 			}
-
 		}
-
 	};
 
 	/**
@@ -101,15 +101,11 @@ public class MapWriter {
 	 * @param path contains path of existing map file
 	 */
 	public void writeMapExisting(ArrayList<MapNode> map, String path) {
-		//erase the contents of file
-		
 		String FILENAME = path;
-		
 		BufferedWriter bw = null;
 		FileWriter fw = null;
 
 		try {
-
 			String mapInfo = "[Map]\r\n" + 
 					"author=Iceworm72\r\n" + 
 					"image=001_I72_Ghtroc 720.bmp\r\n" + 
@@ -119,7 +115,6 @@ public class MapWriter {
 
 			fw = new FileWriter(FILENAME);
 			bw = new BufferedWriter(fw);
-
 			bw.write("");
 			bw.write(mapInfo);
 			bw.write("[Continents]\r\n");
@@ -127,11 +122,8 @@ public class MapWriter {
 			for (MapNode node : map) {
 				bw.write(node.getContinentName() + "=" + Integer.toString(node.getControlValue()) + "\r\n");
 			}
-
 			bw.write("\r\n[Territories]\r\n");
-
 			for (MapNode node : map) {
-
 				for (CountryNode country : node.getCountries()) {
 					String nCountryNames = "";
 					for (CountryNode nCountry : country.getNeighbourCountries()) {
@@ -140,17 +132,11 @@ public class MapWriter {
 					bw.write(country.getCountryName()+","+ Integer.toString(250) + "," + Integer.toString(250) + "," +
 							node.getContinentName() + nCountryNames + "\r\n");
 				}
-
 			}
-
 		} catch (IOException e) {
-
 			e.printStackTrace();
-
 		} finally {
-
 			try {
-
 				if (bw != null)
 					bw.close();
 
@@ -158,12 +144,8 @@ public class MapWriter {
 					fw.close();
 
 			} catch (IOException ex) {
-
 				ex.printStackTrace();
-
 			}
-
 		}
-
 	}
 }

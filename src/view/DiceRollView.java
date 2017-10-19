@@ -19,8 +19,6 @@ public class DiceRollView extends JPanel{
 		JLabel label = new JLabel("Dice Here.");
 		this.setLayout(new FlowLayout());
 		this.add(label);
-				
 		this.setBorder(BorderFactory.createLineBorder(Color.black));
 	}
-	
 }
