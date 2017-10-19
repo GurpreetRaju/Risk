@@ -23,7 +23,7 @@ public class MapView extends JPanel implements Observer {
 	private boolean graphicalMap = false;
 	
 	/**
-	 * 
+	 * Version number for serializable class
 	 */
 	private static final long serialVersionUID = 2353535256045293828L;
 

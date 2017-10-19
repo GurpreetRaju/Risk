@@ -20,6 +20,7 @@ import controller.mapeditor.mapEditorController;
 /**
  * MapFrame class opens the JFrame view for selecting 
  * New map and Existing map
+ * @author Harinder
  */
 public class MapFrame extends JFrame {
 

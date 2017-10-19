@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Label;
 import java.awt.event.ActionListener;
-
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -18,7 +17,7 @@ import javax.swing.SpinnerNumberModel;
 public class ControlsView extends JPanel {
 	
 	/**
-	 * 
+	 * Version number for serializable class
 	 */
 	private static final long serialVersionUID = -2537156060382941763L;
 	
@@ -116,10 +115,6 @@ public class ControlsView extends JPanel {
 		this.repaint();
 	}
 
-	/**
-	 * 
-	 * @param a
-	 */
 	public void playButtonAction(ActionListener a) {
 		this.playMove.addActionListener(a);
 	}

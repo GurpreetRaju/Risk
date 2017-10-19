@@ -30,6 +30,8 @@ import java.awt.Font;
 /**
  *Existing Map class opens the JFrame view for
  *choosing map file
+ *@author jyotsna
+ *@author Harinder
  */
 public class ExistingMap extends JFrame {
 

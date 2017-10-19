@@ -79,7 +79,7 @@ public class GameDriver {
 	}
 	
 	/**
-	 * This method starts the game.
+	 * Starts the game.
 	 */
 	public void runGame() {
 		startUpPhase();

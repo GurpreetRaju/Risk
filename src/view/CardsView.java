@@ -11,7 +11,7 @@ import javax.swing.JPanel;
 public class CardsView extends JPanel {
 	
 	/**
-	 * 
+	 * Version number for serializable class
 	 */
 	private static final long serialVersionUID = 9127819244400811786L;
 
