@@ -29,12 +29,12 @@ Mexico,107,201,AmericaN,Arizona,Texas,Cuba,Nicaragua
 Nicaragua,156,234,AmericaN,Mexico,Colombia
 Cuba,187,209,AmericaN,Texas,Mexico,Marruecos
 
-Colombia,196,270,AmericaS,Nicaragua,Venezuela,BrasilN,Peru,Ecuador
-Venezuela,220,258
-Guayana,247,267,AmericaS,Venezuela,BrasilN
+Colombia,196,270,AmericaS,Nicaragua,BrasilN,Peru,Ecuador
+Venezuela,220,258,AmericaS
+Guayana,247,267,AmericaS,BrasilN
 Ecuador,176,288,AmericaS,Colombia,Peru
 Peru,185,310,AmericaS,Ecuador,Colombia,BrasilN,Bolivia,Chile
-BrasilN,250,300,AmericaS,Peru,Colombia,Venezuela,Guayana,BrasilS,Bolivia
+BrasilN,250,300,AmericaS,Peru,Colombia,Guayana,BrasilS,Bolivia
 BrasilS,275,343,AmericaS,BrasilN,Uruguay,Argentina,Paraguay,Bolivia,Angola
 Bolivia,224,342,AmericaS,Peru,BrasilN,BrasilS,Paraguay,Argentina,Chile
 Paraguay,245,363,AmericaS,Bolivia,BrasilS,Argentina
