@@ -56,4 +56,16 @@ public class MapModel {
 	public void saveMapFile() {
 		mapWriter.writeMap(continents);
 	}
+	
+	public boolean checkCountryExist(String cn1) {
+		Boolean countryExist = false;
+		for (MapNode node: continents) {
+			for (CountryNode country : node.getCountries()) {
+				if(country.getCountryName().compareTo(cn1)==0) {
+					countryExist=true;
+				}
+			}
+		}
+		return countryExist;
+	}
 }
