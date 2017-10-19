@@ -109,6 +109,7 @@ public class CountryNode {
 	public void setOwner(Player player)
 	{
 		this.owner = player;
+		player.addCountry(this);
 	}
 	
 	/**
