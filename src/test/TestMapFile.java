@@ -1,14 +1,44 @@
 package test;
 
 import org.junit.Test;
+
+import model.CountryNode;
+import model.MapNode;
+import model.MapReader;
+
 import static org.junit.Assert.*;
 
-public class TestMapFile {
+import java.util.ArrayList;
 
+import org.junit.Before;
+
+public class TestMapFile {
+	
+	private MapReader mapread;
+	
+	@Before
+	public void setUp() throws Exception {
+		mapread = new MapReader();
+	}
+	
 	@Test
-	public void test() {
-		//test for at least 3 map files with invalid content.
-		fail("Not yet implemented");
+	public void testRead() {
+		ArrayList<MapNode> actual = mapread.readMap(".//data//test//testMap3.map");
+		
+		String expectedResult = "AmericaN,5,Alaska,Canada,Canada,Alaska,Montana,Groenlandia,Montana,Montana,Canada,Groenlandia,";
+		String actualResult = "";
+		
+		for(MapNode m1: actual) {
+			actualResult += (m1.getContinentName()+","+m1.getControlValue()+",");
+			for(CountryNode tempCountry: m1.getCountries()) {
+				actualResult += (tempCountry.getCountryName()+",");
+				for(String ncountry: tempCountry.getNeighbourCountriesString()) {
+					actualResult += (ncountry+",");
+				}
+			}
+		}
+		
+		assertEquals(expectedResult,actualResult);
 	}
 
 }

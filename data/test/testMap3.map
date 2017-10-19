@@ -1,0 +1,8 @@
+[Continents]
+AmericaN=5
+
+[Territories]
+Alaska,63,56,AmericaN,Canada
+Canada,111,75,AmericaN,Alaska,Montana
+Groenlandia,165,76,AmericaN,Montana
+Montana,242,93,AmericaN,Canada,Groenlandia
