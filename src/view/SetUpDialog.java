@@ -119,17 +119,19 @@ public class SetUpDialog {
 		jfc.setCurrentDirectory(new File("./data/map"));
 		FileNameExtensionFilter filter = new FileNameExtensionFilter("Map Files", newExtension);
 		jfc.setFileFilter(filter);
-			int returnValue = jfc.showOpenDialog(frame);
-			
-			if (returnValue == JFileChooser.APPROVE_OPTION) {
-				File selectedFile = jfc.getSelectedFile();
-				mapRead = selectedFile.getAbsolutePath();
-				if(mapRead.substring(mapRead.lastIndexOf("."),mapRead.length()).equalsIgnoreCase(".map")
-						|| mapRead.substring(mapRead.lastIndexOf("."),mapRead.length()).equalsIgnoreCase(".bmp")){
-					return mapRead;
-				}
+
+		int returnValue = jfc.showOpenDialog(frame);
+		if (returnValue == JFileChooser.APPROVE_OPTION) {
+			File selectedFile = jfc.getSelectedFile();
+			mapRead = selectedFile.getAbsolutePath();
+			if(mapRead.substring(mapRead.lastIndexOf("."),mapRead.length()).equalsIgnoreCase("."+newExtension)){
+				return mapRead;
 			}
-			
+		}
+		if(newExtension.equals("map")) {
+			frame.dispose();
+			return getMapInfo(newExtension);
+		}
 		return null;
 	}
 	
