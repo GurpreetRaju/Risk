@@ -67,6 +67,10 @@ public class MapNode {
 		this.countries = newCountries;
 	}
 	
+	/**
+	 * Remove country node from the list of countries.
+	 * @param countryNode the node to be removed.
+	 */
 	public void removeCountry(CountryNode countryNode) {
 		countries.remove(countryNode);
 	}

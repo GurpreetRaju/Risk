@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+
 /**
  * This class represent the player.
  * @author Gurpreet
@@ -48,6 +49,12 @@ public class Player {
 		this.continents = new ArrayList<MapNode>();
 		this.cards = new ArrayList<Card>();
 	}
+	
+	/**
+	 * Initialize player object with name and armies.
+	 * @param name name of the player.
+	 * @param newArmies armies of the player.
+	 */
 	public Player(String name, int newArmies){
 		this.name = name;
 		this.countries = new ArrayList<CountryNode>();
@@ -83,6 +90,10 @@ public class Player {
 		return this.countries ;	
 	}
 	
+	/**
+	 * Gets the list of countries owned by the player.
+	 * @return list of country names
+	 */
 	public String[] getCountriesNames(){
 		String[] names = new String[this.countries.size()];
 		
@@ -92,6 +103,10 @@ public class Player {
 		return names;
 	}
 	
+	/**
+	 * Gives the countries owned by the player having no armies.
+	 * @return list of country names with no army.
+	 */
 	public String[] getCountriesNamesNoArmy(){
 		ArrayList<String> names = new ArrayList<String>();
 		
@@ -148,9 +163,7 @@ public class Player {
 	}
 	
 	/**
-	 * 
-	 * @throws InstantiationException
-	 * @throws IllegalAccessException
+	 * Checks for the continents owned by the player.
 	 */
 	public void checkContinent() throws InstantiationException, IllegalAccessException
 	{
@@ -166,8 +179,8 @@ public class Player {
 	}
 	
 	/**
-	 * 
-	 * @return
+	 * Calculates the armies to be alloted to the player at each turn.
+	 * @return army count
 	 */
 	public int getArmies()
 	{
@@ -209,6 +222,7 @@ public class Player {
 	}
 	
 	/**
+	 * Gives the number of armies the player has.
 	 * @return number of armies player has.
 	 */
 	public int getArmiesCount(){
@@ -216,7 +230,8 @@ public class Player {
 	}
 	
 	/**
-	 * @return country matching the string 
+	 * Gives the country node for the given country name.
+	 * @return country node matching the string 
 	 */
 	public CountryNode getCountry(String newCountry) {
 		return CountryNode.getCountry(countries, newCountry);
@@ -237,12 +252,17 @@ public class Player {
 	}
 	
 	/**
+	 * Gives the value of the turn of the player (True or False).
 	 *  @return turn of player
 	 */
 	public boolean getTurn(){
 		return this.turn;
 	}
 	
+	/**
+	 * Sets the armies of the player to the new value.
+	 * @param newArmies new value of the army to be set.
+	 */
 	public void setArmies(int newArmies)
 	{
 		this.armiesCount = newArmies;
