@@ -34,4 +34,12 @@ public class MapModel {
 		}
 		return continentExist;
 	}
+	
+	public void addContinents(String cn1,ArrayList<CountryNode> countryArr,int cv1) {
+		continents.add(new MapNode(cn1, countryArr, cv1));
+	}
+	
+	public ArrayList<MapNode> getContinents(){
+		return continents;
+	}
 }

@@ -524,15 +524,14 @@ public class NewMap extends JFrame {
 		txtContinentControlValue.setEnabled(false);
 	}
 	
-	public void addNewContinent(String cn1, int cv1 ) {
-		ArrayList<CountryNode> countryArr = new ArrayList<CountryNode>();
-		continents.add(new MapNode(cn1, countryArr, cv1));
+	public void clearComboBoxContents() {
 		comboBox.removeAllItems();
 		comboBox_3.removeAllItems();
-		for(MapNode i: continents) {
-			comboBox.addItem(i.getContinentName());
-			comboBox_3.addItem(i.getContinentName());
-		}
 	}
+	
+	public void setContinentsComboBox(String continent) {
+		comboBox.addItem(continent);
+		comboBox_3.addItem(continent);
 	}
+}
 

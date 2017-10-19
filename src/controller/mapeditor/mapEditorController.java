@@ -2,11 +2,14 @@ package controller.mapeditor;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JFileChooser;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import model.CountryNode;
 import model.MapModel;
+import model.MapNode;
 import model.MapReader;
 import model.MapWriter;
 import view.mapeditor.ExistingMap;
@@ -105,8 +108,13 @@ public class mapEditorController {
 					int control_value= Integer.parseInt(cv);
 					Boolean continentExist1 = mapModel.checkContinentExist(cn);
 					if(!continentExist1) {
-						newMap.addNewContinent(cn, control_value );
-						newMap.eraseContinentFields();
+						ArrayList<CountryNode> countryArr = new ArrayList<CountryNode>();
+						mapModel.addContinents(cn, countryArr, control_value);
+						newMap.clearComboBoxContents();
+						for(MapNode i: mapModel.getContinents()) {
+							String continent = i.getContinentName();
+							newMap.setContinentsComboBox(continent);
+						}
 					}
 				}
 			}});
