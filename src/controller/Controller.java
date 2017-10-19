@@ -203,7 +203,7 @@ public class Controller
 	public void playGameListener() {
 		playGameListener =  new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent e){
 				init();
 				setupBox.chooseOptionFrame().dispose();
 			}
@@ -217,7 +217,15 @@ public class Controller
 	private void init(){
 		driver.createMapObject(setupBox.getMapInfo("map"));
 		playerInfoGUI = new PlayerInfoView();
-        mapGUI = new MapView(setupBox.getMapInfo("bmp"));
+		String temp = setupBox.getMapInfo("bmp");
+        if(temp!=null) 
+        {
+        	mapGUI = new MapView(temp);
+        }
+        else 
+        {
+        	mapGUI = new MapView();
+        }
         diceRollGUI = new DiceRollView();
         cardsGUI = new CardsView();
         controlsGUI = new ControlsView();

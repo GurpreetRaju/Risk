@@ -122,14 +122,9 @@ public class SetUpDialog {
 						|| mapRead.substring(mapRead.lastIndexOf("."),mapRead.length()).equalsIgnoreCase(".bmp")){
 					return mapRead;
 				}
-				else{
-					String extension = mapRead.substring(mapRead.lastIndexOf("."),mapRead.length());
-					JOptionPane.showMessageDialog(frame, extension + ": Incorrect File format. Select another file.");
-					getMapInfo(newExtension);
-				}
 			}
 			
-		return "Equalizer.map";
+		return null;
 
 //		});
 //		frame.pack();
