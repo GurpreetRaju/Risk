@@ -1,9 +1,9 @@
 package model;
 
 import java.util.ArrayList;
-
 import controller.Controller;
 import view.*;
+
 /**
  * This class controls the turns - Startup phase, Fortification, reinforcement and attack phase.
  * 
@@ -12,36 +12,43 @@ import view.*;
  * @author Amitt
  * @version 1.0
  */
-public class GameDriver 
-{
+public class GameDriver {
+	
 	/**
 	 * Object of GameDriver class.
 	 */
 	private static GameDriver driver;
+	
 	/**
 	 * Object of PlayerInfoView class.
 	 */
 	private PlayerInfoView playerInfoGUI;
+	
 	/**
 	 * Object of Map class.
 	 */
 	private Map map;
+	
 	/**
 	 * ArrayList to store elements of player type.
 	 */
 	private ArrayList<Player> players;
+	
 	/**
 	 * Object of Controller class.
 	 */
 	private Controller controller;
+	
 	/**
 	 * Object of ControlsView class.
 	 */
 	private ControlsView controlsGUI;
+	
 	/**
 	 * Object of Phase class.
 	 */
 	private Phase currentPhase;
+	
 	/**
 	 * Object of Player class.
 	 */
@@ -51,8 +58,7 @@ public class GameDriver
 	 * Constructor initialize the GUI and  map class object.
 	 * Constructor is private so objects can not be created directly for this class.
 	 */
-	private GameDriver()
-	{
+	private GameDriver() {
 		controller = new Controller(this);
 		currentPhase = new Phase("reinforcement"); 
 		this.chooseMapEditorOrPlayGame();
@@ -65,20 +71,17 @@ public class GameDriver
 	 * </p>
 	 * @return instance of GameDriver class.
 	 */
-	public static GameDriver getInstance()
-	{
-		if(driver==null)
-		{
+	public static GameDriver getInstance() {
+		if(driver==null){
 			driver = new GameDriver();
 		}
 		return driver;
 	}
 	
 	/**
-	 * This method starts the game.
+	 * Starts the game.
 	 */
-	public void runGame()
-	{
+	public void runGame() {
 		startUpPhase();
 		currentPhase.reinforcementPhase();
 	}
@@ -87,41 +90,30 @@ public class GameDriver
 	 * This method starts the startup phase of game.
 	 * It assigns countries to players.
 	 */
-	public void startUpPhase()
-	{
+	public void startUpPhase() {
 		String[] newPlayerData = controller.getPlayerInfo();
 		players = new ArrayList<Player>();
-		for(String newPlayer: newPlayerData)
-		{
-			players.add(new Player(newPlayer,RiskData.InitialArmiesCount.getArmiesCount(newPlayerData.length)));
+		for(String newPlayer: newPlayerData){
+			players.add(new Player(newPlayer,RiskData.InitialArmiesCount.getArmiesCount(newPlayerData.length),map.getMapData()));
 		}
 		players.get(0).setTurnTrue();
 		updatePlayerView();
 		int i = 0;
-		for(MapNode m : map.getMapData())
-		{
-			for(CountryNode c: m.getCountries())
-			{
+		for(MapNode m : map.getMapData()){
+			for(CountryNode c: m.getCountries()){
 				c.setOwner(players.get(i));
 				players.get(i).addCountry(c);
-				if(++i>=players.size())
-				{
+				if(++i>=players.size()){
 					i=0;
 				}
 			}
 		}
-
-		for(int i1=0;i1<players.get(0).getArmiesCount();i1++)
-		{
-			for(Player p: players)
-			{
+		for(int i1=0;i1<players.get(0).getArmiesCount();i1++){
+			for(Player p: players){
 				String s;
-				if(p.getCountriesNamesNoArmy().length!=0)
-				{
+				if(p.getCountriesNamesNoArmy().length!=0){
 					s = controller.placeArmyDialog(p.getCountriesNamesNoArmy());
-				}
-				else
-				{
+				}else{
 					s= controller.placeArmyDialog(p.getCountriesNames());
 				}
 				p.getCountry(s).addArmy(1);
@@ -133,36 +125,31 @@ public class GameDriver
 	/**
 	 * Sets PlayerInfo view.
 	 */
-	public void setPlayerView(PlayerInfoView newView)
-	{
+	public void setPlayerView(PlayerInfoView newView) {
 		this.playerInfoGUI = newView;
 	}
 
 	/**
 	 * Sets Map view.
 	 */
-	public void setMapView(MapView newGui)
-	{
+	public void setMapView(MapView newGui) {
 		map.addObserver(newGui);
 	}
 
 	/**
 	 * Sets Controls view.
 	 */
-	public void setControlsView(ControlsView controlView)
-	{
+	public void setControlsView(ControlsView controlView) {
 		this.controlsGUI = controlView;
 	}
 
 	/**
 	 * This method show players information on GUI.
 	 */
-	public void updatePlayerView()
-	{
+	public void updatePlayerView() {
 		String[] playerNames = new String[players.size()];
 		int i=0;
-		for(Player p: players)
-		{
+		for(Player p: players){
 			playerNames[i] = p.getName();
 			i++;
 		}
@@ -173,12 +160,9 @@ public class GameDriver
 	 * Gets the player with the current turn.
 	 * @return current player 
 	 */
-	public Player getCurrentPlayer()
-	{
-		for(Player player:players)
-		{
-			if(player.getTurn())
-			{
+	public Player getCurrentPlayer() {
+		for(Player player:players){
+			if(player.getTurn()){
 				return player;
 			}
 		}
@@ -189,16 +173,12 @@ public class GameDriver
 	 * Sets the next player's turn.
 	 * @return current player 
 	 */
-	public void setNextPlayerTurn()
-	{
+	public void setNextPlayerTurn() {
 		int currentPlayerIndex = players.indexOf(getCurrentPlayer());
 		getCurrentPlayer().setTurnFalse();
-		if (currentPlayerIndex == players.size()-1)
-		{
+		if (currentPlayerIndex == players.size()-1){
 			players.get(0).setTurnTrue();
-		}
-		else
-		{
+		}else{
 			players.get(currentPlayerIndex+1).setTurnTrue();
 		}
 	}
@@ -207,8 +187,7 @@ public class GameDriver
 	 * Creates the object of Map Class by passing the map file path.
 	 * @param mapPath stores the path of the map file.
 	 */
-	public void createMapObject(String mapPath)
-	{
+	public void createMapObject(String mapPath) {
 		map = new Map(mapPath);
 	}
 	
@@ -217,12 +196,9 @@ public class GameDriver
 	 * @param countryname Name of the country.
 	 * @return Neighbors of the country.
 	 */
-	public String [] getNeighbourCountryNames(String countryname)
-	{
-		for(CountryNode country: getCurrentPlayer().getCountries())
-		{
-			if(country.getCountryName().equals(countryname))
-			{
+	public String [] getNeighbourCountryNames(String countryname) {
+		for(CountryNode country: getCurrentPlayer().getCountries()){
+			if(country.getCountryName().equals(countryname)){
 				return country.getNeighbourCountriesString();
 			}
 		}
@@ -233,8 +209,7 @@ public class GameDriver
 	 * Gets the army count of the current player.
 	 * @return army count of the current player.
 	 */
-	public int getPlayerArmies()
-	{
+	public int getPlayerArmies() {
 		return getCurrentPlayer().getArmiesCount();
 	}
 
@@ -242,8 +217,7 @@ public class GameDriver
 	 * Gets the player with the current turn.
 	 * @return current player 
 	 */
-	public String [] getPlayerCountryNames()
-	{
+	public String [] getPlayerCountryNames() {
 		return getCurrentPlayer().getCountriesNames();
 	}
 
@@ -251,8 +225,7 @@ public class GameDriver
 	 * Gives the countries owned by a player.
 	 * @return The list of country nodes.
 	 */
-	public ArrayList<CountryNode> getPlayerCountries()
-	{
+	public ArrayList<CountryNode> getPlayerCountries() {
 		return getCurrentPlayer().getCountries();
 	}
 
@@ -261,12 +234,9 @@ public class GameDriver
 	 * @param countrynode Country whose neighbors are to be fetched.
 	 * @return list of neighbor countries.
 	 */
-	public CountryNode [] getNeighbourCountries(CountryNode countrynode)
-	{
-		for(CountryNode country: getCurrentPlayer().getCountries())
-		{
-			if(country.getCountryName().equals(countrynode.getCountryName()))
-			{
+	public CountryNode [] getNeighbourCountries(CountryNode countrynode) {
+		for(CountryNode country: getCurrentPlayer().getCountries()){
+			if(country.getCountryName().equals(countrynode.getCountryName())){
 				return country.getNeighbourCountries();
 			}
 		}
@@ -278,12 +248,9 @@ public class GameDriver
 	 * @param countryname name of a country
 	 * @return country node for the given country name
 	 */
-	public CountryNode getCountry(String countryname)
-	{
-		for(CountryNode country : getCurrentPlayer().getCountries())
-		{
-			if(country.getCountryName().equals(countryname))
-			{
+	public CountryNode getCountry(String countryname) {
+		for(CountryNode country : getCurrentPlayer().getCountries()){
+			if(country.getCountryName().equals(countryname)){
 				return country;
 			}
 		}
@@ -293,7 +260,7 @@ public class GameDriver
 	/**
 	 * Sets action listener for reinforcement phase.
 	 */
-	public void setControlsActionListeners(){
+	public void setControlsActionListeners() {
 		this.controller.setActionListner();
 	}
 	
@@ -309,13 +276,11 @@ public class GameDriver
 	 * Function to switch between different phases.
 	 */
 	public void changePhase() {
-		if(this.currentPhase.equals(Phase.reinforcement)) {
+		if(this.currentPhase.equals(Phase.reinforcement)){
 			currentPhase.attackPhase();
-		}
-		else if(this.currentPhase.equals(Phase.attack)) {
+		}else if(this.currentPhase.equals(Phase.attack)){
 			currentPhase.fortificationPhase();
-		}
-		else if(this.currentPhase.equals(Phase.fortification)) {
+		}else if(this.currentPhase.equals(Phase.fortification)){
 			this.setNextPlayerTurn();
 			currentPhase.reinforcementPhase();
 		}
@@ -326,13 +291,11 @@ public class GameDriver
 	 * Refreshes the phases.
 	 */
 	public void continuePhase() {
-		if(this.currentPhase.equals(Phase.reinforcement)) {
+		if(this.currentPhase.equals(Phase.reinforcement)){
 			currentPhase.reinforcementPhase();;
-		}
-		else if(this.currentPhase.equals(Phase.attack)) {
+		}else if(this.currentPhase.equals(Phase.attack)){
 			currentPhase.attackPhase();
-		}
-		else if(this.currentPhase.equals(Phase.fortification)) {
+		}else if(this.currentPhase.equals(Phase.fortification)){
 			currentPhase.fortificationPhase();
 		}
 		map.updateMap();
@@ -348,9 +311,17 @@ public class GameDriver
 	/**
 	 * Adds listener to the "Edit Map" and "Play Game" buttons at the start.
 	 */
-	public void chooseMapEditorOrPlayGame(){
+	public void chooseMapEditorOrPlayGame() {
 		this.controller.chooseMapEditorOrPlayGame();
 		this.controller.mapEditorListener();
 		this.controller.playGameListener();
+	}
+	
+	/**
+	 * Returns object of Map class
+	 *  @return map 
+	 */
+	public Map getMap(){
+		return this.map;
 	}
 }

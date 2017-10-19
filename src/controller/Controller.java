@@ -22,44 +22,53 @@ import view.mapeditor.MapFrame;
  * @author Amitt
  *
  */
-public class Controller 
-{
+public class Controller {
+	
 	/**
 	 * Stores instance of GameDriver class.
 	 */
 	private GameDriver driver;
+	
 	/**
 	 * Stores object of CardsView class.
 	 */
 	private CardsView cardsGUI;
+	
 	/**
 	 * Stores object of ControlsView class.
 	 */
 	private ControlsView controlsGUI;
+	
 	/**
 	 * Stores object of DiceRollView class.
 	 */
 	private DiceRollView diceRollGUI;
+	
 	/**
 	 * Stores object of MapView class.
 	 */
 	private MapView mapGUI;
+	
 	/**
 	 * Stores object of PlayerInfoView class.
 	 */
 	private PlayerInfoView playerInfoGUI;
+	
 	/**
 	 * Stores object of SetUpDialog class.
 	 */
 	private SetUpDialog setupBox;
+	
 	/**
 	 * ActionListener to add listener to "Add Armies" button.
 	 */
 	private ActionListener addArmiesListner;
+	
 	/**
 	 * ActionListener to add listener to "Edit Map" button.
 	 */
 	private ActionListener mapEditListener;
+	
 	/**
 	 * ActionListener to add listener to "Play Game" button.
 	 */
@@ -68,8 +77,7 @@ public class Controller
 	/**
 	 * Controller class constructor to initialize GameDriver and SetUpDialog class objects.
 	 */
-	public Controller(GameDriver newDriver)
-	{
+	public Controller(GameDriver newDriver) {
 		this.driver = newDriver;
 		setupBox = new SetUpDialog();
 	}
@@ -78,7 +86,7 @@ public class Controller
 	 * Gets the player name from the user (functionality in SetUpDialog class).
 	 * @return a string array containing the names of players.
 	 */
-	public String[] getPlayerInfo(){
+	public String[] getPlayerInfo() {
 		return setupBox.getPlayerInfo();
 	}
 	
@@ -86,8 +94,7 @@ public class Controller
 	 * Calls the placeArmyDialog function of SetUpDialog class.
 	 * @return the country selected by the user to place army.
 	 */
-	public String placeArmyDialog(String[] countriesNamesNoArmy) 
-	{
+	public String placeArmyDialog(String[] countriesNamesNoArmy) {
 		return setupBox.placeArmyDialog(countriesNamesNoArmy);
 	}
 	
@@ -95,16 +102,14 @@ public class Controller
 	 * Fetches the instance of GameDriver class.
 	 * @return the GameDriver class instance.
 	 */
-	public GameDriver getGameDriver()
-	{
+	public GameDriver getGameDriver() {
 		return this.driver;
 	}
 	
 	/**
 	 * Sets Action Listeners for reinforcement controls.
 	 */
-	public void setActionListner()
-	{
+	public void setActionListner() {
 		addArmiesListner = new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {				
@@ -132,15 +137,15 @@ public class Controller
 	/**
 	 * Sets Action Listeners for fortification controls.
 	 */
-	public void setFortificationListeners(){
+	public void setFortificationListeners() {
 		controlsGUI.countrieslistAction(new ActionListener() {
 			@Override
             public void actionPerformed(ActionEvent e) {
 				String countrySelected = (String) controlsGUI.getCountrySelected();
 				CountryNode countrySelect = GameDriver.getInstance().getCurrentPlayer().getCountry(countrySelected);
-				if(countrySelect.getArmiesCount()>1){
+				if(countrySelect.getArmiesCount()>1) {
 					ArrayList<String> neighborList = new ArrayList<String>();
-					for(String name: countrySelect.getNeighbourCountriesString()){
+					for(String name: countrySelect.getNeighbourCountriesString()) {
 						neighborList.add(name);
 					}
 					controlsGUI.updateFortification(countrySelect.getArmiesCount(), neighborList.toArray(new String[neighborList.size()]));
@@ -157,8 +162,8 @@ public class Controller
 					CountryNode countrySelect = GameDriver.getInstance().getCurrentPlayer().getCountry(countrySelected);
 					String neighbourSelected = controlsGUI.getNeighborSelected();
 					countrySelect.setArmies(countrySelect.getArmiesCount()-selectedArmies); 
-					for(CountryNode j : countrySelect.getNeighbourCountries()){
-						if(j.getCountryName() == neighbourSelected){
+					for(CountryNode j : countrySelect.getNeighbourCountries()) {
+						if(j.getCountryName() == neighbourSelected) {
 							j.setArmies(j.getArmiesCount() + selectedArmies);
 						}
 					}
@@ -171,7 +176,7 @@ public class Controller
 	/**
 	 * Calls chooseMapEditorOrPlayGame() function of the SetUpDialog class to display Edit Map and Play Game options.
 	 */
-	public void chooseMapEditorOrPlayGame(){
+	public void chooseMapEditorOrPlayGame() {
 		this.setupBox.chooseMapEditorOrPlayGame();
 	}
 
@@ -196,7 +201,7 @@ public class Controller
 	public void playGameListener() {
 		playGameListener =  new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e){
+			public void actionPerformed(ActionEvent e) {
 				init();
 				setupBox.chooseOptionFrame().dispose();
 			}
@@ -207,16 +212,13 @@ public class Controller
 	/**
 	 * Initializes the game after Play Game button selection.
 	 */
-	private void init(){
+	private void init() {
 		driver.createMapObject(setupBox.getMapInfo("map"));
 		playerInfoGUI = new PlayerInfoView();
 		String temp = setupBox.getMapInfo("bmp");
-        if(temp!=null) 
-        {
+        if(temp!=null) {
         	mapGUI = new MapView(temp);
-        }
-        else 
-        {
+        }else {
         	mapGUI = new MapView();
         }
         diceRollGUI = new DiceRollView();

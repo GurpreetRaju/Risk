@@ -14,7 +14,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 /**
  * This class implements file chooser operation
  * @author Harinder
- *
+ * @author Jyotsna
  */
 public class MapFileChooser {
 	

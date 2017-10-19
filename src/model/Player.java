@@ -8,26 +8,32 @@ import java.util.ArrayList;
  * @version 1.0
  */
 public class Player {
+	
 	/**
 	 * name of player.
 	 */
 	private String name;
+	
 	/**
 	 * list of countries owned by player.
 	 */
 	private ArrayList<CountryNode> countries;
+	
 	/**
 	 * list of continents owned by player.
 	 */
 	private ArrayList<MapNode> continents;
+	
 	/**
 	 * list of cards player has.
 	 */
 	private ArrayList<Card> cards;
+	
 	/**
 	 * number of times player exchanged the cards.
 	 */
 	private int cardsusedCount = 1;
+	
 	/**
 	 * number of armies player has.
 	 */
@@ -39,11 +45,15 @@ public class Player {
 	private boolean turn = false;
 	
 	/**
+	 * ArrayList of all continents in the Map.
+	 */
+	private ArrayList<MapNode> mapData;
+	
+	/**
 	 * Initialize player object with name.
 	 * @param name name of player.
 	 */
-	public Player(String name)
-	{
+	public Player(String name) {
 		this.name = name;
 		this.countries = new ArrayList<CountryNode>();
 		this.continents = new ArrayList<MapNode>();
@@ -54,21 +64,23 @@ public class Player {
 	 * Initialize player object with name and armies.
 	 * @param name name of the player.
 	 * @param newArmies armies of the player.
+	 * @param mapData ArrayList of all continents in the Map.
 	 */
-	public Player(String name, int newArmies){
+	public Player(String name, int newArmies, ArrayList<MapNode> mapData) {
 		this.name = name;
 		this.countries = new ArrayList<CountryNode>();
 		this.continents = new ArrayList<MapNode>();
 		this.cards = new ArrayList<Card>();
 		this.armiesCount = newArmies;
+		this.mapData = mapData;
+		
 	}
 	
 	/**
 	 * return name of the player.
 	 * @return name of player in string format.
 	 */
-	public String getName()
-	{
+	public String getName() {
 		return this.name;
 	}
 	
@@ -76,8 +88,7 @@ public class Player {
 	 * Add country to the list of countries owned by player.
 	 * @param country country owned by player
 	 */
-	public void addCountry(CountryNode country)
-	{
+	public void addCountry(CountryNode country) {
 		this.countries.add(country);
 	}
 	
@@ -85,8 +96,7 @@ public class Player {
 	 * returns list of countries owned by the player.
 	 * @return ArrayList containing countries.
 	 */
-	public ArrayList<CountryNode> getCountries()
-	{
+	public ArrayList<CountryNode> getCountries() {
 		return this.countries ;	
 	}
 	
@@ -94,9 +104,8 @@ public class Player {
 	 * Gets the list of countries owned by the player.
 	 * @return list of country names
 	 */
-	public String[] getCountriesNames(){
+	public String[] getCountriesNames() {
 		String[] names = new String[this.countries.size()];
-		
 		for(int i=0;i<names.length;i++){
 			names[i] = this.countries.get(i).getCountryName();
 		}
@@ -109,7 +118,6 @@ public class Player {
 	 */
 	public String[] getCountriesNamesNoArmy(){
 		ArrayList<String> names = new ArrayList<String>();
-		
 		for(CountryNode c : this.countries){
 			if(c.getArmiesCount()==0)
 				names.add(c.getCountryName());
@@ -121,8 +129,7 @@ public class Player {
 	 * Removes country from list of countries owned by player.
 	 * @param country Country object to be removed from list
 	 */
-	public void removeCountry(CountryNode country)
-	{
+	public void removeCountry(CountryNode country) {
 		this.countries.remove(country);
 	}
 	
@@ -130,8 +137,7 @@ public class Player {
 	 * Add new card to list of cards player has.
 	 * @param card new card to be added to list.
 	 */
-	public void addCard(Card card)
-	{
+	public void addCard(Card card) {
 		this.cards.add(card);
 	}
 
@@ -139,8 +145,7 @@ public class Player {
 	 * Removes the card from the list of cards.
 	 * @param card card to be removed from list. 
 	 */
-	public void removeCard(Card card)
-	{
+	public void removeCard(Card card) {
 		this.cards.remove(card);
 	}
 	
@@ -148,8 +153,7 @@ public class Player {
 	 * Add new continent to the list of continents.
 	 * @param continent continent to be added to list of continent owned by player.
 	 */
-	public void addContinent(MapNode continent)
-	{
+	public void addContinent(MapNode continent) {
 		this.continents.add(continent);
 	}
 	
@@ -157,23 +161,21 @@ public class Player {
 	 * remove continent from the list of continent owned by the player.
 	 * @param continent continent to be removed from list of continents owned by player.
 	 */
-	public void removeContinent(MapNode continent)
-	{
+	public void removeContinent(MapNode continent) {
 		this.continents.remove(continent);
 	}
 	
 	/**
 	 * Checks for the continents owned by the player.
 	 */
-	public void checkContinent() throws InstantiationException, IllegalAccessException
-	{
-		for (MapNode continent : Map.class.newInstance().getMapData())
-		{
-			if (this.countries.contains(continent.getCountries()))
-			{
+	public void checkContinent() {
+		for (MapNode continent : this.mapData) {
+			System.out.println("Inside ForLoop");
+			System.out.println(continent.getContinentName());
+			if (this.countries.containsAll(continent.getCountryList())) {
+				System.out.println("Inside If Stametment");
 				addContinent(continent);
-				//Should we remove the countries in the continent from the list of 
-				//all countries owned by player?
+				System.out.println("Added" + continent.getContinentName());
 			}
 		}
 	}
@@ -182,35 +184,37 @@ public class Player {
 	 * Calculates the armies to be alloted to the player at each turn.
 	 * @return army count
 	 */
-	public int getArmies()
-	{
+	public int getArmies() {
+		checkContinent();
 		int countriesCount = this.countries.size();
+		System.out.println(countriesCount);
 		int continentsCount = this.continents.size();
+		System.out.println(continentsCount);
 		int cardsCount = this.cards.size();
-		if (continentsCount > 0)
-		{
-			for (MapNode continent : this.continents)
-			{
+		if (continentsCount > 0) {
+			for (MapNode continent : this.continents){
 				continentsCount =+ continent.getControlValue();
 			}
 		}
 		
-		int armycount = (int) Math.ceil(countriesCount/3) + continentsCount;
+		int armyCount = (int) Math.ceil(countriesCount/3) + continentsCount;
 		
-		if (cardsCount > 5)
-		{
+		if (cardsCount > 5) {
 			//do something here with the cards count
-			armycount =+ 5* this.cardsusedCount;
+			armyCount =+ 5* this.cardsusedCount;
 			this.cardsusedCount++;
 			//remove cards here
 		}
-		return armycount;
+		if (armyCount < 3){
+			armyCount = 3;
+		}
+		return armyCount;
 	}
 	
 	/**
 	 *  Assign armies to the player.
 	 */
-	public void assignArmies(int newCount){
+	public void assignArmies(int newCount) {
 		this.armiesCount += newCount;
 	}
 	
@@ -240,14 +244,14 @@ public class Player {
 	/**
 	 *  sets player turn to true
 	 */
-	public void setTurnTrue(){
+	public void setTurnTrue() {
 		this.turn = true;
 	}
 	
 	/**
 	 *  sets player turn to false
 	 */
-	public void setTurnFalse(){
+	public void setTurnFalse() {
 		this.turn = false;
 	}
 	
@@ -263,8 +267,7 @@ public class Player {
 	 * Sets the armies of the player to the new value.
 	 * @param newArmies new value of the army to be set.
 	 */
-	public void setArmies(int newArmies)
-	{
+	public void setArmies(int newArmies) {
 		this.armiesCount = newArmies;
 	}
 }

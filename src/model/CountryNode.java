@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+
 /**
  * This class store the information of a country.
  * @author Gurpreet
@@ -12,18 +13,22 @@ public class CountryNode {
 	 * Stores name of country.
 	 */
 	private String countryName;
+	
 	/**
-	 * Stores neighbouring countries in ArrayList.
+	 * Stores neighboring countries in ArrayList.
 	 */
 	private ArrayList<CountryNode> neighbourCountries;
+	
 	/**
-	 * Stores the x nd y coordnates of country at index 0 and 1 respectively.
+	 * Stores the x and y coordinates of country at index 0 and 1 respectively.
 	 */
 	private int[] coordiantes;
+	
 	/**
 	 * Store name of player to whom this country belongs.
 	 */
 	private Player owner;
+	
 	/**
 	 * Stores number of armies in this country placed by owner.
 	 */
@@ -32,11 +37,10 @@ public class CountryNode {
 	/**
 	 * This constructor initialize the attributes of this country.
 	 * @param newName name of country.
-	 * @param newNeighbours neighbouring countries of this country.
+	 * @param newNeighbours neighboring countries of this country.
 	 * @param newCoordinates x and y coordinates of country.
 	 */
-	public CountryNode(String newName,ArrayList<CountryNode> newNeighbours, int[] newCoordinates)
-	{
+	public CountryNode(String newName,ArrayList<CountryNode> newNeighbours, int[] newCoordinates) {
 		this.countryName = newName;
 		this.neighbourCountries = newNeighbours;
 		this.coordiantes = newCoordinates;
@@ -48,26 +52,33 @@ public class CountryNode {
 	 * Gives the name of the country node.
 	 * @return Returns the name of country.
 	 */
-	public String getCountryName()
-	{
+	public String getCountryName() {
 		return this.countryName;
+	}
+	
+	/**
+	 * Gives the list of the neighboring country nodes of a given country node.
+	 * @return ArrayList containing neighboring countries.
+	 */
+	public ArrayList<CountryNode> getNeighbours() {
+		return this.neighbourCountries;
 	}
 	
 	/**
 	 * Gives the list of the neighboring country nodes of a given country node.
 	 * @return Array containing neighboring countries.
 	 */
-	public CountryNode[] getNeighbourCountries()
-	{
-		return this.neighbourCountries.toArray(new CountryNode[this.neighbourCountries.size()]);
+	public CountryNode[] getNeighbourCountries() {
+		if(this.neighbourCountries!=null)
+		return this.neighbourCountries.toArray(new CountryNode[this.neighbourCountries.size()]);	
+		return null;
 	}
 	
 	/**
 	 * Gives the list of the names of the neighboring country nodes of a given country.
 	 * @return Array containing names of neighboring countries.
 	 */
-	public String[] getNeighbourCountriesString()
-	{
+	public String[] getNeighbourCountriesString() {
 		ArrayList<String> countries = new ArrayList<String>();
 		for(CountryNode c : this.neighbourCountries){
 			countries.add(c.countryName);
@@ -79,8 +90,7 @@ public class CountryNode {
 	 * Gets the coordinates of the country on the map.
 	 * @return coordinates of country.
 	 */
-	public int[] getCoordinates()
-	{
+	public int[] getCoordinates() {
 		return this.coordiantes;
 	}
 	
@@ -88,8 +98,7 @@ public class CountryNode {
 	 * Gets the player who is the owner of the country.
 	 * @return player who owns this country.
 	 */
-	public Player getOwner()
-	{
+	public Player getOwner() {
 		return this.owner;
 	}
 	
@@ -97,8 +106,7 @@ public class CountryNode {
 	 * Gets the armies count of a particular country.
 	 * @return number of armies placed in this country.
 	 */
-	public int getArmiesCount()
-	{
+	public int getArmiesCount() {
 		return this.armies;
 	}
 	
@@ -106,8 +114,7 @@ public class CountryNode {
 	 * Sets owner of this country.
 	 * @param player player instance.
 	 */
-	public void setOwner(Player player)
-	{
+	public void setOwner(Player player) {
 		this.owner = player;
 		player.addCountry(this);
 	}
@@ -116,8 +123,7 @@ public class CountryNode {
 	 * Places armies in this country.
 	 * @param newArmies number of armies
 	 */
-	public void setArmies(int newArmies)
-	{
+	public void setArmies(int newArmies) {
 		this.armies = newArmies;
 	}
 	
@@ -133,13 +139,14 @@ public class CountryNode {
 	 * Adds new neighbor country.
 	 * @param newNeighbour country
 	 */
-	public void addNeighbour(CountryNode newNeighbour)
-	{
-		if(this.neighbourCountries==null)
-		{
+	public void addNeighbour(CountryNode newNeighbour) {
+		if(this.neighbourCountries==null){
 			this.neighbourCountries = new ArrayList<CountryNode>();
 		}
-		this.neighbourCountries.add(newNeighbour);
+		if(!this.neighbourCountries.contains(newNeighbour)){
+			this.neighbourCountries.add(newNeighbour);
+			newNeighbour.addNeighbour(this);
+		}
 	}
 	
 	/**
@@ -147,12 +154,9 @@ public class CountryNode {
 	 * @param o object of CountryNode
 	 * @return true of two objects are same; false if not.
 	 */
-	public boolean equal(Object o)
-	{
-		if(o instanceof CountryNode)
-		{
-			if(((CountryNode) o).countryName.equals(this.countryName))
-			{
+	public boolean equal(Object o) {
+		if(o instanceof CountryNode){
+			if(((CountryNode) o).countryName.equals(this.countryName)){
 				return true;
 			}
 		}
@@ -165,12 +169,9 @@ public class CountryNode {
 	 * @param country country to be found in list
 	 * @return true if list contains country; false if not.
 	 */
-	public static boolean contains(ArrayList<CountryNode> list, String country)
-	{
-		for(CountryNode c: list)
-		{
-			if(c.countryName.equals(country))
-			{
+	public static boolean contains(ArrayList<CountryNode> list, String country) {
+		for(CountryNode c: list){
+			if(c.countryName.equals(country)){
 				return true;
 			}
 		}
@@ -183,12 +184,9 @@ public class CountryNode {
 	 * @param name name of required country.
 	 * @return object of required country
 	 */
-	public static CountryNode getCountry(ArrayList<CountryNode>list, String name)
-	{
-		for(CountryNode c: list)
-		{
-			if(c.countryName.equals(name))
-			{
+	public static CountryNode getCountry(ArrayList<CountryNode>list, String name) {
+		for(CountryNode c: list){
+			if(c.countryName.equals(name)){
 				return c;
 			}
 		}
@@ -199,8 +197,7 @@ public class CountryNode {
 	 * Set new coordinates of country.
 	 * @param newCoordinates x and y coordinates
 	 */
-	public void setCoordinates(int[] newCoordinates) 
-	{
+	public void setCoordinates(int[] newCoordinates) {
 		this.coordiantes = newCoordinates;		
 	}
 	

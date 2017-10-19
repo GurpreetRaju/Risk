@@ -1,7 +1,8 @@
 package model;
 
 /**
- * Enumeration for the record of armies to be assigned to the players according to the number of players.
+ * Enumeration for the record of armies to be assigned to the players 
+ * according to the number of players.
  */
 public enum RiskData {
 	
@@ -30,5 +31,4 @@ public enum RiskData {
 	};
 	
 	public abstract int getArmiesCount(int n);
-	
 }

@@ -18,28 +18,22 @@ import javax.swing.JScrollPane;
 
 import model.Map;
 
-public class MapView extends JPanel implements Observer
-{
-	
+public class MapView extends JPanel implements Observer {
 	private BufferedImage image;
 	private boolean graphicalMap = false;
+	
 	/**
-	 * 
+	 * Version number for serializable class
 	 */
 	private static final long serialVersionUID = 2353535256045293828L;
 
-	public MapView(String newImage)
-	{
+	public MapView(String newImage) {
 		this();
 		System.out.println("Not working");
-	    if(newImage!=null)
-	    {
-	    	try 
-	    	{
+	    if(newImage!=null){
+	    	try {
 	    		image = ImageIO.read(new File(newImage));
-	    	} 
-	    	catch (IOException e) 
-	    	{
+	    	} catch (IOException e) {
 	    		e.printStackTrace();
 	    	}
 	    }
@@ -60,18 +54,15 @@ public class MapView extends JPanel implements Observer
 	    }
 	}
 
-	public void setMap(String[][] newMapData) 
-	{
+	public void setMap(String[][] newMapData) {
 		this.removeAll();
 		JPanel pane = new JPanel();
 		GridBagLayout gb = new GridBagLayout();
 		pane.setLayout(gb);
 		int i = 0;
-		for(String[] o : newMapData)
-		{
+		for(String[] o : newMapData){
 			int j=0;
-			for(String k: o)
-			{
+			for(String k: o) {
 			    GridBagConstraints gbc = new GridBagConstraints();
 			    gbc.ipadx = 20;
 			    gbc.gridx = j;
@@ -104,14 +95,10 @@ public class MapView extends JPanel implements Observer
 
 	@Override
 	public void update(Observable obs, Object map) {
-		if(graphicalMap)
-		{
+		if(graphicalMap){
 			setGraphicalMap(((Map) obs).getMapDataObject());
-		}
-		else
-		{
+		}else{
 			setMap(((Map) obs).getMapObject());
 		}
 	}
-	
 }

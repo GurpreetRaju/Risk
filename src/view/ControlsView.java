@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Label;
 import java.awt.event.ActionListener;
-
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -22,18 +21,22 @@ public class ControlsView extends JPanel {
 	 * {@inheritDoc}
 	 */
 	private static final long serialVersionUID = -2537156060382941763L;
+	
 	/**
 	 * Spinner to display armies count available to the player for Reinforcement phase.
 	 */
 	private JSpinner armiesSpinner;
+	
 	/**
 	 * ComboBox to display the countries owned by the current player.
 	 */
 	private JComboBox<String> countriesList;
+	
 	/**
 	 * Button for the fortification phase move.
 	 */
 	private JButton playMove;
+	
 	/**
 	 * Dropdown for list of neighbors.
 	 */
@@ -55,7 +58,6 @@ public class ControlsView extends JPanel {
 	 * Constructor to display the Control section of the game for Reinforcement, Attack and Fortification phases.
 	 */
 	public ControlsView(){
-	
 		JLabel label = new JLabel("Controls Here.");
 		this.setLayout(new FlowLayout());
 		this.add(label);
@@ -67,7 +69,7 @@ public class ControlsView extends JPanel {
 	 * @param armiesCount Number of armies available to the player for Reinforcement phase.
 	 * @param countryList String array containing the countries owned by the current player.
 	 */
-	public void reinforcementConrols(int armiesCount, String[] countryList){
+	public void reinforcementConrols(int armiesCount, String[] countryList) {
 		this.removeAll();
 		armiesAvailable = "Armies Available:" + String.valueOf(armiesCount);
 		System.out.println(armiesCount);
@@ -94,7 +96,7 @@ public class ControlsView extends JPanel {
 	 * This function implements the Fortification Phase.
 	 * @param countryList String array that contains the names of the country owned by the current player.
 	 */
-	public void fortificationControls(String[] countryList){
+	public void fortificationControls(String[] countryList) {
 		this.removeAll();
 
 		countriesList = new JComboBox<String>(countryList);
@@ -200,5 +202,4 @@ public class ControlsView extends JPanel {
 	public boolean isNeighbourSelected(){
 		return this.neighborList.isEnabled();
 	}
-	
 }

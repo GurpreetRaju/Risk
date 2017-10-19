@@ -30,5 +30,4 @@ public class CardsView extends JPanel {
 		this.setBorder(BorderFactory.createLineBorder(Color.black));
 		this.setPreferredSize(new Dimension(400,150));
 	}
-	
 }

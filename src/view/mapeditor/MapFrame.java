@@ -20,6 +20,7 @@ import controller.mapeditor.mapEditorController;
 /**
  * MapFrame class opens the JFrame view for selecting 
  * New map and Existing map
+ * @author Harinder
  */
 public class MapFrame extends JFrame {
 
@@ -37,7 +38,6 @@ public class MapFrame extends JFrame {
 				try {
 					frame.setVisible(true);
 					frame.setExtendedState(JFrame.MAXIMIZED_BOTH); 
-
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -48,8 +48,7 @@ public class MapFrame extends JFrame {
 	/**
 	 * MapFrame constructor calls initialize method of the class
 	 */
-	public MapFrame()
-	{
+	public MapFrame() {
 		initialize();
 	}
 	
@@ -142,5 +141,4 @@ public class MapFrame extends JFrame {
 			}
 		});
 	}
-
 }
