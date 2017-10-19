@@ -29,6 +29,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.JComboBox;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.List;
 import java.awt.event.ActionEvent;
 
 /**
@@ -45,11 +46,16 @@ public class NewMap extends JFrame {
 	JComboBox comboBox_3;
 	MapNode mapNode;
 	JButton btnDone;
+	JButton btnAddNeighbours;
 	ArrayList<MapNode> continents = new ArrayList<MapNode>();
 	MapWriter mapWriter = new MapWriter();
 	MapModel mapModel = new MapModel();
 	private String continentName;
 	private String cv;
+	JList list;
+	JComboBox comboBox_1;
+	DefaultListModel<String> model2;
+	JButton btnSelectedNeighbours;
 
 	/**
 	 * NewMap constructor calls initialize method of the class
@@ -244,7 +250,7 @@ public class NewMap extends JFrame {
 
 		contentPane.add(comboBox_3, gbc_comboBox_3);
 
-		JButton btnAddNeighbours = new JButton("Choose Neighbours");
+		btnAddNeighbours = new JButton("Choose Neighbours");
 		btnAddNeighbours.setFont(new Font("Bookman Old Style", Font.BOLD | Font.ITALIC, 18));
 		GridBagConstraints gbc_btnAddNeighbours = new GridBagConstraints();
 		gbc_btnAddNeighbours.fill = GridBagConstraints.HORIZONTAL;
@@ -253,7 +259,7 @@ public class NewMap extends JFrame {
 		gbc_btnAddNeighbours.gridy = 14;
 		contentPane.add(btnAddNeighbours, gbc_btnAddNeighbours);
 
-		JComboBox comboBox_1 = new JComboBox();
+		comboBox_1 = new JComboBox();
 		GridBagConstraints gbc_comboBox_11 = new GridBagConstraints();
 		comboBox_1.setToolTipText("Select country for adding neighbours");
 		gbc_comboBox_11.insets = new Insets(0, 0, 5, 5);
@@ -271,8 +277,8 @@ public class NewMap extends JFrame {
 		gbc_lblChooseNeighbours.gridy = 16;
 		contentPane.add(lblChooseNeighbours, gbc_lblChooseNeighbours);
 
-		DefaultListModel<String> model2 = new DefaultListModel<String>();
-		JList list = new JList();
+		model2 = new DefaultListModel<String>();
+		list = new JList();
 		JScrollPane scrollPane = new JScrollPane(list);
 		list.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 		list.setModel(model2);
@@ -284,7 +290,7 @@ public class NewMap extends JFrame {
 		contentPane.add(scrollPane, gbc_list);
 		list.setEnabled(false);
 
-		JButton btnSelectedNeighbours = new JButton("Add selected countries as neighbours");
+		btnSelectedNeighbours = new JButton("Add selected countries as neighbours");
 		GridBagConstraints gbc_button = new GridBagConstraints();
 		gbc_button.anchor = GridBagConstraints.EAST;
 		gbc_button.insets = new Insets(0, 0, 5, 5);
@@ -311,16 +317,6 @@ public class NewMap extends JFrame {
 					txtContinentControlValue.setEnabled(true);
 				}
 			}});
-
-
-		btnDone.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (e.getSource() == btnDone) {
-					
-				}
-			}
-		});
-
 
 		btnAddCountry.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -389,43 +385,10 @@ public class NewMap extends JFrame {
 
 		comboBox_1.setEnabled(true);
 
-		btnAddNeighbours.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (e.getSource() == btnAddNeighbours) {
-					list.setEnabled(true);
-					String sCountrytToAddNeighbour = comboBox_1.getSelectedItem().toString();
-					model2.removeAllElements();
-					for (MapNode node : continents) {
-						for (CountryNode countryNode : node.getCountries()) {
-							if(sCountrytToAddNeighbour.compareTo(countryNode.getCountryName())==0)
-								continue;
-							model2.addElement(countryNode.getCountryName());
-						}   
-					}       
-				}
-			}
-		});
-
 		btnSelectedNeighbours.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (e.getSource() == btnSelectedNeighbours) {
-					ArrayList<CountryNode> neighbours= new ArrayList<CountryNode>();
-					for (Object ncountry : list.getSelectedValuesList()) {
-						CountryNode cn =  new CountryNode(ncountry.toString(), null, null);
-						neighbours.add(cn);
-					}
-					for (MapNode node : continents) {
-						for (CountryNode cNode : node.getCountries()) {
-							String sCountrytToAddNeighbour = (String )comboBox_1.getSelectedItem().toString();
-							if(sCountrytToAddNeighbour.compareTo(cNode.getCountryName())==0)
-								for (CountryNode neighbourNode : neighbours) {
-									cNode.addNeighbour(neighbourNode);	
-								}
-							for (CountryNode country : cNode.getNeighbourCountries()) {
-								System.out.println(country.toString());
-							}
-						}
-					}
+					
 				}
 			}
 		});
@@ -454,7 +417,6 @@ public class NewMap extends JFrame {
 				}
 			}
 		});
-
 
 		btnDeleteContinent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -496,7 +458,35 @@ public class NewMap extends JFrame {
 
 	}
 	public void addActionsToBtnDone(ActionListener newAction) {
-	    	btnDone.addActionListener(newAction);
+	    btnDone.addActionListener(newAction);
+	}
+	
+	public void addActionsToBtnAddNeighbours(ActionListener newAction) {
+		btnAddNeighbours.addActionListener(newAction);
+	}
+	
+	public void addActionsToBtnSelectedNeighbours(ActionListener newAction) {
+		btnSelectedNeighbours.addActionListener(newAction);
+	}
+	
+	public List getNeighboursList() {
+		return (list.getSelectedValuesList());
+	}
+	
+	public void enableJList() {
+		list.setEnabled(true);
+	}
+	
+	public String getSelectedCountryForNeighbours() {
+		return (comboBox_1.getSelectedItem().toString());
+	}
+	
+	public void clearNeighboursJList() {
+		model2.removeAllElements();
+	}
+	
+	public void addPossibleNeighboursToJList(String neighbour) {
+		model2.addElement(neighbour);
 	}
 	
 	public String getContinentName() {

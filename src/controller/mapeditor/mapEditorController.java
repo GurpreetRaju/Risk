@@ -35,17 +35,17 @@ public class mapEditorController {
 	 * action listener applied on button "Choose Map File" for selecting map file
 	 */	
 	private ActionListener existingBtnAction;
-	
+
 	/**
 	 * action listener applied on button "Choose Map File" for selecting map file
 	 */
 	private ActionListener newButtonAction;
-	
+
 	/**
 	 * Stores the path of the file chosen
 	 */
 	public static String path = "";
-	
+
 	MapModel mapModel = new MapModel();
 
 	/**
@@ -100,7 +100,7 @@ public class mapEditorController {
 	 */
 	public void newMapActions() {
 		NewMap newMap = new NewMap();
-		
+
 		newMap.addActionsToBtnDone(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String cn = newMap.getContinentName();
@@ -117,11 +117,47 @@ public class mapEditorController {
 						for(MapNode i: mapModel.getContinents()) {
 							String continent = i.getContinentName();
 							newMap.setContinentsComboBox(continent);
+
 						}
 					}
 				}
-			}});
+			}
+		});
+
+		newMap.addActionsToBtnAddNeighbours(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				newMap.enableJList();
+				String sCountrytToAddNeighbour = newMap.getSelectedCountryForNeighbours();
+				newMap.clearNeighboursJList();
+				for (MapNode node : mapModel.getContinents()) {
+					for (CountryNode countryNode : node.getCountries()) {
+						if(sCountrytToAddNeighbour.compareTo(countryNode.getCountryName())==0)
+							continue;
+						newMap.addPossibleNeighboursToJList(countryNode.getCountryName());
+					}
+				}
+			}
+		});
 		
+		newMap.addActionsToBtnSelectedNeighbours(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ArrayList<CountryNode> neighbours= new ArrayList<CountryNode>();
+				for (Object ncountry : newMap.getNeighboursList() ) {
+					CountryNode cn =  new CountryNode(ncountry.toString(), null, null);
+					neighbours.add(cn);
+				}
+				for (MapNode node : mapModel.getContinents()) {
+					for (CountryNode cNode : node.getCountries()) {
+						String sCountrytToAddNeighbour = newMap.getSelectedCountryForNeighbours();
+						if(sCountrytToAddNeighbour.compareTo(cNode.getCountryName())==0)
+							for (CountryNode neighbourNode : neighbours) {
+								cNode.addNeighbour(neighbourNode);	
+							}
+					}
+				}
+			}
+		});
+
 		newMap.setVisible(true);
 	}
 
