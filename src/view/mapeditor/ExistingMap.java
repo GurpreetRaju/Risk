@@ -57,9 +57,7 @@ public class ExistingMap extends JFrame {
 	/**
 	 * Existing Map constructor calls initialize method of the class
 	 */
-
-	public ExistingMap(ArrayList<MapNode> map)
-	{
+	public ExistingMap(ArrayList<MapNode> map){
 		existingMap = map;
 		initialize();
 	}
@@ -92,6 +90,7 @@ public class ExistingMap extends JFrame {
 			String[] contName = {existingMap.get(i).getContinentName(), Integer.toString(existingMap.get(i).getControlValue())};
 			model1.addRow(contName);
 		}
+		
 		JTable table1 = new JTable(model1);
 		table1.setToolTipText("Map file displayed here");
 		GridBagConstraints gbc_table1 = new GridBagConstraints();
@@ -102,7 +101,6 @@ public class ExistingMap extends JFrame {
 		gbc_table1.gridx = 0;
 		gbc_table1.gridy = 0;
 		contentPane.add(getContentPane().add(new JScrollPane(table1)), gbc_table1);
-
 
 		String[] column2 = {"Countries"};
 		DefaultTableModel model2 = new DefaultTableModel(column2, 0);
@@ -116,7 +114,6 @@ public class ExistingMap extends JFrame {
 		gbc_table2.gridx = 2;
 		gbc_table2.gridy = 0;
 		contentPane.add(getContentPane().add(new JScrollPane(table2)), gbc_table2);
-
 
 		String[] column3 = {"N Countries"};
 		DefaultTableModel model3 = new DefaultTableModel(column3, 0);
@@ -191,7 +188,6 @@ public class ExistingMap extends JFrame {
 					existingMapEditor.setVisible(true);
 				}
 			}
-			});
+		});
 	}
-
 }

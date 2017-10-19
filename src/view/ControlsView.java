@@ -21,22 +21,27 @@ public class ControlsView extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = -2537156060382941763L;
+	
 	/**
 	 * Spinner to display armies count available to the player for Reinforcement phase.
 	 */
 	private JSpinner armiesSpinner;
+	
 	/**
 	 * ComboBox to display the countries owned by the current player.
 	 */
 	private JComboBox<String> countriesList;
+	
 	/**
 	 * Button to start the phase.
 	 */
 	private JButton playMove;
+	
 	/**
 	 * Button to end the phase.
 	 */
 	private JButton doneButton;
+	
 	/**
 	 * Number of armies selected to move to the neighboring country for Fortification phase.
 	 */
@@ -50,7 +55,6 @@ public class ControlsView extends JPanel {
 	 * Constructor to display the Control section of the game for Reinforcement, Attack and Fortification phases.
 	 */
 	public ControlsView(){
-	
 		JLabel label = new JLabel("Controls Here.");
 		this.setLayout(new FlowLayout());
 		this.add(label);
@@ -62,7 +66,7 @@ public class ControlsView extends JPanel {
 	 * @param armiesCount Number of armies available to the player for Reinforcement phase.
 	 * @param countryList String array containing the countries owned by the current player.
 	 */
-	public void reinforcementConrols(int armiesCount, String[] countryList){
+	public void reinforcementConrols(int armiesCount, String[] countryList) {
 		this.removeAll();
 		armiesAvailable = "Armies Available:" + String.valueOf(armiesCount);
 		System.out.println(armiesCount);
@@ -89,7 +93,7 @@ public class ControlsView extends JPanel {
 	 * This function implements the Fortification Phase.
 	 * @param countryList String array that contains the names of the country owned by the current player.
 	 */
-	public void fortificationControls(String[] countryList){
+	public void fortificationControls(String[] countryList) {
 		this.removeAll();
 
 		countriesList = new JComboBox<String>(countryList);
@@ -116,7 +120,7 @@ public class ControlsView extends JPanel {
 	 * 
 	 * @param a
 	 */
-	public void playButtonAction(ActionListener a){
+	public void playButtonAction(ActionListener a) {
 		this.playMove.addActionListener(a);
 	}
 	
@@ -124,23 +128,19 @@ public class ControlsView extends JPanel {
 		this.doneButton.addActionListener(newAction);
 	}
 	
-	public void addArmiesButtonAction(ActionListener newAction)
-	{
+	public void addArmiesButtonAction(ActionListener newAction) {
 		this.addArmies.addActionListener(newAction);
 	}
 	
-	public void endPhaseAction(ActionListener newAction)
-	{
+	public void endPhaseAction(ActionListener newAction) {
 		this.endPhase.addActionListener(newAction);
 	}
 	
-	public void countrieslistAction(ActionListener newAction)
-	{
+	public void countrieslistAction(ActionListener newAction) {
 		this.countriesList.addActionListener(newAction);
 	}
 	
-	public void updateFortification(int armies, String[] neighbourNames)
-	{
+	public void updateFortification(int armies, String[] neighbourNames) {
 		this.armiesSpinner.setModel(new SpinnerNumberModel(1, 0, armies-1, 1));
 		this.armiesSpinner.setEnabled(true);;
 		this.neighborList.setModel(new DefaultComboBoxModel<String>(neighbourNames));
@@ -149,13 +149,11 @@ public class ControlsView extends JPanel {
 		this.playMove.setEnabled(true);;
 	}
 	
-	public int getArmiesValue()
-	{
+	public int getArmiesValue() {
 		return (int) this.armiesSpinner.getValue();
 	}
 	
-	public String getCountrySelected()
-	{
+	public String getCountrySelected() {
 		return (String) this.countriesList.getSelectedItem();
 	}
 
@@ -166,5 +164,4 @@ public class ControlsView extends JPanel {
 	public boolean isNeighbourSelected(){
 		return this.neighborList.isEnabled();
 	}
-	
 }

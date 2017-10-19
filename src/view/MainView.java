@@ -6,7 +6,7 @@ import java.awt.Dimension;
 import javax.swing.JFrame;
 import javax.swing.SpringLayout;
 
-public class MainView extends JFrame{	
+public class MainView extends JFrame {	
 	
 	private static final long serialVersionUID = 1L;
 	private static MainView mainView;
@@ -16,8 +16,7 @@ public class MainView extends JFrame{
 	private CardsView cardsArea;
 	private ControlsView controlsArea;
 	
-	private MainView(PlayerInfoView newPlayerInfo, MapView newMap, DiceRollView newDice, CardsView newCards, ControlsView newControls) 
-	{	
+	private MainView(PlayerInfoView newPlayerInfo, MapView newMap, DiceRollView newDice, CardsView newCards, ControlsView newControls) {	
 		playerData = newPlayerInfo;
         map = newMap;
         diceArea = newDice;
@@ -30,7 +29,6 @@ public class MainView extends JFrame{
 	}
 
 	private void init(){
-			
 		Container contentPane = this.getContentPane();
         SpringLayout layout = new SpringLayout();
         contentPane.setLayout(layout);
@@ -43,24 +41,28 @@ public class MainView extends JFrame{
         contentPane.add(cardsArea);
         contentPane.add(controlsArea);
         
-		//playerData constraints
+		/*playerData constraints.*/
         layout.putConstraint(SpringLayout.WEST, playerData, 5,  SpringLayout.WEST, contentPane);
         layout.putConstraint(SpringLayout.EAST, playerData, 0,  SpringLayout.EAST, cardsArea);
         layout.putConstraint(SpringLayout.NORTH, playerData, 5, SpringLayout.NORTH, contentPane);
         layout.putConstraint(SpringLayout.SOUTH, playerData, -5,  SpringLayout.NORTH, cardsArea);
-        //map constraints
+        
+        /*map constraints.*/
         layout.putConstraint(SpringLayout.WEST, map, 5,  SpringLayout.EAST, playerData);
         layout.putConstraint(SpringLayout.NORTH, map, 5, SpringLayout.NORTH, contentPane);
         layout.putConstraint(SpringLayout.SOUTH, map, 0, SpringLayout.SOUTH, playerData);
         layout.putConstraint(SpringLayout.EAST, map, -5, SpringLayout.WEST, diceArea);
-        //diceArea constraints
+        
+        /*diceArea constraints.*/
         layout.putConstraint(SpringLayout.EAST, diceArea, -5,  SpringLayout.EAST, contentPane);
         layout.putConstraint(SpringLayout.NORTH, diceArea, 5, SpringLayout.NORTH, contentPane);
         layout.putConstraint(SpringLayout.SOUTH, diceArea, 0, SpringLayout.SOUTH, playerData);
-        //cardsArea constraints
+        
+        /*cardsArea constraints.*/
         layout.putConstraint(SpringLayout.WEST, cardsArea, 5,  SpringLayout.WEST, contentPane);
         layout.putConstraint(SpringLayout.SOUTH, cardsArea, -5, SpringLayout.SOUTH, contentPane);
-        //controlsArea constraints
+        
+        /*controlsArea constraints.*/
         layout.putConstraint(SpringLayout.WEST, controlsArea, 5,  SpringLayout.EAST, cardsArea);
         layout.putConstraint(SpringLayout.EAST, controlsArea, -5,  SpringLayout.EAST, contentPane);
         layout.putConstraint(SpringLayout.NORTH, controlsArea, 0, SpringLayout.NORTH, cardsArea);
@@ -72,11 +74,9 @@ public class MainView extends JFrame{
 		return mainView;
     }
 	
-	public static void createInstance(PlayerInfoView newPlayerInfo, MapView newMap, DiceRollView newDice, CardsView newCards, ControlsView newControls)
-	{
+	public static void createInstance(PlayerInfoView newPlayerInfo, MapView newMap, DiceRollView newDice, CardsView newCards, ControlsView newControls){
 		if(mainView == null){
 			mainView = new MainView(newPlayerInfo, newMap, newDice, newCards, newControls);
 		}
 	}
-	
 }

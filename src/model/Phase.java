@@ -9,14 +9,17 @@ public class Phase {
 	 * Stores the current phase name.
 	 */
 	private String phase;
+	
 	/**
 	 * Defines object for the Reinforcement phase.
 	 */
 	public static final Phase reinforcement = new Phase("reinforcement");
+	
 	/**
 	 * Defines object for the Attack phase.
 	 */
 	public static final Phase attack = new Phase("attack");
+	
 	/**
 	 * Defines object for the Fortification phase.
 	 */
@@ -32,8 +35,7 @@ public class Phase {
 	/**
 	 * Calls reinforcement phase.
 	 */
-	public void reinforcementPhase()
-	{
+	public void reinforcementPhase() {
 		this.phase = "reinforcement";
 		GameDriver.getInstance().getControlGUI().reinforcementConrols(GameDriver.getInstance().getPlayerArmies(), GameDriver.getInstance().getPlayerCountryNames());
 		//System.out.println(getPlayerArmies());
@@ -43,8 +45,7 @@ public class Phase {
 	/**
 	 * Calls fortification phase.
 	 */
-	public void fortificationPhase()
-	{
+	public void fortificationPhase() {
 		this.phase = "fortification";
 		GameDriver.getInstance().getControlGUI().fortificationControls(GameDriver.getInstance().getPlayerCountryNames());
 		GameDriver.getInstance().setFortificationLiteners();
@@ -54,8 +55,7 @@ public class Phase {
 	/**
 	 * Calls attack phase.
 	 */
-	public void attackPhase()
-	{
+	public void attackPhase() {
 		this.phase = "attack";
 		GameDriver.getInstance().changePhase();
 	}
@@ -69,5 +69,4 @@ public class Phase {
 		}
 		return false;
 	}
-	
 }

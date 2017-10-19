@@ -30,5 +30,4 @@ public enum RiskData {
 	};
 	
 	public abstract int getArmiesCount(int n);
-	
 }
