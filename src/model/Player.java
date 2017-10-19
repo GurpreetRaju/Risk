@@ -45,6 +45,11 @@ public class Player {
 	private boolean turn = false;
 	
 	/**
+	 * ArrayList of all continents in the Map.
+	 */
+	private ArrayList<MapNode> mapData;
+	
+	/**
 	 * Initialize player object with name.
 	 * @param name name of player.
 	 */
@@ -59,13 +64,16 @@ public class Player {
 	 * Initialize player object with name and armies.
 	 * @param name name of the player.
 	 * @param newArmies armies of the player.
+	 * @param mapData ArrayList of all continents in the Map.
 	 */
-	public Player(String name, int newArmies) {
+	public Player(String name, int newArmies, ArrayList<MapNode> mapData) {
 		this.name = name;
 		this.countries = new ArrayList<CountryNode>();
 		this.continents = new ArrayList<MapNode>();
 		this.cards = new ArrayList<Card>();
 		this.armiesCount = newArmies;
+		this.mapData = mapData;
+		
 	}
 	
 	/**
@@ -160,8 +168,8 @@ public class Player {
 	/**
 	 * Checks for the continents owned by the player.
 	 */
-	public void checkContinent() throws InstantiationException, IllegalAccessException {
-		for (MapNode continent : Map.class.newInstance().getMapData()) {
+	public void checkContinent() {
+		for (MapNode continent : this.mapData) {
 			if (this.countries.contains(continent.getCountries())) {
 				addContinent(continent);
 			}
@@ -173,6 +181,7 @@ public class Player {
 	 * @return army count
 	 */
 	public int getArmies() {
+		checkContinent();
 		int countriesCount = this.countries.size();
 		int continentsCount = this.continents.size();
 		int cardsCount = this.cards.size();
@@ -182,15 +191,18 @@ public class Player {
 			}
 		}
 		
-		int armycount = (int) Math.ceil(countriesCount/3) + continentsCount;
+		int armyCount = (int) Math.ceil(countriesCount/3) + continentsCount;
 		
 		if (cardsCount > 5) {
 			//do something here with the cards count
-			armycount =+ 5* this.cardsusedCount;
+			armyCount =+ 5* this.cardsusedCount;
 			this.cardsusedCount++;
 			//remove cards here
 		}
-		return armycount;
+		if (armyCount < 3){
+			armyCount = 3;
+		}
+		return armyCount;
 	}
 	
 	/**

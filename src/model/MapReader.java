@@ -57,11 +57,13 @@ public class MapReader {
 								CountryNode newCountry = CountryNode.getCountry(stack, temp[0]);
 								int[] newCoordinates = {Integer.parseInt(temp[1]),Integer.parseInt(temp[2])};
 								newCountry.setCoordinates(newCoordinates);
-								for(int i=4;i<temp.length;i++){
-									if(!CountryNode.contains(stack, temp[i])){
-										stack.add(new CountryNode(temp[i], null, null));
+								if(temp.length>4) {
+									for(int i=4;i<temp.length;i++){
+										if(!CountryNode.contains(stack, temp[i])){
+											stack.add(new CountryNode(temp[i], null, null));
+										}
+										newCountry.addNeighbour(CountryNode.getCountry(stack, temp[i]));
 									}
-									newCountry.addNeighbour(CountryNode.getCountry(stack, temp[i]));
 								}
 								n.addCountry(newCountry);
 								break;

@@ -28,7 +28,9 @@ public class TestMapValidation {
 	public void testMapInvalid() {
 		path = ".//data//test//testMap2.map";
 		map = new Map(path);
-		assertFalse(map.mapValidation());
+		Boolean b = map.mapValidation();
+		System.out.print(b);
+		assertFalse(b);
 	}
 
 }
