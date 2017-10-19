@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JFileChooser;
 import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import model.MapModel;
 import model.MapReader;
@@ -74,6 +75,8 @@ public class mapEditorController {
 			public void actionPerformed(ActionEvent e) {
 				final JFileChooser fc = new JFileChooser();
 				fc.setCurrentDirectory(new java.io.File("user.home"));
+				FileNameExtensionFilter filter = new FileNameExtensionFilter("Map Files", "map");
+				fc.setFileFilter(filter);
 				fc.setDialogTitle("Choose your Conquest Map File");
 				fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
 				if (fc.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {

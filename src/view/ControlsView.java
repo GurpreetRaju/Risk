@@ -3,9 +3,7 @@ package view;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Label;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
@@ -16,11 +14,6 @@ import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
-
-import controller.Controller;
-import model.CountryNode;
-import model.GameDriver;
-import model.Player;
 
 public class ControlsView extends JPanel {
 	
@@ -53,7 +46,6 @@ public class ControlsView extends JPanel {
 	private JButton addArmies;
 	private JButton endPhase;
 	
-	private Controller controller;
 	/**
 	 * Constructor to display the Control section of the game for Reinforcement, Attack and Fortification phases.
 	 */

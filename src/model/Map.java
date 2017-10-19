@@ -29,6 +29,7 @@ public class Map extends Observable{
 	}
 	
 	/** 
+	 * Returns the arraylist of map data.
 	 * @return return map data in form of arraylist.
 	 */
 	public ArrayList<MapNode> getMapData()
@@ -48,14 +49,7 @@ public class Map extends Observable{
 			for(CountryNode n : m.getCountries())
 			{
 				String[] tempObject = new String[5];
-//				tempObject[0] = m.getContinentName() +", "+ m.getControlValue();
 				tempObject[1] = n.getCountryName();
-//				String neighbours = "";
-//				for(String s: n.getNeighbourCountriesString())
-//				{
-//					neighbours = neighbours + s + ", ";
-//				}
-//				tempObject[4] = neighbours;
 				if(n.getOwner()!=null){
 					tempObject[3] = n.getOwner().getName();
 				}
@@ -71,6 +65,10 @@ public class Map extends Observable{
 		return newData.toArray(new String[newData.size()][]);
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public String[][] getMapObject()
 	{
 		ArrayList<Object[]> newData = new ArrayList<Object[]>();
@@ -113,6 +111,9 @@ public class Map extends Observable{
 		}
 	}
 	
+	/**
+	 * Notify Observer(MapView) of the change in Observable
+	 */
 	public void updateMap(){
 		setChanged();
 		notifyObservers(this);
