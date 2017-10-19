@@ -87,4 +87,11 @@ public class MapNode {
 		this.countries.add(newCountry);
 	}
 	
+	/**
+	 * return ArrayList of countries in the continent
+	 * @return countries ArrayList containing countries of this continent.
+	 */
+	public ArrayList<CountryNode> getCountryList(){
+		return this.countries;
+	}
 }
