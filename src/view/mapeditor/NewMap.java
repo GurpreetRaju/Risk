@@ -534,5 +534,5 @@ public class NewMap extends JFrame {
 			comboBox_3.addItem(i.getContinentName());
 		}
 	}
-}
+	}
 
