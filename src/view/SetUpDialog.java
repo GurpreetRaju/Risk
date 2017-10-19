@@ -49,7 +49,7 @@ public class SetUpDialog {
 	 */
 	private int getPlayerCount(){
 		 JPanel box = new JPanel();
-		 SpinnerModel sm = new SpinnerNumberModel(1, 1, Integer.MAX_VALUE, 1); 
+		 SpinnerModel sm = new SpinnerNumberModel(2, 2, 6, 1); 
 		 JSpinner inputSpinner = new JSpinner(sm);
          box.add(new JLabel("Number of players: "));
          box.add(inputSpinner);
