@@ -6,17 +6,46 @@ import java.awt.Dimension;
 import javax.swing.JFrame;
 import javax.swing.SpringLayout;
 
-public class MainView extends JFrame {	
+/**
+ * Creates the main game window.
+ */
+public class MainView extends JFrame{	
 	
+	/**
+	 * Serial Version id for JFrame.
+	 * {@inheritDoc}
+	 */
 	private static final long serialVersionUID = 1L;
+	/**
+	 * MainView object.
+	 */
 	private static MainView mainView;
+	/**
+	 * PlayerInfoView class object.
+	 */
 	private PlayerInfoView playerData;
+	/**
+	 * MapView class object.
+	 */
 	private MapView map;
+	/**
+	 * DiceRollView class object.
+	 */
 	private DiceRollView diceArea;
+	/**
+	 * CardsView class object.
+	 */
 	private CardsView cardsArea;
+	/**
+	 * ControlsView class object.
+	 */
 	private ControlsView controlsArea;
 	
-	private MainView(PlayerInfoView newPlayerInfo, MapView newMap, DiceRollView newDice, CardsView newCards, ControlsView newControls) {	
+	/**
+	 * Initialize each view with the object of corresponding type.
+	 */
+	private MainView(PlayerInfoView newPlayerInfo, MapView newMap, DiceRollView newDice, CardsView newCards, ControlsView newControls) 
+	{	
 		playerData = newPlayerInfo;
         map = newMap;
         diceArea = newDice;
@@ -28,6 +57,9 @@ public class MainView extends JFrame {
         this.setVisible(true);
 	}
 
+	/**
+	 * Makes the container for the main window.
+	 */
 	private void init(){
 		Container contentPane = this.getContentPane();
         SpringLayout layout = new SpringLayout();
@@ -70,11 +102,24 @@ public class MainView extends JFrame {
         this.pack();
 	}
 
+	/**
+	 * Gives the instance of the singleton MainView class.
+	 * @return MainView object.
+	 */
 	public static MainView getInstance() {
 		return mainView;
     }
 	
-	public static void createInstance(PlayerInfoView newPlayerInfo, MapView newMap, DiceRollView newDice, CardsView newCards, ControlsView newControls){
+	/**
+	 * Creates the instance of the MainView class.
+	 * @param newPlayerInfo PlayerInfoView object
+	 * @param newMap MapView object
+	 * @param newDice DiceRollView object
+	 * @param newCards CardsView object
+	 * @param newControls ControlsView object
+	 */
+	public static void createInstance(PlayerInfoView newPlayerInfo, MapView newMap, DiceRollView newDice, CardsView newCards, ControlsView newControls)
+	{
 		if(mainView == null){
 			mainView = new MainView(newPlayerInfo, newMap, newDice, newCards, newControls);
 		}
