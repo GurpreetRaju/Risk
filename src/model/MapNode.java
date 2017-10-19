@@ -36,6 +36,14 @@ public class MapNode {
 		this.controlValue = newValue;
 	}
 	
+	 /** 
+	 * return ArrayList of countries in the continent
+	 * @return countries ArrayList containing countries of this continent.
+	 */
+	public ArrayList<CountryNode> getCountryList(){
+		return this.countries;
+	}
+	
 	/**
 	 * return name of continent.
 	 * @return String continent name
@@ -87,4 +95,25 @@ public class MapNode {
 		this.countries.add(newCountry);
 	}
 	
+	/**
+	 * Check if two MapNode objects are equal
+	 * @return true if both objects are equal; false if both objects are not equal
+	 */
+	public boolean equals(Object o) {
+		if(o instanceof MapNode) {
+			MapNode temp = (MapNode) o;
+			if(temp.getContinentName()==this.continentName && temp.controlValue == this.controlValue) {
+				if(temp.countries.size()==this.countries.size()) {
+					for(int i=0;i<this.getCountries().length;i++) {
+						if(!this.getCountries()[i].equals(temp.getCountries()[i])) {
+							return false;
+						}
+					}
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
 }

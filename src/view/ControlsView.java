@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Label;
 import java.awt.event.ActionListener;
-
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -18,7 +17,8 @@ import javax.swing.SpinnerNumberModel;
 public class ControlsView extends JPanel {
 	
 	/**
-	 * 
+	 * Serial Version id for JFrame.
+	 * {@inheritDoc}
 	 */
 	private static final long serialVersionUID = -2537156060382941763L;
 	
@@ -33,22 +33,25 @@ public class ControlsView extends JPanel {
 	private JComboBox<String> countriesList;
 	
 	/**
-	 * Button to start the phase.
+	 * Button for the fortification phase move.
 	 */
 	private JButton playMove;
 	
 	/**
-	 * Button to end the phase.
+	 * Dropdown for list of neighbors.
 	 */
-	private JButton doneButton;
-	
+	JComboBox<String> neighborList;
+	/**
+	 * Armies available to the player for reinforcement phase.
+	 */
+	private String armiesAvailable;
 	/**
 	 * Number of armies selected to move to the neighboring country for Fortification phase.
 	 */
-	
-	JComboBox<String> neighborList;
-	private String armiesAvailable;
 	private JButton addArmies;
+	/**
+	 * Button to end a phase.
+	 */
 	private JButton endPhase;
 	
 	/**
@@ -117,30 +120,47 @@ public class ControlsView extends JPanel {
 	}
 
 	/**
-	 * 
-	 * @param a
+	 * Play a move for fortification phase.
+	 * @param a ActionListener for the playMove button.
 	 */
-	public void playButtonAction(ActionListener a) {
+	public void playButtonAction(ActionListener a){
 		this.playMove.addActionListener(a);
 	}
 	
-	public void doneButtonAction(ActionListener newAction){
-		this.doneButton.addActionListener(newAction);
-	}
-	
-	public void addArmiesButtonAction(ActionListener newAction) {
+	/**
+	 * Sets ActionListener on add armies button.
+	 * @param newAction ActionListener to be attached to the button.
+	 */
+	public void addArmiesButtonAction(ActionListener newAction)
+	{
 		this.addArmies.addActionListener(newAction);
 	}
 	
-	public void endPhaseAction(ActionListener newAction) {
+	/**
+	 * Sets ActionListener on end phase button.
+	 * @param newAction ActionListener to be attached to the button.
+	 */
+	public void endPhaseAction(ActionListener newAction)
+	{
 		this.endPhase.addActionListener(newAction);
 	}
 	
-	public void countrieslistAction(ActionListener newAction) {
+	/**
+	 * Sets ActionListener on countries list combobox.
+	 * @param newAction ActionListener to be attached to the combobox.
+	 */
+	public void countrieslistAction(ActionListener newAction)
+	{
 		this.countriesList.addActionListener(newAction);
 	}
 	
-	public void updateFortification(int armies, String[] neighbourNames) {
+	/**
+	 * Update fortification control view whenever required.
+	 * @param armies Count of the armies the player has.
+	 * @param neighbourNames List of neighbors of the country selected.
+	 */
+	public void updateFortification(int armies, String[] neighbourNames)
+	{
 		this.armiesSpinner.setModel(new SpinnerNumberModel(1, 0, armies-1, 1));
 		this.armiesSpinner.setEnabled(true);;
 		this.neighborList.setModel(new DefaultComboBoxModel<String>(neighbourNames));
@@ -149,18 +169,36 @@ public class ControlsView extends JPanel {
 		this.playMove.setEnabled(true);;
 	}
 	
-	public int getArmiesValue() {
+	/**
+	 * Gets the value of armies from the spinner.
+	 * @return integer value from the spinner.
+	 */
+	public int getArmiesValue()
+	{
 		return (int) this.armiesSpinner.getValue();
 	}
 	
-	public String getCountrySelected() {
+	/**
+	 * Gets the country selected in the combobox.
+	 * @return country selected in the combobox.
+	 */
+	public String getCountrySelected()
+	{
 		return (String) this.countriesList.getSelectedItem();
 	}
 
+	/**
+	 * Gets the neighbor selected in the combobox.
+	 * @return neighbor selected in the combobox.
+	 */
 	public String getNeighborSelected() {
 		return (String) this.neighborList.getSelectedItem();
 	}
 	
+	/**
+	 * Checks if neighbor list combobox is enabled or not.
+	 * @return boolean value depending on the combobox enabled or not.
+	 */
 	public boolean isNeighbourSelected(){
 		return this.neighborList.isEnabled();
 	}

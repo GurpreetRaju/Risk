@@ -69,7 +69,9 @@ public class CountryNode {
 	 * @return Array containing neighboring countries.
 	 */
 	public CountryNode[] getNeighbourCountries() {
-		return this.neighbourCountries.toArray(new CountryNode[this.neighbourCountries.size()]);
+		if(this.neighbourCountries!=null)
+		return this.neighbourCountries.toArray(new CountryNode[this.neighbourCountries.size()]);	
+		return null;
 	}
 	
 	/**
@@ -155,6 +157,11 @@ public class CountryNode {
 	public boolean equal(Object o) {
 		if(o instanceof CountryNode){
 			if(((CountryNode) o).countryName.equals(this.countryName)){
+				for(int i=0; i<this.getNeighbourCountries().length;i++) {
+					if(!this.getNeighbourCountries()[i].equals(((CountryNode)o).getNeighbourCountries()[i])) {
+						return false;
+					}
+				}
 				return true;
 			}
 		}
