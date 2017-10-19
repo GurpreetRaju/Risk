@@ -49,7 +49,7 @@ public class SetUpDialog {
 	 */
 	private int getPlayerCount(){
 		 JPanel box = new JPanel();
-		 SpinnerModel sm = new SpinnerNumberModel(1, 1, Integer.MAX_VALUE, 1); 
+		 SpinnerModel sm = new SpinnerNumberModel(2, 2, 6, 1); 
 		 JSpinner inputSpinner = new JSpinner(sm);
          box.add(new JLabel("Number of players: "));
          box.add(inputSpinner);
@@ -122,14 +122,9 @@ public class SetUpDialog {
 						|| mapRead.substring(mapRead.lastIndexOf("."),mapRead.length()).equalsIgnoreCase(".bmp")){
 					return mapRead;
 				}
-				else{
-					String extension = mapRead.substring(mapRead.lastIndexOf("."),mapRead.length());
-					JOptionPane.showMessageDialog(frame, extension + ": Incorrect File format. Select another file.");
-					getMapInfo(newExtension);
-				}
 			}
 			
-		return "Equalizer.map";
+		return null;
 
 //		});
 //		frame.pack();

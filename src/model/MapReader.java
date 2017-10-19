@@ -15,8 +15,7 @@ import java.util.ArrayList;
 public class MapReader {
 	
 	/**
-	 * This method read map file.
-	 * 
+	 * This method reads the map file.
 	 * @see MapNode
 	 * @param filename URL of map file.
 	 * @return map data in form of <code>ArrayList</code>
@@ -104,7 +103,4 @@ public class MapReader {
 		}
 		return map;		
 	}
-		
-	
-	
 }

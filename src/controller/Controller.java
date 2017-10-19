@@ -64,10 +64,6 @@ public class Controller
 	 * ActionListener to add listener to "Play Game" button.
 	 */
 	private ActionListener playGameListener;
-	/**
-	 * Stores object of MapFrame class.
-	 */
-	private MapFrame mapFrame;
 	
 	/**
 	 * Controller class constructor to initialize GameDriver and SetUpDialog class objects.
@@ -105,7 +101,7 @@ public class Controller
 	}
 	
 	/**
-	 * Sets Action Listeners for reinforcement phase.
+	 * Sets Action Listeners for reinforcement controls.
 	 */
 	public void setActionListner()
 	{
@@ -118,13 +114,11 @@ public class Controller
 				System.out.println(country.getCountryName());
 				country.addArmy(armies);
 				System.out.println(country.getArmiesCount());
-				//driver.getCurrentPlayer().removeArmies(armies);
 				driver.getCurrentPlayer().removeArmies(armies);
 				System.out.println(driver.getPlayerArmies());
 				driver.continuePhase();
 			}
 		};
-		//call reinforcement phase first
 		controlsGUI.addArmiesButtonAction(this.addArmiesListner);
 		
 		controlsGUI.endPhaseAction(new ActionListener() {
@@ -136,7 +130,7 @@ public class Controller
 	}
 	
 	/**
-	 * Sets Action Listeners for fortification phase.
+	 * Sets Action Listeners for fortification controls.
 	 */
 	public void setFortificationListeners(){
 		controlsGUI.countrieslistAction(new ActionListener() {
@@ -188,9 +182,8 @@ public class Controller
 		mapEditListener =  new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				mapFrame = new MapFrame();
 				String[] a =null;
-				mapFrame.main(a);
+				MapFrame.main(a);
 				setupBox.chooseOptionFrame().dispose();
 			}
 		};
@@ -203,7 +196,7 @@ public class Controller
 	public void playGameListener() {
 		playGameListener =  new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent e){
 				init();
 				setupBox.chooseOptionFrame().dispose();
 			}
@@ -217,7 +210,15 @@ public class Controller
 	private void init(){
 		driver.createMapObject(setupBox.getMapInfo("map"));
 		playerInfoGUI = new PlayerInfoView();
-        mapGUI = new MapView(setupBox.getMapInfo("bmp"));
+		String temp = setupBox.getMapInfo("bmp");
+        if(temp!=null) 
+        {
+        	mapGUI = new MapView(temp);
+        }
+        else 
+        {
+        	mapGUI = new MapView();
+        }
         diceRollGUI = new DiceRollView();
         cardsGUI = new CardsView();
         controlsGUI = new ControlsView();

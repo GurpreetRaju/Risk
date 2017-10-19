@@ -22,6 +22,7 @@ public class MapView extends JPanel implements Observer
 {
 	
 	private BufferedImage image;
+	private boolean graphicalMap = false;
 	/**
 	 * 
 	 */
@@ -29,10 +30,8 @@ public class MapView extends JPanel implements Observer
 
 	public MapView(String newImage)
 	{
-		this.setBorder(BorderFactory.createLineBorder(Color.black));
-		this.setOpaque(true);
-	    this.setBackground(Color.WHITE);
-	    this.setLayout(null);
+		this();
+		System.out.println("Not working");
 	    if(newImage!=null)
 	    {
 	    	try 
@@ -44,11 +43,21 @@ public class MapView extends JPanel implements Observer
 	    		e.printStackTrace();
 	    	}
 	    }
+	    this.setBackground(Color.WHITE);
+	    this.setOpaque(true);
+	    this.setLayout(null);
+	    this.graphicalMap = true;
 	}
 	
+	public MapView() {
+		this.setBorder(BorderFactory.createLineBorder(Color.black));
+	}
+
 	protected void paintComponent(Graphics g) {
-	    super.paintComponent(g); // paint the background image and scale it to fill the entire space
-	    g.drawImage(image, 0, 0, this);
+		super.paintComponent(g);
+		if(image!=null) {	
+	    	g.drawImage(image, 0, 0, this);
+	    }
 	}
 
 	public void setMap(String[][] newMapData) 
@@ -95,7 +104,7 @@ public class MapView extends JPanel implements Observer
 
 	@Override
 	public void update(Observable obs, Object map) {
-		if(image!=null)
+		if(graphicalMap)
 		{
 			setGraphicalMap(((Map) obs).getMapDataObject());
 		}
