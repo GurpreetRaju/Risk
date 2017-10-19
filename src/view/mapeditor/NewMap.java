@@ -56,6 +56,7 @@ public class NewMap extends JFrame {
 	JComboBox comboBox_1;
 	DefaultListModel<String> model2;
 	JButton btnSelectedNeighbours;
+	JButton btnDeleteContinent;
 
 	/**
 	 * NewMap constructor calls initialize method of the class
@@ -229,7 +230,7 @@ public class NewMap extends JFrame {
 		gbc_btnAdd.gridy = 8;
 		contentPane.add(btnAdd, gbc_btnAdd);
 
-		JButton btnDeleteContinent = new JButton("Delete Continent");
+		btnDeleteContinent = new JButton("Delete Continent");
 		btnDeleteContinent.setBackground(new Color(240, 255, 255));
 		btnDeleteContinent.setFont(new Font("Bookman Old Style", Font.BOLD | Font.ITALIC, 18));
 		btnDeleteContinent.setForeground(Color.BLACK);
@@ -385,14 +386,6 @@ public class NewMap extends JFrame {
 
 		comboBox_1.setEnabled(true);
 
-		btnSelectedNeighbours.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (e.getSource() == btnSelectedNeighbours) {
-					
-				}
-			}
-		});
-
 		btnDeleteCountry.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (e.getSource() == btnDeleteCountry) {
@@ -418,26 +411,6 @@ public class NewMap extends JFrame {
 			}
 		});
 
-		btnDeleteContinent.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (e.getSource() == btnDeleteContinent) {
-					for (MapNode i :continents) {
-						if(i.getContinentName().compareTo(comboBox_3.getSelectedItem().toString())==0) {
-							continents.remove(i);
-							break;
-						}
-					}
-
-					comboBox.removeAllItems();
-					comboBox_3.removeAllItems();
-					for(MapNode i: continents) {
-						comboBox.addItem(i.getContinentName());
-						comboBox_3.addItem(i.getContinentName());
-					}
-				}
-			}
-		});
-
 		btnSaveMap.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (e.getSource() == btnSaveMap) {
@@ -457,6 +430,7 @@ public class NewMap extends JFrame {
 		});
 
 	}
+	
 	public void addActionsToBtnDone(ActionListener newAction) {
 	    btnDone.addActionListener(newAction);
 	}
@@ -469,6 +443,10 @@ public class NewMap extends JFrame {
 		btnSelectedNeighbours.addActionListener(newAction);
 	}
 	
+	public void addActionsToButtonDeleteContinent(ActionListener newAction) {
+		btnDeleteContinent.addActionListener(newAction);
+	}
+	
 	public List getNeighboursList() {
 		return (list.getSelectedValuesList());
 	}
@@ -479,6 +457,10 @@ public class NewMap extends JFrame {
 	
 	public String getSelectedCountryForNeighbours() {
 		return (comboBox_1.getSelectedItem().toString());
+	}
+	
+	public String getContinentToDelete() {
+		return (comboBox_3.getSelectedItem().toString());
 	}
 	
 	public void clearNeighboursJList() {

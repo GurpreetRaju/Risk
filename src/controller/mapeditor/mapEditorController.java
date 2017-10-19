@@ -155,6 +155,23 @@ public class mapEditorController {
 			}
 		});
 
+		newMap.addActionsToButtonDeleteContinent(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ArrayList<MapNode> continents = mapModel.getContinents();
+				String delete_continent = newMap.getContinentToDelete();
+				for (MapNode i :continents) {
+					if(i.getContinentName().compareTo(delete_continent)==0) {
+						continents.remove(i);
+						break;
+					}
+				}
+				newMap.clearComboBoxContents();
+				for(MapNode i: continents) {
+					newMap.setContinentsComboBox(i.getContinentName());
+				}
+			}
+		});
+		
 		newMap.setVisible(true);
 	}
 
