@@ -35,14 +35,13 @@ public class TestPlayer {
 		countries.add(country2);
 		countries.add(country3);
 		countries.add(country4);
-		MapNode continent = new MapNode("Continent1", countries, 0);
+		MapNode continent = new MapNode("Continent1", countries, 6);
 		mapData.add(continent);
 		testPlayer = new Player("TestPlayer",0,mapData);
 		testPlayer.addCountry(country1);
 		testPlayer.addCountry(country2);
 		testPlayer.addCountry(country3);
-		//country1.setOwner(testPlayer);
-		//country2.setOwner(testPlayer);
+		
 	}
 
 	@Test

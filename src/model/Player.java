@@ -170,8 +170,12 @@ public class Player {
 	 */
 	public void checkContinent() {
 		for (MapNode continent : this.mapData) {
-			if (this.countries.contains(continent.getCountries())) {
+			System.out.println("Inside ForLoop");
+			System.out.println(continent.getContinentName());
+			if (this.countries.containsAll(continent.getCountryList())) {
+				System.out.println("Inside If Stametment");
 				addContinent(continent);
+				System.out.println("Added" + continent.getContinentName());
 			}
 		}
 	}
@@ -183,7 +187,9 @@ public class Player {
 	public int getArmies() {
 		checkContinent();
 		int countriesCount = this.countries.size();
+		System.out.println(countriesCount);
 		int continentsCount = this.continents.size();
+		System.out.println(continentsCount);
 		int cardsCount = this.cards.size();
 		if (continentsCount > 0) {
 			for (MapNode continent : this.continents){
