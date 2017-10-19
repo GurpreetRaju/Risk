@@ -164,8 +164,6 @@ public class Player {
 		for (MapNode continent : Map.class.newInstance().getMapData()) {
 			if (this.countries.contains(continent.getCountries())) {
 				addContinent(continent);
-				//Should we remove the countries in the continent from the list of 
-				//all countries owned by player?
 			}
 		}
 	}
