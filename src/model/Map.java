@@ -113,6 +113,17 @@ public class Map extends Observable {
 	 * @return true if map is valid false if map is not valid
 	 * */
 	public boolean mapValidation() {
+		if(isMapConnectedGraph() && isMapNodesContainUniqueCountries()) {
+			return true;
+		}
+		return false;
+	}
+	/**
+	 * Check if map is connected graph.
+	 * @return true if map is connected graph false if map is not connected graph
+	 */
+	public boolean isMapConnectedGraph()
+	{
 		for(MapNode m: this.mapData){
 			for(CountryNode c: m.getCountries()){
 				if(c.getNeighbourCountries()==null || c.getNeighbourCountries().length==0){
@@ -127,4 +138,23 @@ public class Map extends Observable {
 		}
 		return true;
 	}
+	/**
+	 * Check if every country belongs to only one mapNode.
+	 * @return true if all continents have unique countries; false if one country belongs to more than one continent
+	 */
+	public boolean isMapNodesContainUniqueCountries() {
+		ArrayList<CountryNode> stack = new ArrayList<CountryNode>();
+		for(MapNode m: this.mapData) {
+			for(CountryNode c: m.getCountries()) {
+				if(stack.contains(c)) {
+					return false;
+				}
+				else {
+					stack.add(c);
+				}
+			}
+		}
+		return true;
+	}
+	
 }
