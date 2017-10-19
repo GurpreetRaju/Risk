@@ -94,7 +94,7 @@ public class GameDriver {
 		String[] newPlayerData = controller.getPlayerInfo();
 		players = new ArrayList<Player>();
 		for(String newPlayer: newPlayerData){
-			players.add(new Player(newPlayer,RiskData.InitialArmiesCount.getArmiesCount(newPlayerData.length)));
+			players.add(new Player(newPlayer,RiskData.InitialArmiesCount.getArmiesCount(newPlayerData.length),map.getMapData()));
 		}
 		players.get(0).setTurnTrue();
 		updatePlayerView();
@@ -315,5 +315,13 @@ public class GameDriver {
 		this.controller.chooseMapEditorOrPlayGame();
 		this.controller.mapEditorListener();
 		this.controller.playGameListener();
+	}
+	
+	/**
+	 * Returns object of Map class
+	 *  @return map 
+	 */
+	public Map getMap(){
+		return this.map;
 	}
 }
