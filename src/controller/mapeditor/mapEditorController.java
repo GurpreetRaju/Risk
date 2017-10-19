@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -163,7 +164,7 @@ public class mapEditorController {
 				String delete_continent = newMap.getContinentToDelete();
 				for (MapNode i :continents) {
 					if(i.getContinentName().compareTo(delete_continent)==0) {
-						continents.remove(i);//check
+						continents.remove(i);
 						break;
 					}
 				}
@@ -193,7 +194,7 @@ public class mapEditorController {
 				for (MapNode node: continents) {
 					for (CountryNode temp : node.getCountries()) {
 						if(temp.getCountryName().compareTo(selectedcountry)==0) {
-							node.removeCountry(temp);//check
+							node.removeCountry(temp);
 						}
 					}
 				}
@@ -203,6 +204,47 @@ public class mapEditorController {
 						newMap.addPossibleNeighboursToJList(temp.getCountryName());
 					}
 				}
+			}
+		});
+		
+		newMap.addActionsToBtnAdd(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Boolean continentExist = newMap.checkContinentExist();
+				if(continentExist) {
+					String cn1 = newMap.getCountryName();
+					if(cn1.compareTo("")==0) {
+						newMap.enterValuesError();
+					}else {
+						String selectedContinent = newMap.getSelectedContinent();
+						Boolean countryExist = mapModel.checkCountryExist(cn1);
+						if(!countryExist) {
+							ArrayList<CountryNode> neighbours= new ArrayList<CountryNode>();
+							for (Object ncountry : newMap.getNeighboursList()) {//check
+								CountryNode cn =  new CountryNode(ncountry.toString(), null, null);
+								neighbours.add(cn);
+							}
+							newMap.clearNeighboursJList();
+							newMap.clearCountryComBoxContents();
+							for (MapNode node: mapModel.getContinents()) {
+								if(selectedContinent.compareTo(node.getContinentName())==0) {
+									int a[]= {250,250};
+									CountryNode newCountry = new CountryNode(cn1,  neighbours , a);
+									node.addCountry(newCountry);
+								}
+								for (CountryNode temp : node.getCountries()) {
+									newMap.addPossibleNeighboursToJList(temp.getCountryName());
+									newMap.setCountriesComboBox(temp.getCountryName());
+									
+								}
+							}
+						}else {
+							newMap.countryAlreadyExistError();
+						}
+					}
+				}else {
+					newMap.nullContinentError();
+				}
+				newMap.disableCountryfield();
 			}
 		});
 		
