@@ -28,6 +28,7 @@ public class GameDriver
 	{
 		controller = new Controller(this);
 		currentPhase = new Phase("reinforcement"); 
+		this.chooseMapEditorOrPlayGame();
 	}
 	/**
 	 * <p>
@@ -247,4 +248,9 @@ public class GameDriver
 		this.controller.setFortificationListeners();
 	}
 
+	public void chooseMapEditorOrPlayGame(){
+		this.controller.chooseMapEditorOrPlayGame();
+		this.controller.mapEditorListener();
+		this.controller.playGameListener();
+	}
 }
