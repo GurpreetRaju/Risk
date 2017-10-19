@@ -14,16 +14,24 @@ import javax.swing.border.EmptyBorder;
 public class PlayerInfoView extends JPanel {
 	
 	/**
-	 * Version number for serializable class
+	 * Serial Version id for JFrame.
+	 * {@inheritDoc}
 	 */
 	private static final long serialVersionUID = -7512274442706727095L;
 
+	/**
+	 * Creates the Player Info view on the main window.
+	 */
 	public PlayerInfoView() {
 		JLabel label = new JLabel("Players data Here.");
 		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 		this.setBorder(BorderFactory.createLineBorder(Color.black));
 	}
-
+	
+	/**
+	 * Sets the player Info view content.
+	 * @param playerNames Names of the players.
+	 */
 	public void setPlayerInfo(String[] playerNames) {
 		for(String name : playerNames){
 			JLabel comp = new JLabel(name);

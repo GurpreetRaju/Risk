@@ -19,7 +19,14 @@ import javax.swing.JScrollPane;
 import model.Map;
 
 public class MapView extends JPanel implements Observer {
+	
+	/**
+	 * BufferedReader Object to read the image file.
+	 */
 	private BufferedImage image;
+	/**
+	 * Boolean to check for .bmp file for the map.
+	 */
 	private boolean graphicalMap = false;
 	
 	/**
@@ -27,6 +34,10 @@ public class MapView extends JPanel implements Observer {
 	 */
 	private static final long serialVersionUID = 2353535256045293828L;
 
+	/**
+	 * Sets the map view of the main window.
+	 * @param newImage image file uploaded.
+	 */
 	public MapView(String newImage) {
 		this();
 		System.out.println("Not working");
@@ -43,10 +54,16 @@ public class MapView extends JPanel implements Observer {
 	    this.graphicalMap = true;
 	}
 	
+	/**
+	 * Sets the dimensions of the map view.
+	 */
 	public MapView() {
 		this.setBorder(BorderFactory.createLineBorder(Color.black));
 	}
 
+	/**
+	 * Displays the map file onto the map view.
+	 */
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		if(image!=null) {	
@@ -54,6 +71,10 @@ public class MapView extends JPanel implements Observer {
 	    }
 	}
 
+	/**
+	 * Sets map data on the map view in a tabular format.
+	 * @param newMapData Map data to be displayed.
+	 */
 	public void setMap(String[][] newMapData) {
 		this.removeAll();
 		JPanel pane = new JPanel();
@@ -78,6 +99,10 @@ public class MapView extends JPanel implements Observer {
 		this.validate();
 	}
 	
+	/**
+	 * Sets the coordinates on the map file image.
+	 * @param newMapData Map data to be displayed.
+	 */
 	public void setGraphicalMap(String[][] newMapData){
 		this.removeAll();
 		for(String[] o: newMapData){
@@ -93,6 +118,9 @@ public class MapView extends JPanel implements Observer {
 		this.validate();
 	}
 
+	/**
+	 * Observer pattern function for Observers to update when there is a notification from the observable.
+	 */
 	@Override
 	public void update(Observable obs, Object map) {
 		if(graphicalMap){
