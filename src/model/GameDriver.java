@@ -41,7 +41,7 @@ public class GameDriver
 	/**
 	 * Object of Phase class.
 	 */
-	private Phase currentPhase;
+	private PhaseManager phaseManager;
 	/**
 	 * Object of Player class.
 	 */
@@ -54,7 +54,7 @@ public class GameDriver
 	private GameDriver()
 	{
 		controller = new Controller(this);
-		currentPhase = new Phase("reinforcement"); 
+		phaseManager = new PhaseManager("reinforcement"); 
 		this.chooseMapEditorOrPlayGame();
 	}
 	
@@ -80,7 +80,7 @@ public class GameDriver
 	public void runGame()
 	{
 		startUpPhase();
-		currentPhase.reinforcementPhase();
+		phaseManager.startTurn();
 	}
 	
 	/**
@@ -304,39 +304,6 @@ public class GameDriver
 	public ControlsView getControlGUI() {
 		return this.controlsGUI;
 	}
-
-	/**
-	 * Function to switch between different phases.
-	 */
-	public void changePhase() {
-		if(this.currentPhase.equals(Phase.reinforcement)) {
-			currentPhase.attackPhase();
-		}
-		else if(this.currentPhase.equals(Phase.attack)) {
-			currentPhase.fortificationPhase();
-		}
-		else if(this.currentPhase.equals(Phase.fortification)) {
-			this.setNextPlayerTurn();
-			currentPhase.reinforcementPhase();
-		}
-		map.updateMap();
-	}
-	
-	/**
-	 * Refreshes the phases.
-	 */
-	public void continuePhase() {
-		if(this.currentPhase.equals(Phase.reinforcement)) {
-			currentPhase.reinforcementPhase();;
-		}
-		else if(this.currentPhase.equals(Phase.attack)) {
-			currentPhase.attackPhase();
-		}
-		else if(this.currentPhase.equals(Phase.fortification)) {
-			currentPhase.fortificationPhase();
-		}
-		map.updateMap();
-	}
 	
 	/**
 	 * Adds listener for fortification phase.
@@ -352,5 +319,17 @@ public class GameDriver
 		this.controller.chooseMapEditorOrPlayGame();
 		this.controller.mapEditorListener();
 		this.controller.playGameListener();
+	}
+
+	public void updateMap() {
+		map.updateMap();
+	}
+
+	public void continuePhase() {
+		phaseManager.continuePhase();
+	}
+
+	public void changePhase() {
+		phaseManager.changePhase();
 	}
 }
