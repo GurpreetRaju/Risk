@@ -42,4 +42,18 @@ public class MapModel {
 	public ArrayList<MapNode> getContinents(){
 		return continents;
 	}
+	
+	public boolean checkOnSaveMap() {
+		Boolean saveMap = true;
+		for (MapNode i :continents) {	
+			if(i.getCountries().length == 0) {
+				saveMap = false;
+			}
+		}
+		return saveMap;
+	}
+	
+	public void saveMapFile() {
+		mapWriter.writeMap(continents);
+	}
 }

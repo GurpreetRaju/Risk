@@ -87,8 +87,6 @@ public class mapEditorController {
 					MapReader mapReader = new MapReader();
 					ExistingMap existingMap = new ExistingMap(mapReader.readMap(fc.getSelectedFile().getAbsolutePath()));
 					existingMap.setVisible(true);
-					// MapWriter mapWriter = new MapWriter();
-					// mapWriter.writeMap(mapReader.readMap(fc.getSelectedFile().getAbsolutePath()));
 				}
 			}
 		});
@@ -164,13 +162,45 @@ public class mapEditorController {
 				String delete_continent = newMap.getContinentToDelete();
 				for (MapNode i :continents) {
 					if(i.getContinentName().compareTo(delete_continent)==0) {
-						continents.remove(i);
+						continents.remove(i);//check
 						break;
 					}
 				}
 				newMap.clearComboBoxContents();
 				for(MapNode i: continents) {
 					newMap.setContinentsComboBox(i.getContinentName());
+				}
+			}
+		});
+		
+		newMap.addActionsToBtnSave(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(mapModel.checkOnSaveMap()) {
+					mapModel.saveMapFile();
+				}else {
+					newMap.nullCountryError();
+				}
+			}
+		});
+		
+		newMap.addActionsToBtnDeleteCountry(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String selectedcountry = newMap.getCountryForDeletion();
+				newMap.clearNeighboursJList();
+				newMap.clearCountryComBoxContents();
+				ArrayList<MapNode> continents = mapModel.getContinents();
+				for (MapNode node: continents) {
+					for (CountryNode temp : node.getCountries()) {
+						if(temp.getCountryName().compareTo(selectedcountry)==0) {
+							node.removeCountry(temp);//check
+						}
+					}
+				}
+				for (MapNode node: continents) {
+					for (CountryNode temp : node.getCountries()) {
+						newMap.setCountriesComboBox(temp.getCountryName());
+						newMap.addPossibleNeighboursToJList(temp.getCountryName());
+					}
 				}
 			}
 		});
