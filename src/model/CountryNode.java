@@ -28,6 +28,7 @@ public class CountryNode {
 	 * Stores number of armies in this country placed by owner.
 	 */
 	private int armies;
+	
 	/**
 	 * This constructor initialize the attributes of this country.
 	 * @param newName name of country.
@@ -44,6 +45,7 @@ public class CountryNode {
 	}
 	
 	/**
+	 * Gives the name of the country node.
 	 * @return Returns the name of country.
 	 */
 	public String getCountryName()
@@ -52,8 +54,8 @@ public class CountryNode {
 	}
 	
 	/**
-	 * 
-	 * @return Array containing neighbouring countries.
+	 * Gives the list of the neighboring country nodes of a given country node.
+	 * @return Array containing neighboring countries.
 	 */
 	public CountryNode[] getNeighbourCountries()
 	{
@@ -61,7 +63,8 @@ public class CountryNode {
 	}
 	
 	/**
-	 * @return Array containing names of neighbouring countries.
+	 * Gives the list of the names of the neighboring country nodes of a given country.
+	 * @return Array containing names of neighboring countries.
 	 */
 	public String[] getNeighbourCountriesString()
 	{
@@ -73,6 +76,7 @@ public class CountryNode {
 	}
 
 	/**
+	 * Gets the coordinates of the country on the map.
 	 * @return coordinates of country.
 	 */
 	public int[] getCoordinates()
@@ -81,6 +85,7 @@ public class CountryNode {
 	}
 	
 	/**
+	 * Gets the player who is the owner of the country.
 	 * @return player who owns this country.
 	 */
 	public Player getOwner()
@@ -89,14 +94,16 @@ public class CountryNode {
 	}
 	
 	/**
+	 * Gets the armies count of a particular country.
 	 * @return number of armies placed in this country.
 	 */
 	public int getArmiesCount()
 	{
 		return this.armies;
 	}
+	
 	/**
-	 * Set owner of this country.
+	 * Sets owner of this country.
 	 * @param player player instance.
 	 */
 	public void setOwner(Player player)
@@ -105,7 +112,7 @@ public class CountryNode {
 	}
 	
 	/**
-	 * Place armies in this country.
+	 * Places armies in this country.
 	 * @param newArmies number of armies
 	 */
 	public void setArmies(int newArmies)
@@ -114,14 +121,15 @@ public class CountryNode {
 	}
 	
 	/**
-	 * Add more armies in this country.
+	 * Adds more armies in this country.
 	 * @param newArmies number of armies
 	 */
 	public void addArmy(int newCount){
 		this.armies += newCount;
 	}
+	
 	/**
-	 * Adds new neighbour country.
+	 * Adds new neighbor country.
 	 * @param newNeighbour country
 	 */
 	public void addNeighbour(CountryNode newNeighbour)
@@ -132,6 +140,7 @@ public class CountryNode {
 		}
 		this.neighbourCountries.add(newNeighbour);
 	}
+	
 	/**
 	 * Check if two objects of this class are same.
 	 * @param o object of CountryNode
@@ -148,11 +157,12 @@ public class CountryNode {
 		}
 		return false;
 	}
+	
 	/**
 	 * Check if an ArrayList contains a country.
 	 * @param list ArrayList of countries
 	 * @param country country to be found in list
-	 * @return ture if list conatins country; false if not.
+	 * @return true if list contains country; false if not.
 	 */
 	public static boolean contains(ArrayList<CountryNode> list, String country)
 	{
@@ -165,6 +175,7 @@ public class CountryNode {
 		}
 		return false;
 	}
+	
 	/**
 	 * To get object of a CountryNode using name.
 	 * @param list list of countries.
