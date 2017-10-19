@@ -1,14 +1,14 @@
 package model;
 
+/**
+ * Enumeration for the record of armies to be assigned to the players according to the number of players.
+ */
 public enum RiskData {
 	
 	InitialArmiesCount{
 		public int getArmiesCount(int n){
 			int armies = 0;
 			switch(n){
-				case 1:
-					armies = 45;
-					break;
 				case 2:
 					armies = 40;
 					break;
