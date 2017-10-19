@@ -118,7 +118,10 @@ public class Map extends Observable{
 		setChanged();
 		notifyObservers(this);
 	}
-	
+	/**
+	 * This method check if loaded map is valid.
+	 * @return true if map is valid false if map is not valid
+	 * */
 	public boolean mapValidation() {
 		for(MapNode m: this.mapData) {
 			for(CountryNode c: m.getCountries()) {
