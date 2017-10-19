@@ -119,4 +119,20 @@ public class Map extends Observable{
 		notifyObservers(this);
 	}
 	
+	public boolean mapValidation() {
+		for(MapNode m: this.mapData) {
+			for(CountryNode c: m.getCountries()) {
+				if(c.getNeighbourCountries()==null || c.getNeighbourCountries().length==0) {
+					return false;
+				}
+				for(CountryNode n: c.getNeighbourCountries()) {
+					if(!n.getNeighbours().contains(c)) {
+						return false;
+					}
+				}
+			}
+		}
+		return true;
+	}
+	
 }

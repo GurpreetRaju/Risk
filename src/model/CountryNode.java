@@ -55,6 +55,15 @@ public class CountryNode {
 	
 	/**
 	 * Gives the list of the neighboring country nodes of a given country node.
+	 * @return ArrayList containing neighboring countries.
+	 */
+	public ArrayList<CountryNode> getNeighbours()
+	{
+		return this.neighbourCountries;
+	}
+	
+	/**
+	 * Gives the list of the neighboring country nodes of a given country node.
 	 * @return Array containing neighboring countries.
 	 */
 	public CountryNode[] getNeighbourCountries()
@@ -139,7 +148,10 @@ public class CountryNode {
 		{
 			this.neighbourCountries = new ArrayList<CountryNode>();
 		}
-		this.neighbourCountries.add(newNeighbour);
+		if(!this.neighbourCountries.contains(newNeighbour)) {
+			this.neighbourCountries.add(newNeighbour);
+			newNeighbour.addNeighbour(this);
+		}
 	}
 	
 	/**
