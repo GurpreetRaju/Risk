@@ -11,7 +11,7 @@ public class DiceRollView extends JPanel{
 	
 	
 	/**
-	 * 
+	 * Version number for serializable class
 	 */
 	private static final long serialVersionUID = 2080193456450432494L;
 

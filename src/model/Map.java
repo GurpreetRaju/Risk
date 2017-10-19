@@ -62,8 +62,8 @@ public class Map extends Observable {
 	}
 	
 	/**
-	 * 
-	 * @return
+	 * Return map data
+	 * @return multidimensional array containing map data.
 	 */
 	public String[][] getMapObject() {
 		ArrayList<Object[]> newData = new ArrayList<Object[]>();

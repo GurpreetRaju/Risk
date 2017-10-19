@@ -14,7 +14,7 @@ import javax.swing.border.EmptyBorder;
 public class PlayerInfoView extends JPanel {
 	
 	/**
-	 * 
+	 * Version number for serializable class
 	 */
 	private static final long serialVersionUID = -7512274442706727095L;
 

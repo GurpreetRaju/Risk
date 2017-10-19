@@ -36,6 +36,14 @@ public class MapNode {
 		this.controlValue = newValue;
 	}
 	
+	 /** 
+	 * return ArrayList of countries in the continent
+	 * @return countries ArrayList containing countries of this continent.
+	 */
+	public ArrayList<CountryNode> getCountryList(){
+		return this.countries;
+	}
+	
 	/**
 	 * return name of continent.
 	 * @return String continent name
@@ -107,5 +115,5 @@ public class MapNode {
 		}
 		return false;
 	}
-	
+
 }
