@@ -26,6 +26,7 @@ import view.mapeditor.NewMap;
  * 
  * @see MapFileChooser
  * @author jyotsna
+ * @author Harinder
  *
  */
 public class mapEditorController {
@@ -35,6 +36,9 @@ public class mapEditorController {
 	 */
 	private MapFileChooser mapChooser;
 	
+	/**
+	 * object of ExistingMapEditor class used for calling the class methods 
+	 */
 	ExistingMapEditor existingMapEditor;
 	
 	/**

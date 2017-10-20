@@ -13,6 +13,7 @@ import java.util.ArrayList;
 /**
  * This class writes the map file.
  * @author Harinder
+ * @author jyotsna
  */
 public class MapWriter {
 	
