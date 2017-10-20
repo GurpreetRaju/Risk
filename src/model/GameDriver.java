@@ -125,6 +125,7 @@ public class GameDriver {
 					s= controller.placeArmyDialog(p.getCountriesNames());
 				}
 				p.getCountry(s).addArmy(1);
+				p.removeArmies(1);
 			}
 		}
 		map.updateMap();
@@ -292,6 +293,7 @@ public class GameDriver {
 			currentPhase.fortificationPhase();
 		}else if(this.currentPhase.equals(Phase.fortification)){
 			this.setNextPlayerTurn();
+			GameDriver.getInstance().getCurrentPlayer().assignArmies(GameDriver.getInstance().getCurrentPlayer().getArmies());
 			currentPhase.reinforcementPhase();
 		}
 		map.updateMap();
