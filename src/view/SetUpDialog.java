@@ -34,13 +34,21 @@ public class SetUpDialog {
 	 * Array to store the names of players entered by user.
 	 */
 	private String[] playerNames;
-	
+	/**
+	 * JFrame for dialog boxes.
+	 */
 	private JFrame frame;
-	
+	/**
+	 * Button to edit map.
+	 */
 	private JButton mapEdit;
-	
+	/**
+	 * Button to begin the game.
+	 */
 	private JButton playGame;
-	
+	/**
+	 * Stores the path of the map file uploaded.
+	 */
 	private String mapRead = null;
 	
 	/**
@@ -86,12 +94,13 @@ public class SetUpDialog {
 		return playerNames;
 	}
 	
+	/**
+	 * Places army on the selected countries.
+	 * @param countryList List of countries where the player can place armies.
+	 * @return country name selected.
+	 */
 	public String placeArmyDialog(String[] countryList){
 		JComboBox<String> countriesList = new JComboBox<String>(countryList);
-		String[] options = {"OK"};
-		int selection = JOptionPane.showOptionDialog(null, countriesList, "Place your army",
-        JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null,
-        options, options[0]);
 		String country = countryList[countriesList.getSelectedIndex()];
 		return country;
 	}
@@ -106,34 +115,32 @@ public class SetUpDialog {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.validate();
 		frame.setVisible(true);
-//		JButton btn = new JButton("Choose File");
-//		frame.add(btn);
 		JFileChooser jfc = new JFileChooser();
 		jfc.setCurrentDirectory(new File("./data/map"));
 		FileNameExtensionFilter filter = new FileNameExtensionFilter("Map Files", newExtension);
 		jfc.setFileFilter(filter);
-//		btn.addActionListener(e -> {
-			int returnValue = jfc.showOpenDialog(frame);
-			
-			if (returnValue == JFileChooser.APPROVE_OPTION) {
-				File selectedFile = jfc.getSelectedFile();
-				mapRead = selectedFile.getAbsolutePath();
-				if(mapRead.substring(mapRead.lastIndexOf("."),mapRead.length()).equalsIgnoreCase(".map")
-						|| mapRead.substring(mapRead.lastIndexOf("."),mapRead.length()).equalsIgnoreCase(".bmp")){
-					return mapRead;
-				}
-			}
-			
-		return null;
 
-//		});
-//		frame.pack();
-//		frame.setVisible(true);
+		int returnValue = jfc.showOpenDialog(frame);
+		if (returnValue == JFileChooser.APPROVE_OPTION) {
+			File selectedFile = jfc.getSelectedFile();
+			mapRead = selectedFile.getAbsolutePath();
+			if(mapRead.substring(mapRead.lastIndexOf("."),mapRead.length()).equalsIgnoreCase("."+newExtension)){
+				return mapRead;
+			}
+		}
+		if(newExtension.equals("map")) {
+			frame.dispose();
+			return getMapInfo(newExtension);
+		}
+		return null;
 	}
 	
+	/**
+	 * Displays frame to choose from Map Edit and Play Game options at the start.
+	 */
 	public void chooseMapEditorOrPlayGame(){
 		frame = new JFrame("Choose one:");
-		frame.setSize(new Dimension(200,200));//set size
+		frame.setSize(new Dimension(200,200));
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mapEdit = new JButton("Edit Map");
 		playGame = new JButton("Play Game");
@@ -144,14 +151,26 @@ public class SetUpDialog {
 		frame.setVisible(true);
 	}
 	
+	/**
+	 * Returns the frame to be used to dispose it after selection of an option.
+	 * @return JFrame
+	 */
 	public JFrame chooseOptionFrame(){
 		return this.frame;
 	}
 	
+	/**
+	 * Sets action listener to map edit button.
+	 * @param newAction ActionListener for map edit button.
+	 */
 	public void mapEditAction(ActionListener newAction) {
 		this.mapEdit.addActionListener(newAction);
 	}
 	
+	/**
+	 * Sets action listener to Play Game button.
+	 * @param newAction ActionListener for Play Game button
+	 */
 	public void playGameAction(ActionListener newAction) {
 		this.playGame.addActionListener(newAction);
 	}
