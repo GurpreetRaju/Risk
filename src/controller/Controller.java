@@ -145,7 +145,7 @@ public class Controller {
 				CountryNode countrySelect = GameDriver.getInstance().getCurrentPlayer().getCountry(countrySelected);
 				if(countrySelect.getArmiesCount()>1) {
 					ArrayList<String> neighborList = new ArrayList<String>();
-					for(String name: GameDriver.getInstance().getPlayerNeighbourCountryNames(countrySelected)) {
+					for(String name: countrySelect.getSameOwnerNeighbouNames()) {
 						neighborList.add(name);
 					}
 					controlsGUI.updateFortification(countrySelect.getArmiesCount(), neighborList.toArray(new String[neighborList.size()]));
