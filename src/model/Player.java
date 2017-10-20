@@ -58,6 +58,7 @@ public class Player {
 		this.countries = new ArrayList<CountryNode>();
 		this.continents = new ArrayList<MapNode>();
 		this.cards = new ArrayList<Card>();
+		this.turn = false;
 	}
 	
 	/**
@@ -73,6 +74,7 @@ public class Player {
 		this.cards = new ArrayList<Card>();
 		this.armiesCount = newArmies;
 		this.mapData = mapData;
+		this.turn = false;
 		
 	}
 	
