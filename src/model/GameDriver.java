@@ -57,12 +57,12 @@ public class GameDriver {
 	/**
 	 * ArrayList of neighbouring countries of same owner
 	 */
-	private ArrayList<CountryNode> playerNieghbourCountries;
+	private ArrayList<CountryNode> playerNeighbourCountries;
 	
 	/**
 	 * ArrayList of names of neighbouring countries of same owner
 	 */
-	private ArrayList<String> playerNieghbourCountryNames;
+	private ArrayList<String> playerNeighbourCountryNames;
 	
 	/**
 	 * Constructor initialize the GUI and  map class object.
@@ -329,13 +329,13 @@ public class GameDriver {
 	 * @return playerNeighbouringCountries returns neighbouring countries of the country of same owner
 	 */
 	public ArrayList<CountryNode> getPlayerNeighbourCountries(CountryNode countrynode){
-		playerNieghbourCountries = new ArrayList<CountryNode>();
+		playerNeighbourCountries = new ArrayList<CountryNode>();
 		for (CountryNode country : getNeighbourCountries(countrynode)){
 			if (countrynode.getOwner().equals(country.getOwner())){
-				playerNieghbourCountries.add(country);
+				playerNeighbourCountries.add(country);
 			}
 		}
-		return playerNieghbourCountries;
+		return playerNeighbourCountries;
 	}
 	
 	/**
@@ -344,11 +344,11 @@ public class GameDriver {
 	 * @return Neighbors of the country with same owner.
 	 */
 	public String [] getPlayerNeighbourCountryNames(String countryname) {
-		playerNieghbourCountryNames = new ArrayList<String>();
+		playerNeighbourCountryNames = new ArrayList<String>();
 		for(CountryNode country: getPlayerNeighbourCountries(getCountry(countryname))){
-			playerNieghbourCountryNames.add(country.getCountryName());
+			playerNeighbourCountryNames.add(country.getCountryName());
 		}
-		return (String[]) playerNieghbourCountryNames.toArray();
+		return (String[]) playerNeighbourCountryNames.toArray();
 	}
 	
 	/**

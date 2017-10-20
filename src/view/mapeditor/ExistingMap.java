@@ -55,6 +55,7 @@ public class ExistingMap extends JFrame {
 	private JComboBox comboBox_2;
 	private JButton btnDeleteCountry;
 	private JComboBox comboBox_3;
+	
 	ArrayList<MapNode> existingMap = new ArrayList<MapNode>();
 	JButton btnEdit;
 	

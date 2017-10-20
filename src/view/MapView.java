@@ -24,13 +24,15 @@ public class MapView extends JPanel implements Observer {
 	 * BufferedReader Object to read the image file.
 	 */
 	private BufferedImage image;
+	
 	/**
 	 * Boolean to check for .bmp file for the map.
 	 */
 	private boolean graphicalMap = false;
 	
 	/**
-	 * Version number for serializable class
+	 * Serial Version id for JFrame.
+	 * {@inheritDoc}
 	 */
 	private static final long serialVersionUID = 2353535256045293828L;
 
@@ -103,8 +105,9 @@ public class MapView extends JPanel implements Observer {
 	 * Sets the coordinates on the map file image.
 	 * @param newMapData Map data to be displayed.
 	 */
-	public void setGraphicalMap(String[][] newMapData){
+	public void setGraphicalMap(String[][] newMapData) {
 		this.removeAll();
+		
 		for(String[] o: newMapData){
 			JPanel panel = new JPanel();
 			panel.setSize(5, 5);

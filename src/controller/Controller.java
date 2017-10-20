@@ -79,6 +79,7 @@ public class Controller {
 	 */
 	public Controller(){
 	}
+	
 	/**
 	 * Controller class constructor to initialize GameDriver and SetUpDialog class objects.
 	 */

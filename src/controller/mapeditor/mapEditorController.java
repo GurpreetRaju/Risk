@@ -58,7 +58,6 @@ public class mapEditorController {
 
 	MapModel mapModel = new MapModel();
 	
-
 	/**
 	 * Calls the readMap function of MapReader to read the map file
 	 * @param filename address of the map file to be loaded
@@ -93,6 +92,7 @@ public class mapEditorController {
 				fc.setFileFilter(filter);
 				fc.setDialogTitle("Choose your Conquest Map File");
 				fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+				
 				if (fc.showOpenDialog(null) == JFileChooser.APPROVE_OPTION){
 					path = fc.getSelectedFile().getAbsolutePath();
 					MapReader mapReader = new MapReader();
@@ -152,6 +152,7 @@ public class mapEditorController {
 				newMap.enableJList();
 				String sCountrytToAddNeighbour = newMap.getSelectedCountryForNeighbours();
 				newMap.clearNeighboursJList();
+				
 				for (MapNode node : mapModel.getContinents()){
 					for (CountryNode countryNode : node.getCountries()){
 						if(sCountrytToAddNeighbour.compareTo(countryNode.getCountryName())==0)
@@ -181,7 +182,7 @@ public class mapEditorController {
 			}
 		});
 
-		newMap.addActionsToButtonDeleteContinent(new ActionListener() {
+		newMap.addActionsToBtnDeleteContinent(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ArrayList<MapNode> continents = mapModel.getContinents();
 				String delete_continent = newMap.getContinentToDelete();
@@ -220,6 +221,7 @@ public class mapEditorController {
 				newMap.clearNeighboursJList();
 				newMap.clearCountryComBoxContents();
 				ArrayList<MapNode> continents = mapModel.getContinents();
+				
 				for (MapNode node: continents) {
 					for (CountryNode temp : node.getCountries()) {
 						if(temp.getCountryName().compareTo(selectedcountry)==0) {
@@ -248,7 +250,7 @@ public class mapEditorController {
 						Boolean countryExist = mapModel.checkCountryExist(cn1);
 						if(!countryExist) {
 							ArrayList<CountryNode> neighbours= new ArrayList<CountryNode>();
-							for (Object ncountry : newMap.getNeighboursList()) {//check
+							for (Object ncountry : newMap.getNeighboursList()) {
 								CountryNode cn =  new CountryNode(ncountry.toString(), null, null);
 								neighbours.add(cn);
 							}
@@ -276,7 +278,6 @@ public class mapEditorController {
 				newMap.disableCountryfield();
 			}
 		});
-		
 		newMap.setVisible(true);
 	}
 	
@@ -424,7 +425,6 @@ public class mapEditorController {
 								for (CountryNode temp : node.getCountries()) {
 									existingMapEditor.addPossibleNeighboursToJList(temp.getCountryName());
 									existingMapEditor.setCountriesComboBox(temp.getCountryName());
-									
 								}
 							}
 						}else {
@@ -438,6 +438,5 @@ public class mapEditorController {
 			}
 		});
 	}
-
 }
 

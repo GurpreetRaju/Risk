@@ -16,26 +16,32 @@ public class MainView extends JFrame{
 	 * {@inheritDoc}
 	 */
 	private static final long serialVersionUID = 1L;
+	
 	/**
 	 * MainView object.
 	 */
 	private static MainView mainView;
+	
 	/**
 	 * PlayerInfoView class object.
 	 */
 	private PlayerInfoView playerData;
+	
 	/**
 	 * MapView class object.
 	 */
 	private MapView map;
+	
 	/**
 	 * DiceRollView class object.
 	 */
 	private DiceRollView diceArea;
+	
 	/**
 	 * CardsView class object.
 	 */
 	private CardsView cardsArea;
+	
 	/**
 	 * ControlsView class object.
 	 */
@@ -51,7 +57,7 @@ public class MainView extends JFrame{
         diceArea = newDice;
         cardsArea = newCards;
         controlsArea = newControls;
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         init();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
         this.setVisible(true);

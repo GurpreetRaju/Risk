@@ -86,7 +86,7 @@ public class MapFrame extends JFrame {
 	 */
 	public void initialize() {
 		this.setLocationRelativeTo(null);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(140, 140, 500, 340);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.GRAY);
@@ -126,7 +126,7 @@ public class MapFrame extends JFrame {
 		btnNewMap.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				selectedAction = "new";
-				frame.setVisible(false);
+				frame.setVisible(true);
 				obj.newMapActions();
 			}
 		});
@@ -172,5 +172,4 @@ public class MapFrame extends JFrame {
 	public static String selectedAction() {
 		return selectedAction;
 	}
-	
 }

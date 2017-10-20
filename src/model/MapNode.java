@@ -115,5 +115,4 @@ public class MapNode {
 		}
 		return false;
 	}
-
 }
