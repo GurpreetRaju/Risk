@@ -359,5 +359,7 @@ public class GameDriver {
 			this.players = new ArrayList<Player>();
 		}
 		this.players.add(newPlayer);
+//		for(Player p: this.players)
+//		System.out.println(p.getName());
 	}
 }
