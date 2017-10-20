@@ -92,7 +92,7 @@ public class mapEditorController {
 				fc.setFileFilter(filter);
 				fc.setDialogTitle("Choose your Conquest Map File");
 				fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-				
+
 				if (fc.showOpenDialog(null) == JFileChooser.APPROVE_OPTION){
 					path = fc.getSelectedFile().getAbsolutePath();
 					MapReader mapReader = new MapReader();
@@ -129,13 +129,13 @@ public class mapEditorController {
 				newMap.enableContinentFields();
 			}
 		});
-		
+
 		newMap.addActionsToBtnAddCountry(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				newMap.enableCountryfield();
 			}
 		});
-		
+
 		newMap.addActionsToBtnDone(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String cn = newMap.getContinentName();
@@ -164,7 +164,7 @@ public class mapEditorController {
 				newMap.enableJList();
 				String sCountrytToAddNeighbour = newMap.getSelectedCountryForNeighbours();
 				newMap.clearNeighboursJList();
-				
+
 				for (MapNode node : mapModel.getContinents()){
 					for (CountryNode countryNode : node.getCountries()){
 						if(sCountrytToAddNeighbour.compareTo(countryNode.getCountryName())==0)
@@ -237,7 +237,7 @@ public class mapEditorController {
 				newMap.clearNeighboursJList();
 				newMap.clearCountryComBoxContents();
 				ArrayList<MapNode> continents = mapModel.getContinents();
-				
+
 				for (MapNode node: continents) {
 					for (CountryNode temp : node.getCountries()) {
 						if(temp.getCountryName().compareTo(selectedcountry)==0) {
@@ -299,19 +299,19 @@ public class mapEditorController {
 	}
 
 	public void existingMapActions() {
-		
+
 		existingMapEditor.addActionsToBtnAddContinent(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				existingMapEditor.enableContinentFields();
 			}
 		});
-		
+
 		existingMapEditor.addActionsToBtnAddCountry(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				existingMapEditor.enableCountryfield();
 			}
 		});
-		
+
 		existingMapEditor.addActionsToBtnDone(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String cn = existingMapEditor.getContinentName();
