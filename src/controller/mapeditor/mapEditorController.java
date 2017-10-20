@@ -50,7 +50,7 @@ public class mapEditorController {
 	/**
 	 * Stores the path of the file chosen
 	 */
-	public static String path = "";
+	public String path = "";
 
 	MapModel mapModel = new MapModel();
 	
@@ -108,6 +108,10 @@ public class mapEditorController {
 			}
 		});
 		this.mapChooser.openFileChooseBtnAction(existingBtnAction);
+	}	
+	
+	public String getPath() {
+		return path;
 	}
 
 	/**
@@ -360,7 +364,7 @@ public class mapEditorController {
 		existingMapEditor.addActionsToBtnSave(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(mapModel.checkOnSaveMap()) {
-					mapModel.saveMapFile();
+					mapModel.saveToExistingMapFile(getPath());
 				}else {
 					existingMapEditor.nullCountryError();
 				}
