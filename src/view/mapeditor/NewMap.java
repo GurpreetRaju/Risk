@@ -43,24 +43,24 @@ public class NewMap extends JFrame {
 	private JTextField txtContinentControlValue;
 	private JTextField txtCountryName;
 	private JComboBox comboBox;
-	JComboBox comboBox_3;
-	MapNode mapNode;
-	JButton btnDone;
-	JButton btnAddNeighbours;
-	MapWriter mapWriter = new MapWriter();
+	private JComboBox comboBox_3;
+	private MapNode mapNode;
+	private JButton btnDone;
+	private JButton btnAddNeighbours;
+	private MapWriter mapWriter = new MapWriter();
 	private String continentName;
 	private String cv;
-	JList list;
-	JComboBox comboBox_1;
-	DefaultListModel<String> model2;
-	JButton btnSelectedNeighbours;
-	JButton btnDeleteContinent;
-	JButton btnSaveMap;
-	JButton btnDeleteCountry;
-	JComboBox comboBox_2;
-	JButton btnAdd;
-	JButton btnAddCountry;
-	JButton btnAddContinent;
+	private JList list;
+	private JComboBox comboBox_1;
+	private DefaultListModel<String> model2;
+	private JButton btnSelectedNeighbours;
+	private JButton btnDeleteContinent;
+	private JButton btnSaveMap;
+	private JButton btnDeleteCountry;
+	private JComboBox comboBox_2;
+	private JButton btnAdd;
+	private JButton btnAddCountry;
+	private JButton btnAddContinent;
 
 	/**
 	 * NewMap constructor calls initialize method of the class
@@ -321,23 +321,23 @@ public class NewMap extends JFrame {
 		gbc_btnSaveMap.gridy = 29;
 		contentPane.add(btnSaveMap, gbc_btnSaveMap);
 	}
-	
+
 	public void addActionsToBtnAddCountry(ActionListener newAction) {
-		 		btnAddCountry.addActionListener(newAction);
-		 	}
-		 	
-		 	public void addActionsToBtnAddContinent(ActionListener newAction) {
-		 		btnAddContinent.addActionListener(newAction);
-		  	}
-	
+		btnAddCountry.addActionListener(newAction);
+	}
+
+	public void addActionsToBtnAddContinent(ActionListener newAction) {
+		btnAddContinent.addActionListener(newAction);
+	}
+
 	/**
 	 * @see mapEditorController
 	 * @param newAction actionListener for btnDone
 	 */
 	public void addActionsToBtnDone(ActionListener newAction) {
-	    btnDone.addActionListener(newAction);
+		btnDone.addActionListener(newAction);
 	}
-	
+
 	/**
 	 * @see mapEditorController
 	 * @param newAction actionListener for btnAdd
@@ -345,7 +345,7 @@ public class NewMap extends JFrame {
 	public void addActionsToBtnAdd(ActionListener newAction) {
 		btnAdd.addActionListener(newAction);
 	}
-	
+
 	/**
 	 * @see mapEditorController
 	 * @param newAction actionListener for btnAddNeighbours
@@ -353,7 +353,7 @@ public class NewMap extends JFrame {
 	public void addActionsToBtnAddNeighbours(ActionListener newAction) {
 		btnAddNeighbours.addActionListener(newAction);
 	}
-	
+
 	/**
 	 * @see mapEditorController
 	 * @param newAction actionListener for btnSelectedNeighbours
@@ -361,7 +361,7 @@ public class NewMap extends JFrame {
 	public void addActionsToBtnSelectedNeighbours(ActionListener newAction) {
 		btnSelectedNeighbours.addActionListener(newAction);
 	}
-	
+
 	/**
 	 * @see mapEditorController
 	 * @param newAction actionListener for btnDeleteContinent
@@ -369,7 +369,7 @@ public class NewMap extends JFrame {
 	public void addActionsToBtnDeleteContinent(ActionListener newAction) {
 		btnDeleteContinent.addActionListener(newAction);
 	}
-	
+
 	/**
 	 * @see mapEditorController
 	 * @param newAction actionListener for btnSaveMap
@@ -377,7 +377,7 @@ public class NewMap extends JFrame {
 	public void addActionsToBtnSave(ActionListener newAction) {
 		btnSaveMap.addActionListener(newAction);
 	}
-	
+
 	/**
 	 * @see mapEditorController
 	 * @param newAction actionListener for btnDeleteCountry
@@ -385,7 +385,7 @@ public class NewMap extends JFrame {
 	public void addActionsToBtnDeleteCountry(ActionListener newAction) {
 		btnDeleteCountry.addActionListener(newAction);
 	}
-	
+
 	/**
 	 * checking whether continent exist or nor
 	 * @return boolean value whether country exist or not
@@ -397,7 +397,7 @@ public class NewMap extends JFrame {
 		}
 		return continentExist;
 	}
-	
+
 	/**
 	 * getting the country name
 	 * @return country name
@@ -405,7 +405,7 @@ public class NewMap extends JFrame {
 	public String getCountryName() {
 		return (txtCountryName.getText());
 	}
-	
+
 	/**
 	 * getting the neighbours countries from list
 	 * @return list of neighbours countries selected
@@ -413,14 +413,14 @@ public class NewMap extends JFrame {
 	public List getNeighboursList() {
 		return (list.getSelectedValuesList());
 	}
-	
+
 	/**
 	 * enabling the list
 	 */
 	public void enableJList() {
 		list.setEnabled(true);
 	}
-	
+
 	/**
 	 * disabling the country field
 	 */
@@ -428,7 +428,7 @@ public class NewMap extends JFrame {
 		txtCountryName.setText("");
 		txtCountryName.setEnabled(false);
 	}
-	
+
 	/**
 	 * disabling the continent field
 	 */
@@ -438,7 +438,7 @@ public class NewMap extends JFrame {
 		txtContinentNameHere.setEnabled(false);
 		txtContinentControlValue.setEnabled(false);
 	}
-	
+
 	/**
 	 * getting the selected countries
 	 * @return list of countries selected through comboBox_2 that includes selecting the countries
@@ -446,7 +446,7 @@ public class NewMap extends JFrame {
 	public String getSelectedCountryForNeighbours() {
 		return (comboBox_1.getSelectedItem().toString());
 	}
-	
+
 	/**
 	 * getting countries for deletion
 	 * @return list of countries selected for deletion 
@@ -454,7 +454,7 @@ public class NewMap extends JFrame {
 	public String getCountryForDeletion() {
 		return (comboBox_2.getSelectedItem().toString());
 	}
-	
+
 	/**
 	 * getting continents for deletion
 	 * @return list of continents to be deleted
@@ -462,7 +462,7 @@ public class NewMap extends JFrame {
 	public String getContinentToDelete() {
 		return (comboBox_3.getSelectedItem().toString());
 	}
-	
+
 	/**
 	 * getting selected continent
 	 * @return list of continents selected
@@ -470,14 +470,14 @@ public class NewMap extends JFrame {
 	public String getSelectedContinent() {
 		return (comboBox.getSelectedItem().toString());
 	}
-	
+
 	/**
 	 * clearing the neighbours list
 	 */
 	public void clearNeighboursJList() {
 		model2.removeAllElements();
 	}
-	
+
 	/**
 	 * adding neighbour countries to the list
 	 * @param neighbour include countries
@@ -485,7 +485,7 @@ public class NewMap extends JFrame {
 	public void addPossibleNeighboursToJList(String neighbour) {
 		model2.addElement(neighbour);
 	}
-	
+
 	/**
 	 * getting the continent name
 	 * @return continent name
@@ -494,49 +494,49 @@ public class NewMap extends JFrame {
 		continentName = txtContinentNameHere.getText();
 		return continentName;
 	}
-	
+
 	/**
 	 * dialogue box for error messages
 	 */
 	public void enterValuesError() {
 		JOptionPane.showMessageDialog(contentPane, "Enter values first", "Error", JOptionPane.ERROR_MESSAGE);
 	}
-	
+
 	/**
 	 * dialogue box for error messages
 	 */
 	public void noSelectedNeighboursError() {
 		JOptionPane.showMessageDialog(contentPane, "Select neighbours first", "Error", JOptionPane.ERROR_MESSAGE);
 	}
-	
+
 	/**
 	 * dialogue box for error messages
 	 */
 	public void continentAlreadyExistError() {
 		JOptionPane.showMessageDialog(contentPane, "Continent already exist", "Error", JOptionPane.ERROR_MESSAGE);
 	}
-	
+
 	/**
 	 * dialogue box for error messages
 	 */
 	public void countryAlreadyExistError() {
 		JOptionPane.showMessageDialog(contentPane, "Country already exist", "Error", JOptionPane.ERROR_MESSAGE);
 	}
-	
+
 	/**
 	 * dialogue box for error messages
 	 */
 	public void nullContinentError() {
 		JOptionPane.showMessageDialog(contentPane, "Add continent first", "Error", JOptionPane.ERROR_MESSAGE);
 	}
-	
+
 	/**
 	 * dialogue box for error messages
 	 */
 	public void nullCountryError() {
 		JOptionPane.showMessageDialog(contentPane, "Map validation error", "Error", JOptionPane.ERROR_MESSAGE);
 	}
-	
+
 	/**
 	 * getting the control value of continent
 	 * @return control value of continent
@@ -545,7 +545,7 @@ public class NewMap extends JFrame {
 		cv = (txtContinentControlValue.getText());
 		return cv;
 	}
-	
+
 	/**
 	 * easing or enabling continent fields that are continent name and its control value
 	 */
@@ -555,15 +555,15 @@ public class NewMap extends JFrame {
 		txtContinentNameHere.setEnabled(false);
 		txtContinentControlValue.setEnabled(false);
 	}
-	
+
 	public void enableCountryfield() {
-		 		txtCountryName.setEnabled(true);
-		 	}
-		 	
-		 	public void enableContinentFields() {
-		 		txtContinentNameHere.setEnabled(true);
-		 		txtContinentControlValue.setEnabled(true);
-		 	}
+		txtCountryName.setEnabled(true);
+	}
+
+	public void enableContinentFields() {
+		txtContinentNameHere.setEnabled(true);
+		txtContinentControlValue.setEnabled(true);
+	}
 	/**
 	 * clearing the lists from comboBox
 	 */
@@ -571,7 +571,7 @@ public class NewMap extends JFrame {
 		comboBox.removeAllItems();
 		comboBox_3.removeAllItems();
 	}
-	
+
 	/**
 	 * clearing list of countries
 	 */
@@ -579,7 +579,7 @@ public class NewMap extends JFrame {
 		comboBox_2.removeAllItems();
 		comboBox_1.removeAllItems();
 	}
-	
+
 	/**
 	 * setting the continents in the list
 	 * @param continent name of continent
@@ -588,7 +588,7 @@ public class NewMap extends JFrame {
 		comboBox.addItem(continent);
 		comboBox_3.addItem(continent);
 	}
-	
+
 	/**
 	 * adding country to the list
 	 * @param country name of country
