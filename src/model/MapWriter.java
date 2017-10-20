@@ -127,6 +127,7 @@ public class MapWriter {
 			for (MapNode node : map) {
 				bw.write(node.getContinentName() + "=" + Integer.toString(node.getControlValue()) + "\r\n");
 			}
+			
 			bw.write("\r\n[Territories]\r\n");
 			for (MapNode node : map) {
 				for (CountryNode country : node.getCountries()) {

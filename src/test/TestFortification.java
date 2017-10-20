@@ -1,12 +1,9 @@
 package test;
 
 import static org.junit.Assert.*;
-
 import java.util.ArrayList;
-
 import org.junit.Before;
 import org.junit.Test;
-
 import controller.Controller;
 import model.CountryNode;
 import model.GameDriver;
@@ -36,26 +33,31 @@ public class TestFortification {
 		country4.addNeighbour(country3);
 		country5.addNeighbour(country1);
 		country1.addNeighbour(country5);
+		
 		ArrayList<CountryNode> countries = new ArrayList<CountryNode>();
 		countries.add(country1);
 		countries.add(country2);
 		countries.add(country3);
 		countries.add(country4);
 		countries.add(country5);
+		
 		MapNode continent = new MapNode("Continent1", countries, 6);
 		mapData.add(continent);
 		Player player1 = new Player("Player", 10, mapData);
 		Player player2 = new Player("Player2", 10, mapData);
+		
 		player1.addCountry(country1);
 		player1.addCountry(country2);
 		player1.addCountry(country3);
 		player2.addCountry(country4);
 		player2.addCountry(country5);
+		
 		country1.setOwner(player1);
 		country2.setOwner(player1);
 		country3.setOwner(player1);
 		country4.setOwner(player2);
 		country5.setOwner(player2);
+		
 		country1.addArmy(1);
 		country2.addArmy(1);
 		country3.addArmy(1);

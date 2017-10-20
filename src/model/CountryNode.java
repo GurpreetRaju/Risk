@@ -35,14 +35,14 @@ public class CountryNode {
 	private int armies;
 	
 	/**
-	 * ArrayList of neighbouring countries of same owner
+	 * ArrayList of neighboring countries of same owner
 	 */
-	private ArrayList<CountryNode> sameOwnerNieghbour;
+	private ArrayList<CountryNode> sameOwnerNeighbour;
 	
 	/**
-	 * ArrayList of names of neighbouring countries of same owner
+	 * ArrayList of names of neighboring countries of same owner
 	 */
-	private ArrayList<String> sameOwnerNieghbourNames;
+	private ArrayList<String> sameOwnerNeighbourNames;
 	
 	/**
 	 * This constructor initialize the attributes of this country.
@@ -221,13 +221,13 @@ public class CountryNode {
 	 * @return sameOwnerNeighbours Arraylist of neighbour countries with same owner
 	 */
 	public ArrayList<CountryNode> getSameOwnerNeighbours(){
-		sameOwnerNieghbour = new ArrayList<CountryNode>();
+		sameOwnerNeighbour = new ArrayList<CountryNode>();
 		for(CountryNode country : getNeighbours()){
 			if(country.getOwner().equals(this.getOwner())){
-				sameOwnerNieghbour.add(country);
+				sameOwnerNeighbour.add(country);
 			}
 		}
-		return sameOwnerNieghbour;
+		return sameOwnerNeighbour;
 	}
 	
 	/**
@@ -235,10 +235,10 @@ public class CountryNode {
 	 * @return sameOwnerNieghbourNames Names of the Neighbours with same owner.
 	 */
 	public ArrayList<String> getSameOwnerNeighbouNames() {
-		sameOwnerNieghbourNames = new ArrayList<String>();
+		sameOwnerNeighbourNames = new ArrayList<String>();
 		for(CountryNode country: getSameOwnerNeighbours()){
-			sameOwnerNieghbourNames.add(country.getCountryName());
+			sameOwnerNeighbourNames.add(country.getCountryName());
 		}
-		return sameOwnerNieghbourNames;
+		return sameOwnerNeighbourNames;
 	}
 }

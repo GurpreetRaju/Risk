@@ -41,14 +41,17 @@ public class ControlsView extends JPanel {
 	 * Dropdown for list of neighbors.
 	 */
 	JComboBox<String> neighborList;
+	
 	/**
 	 * Armies available to the player for reinforcement phase.
 	 */
 	private String armiesAvailable;
+	
 	/**
 	 * Number of armies selected to move to the neighboring country for Fortification phase.
 	 */
 	private JButton addArmies;
+	
 	/**
 	 * Button to end a phase.
 	 */
@@ -57,7 +60,7 @@ public class ControlsView extends JPanel {
 	/**
 	 * Constructor to display the Control section of the game for Reinforcement, Attack and Fortification phases.
 	 */
-	public ControlsView(){
+	public ControlsView() {
 		JLabel label = new JLabel("Controls Here.");
 		this.setLayout(new FlowLayout());
 		this.add(label);
@@ -123,7 +126,7 @@ public class ControlsView extends JPanel {
 	 * Play a move for fortification phase.
 	 * @param a ActionListener for the playMove button.
 	 */
-	public void playButtonAction(ActionListener a){
+	public void playButtonAction(ActionListener a) {
 		this.playMove.addActionListener(a);
 	}
 	
@@ -131,8 +134,7 @@ public class ControlsView extends JPanel {
 	 * Sets ActionListener on add armies button.
 	 * @param newAction ActionListener to be attached to the button.
 	 */
-	public void addArmiesButtonAction(ActionListener newAction)
-	{
+	public void addArmiesButtonAction(ActionListener newAction) {
 		this.addArmies.addActionListener(newAction);
 	}
 	
@@ -140,8 +142,7 @@ public class ControlsView extends JPanel {
 	 * Sets ActionListener on end phase button.
 	 * @param newAction ActionListener to be attached to the button.
 	 */
-	public void endPhaseAction(ActionListener newAction)
-	{
+	public void endPhaseAction(ActionListener newAction) {
 		this.endPhase.addActionListener(newAction);
 	}
 	
@@ -149,8 +150,7 @@ public class ControlsView extends JPanel {
 	 * Sets ActionListener on countries list combobox.
 	 * @param newAction ActionListener to be attached to the combobox.
 	 */
-	public void countrieslistAction(ActionListener newAction)
-	{
+	public void countrieslistAction(ActionListener newAction) {
 		this.countriesList.addActionListener(newAction);
 	}
 	
@@ -159,8 +159,7 @@ public class ControlsView extends JPanel {
 	 * @param armies Count of the armies the player has.
 	 * @param neighbourNames List of neighbors of the country selected.
 	 */
-	public void updateFortification(int armies, String[] neighbourNames)
-	{
+	public void updateFortification(int armies, String[] neighbourNames) {
 		this.armiesSpinner.setModel(new SpinnerNumberModel(1, 0, armies-1, 1));
 		this.armiesSpinner.setEnabled(true);;
 		this.neighborList.setModel(new DefaultComboBoxModel<String>(neighbourNames));
@@ -173,8 +172,7 @@ public class ControlsView extends JPanel {
 	 * Gets the value of armies from the spinner.
 	 * @return integer value from the spinner.
 	 */
-	public int getArmiesValue()
-	{
+	public int getArmiesValue() {
 		return (int) this.armiesSpinner.getValue();
 	}
 	
@@ -182,8 +180,7 @@ public class ControlsView extends JPanel {
 	 * Gets the country selected in the combobox.
 	 * @return country selected in the combobox.
 	 */
-	public String getCountrySelected()
-	{
+	public String getCountrySelected() {
 		return (String) this.countriesList.getSelectedItem();
 	}
 
@@ -199,7 +196,7 @@ public class ControlsView extends JPanel {
 	 * Checks if neighbor list combobox is enabled or not.
 	 * @return boolean value depending on the combobox enabled or not.
 	 */
-	public boolean isNeighbourSelected(){
+	public boolean isNeighbourSelected() {
 		return this.neighborList.isEnabled();
 	}
 }

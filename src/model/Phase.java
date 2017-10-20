@@ -48,7 +48,6 @@ public class Phase {
 		this.phase = "fortification";
 		GameDriver.getInstance().getControlGUI().fortificationControls(GameDriver.getInstance().getPlayerCountryNames());
 		GameDriver.getInstance().setFortificationLiteners();
-		
 	}
 	
 	/**

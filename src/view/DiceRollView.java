@@ -9,10 +9,10 @@ import javax.swing.JPanel;
 
 public class DiceRollView extends JPanel{
 	
-	
 	/**
 	 * Serial Version id for JFrame.
 	 * {@inheritDoc}
+	 */
 	private static final long serialVersionUID = 2080193456450432494L;
 
 	/**

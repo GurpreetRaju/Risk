@@ -63,14 +63,14 @@ public class NewMap extends JFrame {
 	/**
 	 * NewMap constructor calls initialize method of the class
 	 */
-	public NewMap()
-	{
+	public NewMap() {
 		initialize();
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
+	@SuppressWarnings("unchecked")
 	public void initialize() {
 		this.setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -171,7 +171,7 @@ public class NewMap extends JFrame {
 		gbc_btnAddCountry.gridy = 5;
 		contentPane.add(btnAddCountry, gbc_btnAddCountry);
 
-		comboBox = new JComboBox();//continent list
+		comboBox = new JComboBox();			/*continent list.*/
 		comboBox.setToolTipText("Choose existing continent to add new country");
 		GridBagConstraints gbc_comboBox = new GridBagConstraints();
 		gbc_comboBox.gridwidth = 3;
@@ -212,7 +212,7 @@ public class NewMap extends JFrame {
 		gbc_btnDeleteCountry.gridy = 8;
 		contentPane.add(btnDeleteCountry, gbc_btnDeleteCountry);
 
-		comboBox_2 = new JComboBox();//list of countries
+		comboBox_2 = new JComboBox();			/*list of countries.*/
 		GridBagConstraints gbc_comboBox_2 = new GridBagConstraints();
 		ArrayList<String> choice = new ArrayList<>();
 		gbc_comboBox_2.gridwidth = 3;
@@ -269,7 +269,7 @@ public class NewMap extends JFrame {
 		gbc_comboBox_11.fill = GridBagConstraints.HORIZONTAL;
 		gbc_comboBox_11.gridx = 2;
 		gbc_comboBox_11.gridy = 14;
-		comboBox_1.setEnabled(false);
+		comboBox_1.setEnabled(true);
 		contentPane.add(comboBox_1, gbc_comboBox_11);
 
 		JLabel lblChooseNeighbours = new JLabel("Possible neighbours for selected country");
@@ -311,15 +311,15 @@ public class NewMap extends JFrame {
 		contentPane.add(btnSaveMap, gbc_btnSaveMap);
 
 		btnAddContinent.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e)
-			{
+			public void actionPerformed(ActionEvent e) {
 				if (e.getSource() == btnAddContinent) {
 					txtContinentNameHere.setText("");
 					txtContinentControlValue.setText("");
 					txtContinentNameHere.setEnabled(true);
 					txtContinentControlValue.setEnabled(true);
 				}
-			}});
+			}
+		});
 
 		btnAddCountry.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -329,8 +329,6 @@ public class NewMap extends JFrame {
 				}
 			}
 		});
-
-		comboBox_1.setEnabled(true);
 
 	}
 	
@@ -350,7 +348,7 @@ public class NewMap extends JFrame {
 		btnSelectedNeighbours.addActionListener(newAction);
 	}
 	
-	public void addActionsToButtonDeleteContinent(ActionListener newAction) {
+	public void addActionsToBtnDeleteContinent(ActionListener newAction) {
 		btnDeleteContinent.addActionListener(newAction);
 	}
 	
@@ -425,6 +423,10 @@ public class NewMap extends JFrame {
 	
 	public void enterValuesError() {
 		JOptionPane.showMessageDialog(contentPane, "Enter values first", "Error", JOptionPane.ERROR_MESSAGE);
+	}
+	
+	public void noSelectedNeighboursError() {
+		JOptionPane.showMessageDialog(contentPane, "Select neighbours first", "Error", JOptionPane.ERROR_MESSAGE);
 	}
 	
 	public void continentAlreadyExistError() {

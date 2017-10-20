@@ -34,18 +34,22 @@ public class SetUpDialog {
 	 * Array to store the names of players entered by user.
 	 */
 	private String[] playerNames;
+	
 	/**
 	 * JFrame for dialog boxes.
 	 */
 	private JFrame frame;
+	
 	/**
 	 * Button to edit map.
 	 */
 	private JButton mapEdit;
+	
 	/**
 	 * Button to begin the game.
 	 */
 	private JButton playGame;
+	
 	/**
 	 * Stores the path of the map file uploaded.
 	 */
@@ -73,7 +77,7 @@ public class SetUpDialog {
 	 * Ask user to enter name of player one by one.
 	 * @return string array containing number of players.
 	 */
-	public String[] getPlayerInfo(){
+	public String[] getPlayerInfo() {
 		int n = getPlayerCount();
 		System.out.println(n);
 		playerNames = new String[n];
@@ -99,7 +103,7 @@ public class SetUpDialog {
 	 * @param countryList List of countries where the player can place armies.
 	 * @return country name selected.
 	 */
-	public String placeArmyDialog(String[] countryList){
+	public String placeArmyDialog(String[] countryList) {
 		JComboBox<String> countriesList = new JComboBox<String>(countryList);
 		String country = countryList[countriesList.getSelectedIndex()];
 		return country;
@@ -110,9 +114,9 @@ public class SetUpDialog {
 	 * @param extension 
 	 * @return mapRead Stores the absolute path of the map file read.
 	 */
-	public String getMapInfo(String newExtension){
+	public String getMapInfo(String newExtension) {
 		JFrame frame = new JFrame("Map File Chooser");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.validate();
 		frame.setVisible(true);
 		JFileChooser jfc = new JFileChooser();
@@ -138,7 +142,7 @@ public class SetUpDialog {
 	/**
 	 * Displays frame to choose from Map Edit and Play Game options at the start.
 	 */
-	public void chooseMapEditorOrPlayGame(){
+	public void chooseMapEditorOrPlayGame() {
 		frame = new JFrame("Choose one:");
 		frame.setSize(new Dimension(200,200));
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -155,7 +159,7 @@ public class SetUpDialog {
 	 * Returns the frame to be used to dispose it after selection of an option.
 	 * @return JFrame
 	 */
-	public JFrame chooseOptionFrame(){
+	public JFrame chooseOptionFrame() {
 		return this.frame;
 	}
 	

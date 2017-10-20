@@ -58,7 +58,6 @@ public class Player {
 		this.countries = new ArrayList<CountryNode>();
 		this.continents = new ArrayList<MapNode>();
 		this.cards = new ArrayList<Card>();
-		this.turn = false;
 	}
 	
 	/**
@@ -74,8 +73,6 @@ public class Player {
 		this.cards = new ArrayList<Card>();
 		this.armiesCount = newArmies;
 		this.mapData = mapData;
-		this.turn = false;
-		
 	}
 	
 	/**
@@ -224,7 +221,7 @@ public class Player {
 	/**
 	 *  Remove Armies from player
 	 */
-	public void removeArmies(int newCount){
+	public void removeArmies(int newCount) {
 		this.armiesCount -= newCount;
 	}
 	
@@ -232,7 +229,7 @@ public class Player {
 	 * Gives the number of armies the player has.
 	 * @return number of armies player has.
 	 */
-	public int getArmiesCount(){
+	public int getArmiesCount() {
 		return this.armiesCount;
 	}
 	
@@ -262,7 +259,7 @@ public class Player {
 	 * Gives the value of the turn of the player (True or False).
 	 *  @return turn of player
 	 */
-	public boolean getTurn(){
+	public boolean getTurn() {
 		return this.turn;
 	}
 	

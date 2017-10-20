@@ -377,7 +377,7 @@ public class ExistingMapEditor extends JFrame {
 		gbc_comboBox_11.fill = GridBagConstraints.HORIZONTAL;
 		gbc_comboBox_11.gridx = 2;
 		gbc_comboBox_11.gridy = 14;
-		comboBox_1.setEnabled(false);
+		comboBox_1.setEnabled(true);
 		contentPane.add(comboBox_1, gbc_comboBox_11);
 		for (MapNode mapNode : continents) {
 			for (CountryNode countryNode : mapNode.getCountries()) {
@@ -469,6 +469,10 @@ public class ExistingMapEditor extends JFrame {
 
 	public void addActionsToBtnDeleteCountry(ActionListener newAction) {
 		btnDeleteCountry.addActionListener(newAction);
+	}
+	
+	public void noSelectedNeighboursError() {
+		JOptionPane.showMessageDialog(contentPane, "Select neighbours first", "Error", JOptionPane.ERROR_MESSAGE);
 	}
 	
 	/**
