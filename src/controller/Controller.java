@@ -83,6 +83,7 @@ public class Controller {
 	
 	/**
 	 * Controller class constructor to initialize GameDriver and SetUpDialog class objects.
+	 * @param newDriver GameDriver instance.
 	 */
 	public Controller(GameDriver newDriver) {
 		this.driver = newDriver;
@@ -102,6 +103,7 @@ public class Controller {
 	
 	/**
 	 * Calls the placeArmyDialog function of SetUpDialog class.
+	 * @param countriesNamesNoArmy list of countries with no armies. 
 	 * @return the country selected by the user to place army.
 	 */
 	public String placeArmyDialog(String[] countriesNamesNoArmy) {
@@ -221,8 +223,7 @@ public class Controller {
 		mapEditListener =  new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String[] a =null;
-				MapFrame.main(a);
+				MapFrame newMapFrame = new MapFrame();
 				setupBox.chooseOptionFrame().dispose();
 			}
 		};
@@ -236,7 +237,7 @@ public class Controller {
 		playGameListener =  new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				init(null);
+				init();
 				setupBox.chooseOptionFrame().dispose();
 			}
 		};
@@ -246,21 +247,14 @@ public class Controller {
 	/**
 	 * Initializes the game after Play Game button selection.
 	 */
-	public void init(String mapValue) {
-		if(mapValue == null){
-			driver.createMapObject(setupBox.getMapInfo("map"));
-			String temp = setupBox.getMapInfo("bmp");
-	        if(temp!=null) {
-	        	mapGUI = new MapView(temp);
-	        }else {
-	        	mapGUI = new MapView();
-	        }
-		}
-		else{
-	        driver = GameDriver.getInstance();
-			driver.createMapObject(mapValue);
-			mapGUI = new MapView();
-		}
+	public void init() {
+		driver.createMapObject(setupBox.getMapInfo("map"));
+		String temp = setupBox.getMapInfo("bmp");
+	    if(temp!=null) {
+	    		mapGUI = new MapView(temp);
+	    }else {
+	    		mapGUI = new MapView();
+	    }
 		playerInfoGUI = new PlayerInfoView();
         diceRollGUI = new DiceRollView();
         cardsGUI = new CardsView();

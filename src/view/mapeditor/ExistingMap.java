@@ -60,7 +60,8 @@ public class ExistingMap extends JFrame {
 	JButton btnEdit;
 	
 	/**
-	 * Existing Map constructor calls initialize method of the class
+	 * Existing Map constructor calls initialize method of the class.
+	 * @param map arraylist of map nodes.
 	 */
 	public ExistingMap(ArrayList<MapNode> map){
 		existingMap = map;

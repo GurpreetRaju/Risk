@@ -77,15 +77,11 @@ public class MapModel {
 	public void saveMapFile() {
 		mapWriter.writeMap(continents);
 		newFilePath = mapWriter.getMapFilePath();
-		System.out.println(newFilePath);
-		controller.init(newFilePath);
 	}
 	
 	public void saveToExistingMapFile(String path) {
 		mapWriter.writeMapExisting(continents, path);
 		existingFilePath = mapWriter.getMapFilePath();
-		System.out.println(existingFilePath);
-		controller.init(existingFilePath);
 	}
 	
 	public String newFilePath() {
