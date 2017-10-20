@@ -102,7 +102,6 @@ public class GameDriver {
 		for(MapNode m : map.getMapData()){
 			for(CountryNode c: m.getCountries()){
 				c.setOwner(players.get(i));
-				players.get(i).addCountry(c);
 				if(++i>=players.size()){
 					i=0;
 				}
