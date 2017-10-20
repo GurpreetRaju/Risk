@@ -19,11 +19,15 @@ public class MapModel {
 	 * MapNode arraylist containing all the map information
 	 */
 	ArrayList<MapNode> continents = new ArrayList<MapNode>();
-	
+		
 	/**
 	 * MapWriter object for writing the map contents to the map file
 	 */
 	MapWriter mapWriter = new MapWriter();
+	
+	public void writeExistingMap(ArrayList<MapNode> continents) {
+		this.continents = continents;
+	}
 	
 	public boolean checkContinentExist(String cn) {
 		Boolean continentExist = false;
