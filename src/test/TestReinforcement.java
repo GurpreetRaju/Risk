@@ -59,11 +59,6 @@ public class TestReinforcement {
 		player1.addCountry(country3);
 		player2.addCountry(country4);
 		player2.addCountry(country5);
-		country1.setOwner(player1);
-		country2.setOwner(player1);
-		country3.setOwner(player1);
-		country4.setOwner(player2);
-		country5.setOwner(player2);
 		country1.addArmy(1);
 		country2.addArmy(1);
 		country3.addArmy(1);
@@ -77,20 +72,16 @@ public class TestReinforcement {
 	
 	@Test
 	public void testLeftPlayerArmiesOnReinforcement() {
-		player1.setTurnTrue();
-		player2.setTurnFalse();
+		GameDriver.getInstance().setNextPlayerTurn();
 		int left = controller.shiftArmiesOnReinforcement(country1, 4);
-		System.out.println(left);
 		assertEquals(11, left);
 		int left2 = controller.shiftArmiesOnReinforcement(country2, 2);
-		System.out.println(left2+"hello"+player1.getArmiesCount());
 		assertEquals(9, left2);
 	}
 	
 	@Test
 	public void testArmyCountOfCountryAfterReinforcemnt() {
-		player2.setTurnTrue();
-		player1.setTurnFalse();
+		GameDriver.getInstance().setNextPlayerTurn();
 		controller.shiftArmiesOnReinforcement(country4, 2);
 		controller.shiftArmiesOnReinforcement(country5, 1);
 		assertEquals(3, country4.getArmiesCount());
