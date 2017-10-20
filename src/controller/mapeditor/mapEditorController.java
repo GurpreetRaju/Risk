@@ -124,6 +124,18 @@ public class mapEditorController {
 	public void newMapActions() {
 		NewMap newMap = new NewMap();
 
+		newMap.addActionsToBtnAddContinent(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				newMap.enableContinentFields();
+			}
+		});
+		
+		newMap.addActionsToBtnAddCountry(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				newMap.enableCountryfield();
+			}
+		});
+		
 		newMap.addActionsToBtnDone(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String cn = newMap.getContinentName();
@@ -287,6 +299,19 @@ public class mapEditorController {
 	}
 
 	public void existingMapActions() {
+		
+		existingMapEditor.addActionsToBtnAddContinent(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				existingMapEditor.enableContinentFields();
+			}
+		});
+		
+		existingMapEditor.addActionsToBtnAddCountry(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				existingMapEditor.enableCountryfield();
+			}
+		});
+		
 		existingMapEditor.addActionsToBtnDone(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String cn = existingMapEditor.getContinentName();

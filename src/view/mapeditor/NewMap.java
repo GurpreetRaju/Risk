@@ -59,6 +59,8 @@ public class NewMap extends JFrame {
 	JButton btnDeleteCountry;
 	JComboBox comboBox_2;
 	JButton btnAdd;
+	JButton btnAddContinent;
+	JButton btnAddCountry;
 
 	/**
 	 * NewMap constructor calls initialize method of the class
@@ -98,7 +100,7 @@ public class NewMap extends JFrame {
 		gbc_lblCreateYourOwn.gridy = 0;
 		contentPane.add(lblCreateYourOwn, gbc_lblCreateYourOwn);
 
-		JButton btnAddContinent = new JButton("New Continent");
+		btnAddContinent = new JButton("New Continent");
 		btnAddContinent.setForeground(Color.BLACK);
 		btnAddContinent.setFont(new Font("Bookman Old Style", Font.BOLD | Font.ITALIC, 18));
 		btnAddContinent.setBackground(new Color(240, 255, 255));
@@ -160,7 +162,7 @@ public class NewMap extends JFrame {
 		gbc_btnDone.gridy = 4;
 		contentPane.add(btnDone, gbc_btnDone);
 
-		JButton btnAddCountry = new JButton("New Country");
+		btnAddCountry = new JButton("New Country");
 		btnAddCountry.setFont(new Font("Bookman Old Style", Font.BOLD | Font.ITALIC, 18));
 		btnAddCountry.setForeground(Color.BLACK);
 		btnAddCountry.setBackground(new Color(240, 255, 255));
@@ -250,7 +252,6 @@ public class NewMap extends JFrame {
 		gbc_comboBox_3.fill = GridBagConstraints.HORIZONTAL;
 		gbc_comboBox_3.gridx = 2;
 		gbc_comboBox_3.gridy = 11;
-
 		contentPane.add(comboBox_3, gbc_comboBox_3);
 
 		btnAddNeighbours = new JButton("Choose Neighbours");
@@ -309,27 +310,15 @@ public class NewMap extends JFrame {
 		gbc_btnSaveMap.gridx = 6;
 		gbc_btnSaveMap.gridy = 29;
 		contentPane.add(btnSaveMap, gbc_btnSaveMap);
-
-		btnAddContinent.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (e.getSource() == btnAddContinent) {
-					txtContinentNameHere.setText("");
-					txtContinentControlValue.setText("");
-					txtContinentNameHere.setEnabled(true);
-					txtContinentControlValue.setEnabled(true);
-				}
-			}
-		});
-
-		btnAddCountry.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (e.getSource() == btnAddCountry) {
-					txtCountryName.setEnabled(true);
-					txtCountryName.setText("");
-				}
-			}
-		});
-
+		
+	}
+	
+	public void addActionsToBtnAddCountry(ActionListener newAction) {
+		btnAddCountry.addActionListener(newAction);
+	}
+	
+	public void addActionsToBtnAddContinent(ActionListener newAction) {
+		btnAddContinent.addActionListener(newAction);
 	}
 	
 	public void addActionsToBtnDone(ActionListener newAction) {
@@ -383,6 +372,15 @@ public class NewMap extends JFrame {
 	public void disableCountryfield() {
 		txtCountryName.setText("");
 		txtCountryName.setEnabled(false);
+	}
+	
+	public void enableCountryfield() {
+		txtCountryName.setEnabled(true);
+	}
+	
+	public void enableContinentFields() {
+		txtContinentNameHere.setEnabled(true);
+		txtContinentControlValue.setEnabled(true);
 	}
 	
 	public void disableContinentField() {

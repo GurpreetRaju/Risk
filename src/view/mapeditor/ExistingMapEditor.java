@@ -101,6 +101,11 @@ public class ExistingMapEditor extends JFrame {
 	JButton btnAddNeighbours;
 
 	/**
+	 * Button to enable add continent field.
+	 */
+	JButton btnAddContinent;
+	
+	/**
 	 * Creates MapWriter object.
 	 */
 	MapWriter mapWriter = new MapWriter();
@@ -159,6 +164,8 @@ public class ExistingMapEditor extends JFrame {
 	 * Button to add a new country.
 	 */
 	JButton btnAdd;
+	
+	JButton btnAddCountry;
 
 	/**
 	 * NewMap constructor calls initialize method of the class
@@ -198,7 +205,7 @@ public class ExistingMapEditor extends JFrame {
 		gbc_lblCreateYourOwn.gridy = 0;
 		contentPane.add(lblCreateYourOwn, gbc_lblCreateYourOwn);
 
-		JButton btnAddContinent = new JButton("New Continent");
+		btnAddContinent = new JButton("New Continent");
 		btnAddContinent.setForeground(Color.BLACK);
 		btnAddContinent.setFont(new Font("Bookman Old Style", Font.BOLD | Font.ITALIC, 18));
 		btnAddContinent.setBackground(new Color(240, 255, 255));
@@ -260,7 +267,7 @@ public class ExistingMapEditor extends JFrame {
 		gbc_btnDone.gridy = 4;
 		contentPane.add(btnDone, gbc_btnDone);
 
-		JButton btnAddCountry = new JButton("New Country");
+		btnAddCountry = new JButton("New Country");
 		btnAddCountry.setFont(new Font("Bookman Old Style", Font.BOLD | Font.ITALIC, 18));
 		btnAddCountry.setForeground(Color.BLACK);
 		btnAddCountry.setBackground(new Color(240, 255, 255));
@@ -426,24 +433,15 @@ public class ExistingMapEditor extends JFrame {
 		gbc_btnSaveMap.gridx = 6;
 		gbc_btnSaveMap.gridy = 29;
 		contentPane.add(btnSaveMap, gbc_btnSaveMap);
-
-		btnAddContinent.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e){
-				if (e.getSource() == btnAddContinent){
-					txtContinentNameHere.setEnabled(true);
-					txtContinentControlValue.setEnabled(true);
-				}
-			}
-		});
-
-		btnAddCountry.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (e.getSource() == btnAddCountry) {
-					txtCountryName.setEnabled(true);
-					txtCountryName.setText("");
-				}
-			}
-		});		
+	
+	}
+	
+	public void addActionsToBtnAddCountry(ActionListener newAction) {
+		btnAddCountry.addActionListener(newAction);
+	}
+	
+	public void addActionsToBtnAddContinent(ActionListener newAction) {
+		btnAddContinent.addActionListener(newAction);
 	}
     
 	public void addActionsToBtnDone(ActionListener newAction) {
@@ -476,6 +474,11 @@ public class ExistingMapEditor extends JFrame {
 	
 	public void noSelectedNeighboursError() {
 		JOptionPane.showMessageDialog(contentPane, "Select neighbours first", "Error", JOptionPane.ERROR_MESSAGE);
+	}
+	
+	public void enableContinentFields() {
+		txtContinentNameHere.setEnabled(true);
+		txtContinentControlValue.setEnabled(true);
 	}
 	
 	/**
@@ -519,6 +522,10 @@ public class ExistingMapEditor extends JFrame {
 	public void disableCountryfield() {
 		txtCountryName.setText("");
 		txtCountryName.setEnabled(false);
+	}
+	
+	public void enableCountryfield() {
+		txtCountryName.setEnabled(true);
 	}
 	
 	/**
