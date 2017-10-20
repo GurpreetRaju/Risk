@@ -139,7 +139,7 @@ public class CountryNode {
 	
 	/**
 	 * Adds more armies in this country.
-	 * @param newArmies number of armies
+	 * @param newCount number of armies
 	 */
 	public void addArmy(int newCount){
 		this.armies += newCount;

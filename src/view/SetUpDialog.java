@@ -111,7 +111,7 @@ public class SetUpDialog {
 	
 	/**
 	 * Ask user for the map file to be used for the game.
-	 * @param extension 
+	 * @param newExtension extension of the file to be picked.
 	 * @return mapRead Stores the absolute path of the map file read.
 	 */
 	public String getMapInfo(String newExtension) {

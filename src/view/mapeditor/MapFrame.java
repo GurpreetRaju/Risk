@@ -34,11 +34,6 @@ public class MapFrame extends JFrame {
 	 * Stores the object of mapEditorController.
 	 */
 	mapEditorController obj = new mapEditorController();
-
-	/**
-	 * Stores the object of this class.
-	 */
-	static MapFrame frame = new MapFrame();
 	
 	/**
 	 * Stores the existing map button information.
@@ -56,23 +51,6 @@ public class MapFrame extends JFrame {
 	static String selectedAction ="";
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					frame.setVisible(true);
-					frame.setExtendedState(JFrame.MAXIMIZED_BOTH); 
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
 	 * MapFrame constructor calls initialize method of the class.
 	 */
 	public MapFrame() {
@@ -85,6 +63,7 @@ public class MapFrame extends JFrame {
 	 * together with three text labels
 	 */
 	public void initialize() {
+		MapFrame frame = this;
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(140, 140, 500, 340);
@@ -167,6 +146,8 @@ public class MapFrame extends JFrame {
 				obj.mapFileChooserActions();
 			}
 		});
+		this.setVisible(true);
+		this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
 	}
 
 	public static String selectedAction() {
