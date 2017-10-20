@@ -334,16 +334,11 @@ public class ExistingMapEditor extends JFrame {
 		btnAddContinent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){
 				if (e.getSource() == btnAddContinent){
-					txtContinentNameHere.setText("");
-					txtContinentControlValue.setText("");
 					txtContinentNameHere.setEnabled(true);
 					txtContinentControlValue.setEnabled(true);
 				}
 			}
 		});
-
-
-
 
 		btnAddCountry.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -408,6 +403,13 @@ public class ExistingMapEditor extends JFrame {
 	public void disableCountryfield() {
 		txtCountryName.setText("");
 		txtCountryName.setEnabled(false);
+	}
+	
+	public void disableContinentField() {
+		txtContinentNameHere.setText("");
+		txtContinentControlValue.setText("");
+		txtContinentNameHere.setEnabled(false);
+		txtContinentControlValue.setEnabled(false);
 	}
 	
 	public String getSelectedCountryForNeighbours() {

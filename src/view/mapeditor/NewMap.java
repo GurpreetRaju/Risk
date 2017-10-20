@@ -387,6 +387,13 @@ public class NewMap extends JFrame {
 		txtCountryName.setEnabled(false);
 	}
 	
+	public void disableContinentField() {
+		txtContinentNameHere.setText("");
+		txtContinentControlValue.setText("");
+		txtContinentNameHere.setEnabled(false);
+		txtContinentControlValue.setEnabled(false);
+	}
+	
 	public String getSelectedCountryForNeighbours() {
 		return (comboBox_1.getSelectedItem().toString());
 	}
