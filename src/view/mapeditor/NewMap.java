@@ -43,24 +43,24 @@ public class NewMap extends JFrame {
 	private JTextField txtContinentControlValue;
 	private JTextField txtCountryName;
 	private JComboBox comboBox;
-	JComboBox comboBox_3;
-	MapNode mapNode;
-	JButton btnDone;
-	JButton btnAddNeighbours;
-	MapWriter mapWriter = new MapWriter();
+	private JComboBox comboBox_3;
+	private MapNode mapNode;
+	private JButton btnDone;
+	private JButton btnAddNeighbours;
+	private MapWriter mapWriter = new MapWriter();
 	private String continentName;
 	private String cv;
-	JList list;
-	JComboBox comboBox_1;
-	DefaultListModel<String> model2;
-	JButton btnSelectedNeighbours;
-	JButton btnDeleteContinent;
-	JButton btnSaveMap;
-	JButton btnDeleteCountry;
-	JComboBox comboBox_2;
-	JButton btnAdd;
-	JButton btnAddContinent;
-	JButton btnAddCountry;
+	private JList list;
+	private JComboBox comboBox_1;
+	private DefaultListModel<String> model2;
+	private JButton btnSelectedNeighbours;
+	private JButton btnDeleteContinent;
+	private JButton btnSaveMap;
+	private JButton btnDeleteCountry;
+	private JComboBox comboBox_2;
+	private JButton btnAdd;
+	private JButton btnAddContinent;
+	private JButton btnAddCountry;
 
 	/**
 	 * NewMap constructor calls initialize method of the class
