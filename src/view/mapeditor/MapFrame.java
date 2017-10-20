@@ -21,19 +21,38 @@ import controller.mapeditor.mapEditorController;
  * MapFrame class opens the JFrame view for selecting 
  * New map and Existing map
  * @author Harinder
+ * @author jyotsna
  */
 public class MapFrame extends JFrame {
 
+	/**
+	 * Stores the JPanel of map frame.
+	 */
 	private JPanel contentPane;
-
+	
+	/**
+	 * Stores the object of mapEditorController.
+	 */
 	mapEditorController obj = new mapEditorController();
 
+	/**
+	 * Stores the object of this class.
+	 */
 	static MapFrame frame = new MapFrame();
-
+	
+	/**
+	 * Stores the existing map button information.
+	 */
 	JButton btnExistingMap;
-
+	
+	/**
+	 * Stores the new map button information.
+	 */
 	JButton btnNewMap;
-
+	
+	/**
+	 * Stores the selected Action of creating new map or editing existing.
+	 */
 	static String selectedAction ="";
 
 	/**
@@ -54,7 +73,7 @@ public class MapFrame extends JFrame {
 	}
 
 	/**
-	 * MapFrame constructor calls initialize method of the class
+	 * MapFrame constructor calls initialize method of the class.
 	 */
 	public MapFrame() {
 		initialize();

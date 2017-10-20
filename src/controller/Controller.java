@@ -85,6 +85,9 @@ public class Controller {
 	public Controller(GameDriver newDriver) {
 		this.driver = newDriver;
 		setupBox = new SetUpDialog();
+		this.chooseMapEditorOrPlayGame();
+		this.mapEditorListener();
+		this.playGameListener();
 	}
 	
 	/**
