@@ -69,8 +69,8 @@ public class TestReinforcement {
 		country3.addArmy(1);
 		country4.addArmy(1);
 		country5.addArmy(1);
-		
-		
+		player1.setTurnTrue();
+		player2.setTurnFalse();
 		GameDriver.getInstance().setPlayerList(player1);
 		GameDriver.getInstance().setPlayerList(player2);
 	}

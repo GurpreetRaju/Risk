@@ -66,7 +66,6 @@ public class TestFortification {
 	@Test
 	public void testNeighborList(){
 		actualOwnedNeighbors = controller.getCorrectNeighbors(country1);
-		System.out.println(actualOwnedNeighbors);
 		ArrayList<String> expectedOwnerNeighbors = new ArrayList<String>();
 		expectedOwnerNeighbors.add("Country2");
 		expectedOwnerNeighbors.add("Country3");
@@ -76,7 +75,6 @@ public class TestFortification {
 	@Test
 	public void testArmiesCount(){
 		int finalArmies = controller.getArmiesShiftedAfterFortification(country1, country2.getCountryName(), 3);
-		System.out.println(finalArmies);
 		assertEquals(4, finalArmies);
 	}
 }
