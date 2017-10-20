@@ -458,7 +458,7 @@ public class ExistingMapEditor extends JFrame {
 	}
 	
 	public void nullCountryError() {
-		JOptionPane.showMessageDialog(contentPane, "Every continent should have atleast one country", "Error", JOptionPane.ERROR_MESSAGE);
+		JOptionPane.showMessageDialog(contentPane, "Map validation error", "Error", JOptionPane.ERROR_MESSAGE);
 	}
 	
 	public String getControlValue() {
