@@ -360,4 +360,12 @@ public class GameDriver {
 		}
 		return (String[]) playerNieghbourCountryNames.toArray();
 	}
+	
+	/**
+	 * Adds the new player to the arraylist of players.
+	 */
+	public void setPlayerList(Player newPlayer){
+		this.players = new ArrayList<Player>();
+		this.players.add(newPlayer);
+	}
 }
