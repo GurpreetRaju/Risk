@@ -81,7 +81,6 @@ public class mapEditorController {
 			e1.printStackTrace();
 		}
 		
-
 		existingBtnAction=(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				final JFileChooser fc = new JFileChooser();
@@ -136,6 +135,7 @@ public class mapEditorController {
 						}
 					}
 				}
+				newMap.disableContinentField();
 			}
 		});
 
@@ -183,9 +183,15 @@ public class mapEditorController {
 						break;
 					}
 				}
+				newMap.clearNeighboursJList();
 				newMap.clearComboBoxContents();
+				newMap.clearCountryComBoxContents();
 				for(MapNode i: continents) {
 					newMap.setContinentsComboBox(i.getContinentName());
+					for (CountryNode countryNode : i.getCountries()){
+						newMap.setCountriesComboBox(countryNode.getCountryName());
+						newMap.addPossibleNeighboursToJList(countryNode.getCountryName());
+					}
 				}
 			}
 		});
@@ -267,8 +273,6 @@ public class mapEditorController {
 	}
 	
 	public void existingMapActions() {
-//		existingMapEditor = new ExistingMapEditor(existing_map_Info);
-		//ExistingMapEditor existingMapEditor = new ExistingMapEditor();
 		existingMapEditor.addActionsToBtnDone(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String cn = existingMapEditor.getContinentName();
@@ -288,6 +292,7 @@ public class mapEditorController {
 						}
 					}
 				}
+				existingMapEditor.disableContinentField();
 			}
 		});
 
@@ -338,6 +343,16 @@ public class mapEditorController {
 				existingMapEditor.clearComboBoxContents();
 				for(MapNode i: continents) {
 					existingMapEditor.setContinentsComboBox(i.getContinentName());
+				}
+				existingMapEditor.clearNeighboursJList();
+				existingMapEditor.clearComboBoxContents();
+				existingMapEditor.clearCountryComBoxContents();
+				for(MapNode i: continents) {
+					existingMapEditor.setContinentsComboBox(i.getContinentName());
+					for (CountryNode countryNode : i.getCountries()){
+						existingMapEditor.setCountriesComboBox(countryNode.getCountryName());
+						existingMapEditor.addPossibleNeighboursToJList(countryNode.getCountryName());
+					}
 				}
 			}
 		});
@@ -414,8 +429,6 @@ public class mapEditorController {
 				existingMapEditor.disableCountryfield();
 			}
 		});
-		
-//		existingMapEditor.setVisible(true);
 	}
 
 }
