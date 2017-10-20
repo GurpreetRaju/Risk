@@ -24,6 +24,7 @@ public class PlayerInfoView extends JPanel {
 	 */
 	public PlayerInfoView() {
 		JLabel label = new JLabel("Players data Here.");
+		this.add(label);
 		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 		this.setBorder(BorderFactory.createLineBorder(Color.black));
 	}

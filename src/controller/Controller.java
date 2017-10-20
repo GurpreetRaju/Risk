@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import model.CountryNode;
 import model.GameDriver;
+import model.MapModel;
 import view.CardsView;
 import view.ControlsView;
 import view.DiceRollView;
@@ -123,7 +124,7 @@ public class Controller {
 			public void actionPerformed(ActionEvent e) {				
 				CountryNode country = driver.getCountry(controlsGUI.getCountrySelected());
 				int armies = controlsGUI.getArmiesValue();
-				int leftPlayerArmies = shiftArmiesOnReinforcement(country, armies);
+				shiftArmiesOnReinforcement(country, armies);
 				driver.continuePhase();
 			}
 		};
@@ -234,7 +235,7 @@ public class Controller {
 		playGameListener =  new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				init();
+				init(null);
 				setupBox.chooseOptionFrame().dispose();
 			}
 		};
@@ -244,23 +245,23 @@ public class Controller {
 	/**
 	 * Initializes the game after Play Game button selection.
 	 */
-	private void init() {
-		driver.createMapObject(setupBox.getMapInfo("map"));
+	public void init(String mapValue) {
+		if(mapValue == null){
+			driver.createMapObject(setupBox.getMapInfo("map"));
+			String temp = setupBox.getMapInfo("bmp");
+	        if(temp!=null) {
+	        	mapGUI = new MapView(temp);
+	        }else {
+	        	mapGUI = new MapView();
+	        }
+		}
+		else{
+	        driver = GameDriver.getInstance();
+			driver.createMapObject(mapValue);
+			mapGUI = new MapView();
+		}
 		playerInfoGUI = new PlayerInfoView();
-		String temp = setupBox.getMapInfo("bmp");
-        if(temp!=null) {
-        	mapGUI = new MapView(temp);
-        }else {
-        	mapGUI = new MapView();
-        }
-        initWindow();
-	}
-	
-	/**
-	 * Initialize the Main Window Views and start the game.
-	 */
-	public void initWindow() {
-		diceRollGUI = new DiceRollView();
+        diceRollGUI = new DiceRollView();
         cardsGUI = new CardsView();
         controlsGUI = new ControlsView();
         MainView.createInstance(playerInfoGUI, mapGUI, diceRollGUI, cardsGUI, controlsGUI);
