@@ -123,10 +123,7 @@ public class Controller {
 			public void actionPerformed(ActionEvent e) {				
 				CountryNode country = driver.getCountry(controlsGUI.getCountrySelected());
 				int armies = controlsGUI.getArmiesValue();
-				System.out.println(armies);
-				System.out.println(country.getCountryName());
 				int leftPlayerArmies = shiftArmiesOnReinforcement(country, armies);
-				System.out.println(leftPlayerArmies);
 				driver.continuePhase();
 			}
 		};
@@ -148,7 +145,6 @@ public class Controller {
 	 */
 	public int shiftArmiesOnReinforcement(CountryNode country, int armies) {
 		country.addArmy(armies);
-		System.out.println(country.getArmiesCount());
 		driver.getCurrentPlayer().removeArmies(armies);
 		return driver.getPlayerArmies();
 	}

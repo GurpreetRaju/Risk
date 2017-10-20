@@ -38,7 +38,6 @@ public class Phase {
 	public void reinforcementPhase() {
 		this.phase = "reinforcement";
 		GameDriver.getInstance().getControlGUI().reinforcementConrols(GameDriver.getInstance().getPlayerArmies(), GameDriver.getInstance().getPlayerCountryNames());
-		//System.out.println(getPlayerArmies());
 		GameDriver.getInstance().setControlsActionListeners();
 	}
 	
