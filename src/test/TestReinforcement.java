@@ -16,7 +16,7 @@ import model.Player;
 public class TestReinforcement {
 	
 	ArrayList<String> actualOwnedNeighbors;
-	Controller controller = new Controller(GameDriver.getInstance());
+	Controller controller;
 	CountryNode country1 = new CountryNode("Country1", null, null);
 	CountryNode country2 = new CountryNode("Country2", null, null);
 	CountryNode country3 = new CountryNode("Country3", null, null);
@@ -26,6 +26,7 @@ public class TestReinforcement {
 	
 	@Before
 	public void setPlayerAndMapData(){
+		controller = new Controller(GameDriver.getInstance());
 		ArrayList<MapNode> mapData = new ArrayList<MapNode>();
 		country1.addNeighbour(country2);
 		country2.addNeighbour(country1);
