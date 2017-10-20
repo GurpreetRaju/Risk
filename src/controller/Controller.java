@@ -158,24 +158,36 @@ public class Controller {
 					int selectedArmies = controlsGUI.getArmiesValue();
 					CountryNode countrySelect = GameDriver.getInstance().getCurrentPlayer().getCountry(countrySelected);
 					String neighbourSelected = controlsGUI.getNeighborSelected();
-					countrySelect.setArmies(countrySelect.getArmiesCount()-selectedArmies); 
-					for(CountryNode j : countrySelect.getNeighbourCountries()) {
-						if(j.getCountryName() == neighbourSelected) {
-							j.setArmies(j.getArmiesCount() + selectedArmies);
-						}
-					}
+					getArmiesShiftedAfterFortification(countrySelect, neighbourSelected, selectedArmies);
 				}
 				driver.changePhase();
 			}
 		});
 	}
 	
+	/**
+	 * Gets the neighbor countries owned by the current player for a given country.
+	 * @param countrySelect Country Node whose neighbors are to be displayed.
+	 * @return list of owned neighbors.
+	 */
 	public ArrayList<String> getCorrectNeighbors(CountryNode countrySelect){
 		ArrayList<String> neighborList = new ArrayList<String>();
 		for(String name: countrySelect.getSameOwnerNeighbouNames()) {
 			neighborList.add(name);
 		}
 		return neighborList;
+	}
+	
+	public int getArmiesShiftedAfterFortification(CountryNode countrySelect, String neighbourSelected, int selectedArmies){
+		CountryNode required = null;
+		countrySelect.setArmies(countrySelect.getArmiesCount()-selectedArmies); 
+		for(CountryNode j : countrySelect.getNeighbourCountries()) {
+			if(j.getCountryName() == neighbourSelected) {
+				required = j;
+				j.setArmies(j.getArmiesCount() + selectedArmies);
+			}
+		}
+		return required.getArmiesCount();
 	}
 	
 	/**

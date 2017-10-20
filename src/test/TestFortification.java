@@ -16,15 +16,15 @@ import model.Player;
 public class TestFortification {
 
 	ArrayList<String> actualOwnedNeighbors;
+	Controller controller = new Controller(GameDriver.getInstance());
+	CountryNode country1 = new CountryNode("Country1", null, null);
+	CountryNode country2 = new CountryNode("Country2", null, null);
+	CountryNode country3 = new CountryNode("Country3", null, null);
+	CountryNode country4 = new CountryNode("Country4", null, null);
+	CountryNode country5 = new CountryNode("Country5", null, null);
 	
 	@Before
 	public void setPlayerAndMapData() {
-		Controller controller = new Controller(GameDriver.getInstance());
-		CountryNode country1 = new CountryNode("Country1", null, null);
-		CountryNode country2 = new CountryNode("Country2", null, null);
-		CountryNode country3 = new CountryNode("Country3", null, null);
-		CountryNode country4 = new CountryNode("Country4", null, null);
-		CountryNode country5 = new CountryNode("Country5", null, null);
 		ArrayList<MapNode> mapData = new ArrayList<MapNode>();
 		country1.addNeighbour(country2);
 		country2.addNeighbour(country1);
@@ -56,12 +56,17 @@ public class TestFortification {
 		country3.setOwner(player1);
 		country4.setOwner(player2);
 		country5.setOwner(player2);
-		actualOwnedNeighbors = controller.getCorrectNeighbors(country1);
-		System.out.println(actualOwnedNeighbors);
+		country1.addArmy(1);
+		country2.addArmy(1);
+		country3.addArmy(1);
+		country4.addArmy(1);
+		country5.addArmy(1);
 	}
 	
 	@Test
 	public void testNeighborList(){
+		actualOwnedNeighbors = controller.getCorrectNeighbors(country1);
+		System.out.println(actualOwnedNeighbors);
 		ArrayList<String> expectedOwnerNeighbors = new ArrayList<String>();
 		expectedOwnerNeighbors.add("Country2");
 		expectedOwnerNeighbors.add("Country3");
@@ -70,6 +75,8 @@ public class TestFortification {
 
 	@Test
 	public void testArmiesCount(){
-		
+		int finalArmies = controller.getArmiesShiftedAfterFortification(country1, country2.getCountryName(), 3);
+		System.out.println(finalArmies);
+		assertEquals(4, finalArmies);
 	}
 }
