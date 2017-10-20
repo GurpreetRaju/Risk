@@ -37,6 +37,7 @@ import java.awt.Font;
 public class ExistingMap extends JFrame {
 
 	private JPanel contentPane;
+
 	private JTable table;
 	private JTextField txtContinentName;
 	private JTextField txtControlValue;
@@ -56,6 +57,7 @@ public class ExistingMap extends JFrame {
 	private JButton btnDeleteCountry;
 	private JComboBox comboBox_3;
 	
+
 	ArrayList<MapNode> existingMap = new ArrayList<MapNode>();
 	JButton btnEdit;
 	
@@ -133,6 +135,9 @@ public class ExistingMap extends JFrame {
 		gbc_table3.gridy = 0;
 		contentPane.add(getContentPane().add(new JScrollPane(table3)), gbc_table3);
 
+		/**
+		 * mouse action listener for selecting row and column
+		 */
 		table1.addMouseListener(new java.awt.event.MouseAdapter() {
 			@Override
 			public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -150,6 +155,9 @@ public class ExistingMap extends JFrame {
 			}
 		});
 
+		/**
+		 * mouse action listener for selecting row and column
+		 */
 		table2.addMouseListener(new java.awt.event.MouseAdapter() {
 			@Override
 			public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -160,7 +168,6 @@ public class ExistingMap extends JFrame {
 					if (selectedCell1.compareTo(existingMap.get(i).getContinentName())==0) {
 						for (int j = 0; j < existingMap.get(i).getCountries().length; j++) {
 							if (selectedCell2.compareTo(existingMap.get(i).getCountries()[j].getCountryName())==0) {
-
 								for (int k = 0; k < existingMap.get(i).getCountries()[j].getNeighbourCountries().length; k++) {
 									String[] countryInfo = {existingMap.get(i).getCountries()[j].getNeighbourCountries()[k].getCountryName()};
 									model3.addRow(countryInfo);
@@ -184,13 +191,20 @@ public class ExistingMap extends JFrame {
 		gbc_btnEdit.gridx = 13;
 		gbc_btnEdit.gridy = 2;
 		contentPane.add(btnEdit, gbc_btnEdit);
-		
 	}
 	
+	/**
+	 * @see mapEditorController
+	 * @param newAction actionListener for btnEdit
+	 */
 	public void addActionsToBtnEdit(ActionListener newAction) {
 		btnEdit.addActionListener(newAction);
 	}
 	
+	/**
+	 * getting all the information from existing map
+	 * @return existing map info
+	 */
 	public ArrayList<MapNode> getExistingMapInfo() {
 		return existingMap;
 	}
