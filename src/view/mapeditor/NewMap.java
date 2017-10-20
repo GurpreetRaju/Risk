@@ -269,7 +269,7 @@ public class NewMap extends JFrame {
 		gbc_comboBox_11.fill = GridBagConstraints.HORIZONTAL;
 		gbc_comboBox_11.gridx = 2;
 		gbc_comboBox_11.gridy = 14;
-		comboBox_1.setEnabled(false);
+		comboBox_1.setEnabled(true);
 		contentPane.add(comboBox_1, gbc_comboBox_11);
 
 		JLabel lblChooseNeighbours = new JLabel("Possible neighbours for selected country");
@@ -329,9 +329,6 @@ public class NewMap extends JFrame {
 				}
 			}
 		});
-
-		comboBox_1.setEnabled(true);
-
 	}
 	
 	public void addActionsToBtnDone(ActionListener newAction) {
@@ -425,6 +422,10 @@ public class NewMap extends JFrame {
 	
 	public void enterValuesError() {
 		JOptionPane.showMessageDialog(contentPane, "Enter values first", "Error", JOptionPane.ERROR_MESSAGE);
+	}
+	
+	public void noSelectedNeighboursError() {
+		JOptionPane.showMessageDialog(contentPane, "Select neighbours first", "Error", JOptionPane.ERROR_MESSAGE);
 	}
 	
 	public void continentAlreadyExistError() {
