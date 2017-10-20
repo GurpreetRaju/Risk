@@ -15,6 +15,11 @@ import java.util.ArrayList;
  * @author Harinder
  */
 public class MapWriter {
+	
+	/**
+	 * stores the path of map file
+	 */
+	private String FILENAME;
 
 	/**
 	 * This function implements the file write operation
@@ -35,7 +40,7 @@ public class MapWriter {
 		/**
 		 * FILENAME Stores the file name of the newly created map file.
 		 */
-		String FILENAME = System.getProperty("user.dir") + "\\data\\map\\map-"+ dateFormat.format(date) + ".map";
+		FILENAME = System.getProperty("user.dir") + "\\data\\map\\map-"+ dateFormat.format(date) + ".map";
 		
 		/**
 		 * Stores BufferedWriter object.
@@ -100,7 +105,7 @@ public class MapWriter {
 	 * @param path contains path of existing map file
 	 */
 	public void writeMapExisting(ArrayList<MapNode> map, String path) {
-		String FILENAME = path;
+		FILENAME = path;
 		BufferedWriter bw = null;
 		FileWriter fw = null;
 
@@ -146,5 +151,9 @@ public class MapWriter {
 				ex.printStackTrace();
 			}
 		}
+	}
+
+	public String getMapFilePath() {
+		return FILENAME;
 	}
 }

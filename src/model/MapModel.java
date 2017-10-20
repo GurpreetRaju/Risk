@@ -2,6 +2,8 @@ package model;
 
 import java.util.ArrayList;
 
+import view.mapeditor.MapFrame;
+
 /**
  * This implements the model code for map editor.
  * It contains the main logic for map editor
@@ -15,6 +17,10 @@ public class MapModel {
 	 */
 	MapNode mapNode;
 	
+	private String newFilePath;
+	
+	private String existingFilePath;
+	
 	/**
 	 * MapNode arraylist containing all the map information
 	 */
@@ -24,6 +30,8 @@ public class MapModel {
 	 * MapWriter object for writing the map contents to the map file
 	 */
 	MapWriter mapWriter = new MapWriter();
+	
+	//MapFrame mapFrame;
 	
 	public void writeExistingMap(ArrayList<MapNode> continents) {
 		this.continents = continents;
@@ -59,6 +67,37 @@ public class MapModel {
 	
 	public void saveMapFile() {
 		mapWriter.writeMap(continents);
+		newFilePath = mapWriter.getMapFilePath();
+		String path = getFinalPath();
+	}
+	
+	public void saveToExistingMapFile(String path) {
+		mapWriter.writeMapExisting(continents, path);
+		existingFilePath = mapWriter.getMapFilePath();
+	}
+	
+	public String newFilePath() {
+		return newFilePath;
+	}
+	
+	public String existingFilePath() {
+		return existingFilePath;
+	}
+	
+	public String getFinalPath() {
+		if(MapFrame.selectedAction().compareTo("new")==0) {
+			System.out.println(newFilePath());
+			return newFilePath();
+		}
+		else if(MapFrame.selectedAction().compareTo("existing")==0){
+			System.out.println(existingFilePath());
+			return existingFilePath();
+		}
+		return null;
+	}
+	
+	public String getExistingFilePath() {
+		return existingFilePath;
 	}
 	
 	public boolean checkCountryExist(String cn1) {
