@@ -55,16 +55,6 @@ public class GameDriver {
 	private Player currentPlayer;
 	
 	/**
-	 * ArrayList of neighbouring countries of same owner
-	 */
-	private ArrayList<CountryNode> playerNieghbourCountries;
-	
-	/**
-	 * ArrayList of names of neighbouring countries of same owner
-	 */
-	private ArrayList<String> playerNieghbourCountryNames;
-	
-	/**
 	 * Constructor initialize the GUI and  map class object.
 	 * Constructor is private so objects can not be created directly for this class.
 	 */
@@ -335,30 +325,4 @@ public class GameDriver {
 		return this.map;
 	}
 	
-	/**
-	 * return Arraylist of neighbouring countries owned by same player
-	 * @return playerNeighbouringCountries returns neighbouring countries of the country of same owner
-	 */
-	public ArrayList<CountryNode> getPlayerNeighbourCountries(CountryNode countrynode){
-		playerNieghbourCountries = new ArrayList<CountryNode>();
-		for (CountryNode country : getNeighbourCountries(countrynode)){
-			if (countrynode.getOwner().equals(country.getOwner())){
-				playerNieghbourCountries.add(country);
-			}
-		}
-		return playerNieghbourCountries;
-	}
-	
-	/**
-	 * Gives the list of the neighbors of the country passed as a parameter with same owner.
-	 * @param countryname Name of the country.
-	 * @return Neighbors of the country with same owner.
-	 */
-	public String [] getPlayerNeighbourCountryNames(String countryname) {
-		playerNieghbourCountryNames = new ArrayList<String>();
-		for(CountryNode country: getPlayerNeighbourCountries(getCountry(countryname))){
-			playerNieghbourCountryNames.add(country.getCountryName());
-		}
-		return (String[]) playerNieghbourCountryNames.toArray();
-	}
 }
