@@ -80,32 +80,32 @@ public class ExistingMapEditor extends JFrame {
 	/**
 	 * ComboBox for continent dropdown.
 	 */
-	JComboBox comboBox_3;
+	private JComboBox comboBox_3;
 
 	/**
 	 * Stores reference to the MapNode object.
 	 */
-	MapNode mapNode;
+	private MapNode mapNode;
 
 	/**
 	 * Stores add continent button.
 	 */
-	JButton btnDone;
+	private JButton btnDone;
 
 	/**
 	 * Stores add neighbours button
 	 */
-	JButton btnAddNeighbours;
+	private JButton btnAddNeighbours;
 
 	/**
 	 * Button to enable add continent field.
 	 */
-	JButton btnAddContinent;
+	private JButton btnAddContinent;
 	
 	/**
 	 * Creates MapWriter object.
 	 */
-	MapWriter mapWriter = new MapWriter();
+	private MapWriter mapWriter = new MapWriter();
 
 	/**
 	 * Stores the continent name.
@@ -120,49 +120,49 @@ public class ExistingMapEditor extends JFrame {
 	/**
 	 * Stores list of neighbours.
 	 */
-	JList list;
+	private JList list;
 
 	/**
 	 * Stores list of countries.
 	 */
-	JComboBox comboBox_1;
+	private JComboBox comboBox_1;
 
 	/**
 	 * Stores list model for neighbours JList.
 	 */
-	DefaultListModel<String> model2;
+	private DefaultListModel<String> model2;
 
 	/**
 	 * Button for selected neighbours. 
 	 */
-	JButton btnSelectedNeighbours;
+	private JButton btnSelectedNeighbours;
 
 	/**
 	 * Button for continent deletion.
 	 */
-	JButton btnDeleteContinent;
+	private JButton btnDeleteContinent;
 
 	/**
 	 * Button for saving map file.
 	 */
-	JButton btnSaveMap;
+	private JButton btnSaveMap;
 
 	/**
 	 * Button for country deletion.
 	 */
-	JButton btnDeleteCountry;
+	private JButton btnDeleteCountry;
 
 	/**
 	 * Stores and displays list of continents.
 	 */
-	JComboBox comboBox_2;
+	private JComboBox comboBox_2;
 
 	/**
 	 * Button to add a new country.
 	 */
-	JButton btnAdd;
+	private JButton btnAdd;
 	
-	JButton btnAddCountry;
+	private JButton btnAddCountry;
 
 	/**
 	 * NewMap constructor calls initialize method of the class
