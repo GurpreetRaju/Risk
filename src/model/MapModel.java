@@ -2,6 +2,7 @@ package model;
 
 import java.util.ArrayList;
 
+import controller.Controller;
 import view.mapeditor.MapFrame;
 
 /**
@@ -31,7 +32,11 @@ public class MapModel {
 	 */
 	MapWriter mapWriter = new MapWriter();
 	
-	//MapFrame mapFrame;
+	/**
+	 * New controller object.
+	 */
+	Controller controller = new Controller();
+	
 	
 	public void writeExistingMap(ArrayList<MapNode> continents) {
 		this.continents = continents;
@@ -73,11 +78,15 @@ public class MapModel {
 	public void saveMapFile() {
 		mapWriter.writeMap(continents);
 		newFilePath = mapWriter.getMapFilePath();
+		GameDriver.getInstance().createMapObject(newFilePath);
+		controller.initWindow();
 	}
 	
 	public void saveToExistingMapFile(String path) {
 		mapWriter.writeMapExisting(continents, path);
 		existingFilePath = mapWriter.getMapFilePath();
+		GameDriver.getInstance().createMapObject(existingFilePath);
+		controller.initWindow();
 	}
 	
 	public String newFilePath() {

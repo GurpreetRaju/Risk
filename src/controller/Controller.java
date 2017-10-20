@@ -75,11 +75,19 @@ public class Controller {
 	private ActionListener playGameListener;
 	
 	/**
+	 * Empty constructor for object creation
+	 */
+	public Controller(){
+	}
+	/**
 	 * Controller class constructor to initialize GameDriver and SetUpDialog class objects.
 	 */
 	public Controller(GameDriver newDriver) {
 		this.driver = newDriver;
 		setupBox = new SetUpDialog();
+		this.chooseMapEditorOrPlayGame();
+		this.mapEditorListener();
+		this.playGameListener();
 	}
 	
 	/**
@@ -117,10 +125,8 @@ public class Controller {
 				int armies = controlsGUI.getArmiesValue();
 				System.out.println(armies);
 				System.out.println(country.getCountryName());
-				country.addArmy(armies);
-				System.out.println(country.getArmiesCount());
-				driver.getCurrentPlayer().removeArmies(armies);
-				System.out.println(driver.getPlayerArmies());
+				int leftPlayerArmies = shiftArmiesOnReinforcement(country, armies);
+				System.out.println(leftPlayerArmies);
 				driver.continuePhase();
 			}
 		};
@@ -132,6 +138,19 @@ public class Controller {
 				driver.changePhase();
 			}
 		});
+	}
+	
+	/**
+	 * Gives the armies left with the player after each reinforcement.
+	 * @param country the country node to which armies are added.
+	 * @param armies the number of armies to be reinforced.
+	 * @return the army count left for the player.
+	 */
+	public int shiftArmiesOnReinforcement(CountryNode country, int armies) {
+		country.addArmy(armies);
+		System.out.println(country.getArmiesCount());
+		driver.getCurrentPlayer().removeArmies(armies);
+		return driver.getPlayerArmies();
 	}
 	
 	/**
@@ -238,7 +257,14 @@ public class Controller {
         }else {
         	mapGUI = new MapView();
         }
-        diceRollGUI = new DiceRollView();
+        initWindow();
+	}
+	
+	/**
+	 * Initialize the Main Window Views and start the game.
+	 */
+	public void initWindow() {
+		diceRollGUI = new DiceRollView();
         cardsGUI = new CardsView();
         controlsGUI = new ControlsView();
         MainView.createInstance(playerInfoGUI, mapGUI, diceRollGUI, cardsGUI, controlsGUI);

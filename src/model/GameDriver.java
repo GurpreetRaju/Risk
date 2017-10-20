@@ -71,7 +71,6 @@ public class GameDriver {
 	private GameDriver() {
 		controller = new Controller(this);
 		currentPhase = new Phase("reinforcement"); 
-		this.chooseMapEditorOrPlayGame();
 	}
 	
 	/**
@@ -316,15 +315,6 @@ public class GameDriver {
 	public void setFortificationLiteners() {
 		this.controller.setFortificationListeners();
 	}
-
-	/**
-	 * Adds listener to the "Edit Map" and "Play Game" buttons at the start.
-	 */
-	public void chooseMapEditorOrPlayGame() {
-		this.controller.chooseMapEditorOrPlayGame();
-		this.controller.mapEditorListener();
-		this.controller.playGameListener();
-	}
 	
 	/**
 	 * Returns object of Map class
@@ -359,5 +349,15 @@ public class GameDriver {
 			playerNieghbourCountryNames.add(country.getCountryName());
 		}
 		return (String[]) playerNieghbourCountryNames.toArray();
+	}
+	
+	/**
+	 * Adds the new player to the arraylist of players.
+	 */
+	public void setPlayerList(Player newPlayer){
+		if(this.players==null) {
+			this.players = new ArrayList<Player>();
+		}
+		this.players.add(newPlayer);
 	}
 }
