@@ -35,6 +35,16 @@ public class CountryNode {
 	private int armies;
 	
 	/**
+	 * ArrayList of neighbouring countries of same owner
+	 */
+	private ArrayList<CountryNode> sameOwnerNieghbour;
+	
+	/**
+	 * ArrayList of names of neighbouring countries of same owner
+	 */
+	private ArrayList<String> sameOwnerNieghbourNames;
+	
+	/**
 	 * This constructor initialize the attributes of this country.
 	 * @param newName name of country.
 	 * @param newNeighbours neighboring countries of this country.
@@ -206,4 +216,29 @@ public class CountryNode {
 		this.coordiantes = newCoordinates;		
 	}
 	
+	/**
+	 * return Arraylist of neighbour countries with same owner
+	 * @return sameOwnerNeighbours Arraylist of neighbour countries with same owner
+	 */
+	public ArrayList<CountryNode> getSameOwnerNeighbours(){
+		sameOwnerNieghbour = new ArrayList<CountryNode>();
+		for(CountryNode country : getNeighbours()){
+			if(country.getOwner().equals(this.getOwner())){
+				sameOwnerNieghbour.add(country);
+			}
+		}
+		return sameOwnerNieghbour;
+	}
+	
+	/**
+	 * Gives the Arraylist of the names of neighbors of the country with same owner.
+	 * @return sameOwnerNieghbourNames Names of the Neighbours with same owner.
+	 */
+	public ArrayList<String> getSameOwnerNeighbouNames() {
+		sameOwnerNieghbourNames = new ArrayList<String>();
+		for(CountryNode country: getSameOwnerNeighbours()){
+			sameOwnerNieghbourNames.add(country.getCountryName());
+		}
+		return sameOwnerNieghbourNames;
+	}
 }
