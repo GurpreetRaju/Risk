@@ -108,6 +108,7 @@ public class Player {
 		String[] names = new String[this.countries.size()];
 		for(int i=0;i<names.length;i++){
 			names[i] = this.countries.get(i).getCountryName();
+			System.out.println(names[i]);
 		}
 		return names;
 	}
