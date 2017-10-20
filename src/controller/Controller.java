@@ -144,10 +144,7 @@ public class Controller {
 				String countrySelected = (String) controlsGUI.getCountrySelected();
 				CountryNode countrySelect = GameDriver.getInstance().getCurrentPlayer().getCountry(countrySelected);
 				if(countrySelect.getArmiesCount()>1) {
-					ArrayList<String> neighborList = new ArrayList<String>();
-					for(String name: countrySelect.getSameOwnerNeighbouNames()) {
-						neighborList.add(name);
-					}
+					ArrayList<String> neighborList = getCorrectNeighbors(countrySelect);
 					controlsGUI.updateFortification(countrySelect.getArmiesCount(), neighborList.toArray(new String[neighborList.size()]));
 				}
 			}
@@ -171,6 +168,14 @@ public class Controller {
 				driver.changePhase();
 			}
 		});
+	}
+	
+	public ArrayList<String> getCorrectNeighbors(CountryNode countrySelect){
+		ArrayList<String> neighborList = new ArrayList<String>();
+		for(String name: countrySelect.getSameOwnerNeighbouNames()) {
+			neighborList.add(name);
+		}
+		return neighborList;
 	}
 	
 	/**
