@@ -59,6 +59,8 @@ public class NewMap extends JFrame {
 	JButton btnDeleteCountry;
 	JComboBox comboBox_2;
 	JButton btnAdd;
+	JButton btnAddCountry;
+	JButton btnAddContinent;
 
 	/**
 	 * NewMap constructor calls initialize method of the class
@@ -160,7 +162,7 @@ public class NewMap extends JFrame {
 		gbc_btnDone.gridy = 4;
 		contentPane.add(btnDone, gbc_btnDone);
 
-		JButton btnAddCountry = new JButton("New Country");
+		btnAddCountry = new JButton("New Country");
 		btnAddCountry.setFont(new Font("Bookman Old Style", Font.BOLD | Font.ITALIC, 18));
 		btnAddCountry.setForeground(Color.BLACK);
 		btnAddCountry.setBackground(new Color(240, 255, 255));
@@ -318,34 +320,15 @@ public class NewMap extends JFrame {
 		gbc_btnSaveMap.gridx = 6;
 		gbc_btnSaveMap.gridy = 29;
 		contentPane.add(btnSaveMap, gbc_btnSaveMap);
-
-		/**
-		 * add continent action listenner
-		 */
-		btnAddContinent.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (e.getSource() == btnAddContinent) {
-					txtContinentNameHere.setText("");
-					txtContinentControlValue.setText("");
-					txtContinentNameHere.setEnabled(true);
-					txtContinentControlValue.setEnabled(true);
-				}
-			}
-		});
-
-		/**
-		 * add country action listener
-		 */
-		btnAddCountry.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (e.getSource() == btnAddCountry) {
-					txtCountryName.setEnabled(true);
-					txtCountryName.setText("");
-				}
-			}
-		});
-
 	}
+	
+	public void addActionsToBtnAddCountry(ActionListener newAction) {
+		 		btnAddCountry.addActionListener(newAction);
+		 	}
+		 	
+		 	public void addActionsToBtnAddContinent(ActionListener newAction) {
+		 		btnAddContinent.addActionListener(newAction);
+		  	}
 	
 	/**
 	 * @see mapEditorController
@@ -573,6 +556,14 @@ public class NewMap extends JFrame {
 		txtContinentControlValue.setEnabled(false);
 	}
 	
+	public void enableCountryfield() {
+		 		txtCountryName.setEnabled(true);
+		 	}
+		 	
+		 	public void enableContinentFields() {
+		 		txtContinentNameHere.setEnabled(true);
+		 		txtContinentControlValue.setEnabled(true);
+		 	}
 	/**
 	 * clearing the lists from comboBox
 	 */
