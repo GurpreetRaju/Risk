@@ -141,7 +141,7 @@ public class Controller {
 	}
 	
 	/**
-	 * Gives the armies left with the player after each reinforcement.
+	 * Shifts(or places) the armies of the player on each reinforcement.
 	 * @param country the country node to which armies are added.
 	 * @param armies the number of armies to be reinforced.
 	 * @return the army count left for the player.

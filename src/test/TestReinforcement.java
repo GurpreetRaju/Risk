@@ -17,17 +17,23 @@ public class TestReinforcement {
 	
 	ArrayList<String> actualOwnedNeighbors;
 	Controller controller;
-	CountryNode country1 = new CountryNode("Country1", null, null);
-	CountryNode country2 = new CountryNode("Country2", null, null);
-	CountryNode country3 = new CountryNode("Country3", null, null);
-	CountryNode country4 = new CountryNode("Country4", null, null);
-	CountryNode country5 = new CountryNode("Country5", null, null);
+	CountryNode country1;
+	CountryNode country2;
+	CountryNode country3;
+	CountryNode country4;
+	CountryNode country5;
 	Player player1;
+	Player player2;
 	
 	@Before
 	public void setPlayerAndMapData(){
 		controller = new Controller(GameDriver.getInstance());
 		ArrayList<MapNode> mapData = new ArrayList<MapNode>();
+		country1 = new CountryNode("Country1", null, null);
+		country2 = new CountryNode("Country2", null, null);
+		country3 = new CountryNode("Country3", null, null);
+		country4 = new CountryNode("Country4", null, null);
+		country5 = new CountryNode("Country5", null, null);
 		country1.addNeighbour(country2);
 		country2.addNeighbour(country1);
 		country1.addNeighbour(country3);
@@ -46,8 +52,8 @@ public class TestReinforcement {
 		countries.add(country5);
 		MapNode continent = new MapNode("Continent1", countries, 6);
 		mapData.add(continent);
-		player1 = new Player("Player1", 10, mapData);
-		Player player2 = new Player("Player2", 10, mapData);
+		player1 = new Player("Player1", 15, mapData);
+		player2 = new Player("Player2", 10, mapData);
 		player1.addCountry(country1);
 		player1.addCountry(country2);
 		player1.addCountry(country3);
@@ -63,22 +69,32 @@ public class TestReinforcement {
 		country3.addArmy(1);
 		country4.addArmy(1);
 		country5.addArmy(1);
-		player1.setTurnTrue();
-		player2.setTurnFalse();
-		System.out.println(player1.getArmiesCount());
+		
+		
 		GameDriver.getInstance().setPlayerList(player1);
 		GameDriver.getInstance().setPlayerList(player2);
 	}
 	
 	@Test
 	public void testLeftPlayerArmiesOnReinforcement() {
-		GameDriver driver = GameDriver.getInstance();
+		player1.setTurnTrue();
+		player2.setTurnFalse();
 		int left = controller.shiftArmiesOnReinforcement(country1, 4);
-		System.out.println("hello"+ player1.getArmiesCount());
-
 		System.out.println(left);
-		assertEquals(6, left);
-		//assertEquals()
+		assertEquals(11, left);
+		int left2 = controller.shiftArmiesOnReinforcement(country2, 2);
+		System.out.println(left2+"hello"+player1.getArmiesCount());
+		assertEquals(9, left2);
+	}
+	
+	@Test
+	public void testArmyCountOfCountryAfterReinforcemnt() {
+		player2.setTurnTrue();
+		player1.setTurnFalse();
+		controller.shiftArmiesOnReinforcement(country4, 2);
+		controller.shiftArmiesOnReinforcement(country5, 1);
+		assertEquals(3, country4.getArmiesCount());
+		assertEquals(2, country5.getArmiesCount());
 	}
 
 }
