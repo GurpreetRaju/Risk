@@ -136,8 +136,6 @@ public class MapFrame extends JFrame {
 		btnExistingMap.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				obj.mapFileChooserActions();
-				//ExistingMap existingMap= new ExistingMap();
-				//existingMap.setVisible(true);
 			}
 		});
 	}
