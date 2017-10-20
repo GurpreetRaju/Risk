@@ -47,9 +47,7 @@ public class NewMap extends JFrame {
 	MapNode mapNode;
 	JButton btnDone;
 	JButton btnAddNeighbours;
-	ArrayList<MapNode> continents = new ArrayList<MapNode>();
 	MapWriter mapWriter = new MapWriter();
-	MapModel mapModel = new MapModel();
 	private String continentName;
 	private String cv;
 	JList list;

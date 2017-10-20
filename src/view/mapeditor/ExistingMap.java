@@ -9,6 +9,7 @@ import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import model.MapModel;
 import model.MapNode;
 
 import java.awt.GridLayout;
@@ -55,7 +56,8 @@ public class ExistingMap extends JFrame {
 	private JButton btnDeleteCountry;
 	private JComboBox comboBox_3;
 	ArrayList<MapNode> existingMap = new ArrayList<MapNode>();
-
+	JButton btnEdit;
+	
 	/**
 	 * Existing Map constructor calls initialize method of the class
 	 */
@@ -171,7 +173,7 @@ public class ExistingMap extends JFrame {
 			}
 		});
 
-		JButton btnEdit = new JButton("Edit Map");
+		btnEdit = new JButton("Edit Map");
 		btnEdit.setBackground(new Color(152, 251, 152));
 		btnEdit.setFont(new Font("Script MT Bold", Font.BOLD, 18));
 		GridBagConstraints gbc_btnEdit = new GridBagConstraints();
@@ -182,14 +184,13 @@ public class ExistingMap extends JFrame {
 		gbc_btnEdit.gridy = 2;
 		contentPane.add(btnEdit, gbc_btnEdit);
 		
-		btnEdit.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (e.getSource() == btnEdit) {
-					setVisible(false);
-					ExistingMapEditor existingMapEditor = new ExistingMapEditor(existingMap);
-					existingMapEditor.setVisible(true);
-				}
-			}
-		});
+	}
+	
+	public void addActionsToBtnEdit(ActionListener newAction) {
+		btnEdit.addActionListener(newAction);
+	}
+	
+	public ArrayList<MapNode> getExistingMapInfo() {
+		return existingMap;
 	}
 }
