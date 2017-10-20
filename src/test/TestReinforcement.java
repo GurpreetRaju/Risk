@@ -65,7 +65,6 @@ public class TestReinforcement {
 		country5.addArmy(1);
 		player1.setTurnTrue();
 		player2.setTurnFalse();
-		System.out.println(player1.getArmiesCount());
 		GameDriver.getInstance().setPlayerList(player1);
 		GameDriver.getInstance().setPlayerList(player2);
 	}
@@ -73,11 +72,7 @@ public class TestReinforcement {
 	@Test
 	public void testLeftPlayerArmiesOnReinforcement() {
 		int left = controller.shiftArmiesOnReinforcement(country1, 4);
-		System.out.println("hello"+ player1.getArmiesCount());
-
-		System.out.println(left);
-		assertEquals(5, left);
-		//assertEquals()
+		assertEquals(6, left);
 	}
 
 }
