@@ -105,6 +105,9 @@ public class SetUpDialog {
 	 */
 	public String placeArmyDialog(String[] countryList) {
 		JComboBox<String> countriesList = new JComboBox<String>(countryList);
+		String[] options = {"OK"};		
+		JOptionPane.showOptionDialog(null, countriesList, "Place your army", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null,		
+		options, options[0]);
 		String country = countryList[countriesList.getSelectedIndex()];
 		return country;
 	}
