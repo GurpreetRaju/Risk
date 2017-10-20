@@ -37,7 +37,6 @@ public class MapModel {
 	 */
 	Controller controller = new Controller();
 	
-	
 	public void writeExistingMap(ArrayList<MapNode> continents) {
 		this.continents = continents;
 	}

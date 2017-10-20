@@ -37,6 +37,25 @@ import java.awt.Font;
 public class ExistingMap extends JFrame {
 
 	private JPanel contentPane;
+	private JTable table;
+	private JTextField txtContinentName;
+	private JTextField txtControlValue;
+	private JTextField textField;
+	private JTextField txtContinentName_1;
+	private JTextField txtControlValue_1;
+	private JComboBox comboBox;
+	private JLabel lblName_1;
+	private JTextField textField_1;
+	private JTextField txtCountryName;
+	private JLabel lblNeighbours;
+	private JComboBox comboBox_1;
+	private JButton btnAddCountry;
+	private JLabel lblPickContinent;
+	private JButton btnDeleteContinent;
+	private JComboBox comboBox_2;
+	private JButton btnDeleteCountry;
+	private JComboBox comboBox_3;
+	
 	ArrayList<MapNode> existingMap = new ArrayList<MapNode>();
 	JButton btnEdit;
 	
@@ -141,6 +160,7 @@ public class ExistingMap extends JFrame {
 					if (selectedCell1.compareTo(existingMap.get(i).getContinentName())==0) {
 						for (int j = 0; j < existingMap.get(i).getCountries().length; j++) {
 							if (selectedCell2.compareTo(existingMap.get(i).getCountries()[j].getCountryName())==0) {
+
 								for (int k = 0; k < existingMap.get(i).getCountries()[j].getNeighbourCountries().length; k++) {
 									String[] countryInfo = {existingMap.get(i).getCountries()[j].getNeighbourCountries()[k].getCountryName()};
 									model3.addRow(countryInfo);

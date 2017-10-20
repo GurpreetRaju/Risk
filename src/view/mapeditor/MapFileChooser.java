@@ -31,8 +31,7 @@ public class MapFileChooser {
         JFrame window = new JFrame("Map File Chooser");
         JPanel topPanel = new JPanel();
         
-        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        
+        window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         window.add(BorderLayout.NORTH, topPanel);
         topPanel.add(openFileChooser);
         window.setSize(500, 500);

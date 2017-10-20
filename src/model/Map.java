@@ -118,6 +118,7 @@ public class Map extends Observable {
 		}
 		return false;
 	}
+	
 	/**
 	 * Check if map is connected graph.
 	 * @return true if map is connected graph false if map is not connected graph
@@ -138,6 +139,7 @@ public class Map extends Observable {
 		}
 		return true;
 	}
+	
 	/**
 	 * Check if every country belongs to only one mapNode.
 	 * @return true if all continents have unique countries; false if one country belongs to more than one continent
@@ -156,5 +158,4 @@ public class Map extends Observable {
 		}
 		return true;
 	}
-	
 }

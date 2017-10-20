@@ -1,15 +1,11 @@
 package test;
 
 import org.junit.Test;
-
 import model.CountryNode;
 import model.MapNode;
 import model.MapReader;
-
 import static org.junit.Assert.*;
-
 import java.util.ArrayList;
-
 import org.junit.Before;
 
 public class TestMapFile {
@@ -37,7 +33,6 @@ public class TestMapFile {
 				}
 			}
 		}
-		
 		assertEquals(expectedResult,actualResult);
 	}
 
