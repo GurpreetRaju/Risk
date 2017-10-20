@@ -62,9 +62,14 @@ public class MapModel {
 	
 	public boolean checkOnSaveMap() {
 		Boolean saveMap = true;
-		for (MapNode i :continents) {	
+		for (MapNode i :continents) {
 			if(i.getCountries().length == 0) {
 				saveMap = false;
+			}
+			for (CountryNode country : i.getCountries()) {
+				if(country.getNeighbourCountries().length == 0) {
+					saveMap = false;
+				}
 			}
 		}
 		return saveMap;
@@ -73,7 +78,6 @@ public class MapModel {
 	public void saveMapFile() {
 		mapWriter.writeMap(continents);
 		newFilePath = mapWriter.getMapFilePath();
-		String path = getFinalPath();
 		GameDriver.getInstance().createMapObject(newFilePath);
 		controller.initWindow();
 	}
