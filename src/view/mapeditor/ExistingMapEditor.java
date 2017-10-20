@@ -42,15 +42,12 @@ import java.awt.event.ActionEvent;
 public class ExistingMapEditor extends JFrame {
 
 	/**
-<<<<<<< HEAD
 	 * Serial Version id for JFrame.
 	 * {@inheritDoc}
 	 */
 	private static final long serialVersionUID = -5188102736306067380L;
 	
 	/**
-=======
->>>>>>> a939a9f5346390da4328a44dd27469bd7ebeda94
 	 * Creates a new MapNode.
 	 */
 	ArrayList<MapNode> continents = new ArrayList<MapNode>();
