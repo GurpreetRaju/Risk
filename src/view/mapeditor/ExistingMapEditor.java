@@ -41,29 +41,116 @@ import java.awt.event.ActionEvent;
  */
 public class ExistingMapEditor extends JFrame {
 
+	/**
+	 * Creates a new MapNode.
+	 */
 	ArrayList<MapNode> continents = new ArrayList<MapNode>();
+
+	/**
+	 * Stores the JPanel of the frame this class
+	 */
 	private JPanel contentPane;
+
+	/**
+	 * Text field that receives continent name. 
+	 */
 	private JTextField txtContinentNameHere;
+
+	/**
+	 * Text field that receives control value.
+	 */
 	private JTextField txtContinentControlValue;
+
+	/**
+	 * Text Field to hold country name
+	 */
 	private JTextField txtCountryName;
+
+	/**
+	 * ComboBox for continent dropdown.
+	 */
 	private JComboBox comboBox;
+
+	/**
+	 * ComboBox for continent dropdown.
+	 */
 	JComboBox comboBox_3;
+
+	/**
+	 * Stores reference to the MapNode object.
+	 */
 	MapNode mapNode;
+
+	/**
+	 * Stores add continent button.
+	 */
 	JButton btnDone;
+
+	/**
+	 * Stores add neighbours button
+	 */
 	JButton btnAddNeighbours;
+
+	/**
+	 * Creates MapWriter object.
+	 */
 	MapWriter mapWriter = new MapWriter();
+
+	/**
+	 * Stores the continent name.
+	 */
 	private String continentName;
+
+	/**
+	 * Stores the continent control value.
+	 */
 	private String cv;
+
+	/**
+	 * Stores list of neighbours.
+	 */
 	JList list;
+
+	/**
+	 * Stores list of countries.
+	 */
 	JComboBox comboBox_1;
+
+	/**
+	 * Stores list model for neighbours JList.
+	 */
 	DefaultListModel<String> model2;
+
+	/**
+	 * Button for selected neighbours. 
+	 */
 	JButton btnSelectedNeighbours;
+
+	/**
+	 * Button for continent deletion.
+	 */
 	JButton btnDeleteContinent;
+
+	/**
+	 * Button for saving map file.
+	 */
 	JButton btnSaveMap;
+
+	/**
+	 * Button for country deletion.
+	 */
 	JButton btnDeleteCountry;
+
+	/**
+	 * Stores and displays list of continents.
+	 */
 	JComboBox comboBox_2;
+
+	/**
+	 * Button to add a new country.
+	 */
 	JButton btnAdd;
-	
+
 	/**
 	 * NewMap constructor calls initialize method of the class
 	 */
@@ -291,7 +378,7 @@ public class ExistingMapEditor extends JFrame {
 				comboBox_1.addItem(countryNode.getCountryName());
 			}
 		}
-		
+
 		JLabel lblChooseNeighbours = new JLabel("Possible neighbours for selected country");
 		lblChooseNeighbours.setFont(new Font("Bookman Old Style", Font.BOLD | Font.ITALIC, 18));
 		GridBagConstraints gbc_lblChooseNeighbours = new GridBagConstraints();
@@ -299,7 +386,7 @@ public class ExistingMapEditor extends JFrame {
 		gbc_lblChooseNeighbours.gridx = 1;
 		gbc_lblChooseNeighbours.gridy = 16;
 		contentPane.add(lblChooseNeighbours, gbc_lblChooseNeighbours);
-		
+
 		model2 = new DefaultListModel<String>();
 		list = new JList();
 		JScrollPane scrollPane = new JScrollPane(list);
@@ -313,7 +400,7 @@ public class ExistingMapEditor extends JFrame {
 		gbc_list.gridy = 16;
 		contentPane.add(scrollPane, gbc_list);
 		list.setEnabled(false);
-		
+
 		btnSelectedNeighbours = new JButton("Add selected countries as neighbours");
 		GridBagConstraints gbc_button = new GridBagConstraints();
 		gbc_button.anchor = GridBagConstraints.EAST;
@@ -330,7 +417,7 @@ public class ExistingMapEditor extends JFrame {
 		gbc_btnSaveMap.gridx = 6;
 		gbc_btnSaveMap.gridy = 29;
 		contentPane.add(btnSaveMap, gbc_btnSaveMap);
-		
+
 		btnAddContinent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){
 				if (e.getSource() == btnAddContinent){
@@ -347,39 +434,41 @@ public class ExistingMapEditor extends JFrame {
 					txtCountryName.setText("");
 				}
 			}
-		});
-		
-		
+		});		
 	}
-	
+    
 	public void addActionsToBtnDone(ActionListener newAction) {
-	    btnDone.addActionListener(newAction);
+		btnDone.addActionListener(newAction);
 	}
-	
+
 	public void addActionsToBtnAdd(ActionListener newAction) {
 		btnAdd.addActionListener(newAction);
 	}
-	
+
 	public void addActionsToBtnAddNeighbours(ActionListener newAction) {
 		btnAddNeighbours.addActionListener(newAction);
 	}
-	
+
 	public void addActionsToBtnSelectedNeighbours(ActionListener newAction) {
 		btnSelectedNeighbours.addActionListener(newAction);
 	}
-	
+
 	public void addActionsToButtonDeleteContinent(ActionListener newAction) {
 		btnDeleteContinent.addActionListener(newAction);
 	}
-	
+
 	public void addActionsToBtnSave(ActionListener newAction) {
 		btnSaveMap.addActionListener(newAction);
 	}
-	
+
 	public void addActionsToBtnDeleteCountry(ActionListener newAction) {
 		btnDeleteCountry.addActionListener(newAction);
 	}
 	
+	/**
+	 * Function to check for unique continents.
+	 * @return true if continent already exist.
+	 */
 	public boolean checkContinentExist() {
 		Boolean continentExist = false;
 		if(comboBox.getItemCount()!=0) {
@@ -388,23 +477,40 @@ public class ExistingMapEditor extends JFrame {
 		return continentExist;
 	}
 	
+	/**
+	 * Function to get the country name entered.
+	 * @return the country name entered.
+	 */
 	public String getCountryName() {
 		return (txtCountryName.getText());
 	}
-	
+
+	/**
+	 * Funtion to return list of selected neighbours.
+	 * @return list of selected neighbours.
+	 */
 	public List getNeighboursList() {
 		return (list.getSelectedValuesList());
 	}
 	
+	/**
+	 * Function to enable jlist.
+	 */
 	public void enableJList() {
 		list.setEnabled(true);
 	}
 	
+	/**
+	 * Function to disable and clear country name field.
+	 */
 	public void disableCountryfield() {
 		txtCountryName.setText("");
 		txtCountryName.setEnabled(false);
 	}
 	
+	/**
+	 * Function to disable continent fields
+	 */
 	public void disableContinentField() {
 		txtContinentNameHere.setText("");
 		txtContinentControlValue.setText("");
@@ -412,10 +518,18 @@ public class ExistingMapEditor extends JFrame {
 		txtContinentControlValue.setEnabled(false);
 	}
 	
+	/**
+	 * Function to get selected country for adding neighbours.
+	 * @return selected country for adding neighbours.
+	 */
 	public String getSelectedCountryForNeighbours() {
 		return (comboBox_1.getSelectedItem().toString());
 	}
 	
+	/**
+	 *Function to get selected country for deletion.
+	 * @return selected country for deletion.
+	 */
 	public String getCountryForDeletion() {
 		return (comboBox_2.getSelectedItem().toString());
 	}
@@ -423,71 +537,71 @@ public class ExistingMapEditor extends JFrame {
 	public String getContinentToDelete() {
 		return (comboBox_3.getSelectedItem().toString());
 	}
-	
+
 	public String getSelectedContinent() {
 		return (comboBox.getSelectedItem().toString());
 	}
-	
+
 	public void clearNeighboursJList() {
 		model2.removeAllElements();
 	}
-	
+
 	public void addPossibleNeighboursToJList(String neighbour) {
 		model2.addElement(neighbour);
 	}
-	
+
 	public String getContinentName() {
 		continentName = txtContinentNameHere.getText();
 		return continentName;
 	}
-	
+
 	public void enterValuesError() {
 		JOptionPane.showMessageDialog(contentPane, "Enter values first", "Error", JOptionPane.ERROR_MESSAGE);
 	}
-	
+
 	public void continentAlreadyExistError() {
 		JOptionPane.showMessageDialog(contentPane, "Continent already exist", "Error", JOptionPane.ERROR_MESSAGE);
 	}
-	
+
 	public void countryAlreadyExistError() {
 		JOptionPane.showMessageDialog(contentPane, "Country already exist", "Error", JOptionPane.ERROR_MESSAGE);
 	}
-	
+
 	public void nullContinentError() {
 		JOptionPane.showMessageDialog(contentPane, "Add continent first", "Error", JOptionPane.ERROR_MESSAGE);
 	}
-	
+
 	public void nullCountryError() {
 		JOptionPane.showMessageDialog(contentPane, "Map validation error", "Error", JOptionPane.ERROR_MESSAGE);
 	}
-	
+
 	public String getControlValue() {
 		cv = (txtContinentControlValue.getText());
 		return cv;
 	}
-	
+
 	public void eraseContinentFields() {
 		txtContinentNameHere.setText("");
 		txtContinentControlValue.setText("");
 		txtContinentNameHere.setEnabled(false);
 		txtContinentControlValue.setEnabled(false);
 	}
-	
+
 	public void clearComboBoxContents() {
 		comboBox.removeAllItems();
 		comboBox_3.removeAllItems();
 	}
-	
+
 	public void clearCountryComBoxContents() {
 		comboBox_2.removeAllItems();
 		comboBox_1.removeAllItems();
 	}
-	
+
 	public void setContinentsComboBox(String continent) {
 		comboBox.addItem(continent);
 		comboBox_3.addItem(continent);
 	}
-	
+
 	public void setCountriesComboBox(String country) {
 		comboBox_1.addItem(country);
 		comboBox_2.addItem(country);
