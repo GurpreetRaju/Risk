@@ -27,6 +27,7 @@ public class Phase {
 	
 	/**
 	 * Constructor to set the phase name.
+	 * @param string name of the phase.
 	 */
 	public Phase(String string){
 		this.phase = string;

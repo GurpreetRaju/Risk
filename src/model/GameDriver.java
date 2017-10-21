@@ -132,6 +132,7 @@ public class GameDriver {
 
 	/**
 	 * Sets PlayerInfo view.
+	 * @param newView PlayerInfoView object initialized.
 	 */
 	public void setPlayerView(PlayerInfoView newView) {
 		this.playerInfoGUI = newView;
@@ -139,6 +140,7 @@ public class GameDriver {
 
 	/**
 	 * Sets Map view.
+	 * @param newGui MapView object initialized.
 	 */
 	public void setMapView(MapView newGui) {
 		map.addObserver(newGui);
@@ -146,6 +148,7 @@ public class GameDriver {
 
 	/**
 	 * Sets Controls view.
+	 * @param controlView ControlsView object initialized.
 	 */
 	public void setControlsView(ControlsView controlView) {
 		this.controlsGUI = controlView;
@@ -179,7 +182,6 @@ public class GameDriver {
 
 	/**
 	 * Sets the next player's turn.
-	 * @return current player 
 	 */
 	public void setNextPlayerTurn() {
 		int currentPlayerIndex = players.indexOf(getCurrentPlayer());
@@ -326,6 +328,7 @@ public class GameDriver {
 	
 	/**
 	 * return Arraylist of neighbouring countries owned by same player
+	 * @param countrynode Country node whose neighbors are required.
 	 * @return playerNeighbouringCountries returns neighbouring countries of the country of same owner
 	 */
 	public ArrayList<CountryNode> getPlayerNeighbourCountries(CountryNode countrynode){
@@ -353,13 +356,12 @@ public class GameDriver {
 	
 	/**
 	 * Adds the new player to the arraylist of players.
+	 * @param newPlayer Player object.
 	 */
 	public void setPlayerList(Player newPlayer){
 		if(this.players==null) {
 			this.players = new ArrayList<Player>();
 		}
 		this.players.add(newPlayer);
-//		for(Player p: this.players)
-//		System.out.println(p.getName());
 	}
 }

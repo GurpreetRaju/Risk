@@ -19,12 +19,16 @@ import javax.swing.UnsupportedLookAndFeelException;
 public class MapFileChooser {
 	
 	/**
-	 *@param openFileChooser Button to select a map file
+	 *Button to select a map file
 	 */
 	final JButton openFileChooser = new JButton("Choose Map File");
 	
 	/**
-	 * Constructor to do the frame setting
+	 * Constructor to do the frame setting.
+	 * @throws ClassNotFoundException class not found.
+	 * @throws InstantiationException instantiation exception.
+	 * @throws IllegalAccessException illegal access.
+	 * @throws UnsupportedLookAndFeelException Unsupported JFrame check.
 	 */
     public MapFileChooser() throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
         UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());

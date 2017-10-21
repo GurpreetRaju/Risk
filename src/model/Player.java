@@ -213,13 +213,15 @@ public class Player {
 	
 	/**
 	 *  Assign armies to the player.
+	 *  @param newCount armies to be assigned.
 	 */
 	public void assignArmies(int newCount) {
 		this.armiesCount += newCount;
 	}
 	
 	/**
-	 *  Remove Armies from player
+	 *  Remove Armies from player.
+	 *  @param newCount armies to be removed.
 	 */
 	public void removeArmies(int newCount) {
 		this.armiesCount -= newCount;
@@ -235,6 +237,7 @@ public class Player {
 	
 	/**
 	 * Gives the country node for the given country name.
+	 * @param newCountry country name whose country node is required.
 	 * @return country node matching the string 
 	 */
 	public CountryNode getCountry(String newCountry) {

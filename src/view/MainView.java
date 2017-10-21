@@ -49,6 +49,11 @@ public class MainView extends JFrame{
 	
 	/**
 	 * Initialize each view with the object of corresponding type.
+	 * @param newPlayerInfo PlayerInfoView object.
+	 * @param newMap MapView object.
+	 * @param newDice DiceRollView object.
+	 * @param newCards Cards object.
+	 * @param newControls ControlsView object.
 	 */
 	private MainView(PlayerInfoView newPlayerInfo, MapView newMap, DiceRollView newDice, CardsView newCards, ControlsView newControls) 
 	{	
