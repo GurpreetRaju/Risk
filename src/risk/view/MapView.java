@@ -16,7 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import risk.model.Map;
+import risk.model.map.Map;
 
 public class MapView extends JPanel implements Observer {
 	

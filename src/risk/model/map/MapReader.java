@@ -1,9 +1,11 @@
-package risk.model;
+package risk.model.map;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+
+import risk.model.CountryNode;
 
 /**
  * This class read map file.

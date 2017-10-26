@@ -7,8 +7,8 @@ import org.junit.Test;
 import risk.controller.Controller;
 import risk.model.CountryNode;
 import risk.model.GameDriver;
-import risk.model.MapNode;
 import risk.model.Player;
+import risk.model.map.MapNode;
 
 public class TestFortification {
 

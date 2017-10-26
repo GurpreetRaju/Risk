@@ -9,8 +9,8 @@ import javax.swing.border.EmptyBorder;
 
 import risk.controller.mapeditor.mapEditorController;
 import risk.model.CountryNode;
-import risk.model.MapNode;
-import risk.model.MapWriter;
+import risk.model.map.MapNode;
+import risk.model.map.MapWriter;
 
 import java.awt.GridBagLayout;
 import java.awt.BorderLayout;

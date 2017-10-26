@@ -1,8 +1,9 @@
-package risk.model;
+package risk.model.map;
 
 import java.util.ArrayList;
 
 import risk.controller.Controller;
+import risk.model.CountryNode;
 import risk.view.mapeditor.MapFrame;
 
 /**

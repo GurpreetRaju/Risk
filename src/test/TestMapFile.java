@@ -2,8 +2,9 @@ package test;
 
 import org.junit.Test;
 import risk.model.CountryNode;
-import risk.model.MapNode;
-import risk.model.MapReader;
+import risk.model.map.MapNode;
+import risk.model.map.MapReader;
+
 import static org.junit.Assert.*;
 import java.util.ArrayList;
 import org.junit.Before;

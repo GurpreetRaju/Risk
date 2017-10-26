@@ -8,9 +8,9 @@ import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
 import risk.model.CountryNode;
-import risk.model.MapModel;
-import risk.model.MapNode;
-import risk.model.MapWriter;
+import risk.model.map.MapModel;
+import risk.model.map.MapNode;
+import risk.model.map.MapWriter;
 
 import java.awt.GridBagLayout;
 import java.awt.Color;

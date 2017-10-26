@@ -10,10 +10,10 @@ import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import risk.model.CountryNode;
-import risk.model.MapModel;
-import risk.model.MapNode;
-import risk.model.MapReader;
-import risk.model.MapWriter;
+import risk.model.map.MapModel;
+import risk.model.map.MapNode;
+import risk.model.map.MapReader;
+import risk.model.map.MapWriter;
 import risk.view.mapeditor.ExistingMap;
 import risk.view.mapeditor.ExistingMapEditor;
 import risk.view.mapeditor.MapFileChooser;

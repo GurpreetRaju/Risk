@@ -1,6 +1,8 @@
-package risk.model;
+package risk.model.map;
 
 import java.util.ArrayList;
+
+import risk.model.CountryNode;
 
 /**
  * This class stores the map data.

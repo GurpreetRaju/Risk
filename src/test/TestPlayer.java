@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 import risk.model.CountryNode;
-import risk.model.MapNode;
 import risk.model.Player;
+import risk.model.map.MapNode;
 
 public class TestPlayer {
 	

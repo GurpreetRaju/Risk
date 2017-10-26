@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 import risk.model.CountryNode;
 import risk.model.GameDriver;
-import risk.model.MapModel;
+import risk.model.map.MapModel;
 import risk.view.CardsView;
 import risk.view.ControlsView;
 import risk.view.DiceRollView;

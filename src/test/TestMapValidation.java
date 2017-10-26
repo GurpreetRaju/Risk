@@ -3,7 +3,8 @@ package test;
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
-import risk.model.Map;
+
+import risk.model.map.Map;
 
 public class TestMapValidation {
 

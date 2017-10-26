@@ -9,8 +9,8 @@ import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
-import risk.model.MapModel;
-import risk.model.MapNode;
+import risk.model.map.MapModel;
+import risk.model.map.MapNode;
 
 import java.awt.GridLayout;
 import javax.swing.JButton;

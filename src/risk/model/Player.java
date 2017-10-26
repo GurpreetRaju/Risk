@@ -2,6 +2,8 @@ package risk.model;
 
 import java.util.ArrayList;
 
+import risk.model.map.MapNode;
+
 /**
  * This class represent the player.
  * @author Gurpreet
