@@ -4,9 +4,9 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
-import model.CountryNode;
-import model.MapNode;
-import model.Player;
+import risk.model.CountryNode;
+import risk.model.MapNode;
+import risk.model.Player;
 
 public class TestPlayer {
 	

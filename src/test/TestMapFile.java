@@ -1,9 +1,9 @@
 package test;
 
 import org.junit.Test;
-import model.CountryNode;
-import model.MapNode;
-import model.MapReader;
+import risk.model.CountryNode;
+import risk.model.MapNode;
+import risk.model.MapReader;
 import static org.junit.Assert.*;
 import java.util.ArrayList;
 import org.junit.Before;

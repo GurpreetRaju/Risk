@@ -4,11 +4,11 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
-import controller.Controller;
-import model.CountryNode;
-import model.GameDriver;
-import model.MapNode;
-import model.Player;
+import risk.controller.Controller;
+import risk.model.CountryNode;
+import risk.model.GameDriver;
+import risk.model.MapNode;
+import risk.model.Player;
 
 public class TestFortification {
 
