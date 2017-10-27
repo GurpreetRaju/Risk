@@ -1,6 +1,7 @@
 package risk.model.turnmanager;
 
 import risk.model.GameDriver;
+import risk.model.Player;
 
 /**
  * This class manages the turn and its phases.
@@ -13,86 +14,57 @@ public class TurnManager {
 	 * Stores the current phase name.
 	 */
 	private String phase;
-	/**
-	 * Defines object for the Reinforcement phase.
-	 */
-	public static final TurnManager reinforcement = new TurnManager("Reinforcement");
-	/**
-	 * Defines object for the Attack phase.
-	 */
-	public static final TurnManager attack = new TurnManager("Attack");
-	/**
-	 * Defines object for the Fortification phase.
-	 */
-	public static final TurnManager fortification = new TurnManager("Fortification");
-	
-	private Phase reinforcementPhase;
-	private Phase attackPhase;
-	private Phase fortificationPhase;
 	
 	/**
 	 * Constructor to set the phase name.
 	 */
 	public TurnManager(String string){
-		this();
 		this.phase = string;
 	}
 	
-	public TurnManager(){
-		reinforcementPhase = new Reinforcement();
-		attackPhase = new Attack();
-		fortificationPhase = new Fortification();
-	}
-	
-	public void startTurn() {
-		reinforcementPhase.run();
+	public void startTurn(Player currentPlayer) {
+		currentPlayer.reinforcementPhase();
 	}
 	
 	/**
 	 * Function to switch between different phases.
 	 */
 	public void changePhase() {
-		if(this.equals(TurnManager.reinforcement)) {
+		if(this.phase.equals("Reinforcement")) {
 			this.phase = "Attack";
-			attackPhase.run();
+			getCurrentPlayer().attackPhase();
+			changePhase();
 		}
-		else if(this.equals(TurnManager.attack)) {
+		else if(this.phase.equals("Attack")) {
 			this.phase = "Fortification";
-			fortificationPhase.run();
+			getCurrentPlayer().fortificationPhase();
 		}
-		else if(this.equals(TurnManager.fortification)) {
+		else if(this.phase.equals("Fortification")) {
 			GameDriver.getInstance().setNextPlayerTurn();
 			this.phase = "Reinforcement";
-			reinforcementPhase.run();
+			getCurrentPlayer().reinforcementPhase();
 		}
-		GameDriver.getInstance().updateMap();
+	}
+	
+	private Player getCurrentPlayer() {
+		return GameDriver.getInstance().getCurrentPlayer();
 	}
 	
 
 	/**
 	 * Refreshes the phases.
+	 * @param currentPlayer 
 	 */
 	public void continuePhase() {
-		if(this.equals(TurnManager.reinforcement)) {
-			reinforcementPhase.run();
+		if(this.phase.equals("Reinforcement")) {
+			getCurrentPlayer().reinforcementPhase();
 		}
-		else if(this.equals(TurnManager.attack)) {
-			attackPhase.run();
+		else if(this.phase.equals("Attack")) {
+			getCurrentPlayer().attackPhase();;
 		}
-		else if(this.equals(TurnManager.fortification)) {
-			fortificationPhase.run();
+		else if(this.phase.equals("Fortification")) {
+			getCurrentPlayer().fortificationPhase();
 		}
-		GameDriver.getInstance().updateMap();
-	}
-	
-	/**
-	 * Compares the phase object called with the phase object calling for changePhase functionality.
-	 */
-	public boolean equals(Object o){
-		if(o instanceof TurnManager && ((TurnManager) o).phase == this.phase) {
-			return true;
-		}
-		return false;
 	}
 
 }

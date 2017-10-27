@@ -9,8 +9,7 @@ public class Fortification extends Phase {
 	 */
 	public void setControls()
 	{
-		GameDriver.getInstance().getControlGUI().fortificationControls(GameDriver.getInstance().getPlayerCountryNames());
-		GameDriver.getInstance().setFortificationLiteners();
+		
 	}
 	
 	public void playMove() {

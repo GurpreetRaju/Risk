@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import risk.controller.Controller;
 import risk.model.map.Map;
 import risk.model.map.MapNode;
-import risk.model.turnmanager.Phase;
 import risk.model.turnmanager.TurnManager;
 import risk.view.*;
 
@@ -96,7 +95,7 @@ public class GameDriver {
 	 */
 	public void runGame() {
 		startUpPhase();
-		turnManager.startTurn();
+		turnManager.startTurn(this.currentPlayer);
 	}
 	
 	/**
@@ -110,6 +109,7 @@ public class GameDriver {
 			players.add(new Player(newPlayer,RiskData.InitialArmiesCount.getArmiesCount(newPlayerData.length),map.getMapData()));
 		}
 		players.get(0).setTurnTrue();
+		this.currentPlayer = players.get(0);
 		updatePlayerView();
 		int i = 0;
 		for(MapNode m : map.getMapData()){
@@ -132,7 +132,7 @@ public class GameDriver {
 				p.removeArmies(1);
 			}
 		}
-		map.updateMap();
+		updateMap();
 	}
 
 	/**
@@ -177,12 +177,7 @@ public class GameDriver {
 	 * @return current player 
 	 */
 	public Player getCurrentPlayer() {
-		for(Player player:players){
-			if(player.getTurn()){
-				return player;
-			}
-		}
-		return null;
+		return this.currentPlayer;
 	}
 
 	/**
@@ -190,12 +185,13 @@ public class GameDriver {
 	 */
 	public void setNextPlayerTurn() {
 		int currentPlayerIndex = players.indexOf(getCurrentPlayer());
-		getCurrentPlayer().setTurnFalse();
+		this.currentPlayer.setTurnFalse();
 		if (currentPlayerIndex == players.size()-1){
-			players.get(0).setTurnTrue();
+			this.currentPlayer = players.get(0);
 		}else{
-			players.get(currentPlayerIndex+1).setTurnTrue();
+			this.currentPlayer = players.get(currentPlayerIndex+1);
 		}
+		this.currentPlayer.setTurnTrue();
 	}
 
 	/**
@@ -226,14 +222,6 @@ public class GameDriver {
 	 */
 	public int getPlayerArmies() {
 		return getCurrentPlayer().getArmiesCount();
-	}
-
-	/**
-	 * Gets the player with the current turn.
-	 * @return current player 
-	 */
-	public String [] getPlayerCountryNames() {
-		return getCurrentPlayer().getCountriesNames();
 	}
 
 	/**
@@ -292,6 +280,7 @@ public class GameDriver {
 	 */
 	public void continuePhase() {
 		turnManager.continuePhase();
+		updateMap();
 	}
 	
 	/**
@@ -299,6 +288,7 @@ public class GameDriver {
 	 */
 	public void changePhase() {
 		turnManager.changePhase();
+		updateMap();
 	}
 	
 	/**

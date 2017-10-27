@@ -275,6 +275,21 @@ public class Player {
 	public void setArmies(int newArmies) {
 		this.armiesCount = newArmies;
 	}
+	
+	public void reinforcementPhase(){
+		GameDriver.getInstance().getControlGUI().reinforcementConrols(getArmiesCount(), getCountriesNames());
+		GameDriver.getInstance().setControlsActionListeners();
+	}
+	
+	public void attackPhase(){
+		
+	}
+
+	public void fortificationPhase(){
+		GameDriver.getInstance().getControlGUI().fortificationControls(getCountriesNames());
+		GameDriver.getInstance().setFortificationLiteners();
+	}
+	
 }
 
 
