@@ -290,6 +290,49 @@ public class Player {
 		GameDriver.getInstance().setFortificationLiteners();
 	}
 	
+	/**
+	 * Shifts(or places) the armies of the player on each reinforcement.
+	 * @param country the country name to which armies are added.
+	 * @param armies the number of armies to be reinforced.
+	 * @return the army count left for the player.
+	 */
+	public int shiftArmiesOnReinforcement(String country, int armies) {
+		getCountry(country).addArmy(armies);
+		removeArmies(armies);
+		return this.armiesCount;
+	}
+	
+	/**
+	 * Shifts the armies of the player from one country to another.
+	 * @param sCountry the country name from which armies are moved.
+	 * @param sNeighbour the country name to which armies are added.
+	 * @param selectedArmies the number of armies to be moved.
+	 * @return the army count left in sNeighbour country.
+	 */
+	public int getArmiesShiftedAfterFortification(String sCountry, String sNeighbour, int selectedArmies){
+		CountryNode countrySelect = getCountry(sCountry);
+		CountryNode neighbourC = getCountry(sNeighbour);
+		countrySelect.setArmies(countrySelect.getArmiesCount()-selectedArmies);
+		neighbourC.setArmies(neighbourC.getArmiesCount() + selectedArmies);
+		return neighbourC.getArmiesCount();
+	}
+	
+	/**
+	 * return Arraylist of neighbouring countries owned by same player
+	 * @param countryName Country node whose neighbors are required.
+	 * @return playerNeighbouringCountries returns neighbouring countries of the country of same owner
+	 */
+	public ArrayList<String> getPlayerNeighbourCountries(String countryName){
+		ArrayList<String> playerNeighbourCountries = new ArrayList<String>();
+		CountryNode countryNode = getCountry(countryName);
+		for (CountryNode country : countryNode.getNeighbourCountries()){
+			if (countryNode.getOwner().equals(country.getOwner())){
+				playerNeighbourCountries.add(country.getCountryName());
+			}
+		}
+		return playerNeighbourCountries;
+	}
+	
 }
 
 

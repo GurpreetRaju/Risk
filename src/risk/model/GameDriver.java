@@ -58,16 +58,6 @@ public class GameDriver {
 	private Player currentPlayer;
 	
 	/**
-	 * ArrayList of neighbouring countries of same owner
-	 */
-	private ArrayList<CountryNode> playerNeighbourCountries;
-	
-	/**
-	 * ArrayList of names of neighbouring countries of same owner
-	 */
-	private ArrayList<String> playerNeighbourCountryNames;
-	
-	/**
 	 * Constructor initialize the GUI and  map class object.
 	 * Constructor is private so objects can not be created directly for this class.
 	 */
@@ -252,12 +242,7 @@ public class GameDriver {
 	 * @return country node for the given country name
 	 */
 	public CountryNode getCountry(String countryname) {
-		for(CountryNode country : getCurrentPlayer().getCountries()){
-			if(country.getCountryName().equals(countryname)){
-				return country;
-			}
-		}
-		return null;
+		return this.currentPlayer.getCountry(countryname);
 	}
 	
 	/**
@@ -314,34 +299,6 @@ public class GameDriver {
 	}
 	
 	/**
-	 * return Arraylist of neighbouring countries owned by same player
-	 * @param countrynode Country node whose neighbors are required.
-	 * @return playerNeighbouringCountries returns neighbouring countries of the country of same owner
-	 */
-	public ArrayList<CountryNode> getPlayerNeighbourCountries(CountryNode countrynode){
-		playerNeighbourCountries = new ArrayList<CountryNode>();
-		for (CountryNode country : getNeighbourCountries(countrynode)){
-			if (countrynode.getOwner().equals(country.getOwner())){
-				playerNeighbourCountries.add(country);
-			}
-		}
-		return playerNeighbourCountries;
-	}
-	
-	/**
-	 * Gives the list of the neighbors of the country passed as a parameter with same owner.
-	 * @param countryname Name of the country.
-	 * @return Neighbors of the country with same owner.
-	 */
-	public String [] getPlayerNeighbourCountryNames(String countryname) {
-		playerNeighbourCountryNames = new ArrayList<String>();
-		for(CountryNode country: getPlayerNeighbourCountries(getCountry(countryname))){
-			playerNeighbourCountryNames.add(country.getCountryName());
-		}
-		return (String[]) playerNeighbourCountryNames.toArray();
-	}
-	
-	/**
 	 * Adds the new player to the arraylist of players.
 	 * @param newPlayer Player object.
 	 */
@@ -351,4 +308,27 @@ public class GameDriver {
 		}
 		this.players.add(newPlayer);
 	}
+
+	public void shiftArmiesOnReinforcement(String countrySelected, int armies) {
+		if(this.currentPlayer.shiftArmiesOnReinforcement(countrySelected, armies)==0) {
+			changePhase();
+		}
+		else {
+			continuePhase();
+		}
+	}
+
+	public void fortificationNeighbourListUpdate(String countrySelected) {
+		CountryNode countrySelect = this.currentPlayer.getCountry(countrySelected);
+		if(countrySelect.getArmiesCount()>1) {
+			ArrayList<String> neighborList = this.currentPlayer.getPlayerNeighbourCountries(countrySelected);
+			//update controls GUI fortification
+			controller.updateControlsFortification(countrySelect.getArmiesCount(), (String[]) neighborList.toArray()); 
+		}
+	}
+
+	public void getArmiesShiftedAfterFortification(String newCountry, String newNeighbour, int newArmies) {
+		this.currentPlayer.getArmiesShiftedAfterFortification(newCountry, newNeighbour, newArmies);
+	}
+	
 }

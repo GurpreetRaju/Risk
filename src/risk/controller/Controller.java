@@ -2,11 +2,7 @@ package risk.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-
-import risk.model.CountryNode;
 import risk.model.GameDriver;
-import risk.model.map.MapModel;
 import risk.view.CardsView;
 import risk.view.ControlsView;
 import risk.view.DiceRollView;
@@ -124,11 +120,9 @@ public class Controller {
 	public void setActionListner() {
 		addArmiesListner = new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e) {				
-				CountryNode country = driver.getCountry(controlsGUI.getCountrySelected());
+			public void actionPerformed(ActionEvent e) {
 				int armies = controlsGUI.getArmiesValue();
-				shiftArmiesOnReinforcement(country, armies);
-				driver.continuePhase();
+				driver.shiftArmiesOnReinforcement(controlsGUI.getCountrySelected(), armies);
 			}
 		};
 		controlsGUI.addArmiesButtonAction(this.addArmiesListner);
@@ -142,18 +136,6 @@ public class Controller {
 	}
 	
 	/**
-	 * Shifts(or places) the armies of the player on each reinforcement.
-	 * @param country the country node to which armies are added.
-	 * @param armies the number of armies to be reinforced.
-	 * @return the army count left for the player.
-	 */
-	public int shiftArmiesOnReinforcement(CountryNode country, int armies) {
-		country.addArmy(armies);
-		driver.getCurrentPlayer().removeArmies(armies);
-		return driver.getPlayerArmies();
-	}
-	
-	/**
 	 * Sets Action Listeners for fortification controls.
 	 */
 	public void setFortificationListeners() {
@@ -161,11 +143,7 @@ public class Controller {
 			@Override
             public void actionPerformed(ActionEvent e) {
 				String countrySelected = (String) controlsGUI.getCountrySelected();
-				CountryNode countrySelect = GameDriver.getInstance().getCurrentPlayer().getCountry(countrySelected);
-				if(countrySelect.getArmiesCount()>1) {
-					ArrayList<String> neighborList = getCorrectNeighbors(countrySelect);
-					controlsGUI.updateFortification(countrySelect.getArmiesCount(), neighborList.toArray(new String[neighborList.size()]));
-				}
+				driver.fortificationNeighbourListUpdate(countrySelected);
 			}
 		});
 		
@@ -173,40 +151,12 @@ public class Controller {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				if(controlsGUI.isNeighbourSelected()) {
-					String countrySelected = (String) controlsGUI.getCountrySelected();
-					int selectedArmies = controlsGUI.getArmiesValue();
-					CountryNode countrySelect = GameDriver.getInstance().getCurrentPlayer().getCountry(countrySelected);
-					String neighbourSelected = controlsGUI.getNeighborSelected();
-					getArmiesShiftedAfterFortification(countrySelect, neighbourSelected, selectedArmies);
+					driver.getArmiesShiftedAfterFortification(controlsGUI.getCountrySelected(), 
+							controlsGUI.getNeighborSelected(), controlsGUI.getArmiesValue());
 				}
 				driver.changePhase();
 			}
 		});
-	}
-	
-	/**
-	 * Gets the neighbor countries owned by the current player for a given country.
-	 * @param countrySelect Country Node whose neighbors are to be displayed.
-	 * @return list of owned neighbors.
-	 */
-	public ArrayList<String> getCorrectNeighbors(CountryNode countrySelect){
-		ArrayList<String> neighborList = new ArrayList<String>();
-		for(String name: countrySelect.getSameOwnerNeighbouNames()) {
-			neighborList.add(name);
-		}
-		return neighborList;
-	}
-	
-	public int getArmiesShiftedAfterFortification(CountryNode countrySelect, String neighbourSelected, int selectedArmies){
-		CountryNode required = null;
-		countrySelect.setArmies(countrySelect.getArmiesCount()-selectedArmies); 
-		for(CountryNode j : countrySelect.getNeighbourCountries()) {
-			if(j.getCountryName() == neighbourSelected) {
-				required = j;
-				j.setArmies(j.getArmiesCount() + selectedArmies);
-			}
-		}
-		return required.getArmiesCount();
 	}
 	
 	/**
@@ -265,4 +215,9 @@ public class Controller {
 		driver.setControlsView(controlsGUI);
 		driver.runGame();
 	}
+	
+	public void updateControlsFortification(int newArmies, String[] newNeighbourList) {
+		controlsGUI.updateFortification(newArmies, newNeighbourList);
+	}
+	
 }
