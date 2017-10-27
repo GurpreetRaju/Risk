@@ -1,4 +1,4 @@
-package test;
+package test.risk.model.map;
 
 import org.junit.Test;
 import risk.model.CountryNode;

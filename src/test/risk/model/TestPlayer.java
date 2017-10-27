@@ -1,4 +1,4 @@
-package test;
+package test.risk.model;
 
 import static org.junit.Assert.*;
 import java.util.ArrayList;
