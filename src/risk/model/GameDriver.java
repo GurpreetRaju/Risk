@@ -321,14 +321,25 @@ public class GameDriver {
 	public void fortificationNeighbourListUpdate(String countrySelected) {
 		CountryNode countrySelect = this.currentPlayer.getCountry(countrySelected);
 		if(countrySelect.getArmiesCount()>1) {
-			ArrayList<String> neighborList = this.currentPlayer.getPlayerNeighbourCountries(countrySelected);
-			//update controls GUI fortification
-			controller.updateControlsFortification(countrySelect.getArmiesCount(), (String[]) neighborList.toArray()); 
+			ArrayList<String> neighborList = map.getPlayerNeighbourCountries(countrySelect,this.currentPlayer,true);
+			controller.updateControlsFortification(countrySelect.getArmiesCount(), neighborList.toArray(new String[neighborList.size()])); 
 		}
 	}
 
 	public void getArmiesShiftedAfterFortification(String newCountry, String newNeighbour, int newArmies) {
 		this.currentPlayer.getArmiesShiftedAfterFortification(newCountry, newNeighbour, newArmies);
+	}
+
+	public void setAttackListeners() {
+		controller.setAttackListeners();
+	}
+
+	public void attackNeighbourListUpdate(String countrySelected) {
+		CountryNode countrySelect = this.currentPlayer.getCountry(countrySelected);
+		if(countrySelect.getArmiesCount()>1) {
+			ArrayList<String> neighborList = map.getPlayerNeighbourCountries(countrySelect,this.currentPlayer,false);
+			controller.updateNeighborList(neighborList.toArray(new String[neighborList.size()])); 
+		}
 	}
 	
 }

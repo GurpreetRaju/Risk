@@ -33,7 +33,6 @@ public class TurnManager {
 		if(this.phase.equals("Reinforcement")) {
 			this.phase = "Attack";
 			getCurrentPlayer().attackPhase();
-			changePhase();
 		}
 		else if(this.phase.equals("Attack")) {
 			this.phase = "Fortification";

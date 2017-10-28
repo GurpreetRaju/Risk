@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Observable;
 
 import risk.model.CountryNode;
+import risk.model.Player;
 import risk.view.MapView;
 
 /**
@@ -159,4 +160,29 @@ public class Map extends Observable {
 		}
 		return true;
 	}
+	
+	/**
+	 * return Arraylist of neighbouring countries owned by a player or not owned by player, depending on flag value
+	 * @param countryName Country node whose neighbors are required.
+	 * @param newPlayer player who owns the required neighbours.
+	 * @param flag if true, method returns countries owned by newPlayer, if false return countries owned by other players except newPlayer.
+	 * @return playerNeighbouringCountries returns neighbouring countries of the country of same owner
+	 */
+	public ArrayList<String> getPlayerNeighbourCountries(CountryNode newCountry, Player newPlayer,boolean flag) {
+		ArrayList<String> playerNeighbourCountries = new ArrayList<String>();
+		for (CountryNode country : newCountry.getNeighbourCountries()){
+			if(flag) {
+				if (country.getOwner().equals(newPlayer)){
+					playerNeighbourCountries.add(country.getCountryName());
+				}
+			}
+			else {
+				if(!country.getOwner().equals(newPlayer)) {
+					playerNeighbourCountries.add(country.getCountryName());
+				}
+			}
+		}
+		return playerNeighbourCountries;
+	}
+	
 }

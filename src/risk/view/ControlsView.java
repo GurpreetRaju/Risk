@@ -40,7 +40,7 @@ public class ControlsView extends JPanel {
 	/**
 	 * Dropdown for list of neighbors.
 	 */
-	JComboBox<String> neighborList;
+	private JComboBox<String> neighborList;
 	
 	/**
 	 * Armies available to the player for reinforcement phase.
@@ -72,7 +72,7 @@ public class ControlsView extends JPanel {
 	 * @param armiesCount Number of armies available to the player for Reinforcement phase.
 	 * @param countryList String array containing the countries owned by the current player.
 	 */
-	public void reinforcementConrols(int armiesCount, String[] countryList) {
+	public void reinforcementControls(int armiesCount, String[] countryList) {
 		this.removeAll();
 		armiesAvailable = "Armies Available:" + String.valueOf(armiesCount);
 		System.out.println(armiesCount);
@@ -106,9 +106,9 @@ public class ControlsView extends JPanel {
 		countriesList.setSelectedIndex(0);
 		
 		neighborList = new JComboBox<String>();
-		neighborList.setEnabled(false);;
+		neighborList.setEnabled(false);
 		armiesSpinner = new JSpinner();
-		armiesSpinner.setEnabled(false);;
+		armiesSpinner.setEnabled(false);
 		playMove = new JButton("Move Armies");
 		
 		this.add(new Label("Country "));
@@ -161,11 +161,15 @@ public class ControlsView extends JPanel {
 	 */
 	public void updateFortification(int armies, String[] neighbourNames) {
 		this.armiesSpinner.setModel(new SpinnerNumberModel(1, 0, armies-1, 1));
-		this.armiesSpinner.setEnabled(true);;
-		this.neighborList.setModel(new DefaultComboBoxModel<String>(neighbourNames));
+		this.armiesSpinner.setEnabled(true);
+		setNeighborList(neighbourNames);
+		this.playMove.setEnabled(true);
+	}
+
+	public void setNeighborList(String[] newNeighbourNames) {
+		this.neighborList.setModel(new DefaultComboBoxModel<String>(newNeighbourNames));
 		this.neighborList.setSelectedIndex(0);
-		this.neighborList.setEnabled(true);;
-		this.playMove.setEnabled(true);;
+		this.neighborList.setEnabled(true);
 	}
 	
 	/**
@@ -198,5 +202,28 @@ public class ControlsView extends JPanel {
 	 */
 	public boolean isNeighbourSelected() {
 		return this.neighborList.isEnabled();
+	}
+
+	public void attackControls(String[] countriesNames) {
+		this.removeAll();
+
+		countriesList = new JComboBox<String>(countriesNames);
+		countriesList.setSelectedIndex(0);
+		
+		neighborList = new JComboBox<String>();
+		neighborList.setEnabled(false);
+		
+		playMove = new JButton("Anounce attack");
+		endPhase = new JButton("Skip attack");
+		
+		this.add(new Label("Country "));
+		this.add(countriesList);
+		this.add(new Label("Neighbours"));
+		this.add(neighborList);
+		this.add(playMove);
+		this.add(endPhase);
+		
+		this.revalidate();
+		this.repaint();
 	}
 }

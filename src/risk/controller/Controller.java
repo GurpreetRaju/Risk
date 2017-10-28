@@ -219,5 +219,36 @@ public class Controller {
 	public void updateControlsFortification(int newArmies, String[] newNeighbourList) {
 		controlsGUI.updateFortification(newArmies, newNeighbourList);
 	}
+
+	public void setAttackListeners() {
+		controlsGUI.countrieslistAction(new ActionListener() {
+			@Override
+            public void actionPerformed(ActionEvent e) {
+				String countrySelected = (String) controlsGUI.getCountrySelected();
+				driver.attackNeighbourListUpdate(countrySelected);
+			}
+		});
+		
+		controlsGUI.playButtonAction(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				if(controlsGUI.isNeighbourSelected()) {
+//Anounce attack
+//set spinners with number of dice that can be selected
+				}
+			}
+		});
+		
+		controlsGUI.endPhaseAction(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				driver.changePhase();
+			}
+		});
+	}
+
+	public void updateNeighborList(String[] neighbourList) {
+		controlsGUI.setNeighborList(neighbourList);
+	}
 	
 }

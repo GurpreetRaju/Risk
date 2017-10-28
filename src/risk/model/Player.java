@@ -277,12 +277,13 @@ public class Player {
 	}
 	
 	public void reinforcementPhase(){
-		GameDriver.getInstance().getControlGUI().reinforcementConrols(getArmiesCount(), getCountriesNames());
+		GameDriver.getInstance().getControlGUI().reinforcementControls(getArmiesCount(), getCountriesNames());
 		GameDriver.getInstance().setControlsActionListeners();
 	}
 	
 	public void attackPhase(){
-		
+		GameDriver.getInstance().getControlGUI().attackControls(getCountriesNames());
+		GameDriver.getInstance().setAttackListeners();
 	}
 
 	public void fortificationPhase(){
@@ -315,22 +316,6 @@ public class Player {
 		countrySelect.setArmies(countrySelect.getArmiesCount()-selectedArmies);
 		neighbourC.setArmies(neighbourC.getArmiesCount() + selectedArmies);
 		return neighbourC.getArmiesCount();
-	}
-	
-	/**
-	 * return Arraylist of neighbouring countries owned by same player
-	 * @param countryName Country node whose neighbors are required.
-	 * @return playerNeighbouringCountries returns neighbouring countries of the country of same owner
-	 */
-	public ArrayList<String> getPlayerNeighbourCountries(String countryName){
-		ArrayList<String> playerNeighbourCountries = new ArrayList<String>();
-		CountryNode countryNode = getCountry(countryName);
-		for (CountryNode country : countryNode.getNeighbourCountries()){
-			if (countryNode.getOwner().equals(country.getOwner())){
-				playerNeighbourCountries.add(country.getCountryName());
-			}
-		}
-		return playerNeighbourCountries;
 	}
 	
 }
