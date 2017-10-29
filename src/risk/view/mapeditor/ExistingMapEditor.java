@@ -162,6 +162,9 @@ public class ExistingMapEditor extends JFrame {
 	 */
 	private JButton btnAdd;
 	
+	/**
+	 * Button to update country arrayList
+	 */
 	private JButton btnAddCountry;
 
 	/**
@@ -434,46 +437,88 @@ public class ExistingMapEditor extends JFrame {
 	
 	}
 	
+	/**
+	 * Function to add actionListener to add country button.
+	 * @param newAction receives the actionListener for this function.
+	 */
 	public void addActionsToBtnAddCountry(ActionListener newAction) {
 		btnAddCountry.addActionListener(newAction);
 	}
 	
+	/**
+	 * Function to add actionListener to add continent button.
+	 * @param newAction receives the actionListener for this function.
+	 */
 	public void addActionsToBtnAddContinent(ActionListener newAction) {
 		btnAddContinent.addActionListener(newAction);
 	}
     
+	/**
+	 * Function to add actionListener to button for updating continent list.
+	 * @param newAction receives the actionListener for this function.
+	 */
 	public void addActionsToBtnDone(ActionListener newAction) {
 		btnDone.addActionListener(newAction);
 	}
-
+	
+	/**
+	 * Function to add actionListener to button for updating country list.
+	 * @param newAction receives the actionListener for this function.
+	 */
 	public void addActionsToBtnAdd(ActionListener newAction) {
 		btnAdd.addActionListener(newAction);
 	}
-
+	
+	/**
+	 * Function to add actionListener to add neighbours button.
+	 * @param newAction receives the actionListener for this function.
+	 */
 	public void addActionsToBtnAddNeighbours(ActionListener newAction) {
 		btnAddNeighbours.addActionListener(newAction);
 	}
-
+	
+	/**
+	 * Function to add actionListener to select neighbours button.
+	 * @param newAction receives the actionListener for this function.
+	 */
 	public void addActionsToBtnSelectedNeighbours(ActionListener newAction) {
 		btnSelectedNeighbours.addActionListener(newAction);
 	}
-
+	
+	/**
+	 * Function to add actionListener to delete continent button.
+	 * @param newAction receives the actionListener for this function.
+	 */
 	public void addActionsToButtonDeleteContinent(ActionListener newAction) {
 		btnDeleteContinent.addActionListener(newAction);
 	}
-
+	
+	/**
+	 * Function to add actionListener to save button.
+	 * @param newAction receives the actionListener for this function.
+	 */
 	public void addActionsToBtnSave(ActionListener newAction) {
 		btnSaveMap.addActionListener(newAction);
 	}
-
+	
+	/**
+	 * Function to add actionListener to delete country button.
+	 * @param newAction receives the actionListener for this function.
+	 */
 	public void addActionsToBtnDeleteCountry(ActionListener newAction) {
 		btnDeleteCountry.addActionListener(newAction);
 	}
 	
+	/**
+	 * Function to display error dialog box.
+	 */
 	public void noSelectedNeighboursError() {
 		JOptionPane.showMessageDialog(contentPane, "Select neighbours first", "Error", JOptionPane.ERROR_MESSAGE);
 	}
 	
+	/**
+	 * Function to enable the fields associated with continent.
+	 */
 	public void enableContinentFields() {
 		txtContinentNameHere.setEnabled(true);
 		txtContinentControlValue.setEnabled(true);
@@ -508,7 +553,7 @@ public class ExistingMapEditor extends JFrame {
 	}
 	
 	/**
-	 * Function to enable jlist.
+	 * Function to enable JList.
 	 */
 	public void enableJList() {
 		list.setEnabled(true);
@@ -522,6 +567,9 @@ public class ExistingMapEditor extends JFrame {
 		txtCountryName.setEnabled(false);
 	}
 	
+	/**
+	 * Function to enable the country text field.
+	 */
 	public void enableCountryfield() {
 		txtCountryName.setEnabled(true);
 	}
@@ -552,52 +600,93 @@ public class ExistingMapEditor extends JFrame {
 		return (comboBox_2.getSelectedItem().toString());
 	}
 	
+	/**
+	 * Function to get the continent to be deleted.
+	 * @return the contintent selected for deletion.
+	 */
 	public String getContinentToDelete() {
 		return (comboBox_3.getSelectedItem().toString());
 	}
-
+	
+	/**
+	 * Function to get the selected continent name.
+	 * @return the selected continent.
+	 */
 	public String getSelectedContinent() {
 		return (comboBox.getSelectedItem().toString());
 	}
-
+	
+	/**
+	 * Function to clear the JList of neighbours.
+	 */
 	public void clearNeighboursJList() {
 		model2.removeAllElements();
 	}
 
+	/**
+	 * Function to update the neighbour JList view.
+	 * @param neighbour receives the neighbour to be added.
+	 */
 	public void addPossibleNeighboursToJList(String neighbour) {
 		model2.addElement(neighbour);
 	}
 
+	/**
+	 * Function to get the continent name.
+	 * @return the continent name.
+	 */
 	public String getContinentName() {
 		continentName = txtContinentNameHere.getText();
 		return continentName;
 	}
 
+	/**
+	 * Function to display error message dialog box.
+	 */
 	public void enterValuesError() {
 		JOptionPane.showMessageDialog(contentPane, "Enter values first", "Error", JOptionPane.ERROR_MESSAGE);
 	}
 
+	/**
+	 * Function to display error message dialog box.
+	 */
 	public void continentAlreadyExistError() {
 		JOptionPane.showMessageDialog(contentPane, "Continent already exist", "Error", JOptionPane.ERROR_MESSAGE);
 	}
 
+	/**
+	 * Function to display error message dialog box.
+	 */
 	public void countryAlreadyExistError() {
 		JOptionPane.showMessageDialog(contentPane, "Country already exist", "Error", JOptionPane.ERROR_MESSAGE);
 	}
 
+	/**
+	 * Function to display error message dialog box.
+	 */
 	public void nullContinentError() {
 		JOptionPane.showMessageDialog(contentPane, "Add continent first", "Error", JOptionPane.ERROR_MESSAGE);
 	}
 
+	/**
+	 * Function to display error message dialog box.
+	 */
 	public void nullCountryError() {
 		JOptionPane.showMessageDialog(contentPane, "Map validation error", "Error", JOptionPane.ERROR_MESSAGE);
 	}
 
+	/**
+	 * Function to get the continent control value.
+	 * @return the continent control value.
+	 */
 	public String getControlValue() {
 		cv = (txtContinentControlValue.getText());
 		return cv;
 	}
 
+	/**
+	 * Function to clear and enable the continent associated text fields. 
+	 */
 	public void eraseContinentFields() {
 		txtContinentNameHere.setText("");
 		txtContinentControlValue.setText("");
@@ -605,26 +694,44 @@ public class ExistingMapEditor extends JFrame {
 		txtContinentControlValue.setEnabled(false);
 	}
 
+	/**
+	 * Function to clear the continent comboBox contents.
+	 */
 	public void clearComboBoxContents() {
 		comboBox.removeAllItems();
 		comboBox_3.removeAllItems();
 	}
 
+	/**
+	 * Function to clear the countries from comboBox.
+	 */
 	public void clearCountryComBoxContents() {
 		comboBox_2.removeAllItems();
 		comboBox_1.removeAllItems();
 	}
 
+	/**
+	 * Function to update the continent list view.
+	 * @param continent receives the newly added continent.
+	 */
 	public void setContinentsComboBox(String continent) {
 		comboBox.addItem(continent);
 		comboBox_3.addItem(continent);
 	}
 
+	/**
+	 * Function to update the country list view.
+	 * @param country receives the newly added country.
+	 */
 	public void setCountriesComboBox(String country) {
 		comboBox_1.addItem(country);
 		comboBox_2.addItem(country);
 	}
 	
+	/**
+	 * Function to return the existing map editor frame.
+	 * @return returns the existing map editor frame.
+	 */
 	public ExistingMapEditor getFrame() {
 		return this;
 	}
