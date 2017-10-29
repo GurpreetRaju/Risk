@@ -38,28 +38,119 @@ import java.awt.event.ActionEvent;
  */
 public class NewMap extends JFrame {
 
+	/**
+	 * Stores the JPanel of the frame of this class.
+	 */
 	private JPanel contentPane;
+	
+	/**
+	 * TextField that receives continent name.
+	 */
 	private JTextField txtContinentNameHere;
+	
+	/**
+	 * TextField that receives control value.
+	 */
 	private JTextField txtContinentControlValue;
+	
+	/**
+	 * TextField that receives country name.
+	 */
 	private JTextField txtCountryName;
+	
+	/**
+	 * ComboBox for continent dropdown.
+	 */
 	private JComboBox comboBox;
+	
+	/**
+	 * ComboBox for continent dropdown.
+	 */
 	private JComboBox comboBox_3;
+	
+	/**
+	 * Stores the object of MapNode.
+	 */
 	private MapNode mapNode;
+	
+	/**
+	 * Button to add continent.
+	 */
 	private JButton btnDone;
+	
+	/**
+	 * Button to add neighbours.
+	 */
 	private JButton btnAddNeighbours;
+	
+	/**
+	 * Creates the object of mapWrited class.
+	 */
 	private MapWriter mapWriter = new MapWriter();
+	
+	/**
+	 * String to hold the continent name.
+	 */
 	private String continentName;
+	
+	/**
+	 * String variable to hold the control value.
+	 */
 	private String cv;
+	
+	/**
+	 * Stores list of neighbours.
+	 */
 	private JList list;
+	
+	/**
+	 * ComboBox for storing list of countries.
+	 */
 	private JComboBox comboBox_1;
+	
+	/**
+	 * Defines list model for JList of neighbours.
+	 */
 	private DefaultListModel<String> model2;
+	
+	/**
+	 * Button to get country for adding neighbours.
+	 */
 	private JButton btnSelectedNeighbours;
+	
+	/**
+	 * Button to delete a continent.
+	 */
 	private JButton btnDeleteContinent;
+	
+	/**
+	 * Button to save a map.
+	 */
 	private JButton btnSaveMap;
+	
+	/**
+	 * Button to delete a country.
+	 */
 	private JButton btnDeleteCountry;
+	
+	/**
+	 * ComboBox to hold list of all countries.
+	 */
 	private JComboBox comboBox_2;
+	
+	/**
+	 * Button to add new country.
+	 */
 	private JButton btnAdd;
+	
+	/**
+	 * Button to add new country.
+	 */
 	private JButton btnAddCountry;
+	
+	/**
+	 * Button to add new continent.
+	 */
 	private JButton btnAddContinent;
 
 	/**
@@ -214,9 +305,6 @@ public class NewMap extends JFrame {
 		gbc_btnDeleteCountry.gridy = 8;
 		contentPane.add(btnDeleteCountry, gbc_btnDeleteCountry);
 
-		/**
-		 * includes list of countries to be deleted
-		 */
 		comboBox_2 = new JComboBox();			/*list of countries.*/
 		GridBagConstraints gbc_comboBox_2 = new GridBagConstraints();
 		ArrayList<String> choice = new ArrayList<>();
@@ -248,9 +336,6 @@ public class NewMap extends JFrame {
 		gbc_btnDeleteContinent.gridy = 11;
 		contentPane.add(btnDeleteContinent, gbc_btnDeleteContinent);
 
-		/**
-		 * includes list of continents to be deleted 
-		 */
 		comboBox_3 = new JComboBox();
 		GridBagConstraints gbc_comboBox_3 = new GridBagConstraints();
 		gbc_comboBox_3.gridwidth = 3;
@@ -270,9 +355,6 @@ public class NewMap extends JFrame {
 		gbc_btnAddNeighbours.gridy = 14;
 		contentPane.add(btnAddNeighbours, gbc_btnAddNeighbours);
 
-		/**
-		 * include all neighours to be included
-		 */
 		comboBox_1 = new JComboBox();
 		GridBagConstraints gbc_comboBox_11 = new GridBagConstraints();
 		comboBox_1.setToolTipText("Select country for adding neighbours");
@@ -322,10 +404,18 @@ public class NewMap extends JFrame {
 		contentPane.add(btnSaveMap, gbc_btnSaveMap);
 	}
 
+	/**
+	 * @see mapEditorController
+	 * @param newAction actionListener for add country button
+	 */
 	public void addActionsToBtnAddCountry(ActionListener newAction) {
 		btnAddCountry.addActionListener(newAction);
 	}
 
+	/**
+	 * @see mapEditorController
+	 * @param newAction actionlistener for add continent button.
+	 */
 	public void addActionsToBtnAddContinent(ActionListener newAction) {
 		btnAddContinent.addActionListener(newAction);
 	}
@@ -556,10 +646,16 @@ public class NewMap extends JFrame {
 		txtContinentControlValue.setEnabled(false);
 	}
 
+	/**
+	 * function to enable country field.
+	 */
 	public void enableCountryfield() {
 		txtCountryName.setEnabled(true);
 	}
 
+	/**
+	 * function to enable continent fields.
+	 */
 	public void enableContinentFields() {
 		txtContinentNameHere.setEnabled(true);
 		txtContinentControlValue.setEnabled(true);
