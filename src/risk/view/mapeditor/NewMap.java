@@ -693,5 +693,9 @@ public class NewMap extends JFrame {
 		comboBox_1.addItem(country);
 		comboBox_2.addItem(country);
 	}
+	
+	public NewMap getFrame() {
+		return this;
+	}
 }
 

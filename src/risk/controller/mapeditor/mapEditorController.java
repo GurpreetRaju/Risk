@@ -40,6 +40,8 @@ public class mapEditorController {
 	 * object of ExistingMapEditor class used for calling the class methods 
 	 */
 	ExistingMapEditor existingMapEditor;
+	
+	NewMap newMap;
 
 	/**
 	 * action listener applied on button "Choose Map File" for selecting map file
@@ -114,6 +116,10 @@ public class mapEditorController {
 		this.mapChooser.openFileChooseBtnAction(existingBtnAction);
 	}	
 
+	/**
+	 * Function to get the path of map file 
+	 * @return path of map file.
+	 */
 	public String getPath() {
 		return path;
 	}
@@ -122,8 +128,9 @@ public class mapEditorController {
 	 * NewMap Frame get initialize with this method
 	 */
 	public void newMapActions() {
-		NewMap newMap = new NewMap();
-
+		newMap = new NewMap();
+		newMap.setVisible(true);
+		
 		newMap.addActionsToBtnAddContinent(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				newMap.enableContinentFields();
@@ -295,7 +302,6 @@ public class mapEditorController {
 			}
 		});
 
-		newMap.setVisible(true);
 	}
 
 	public void existingMapActions() {

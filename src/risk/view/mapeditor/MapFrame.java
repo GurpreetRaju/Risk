@@ -105,7 +105,7 @@ public class MapFrame extends JFrame {
 		btnNewMap.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				selectedAction = "new";
-				frame.setVisible(true);
+				//frame.setVisible(true);
 				obj.newMapActions();
 			}
 		});
