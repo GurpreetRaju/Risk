@@ -317,6 +317,18 @@ public class Player {
 		neighbourC.setArmies(neighbourC.getArmiesCount() + selectedArmies);
 		return neighbourC.getArmiesCount();
 	}
+
+	public int selectDiceForAttack(String country) {
+		CountryNode aCountry = getCountry(country);
+		int aArmies = aCountry.getArmiesCount();
+		if(turn & aArmies>3) {
+			aArmies = 3;
+		}
+		else if(aArmies>2) {
+			aArmies = 2;
+		}
+		return GameDriver.getInstance().setUpBoxInput(1, aArmies,this.name+"! Please select number of dice to roll.");
+	}
 	
 }
 
