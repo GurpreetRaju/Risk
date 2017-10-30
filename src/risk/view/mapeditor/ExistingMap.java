@@ -56,11 +56,11 @@ public class ExistingMap extends JFrame {
 	private JComboBox comboBox_2;
 	private JButton btnDeleteCountry;
 	private JComboBox comboBox_3;
-	
+
 
 	ArrayList<MapNode> existingMap = new ArrayList<MapNode>();
 	JButton btnEdit;
-	
+
 	/**
 	 * Existing Map constructor calls initialize method of the class.
 	 * @param map arraylist of map nodes.
@@ -98,7 +98,7 @@ public class ExistingMap extends JFrame {
 			String[] contName = {existingMap.get(i).getContinentName(), Integer.toString(existingMap.get(i).getControlValue())};
 			model1.addRow(contName);
 		}
-		
+
 		JTable table1 = new JTable(model1);
 		table1.setToolTipText("Map file displayed here");
 		GridBagConstraints gbc_table1 = new GridBagConstraints();
@@ -193,7 +193,7 @@ public class ExistingMap extends JFrame {
 		gbc_btnEdit.gridy = 2;
 		contentPane.add(btnEdit, gbc_btnEdit);
 	}
-	
+
 	/**
 	 * @see mapEditorController
 	 * @param newAction actionListener for btnEdit
@@ -201,7 +201,7 @@ public class ExistingMap extends JFrame {
 	public void addActionsToBtnEdit(ActionListener newAction) {
 		btnEdit.addActionListener(newAction);
 	}
-	
+
 	/**
 	 * getting all the information from existing map
 	 * @return existing map info
