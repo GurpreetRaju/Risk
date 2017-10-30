@@ -304,7 +304,7 @@ public class ExistingMapEditor extends JFrame {
 		txtCountryName.setFont(new Font("Tahoma", Font.ITALIC, 13));
 		txtCountryName.setForeground(Color.BLACK);
 		txtCountryName.setEnabled(false);
-		txtCountryName.setText("Country Name here...");
+		txtCountryName.setText("");
 		GridBagConstraints gbc_txtCountryName = new GridBagConstraints();
 		gbc_txtCountryName.insets = new Insets(0, 0, 5, 0);
 		gbc_txtCountryName.fill = GridBagConstraints.HORIZONTAL;

@@ -191,7 +191,7 @@ public class NewMap extends JFrame {
 		gbc_lblCreateYourOwn.gridy = 0;
 		contentPane.add(lblCreateYourOwn, gbc_lblCreateYourOwn);
 
-		JButton btnAddContinent = new JButton("New Continent");
+		btnAddContinent = new JButton("New Continent");
 		btnAddContinent.setForeground(Color.BLACK);
 		btnAddContinent.setFont(new Font("Bookman Old Style", Font.BOLD | Font.ITALIC, 18));
 		btnAddContinent.setBackground(new Color(240, 255, 255));
