@@ -9,6 +9,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerModel;
@@ -23,9 +24,14 @@ public class ControlsView extends JPanel {
 	private static final long serialVersionUID = -2537156060382941763L;
 	
 	/**
-	 * Spinner to display armies count available to the player for Reinforcement phase.
+	 * Spinner to display armies count available to the player for Reinforcement phase, Fortification phase and attack phase.
 	 */
 	private JSpinner armiesSpinner;
+	
+	/**
+	 * Spinner to display armies count available to the player for attack phase.
+	 */
+	private JSpinner armiesSpinner2;
 	
 	/**
 	 * ComboBox to display the countries owned by the current player.
@@ -163,13 +169,13 @@ public class ControlsView extends JPanel {
 		this.armiesSpinner.setModel(new SpinnerNumberModel(1, 0, armies-1, 1));
 		this.armiesSpinner.setEnabled(true);
 		setNeighborList(neighbourNames);
-		this.playMove.setEnabled(true);
 	}
 
 	public void setNeighborList(String[] newNeighbourNames) {
 		this.neighborList.setModel(new DefaultComboBoxModel<String>(newNeighbourNames));
 		this.neighborList.setSelectedIndex(0);
 		this.neighborList.setEnabled(true);
+		this.playMove.setEnabled(true);
 	}
 	
 	/**
@@ -213,7 +219,8 @@ public class ControlsView extends JPanel {
 		neighborList = new JComboBox<String>();
 		neighborList.setEnabled(false);
 		
-		playMove = new JButton("Anounce attack");
+		playMove = new JButton("Announce attack");
+		playMove.setEnabled(false);
 		endPhase = new JButton("Skip attack");
 		
 		this.add(new Label("Country "));
@@ -226,4 +233,5 @@ public class ControlsView extends JPanel {
 		this.revalidate();
 		this.repaint();
 	}
+	
 }

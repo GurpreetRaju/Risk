@@ -1,6 +1,8 @@
 package risk.model;
 
 import java.util.ArrayList;
+import java.util.Random;
+
 import risk.controller.Controller;
 import risk.model.map.Map;
 import risk.model.map.MapNode;
@@ -338,8 +340,61 @@ public class GameDriver {
 		CountryNode countrySelect = this.currentPlayer.getCountry(countrySelected);
 		if(countrySelect.getArmiesCount()>1) {
 			ArrayList<String> neighborList = map.getPlayerNeighbourCountries(countrySelect,this.currentPlayer,false);
-			controller.updateNeighborList(neighborList.toArray(new String[neighborList.size()])); 
+			controller.updateNeighborList(neighborList.toArray(new String[neighborList.size()]));
 		}
 	}
+	
+	public void announceAttack(String attackerCountry, String defenderCountry) {
+		//Announce attack
+		CountryNode dCountry = map.getCountry(defenderCountry);
+		Player defender = dCountry.getOwner();
+		int aArmies = this.currentPlayer.selectDiceForAttack(attackerCountry);
+		int dArmies = defender.selectDiceForAttack(defenderCountry);
+		ArrayList<Integer> aResults = diceRoll(aArmies);
+		ArrayList<Integer> dResults = diceRoll(dArmies);
+		int i=0;
+		while(!aResults.isEmpty() && !dResults.isEmpty()) {
+			int aMax = max(aResults);
+			int dMax = max(dResults);
+			if(aResults.get(aMax)>dResults.get(dMax)) {
+				dCountry.removeArmy();
+			}
+			else {
+				currentPlayer.getCountry(attackerCountry).removeArmy();
+			}
+			aResults.remove(aMax);
+			dResults.remove(dMax);
+		}
+		//check if countries have armies
+	}
+
+	public int setUpBoxInput(int min, int max, String message) {
+		return controller.setUpBoxInput(min, max, message);
+	}
+	
+	/**
+	 * Generate random values between 1 and 6 and add them to an arraylist.
+	 * @param number of values to be generated.
+	 * @return integer number that represents the value on the dice.
+	 */
+	private ArrayList<Integer> diceRoll(int n) {
+		Random rand = new Random();
+		ArrayList<Integer> diceResults = new ArrayList<Integer>();
+		for(int i=0;i<n;i++) {
+			diceResults.add(rand.nextInt(6) + 1);
+		}		
+		return diceResults;
+	}
+	
+	private int max(ArrayList<Integer> array) {
+        int n = array.size();
+        int max = 0;
+        for(int i=1;i<n;i++) {
+			if(array.get(i)>array.get(max)) {
+				max = i;
+			}
+		}
+        return max;
+    }
 	
 }

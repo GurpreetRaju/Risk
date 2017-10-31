@@ -233,8 +233,7 @@ public class Controller {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				if(controlsGUI.isNeighbourSelected()) {
-//Anounce attack
-//set spinners with number of dice that can be selected
+					driver.announceAttack(controlsGUI.getCountrySelected(),controlsGUI.getNeighborSelected());
 				}
 			}
 		});
@@ -249,6 +248,10 @@ public class Controller {
 
 	public void updateNeighborList(String[] neighbourList) {
 		controlsGUI.setNeighborList(neighbourList);
+	}
+
+	public int setUpBoxInput(int min, int max, String message) {
+		return setupBox.getInput(min, max,message);
 	}
 	
 }

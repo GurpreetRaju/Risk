@@ -208,6 +208,9 @@ public class CountryNode {
 
 	public void removeNeighbour(CountryNode neighbourNode) {
 		neighbourCountries.remove(neighbourNode);	
+  
+	public void removeArmy() {
+		armies = armies-1;	
 	}
 	
 }

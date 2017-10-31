@@ -185,4 +185,14 @@ public class Map extends Observable {
 		return playerNeighbourCountries;
 	}
 	
+	public CountryNode getCountry(String countryName) {
+		CountryNode c = null;
+		for(MapNode m: this.mapData) {
+			c = CountryNode.getCountry(m.getCountryList(), countryName);
+			if(c!=null) {
+				break;
+			}
+		}
+		return c;
+	}
 }
