@@ -132,6 +132,8 @@ public class ExistingMapEditor extends JFrame {
 	 */
 	private DefaultListModel<String> model2;
 
+	private DefaultListModel<String> model1;
+	
 	/**
 	 * Button for selected neighbours. 
 	 */
@@ -166,6 +168,7 @@ public class ExistingMapEditor extends JFrame {
 	 * Button to update country arrayList
 	 */
 	private JButton btnAddCountry;
+	
 	private JButton btnDeleteNeighbours;
 	private JComboBox comboBox_4;
 	private JLabel lblNeighboursOfSelected;
@@ -447,6 +450,11 @@ public class ExistingMapEditor extends JFrame {
 		gbc_comboBox_4.gridx = 2;
 		gbc_comboBox_4.gridy = 20;
 		contentPane.add(comboBox_4, gbc_comboBox_4);
+		for (MapNode mapNode : continents) {
+			for (CountryNode countryNode : mapNode.getCountries()) {
+				comboBox_4.addItem(countryNode.getCountryName());
+			}
+		}
 		
 		lblNeighboursOfSelected = new JLabel("Neighbours of selected country");
 		lblNeighboursOfSelected.setFont(new Font("Bookman Old Style", Font.BOLD | Font.ITALIC, 18));
@@ -456,13 +464,18 @@ public class ExistingMapEditor extends JFrame {
 		gbc_lblNeighboursOfSelected.gridy = 22;
 		contentPane.add(lblNeighboursOfSelected, gbc_lblNeighboursOfSelected);
 		
+		model1 = new DefaultListModel<String>();
 		list_1 = new JList();
+		list_1.setModel(model1);
+		JScrollPane scrollPane1 = new JScrollPane(list_1);
+		list_1.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 		GridBagConstraints gbc_list_1 = new GridBagConstraints();
 		gbc_list_1.insets = new Insets(0, 0, 5, 5);
 		gbc_list_1.fill = GridBagConstraints.BOTH;
 		gbc_list_1.gridx = 2;
 		gbc_list_1.gridy = 22;
 		contentPane.add(list_1, gbc_list_1);
+		list_1.setEnabled(false);
 		
 		btnDeleteSelectedNeighbours = new JButton("Delete selected Neighbours");
 		GridBagConstraints gbc_btnDeleteSelectedNeighbours = new GridBagConstraints();
@@ -521,6 +534,14 @@ public class ExistingMapEditor extends JFrame {
 	 */
 	public void addActionsToBtnAddNeighbours(ActionListener newAction) {
 		btnAddNeighbours.addActionListener(newAction);
+	}
+	
+	public void addActionsToBtnDeleteNeighbours(ActionListener newAction) {
+		 		btnDeleteNeighbours.addActionListener(newAction);
+	}
+	
+	public void addActionsToBtnDeleteSelectedNeighbours(ActionListener newAction) {
+		 		btnDeleteSelectedNeighbours.addActionListener(newAction);
 	}
 	
 	/**
@@ -598,11 +619,19 @@ public class ExistingMapEditor extends JFrame {
 		return (list.getSelectedValuesList());
 	}
 	
+	public List getNeighboursList_1() {
+		 return (list_1.getSelectedValuesList());
+	}
+	
 	/**
 	 * Function to enable JList.
 	 */
 	public void enableJList() {
 		list.setEnabled(true);
+	}
+	
+	public void enableJList_1() {
+		list_1.setEnabled(true);
 	}
 	
 	/**
@@ -638,6 +667,10 @@ public class ExistingMapEditor extends JFrame {
 		return (comboBox_1.getSelectedItem().toString());
 	}
 	
+	public String getSelectedCountryForNeighbourDeletion() {
+		return (comboBox_4.getSelectedItem().toString());
+	}
+	
 	/**
 	 *Function to get selected country for deletion.
 	 * @return selected country for deletion.
@@ -668,6 +701,10 @@ public class ExistingMapEditor extends JFrame {
 	public void clearNeighboursJList() {
 		model2.removeAllElements();
 	}
+	
+	public void clearNeighboursJList_1() {
+		model1.removeAllElements();
+	}
 
 	/**
 	 * Function to update the neighbour JList view.
@@ -675,6 +712,10 @@ public class ExistingMapEditor extends JFrame {
 	 */
 	public void addPossibleNeighboursToJList(String neighbour) {
 		model2.addElement(neighbour);
+	}
+	
+	public void addPossibleNeighboursToJList_1(String neighbour) {
+		model1.addElement(neighbour);
 	}
 
 	/**
@@ -754,6 +795,7 @@ public class ExistingMapEditor extends JFrame {
 	public void clearCountryComBoxContents() {
 		comboBox_2.removeAllItems();
 		comboBox_1.removeAllItems();
+		comboBox_4.removeAllItems();
 	}
 
 	/**
@@ -772,6 +814,7 @@ public class ExistingMapEditor extends JFrame {
 	public void setCountriesComboBox(String country) {
 		comboBox_1.addItem(country);
 		comboBox_2.addItem(country);
+		comboBox_4.removeAllItems();
 	}
 	
 	/**
