@@ -166,6 +166,11 @@ public class ExistingMapEditor extends JFrame {
 	 * Button to update country arrayList
 	 */
 	private JButton btnAddCountry;
+	private JButton btnDeleteNeighbours;
+	private JComboBox comboBox_4;
+	private JLabel lblNeighboursOfSelected;
+	private JList list_1;
+	private JButton btnDeleteSelectedNeighbours;
 
 	/**
 	 * NewMap constructor calls initialize method of the class
@@ -194,7 +199,7 @@ public class ExistingMapEditor extends JFrame {
 		gbl_contentPane.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0};
 		gbl_contentPane.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gbl_contentPane.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 1.0, Double.MIN_VALUE};
-		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 
 		JLabel lblCreateYourOwn = new JLabel("Edit the existing map file!");
@@ -419,12 +424,53 @@ public class ExistingMapEditor extends JFrame {
 		list.setEnabled(false);
 
 		btnSelectedNeighbours = new JButton("Add selected countries as neighbours");
-		GridBagConstraints gbc_button = new GridBagConstraints();
-		gbc_button.anchor = GridBagConstraints.EAST;
-		gbc_button.insets = new Insets(0, 0, 5, 5);
-		gbc_button.gridx = 2;
-		gbc_button.gridy = 17;
-		contentPane.add(btnSelectedNeighbours, gbc_button);
+		GridBagConstraints gbc_btnDeleteNeighbours = new GridBagConstraints();
+		gbc_btnDeleteNeighbours.anchor = GridBagConstraints.EAST;
+		gbc_btnDeleteNeighbours.insets = new Insets(0, 0, 5, 5);
+		gbc_btnDeleteNeighbours.gridx = 2;
+		gbc_btnDeleteNeighbours.gridy = 17;
+		contentPane.add(btnSelectedNeighbours, gbc_btnDeleteNeighbours);
+		
+		btnDeleteNeighbours = new JButton("Delete Neighbours");
+		btnDeleteNeighbours.setFont(new Font("Bookman Old Style", Font.BOLD | Font.ITALIC, 18));
+		gbc_btnDeleteNeighbours = new GridBagConstraints();
+		gbc_btnDeleteNeighbours.fill = GridBagConstraints.HORIZONTAL;
+		gbc_btnDeleteNeighbours.insets = new Insets(0, 0, 5, 5);
+		gbc_btnDeleteNeighbours.gridx = 1;
+		gbc_btnDeleteNeighbours.gridy = 20;
+		contentPane.add(btnDeleteNeighbours, gbc_btnDeleteNeighbours);
+		
+		comboBox_4 = new JComboBox();
+		GridBagConstraints gbc_comboBox_4 = new GridBagConstraints();
+		gbc_comboBox_4.insets = new Insets(0, 0, 5, 5);
+		gbc_comboBox_4.fill = GridBagConstraints.HORIZONTAL;
+		gbc_comboBox_4.gridx = 2;
+		gbc_comboBox_4.gridy = 20;
+		contentPane.add(comboBox_4, gbc_comboBox_4);
+		
+		lblNeighboursOfSelected = new JLabel("Neighbours of selected country");
+		lblNeighboursOfSelected.setFont(new Font("Bookman Old Style", Font.BOLD | Font.ITALIC, 18));
+		GridBagConstraints gbc_lblNeighboursOfSelected = new GridBagConstraints();
+		gbc_lblNeighboursOfSelected.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNeighboursOfSelected.gridx = 1;
+		gbc_lblNeighboursOfSelected.gridy = 22;
+		contentPane.add(lblNeighboursOfSelected, gbc_lblNeighboursOfSelected);
+		
+		list_1 = new JList();
+		GridBagConstraints gbc_list_1 = new GridBagConstraints();
+		gbc_list_1.insets = new Insets(0, 0, 5, 5);
+		gbc_list_1.fill = GridBagConstraints.BOTH;
+		gbc_list_1.gridx = 2;
+		gbc_list_1.gridy = 22;
+		contentPane.add(list_1, gbc_list_1);
+		
+		btnDeleteSelectedNeighbours = new JButton("Delete selected Neighbours");
+		GridBagConstraints gbc_btnDeleteSelectedNeighbours = new GridBagConstraints();
+		gbc_btnDeleteSelectedNeighbours.anchor = GridBagConstraints.EAST;
+		gbc_btnDeleteSelectedNeighbours.insets = new Insets(0, 0, 5, 5);
+		gbc_btnDeleteSelectedNeighbours.gridx = 2;
+		gbc_btnDeleteSelectedNeighbours.gridy = 23;
+		contentPane.add(btnDeleteSelectedNeighbours, gbc_btnDeleteSelectedNeighbours);
 
 		btnSaveMap = new JButton("Save Map");
 		btnSaveMap.setBackground(new Color(152, 251, 152));
