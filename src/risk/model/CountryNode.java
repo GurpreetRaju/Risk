@@ -206,6 +206,9 @@ public class CountryNode {
 		this.coordiantes = newCoordinates;		
 	}
 
+	public void removeNeighbour(CountryNode neighbourNode) {
+		neighbourCountries.remove(neighbourNode);	
+  
 	public void removeArmy() {
 		armies = armies-1;	
 	}
