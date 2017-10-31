@@ -40,7 +40,7 @@ public class mapEditorController {
 	 * object of ExistingMapEditor class used for calling the class methods 
 	 */
 	ExistingMapEditor existingMapEditor;
-	
+
 	NewMap newMap;
 
 	/**
@@ -130,7 +130,7 @@ public class mapEditorController {
 	public void newMapActions() {
 		newMap = new NewMap();
 		newMap.setVisible(true);
-		
+
 		newMap.addActionsToBtnAddContinent(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				newMap.enableContinentFields();
@@ -182,6 +182,24 @@ public class mapEditorController {
 			}
 		});
 
+		newMap.addActionsToBtnDeleteNeighbours(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				newMap.enableJList_1();
+				String sCountrytToDeleteNeighbour = newMap.getSelectedCountryForNeighbourDeletion();
+				newMap.clearNeighboursJList_1();
+
+				for (MapNode node : mapModel.getContinents()){
+					for (CountryNode countryNode : node.getCountries()){
+						if(sCountrytToDeleteNeighbour.compareTo(countryNode.getCountryName())==0) {
+							for (CountryNode neighbour : countryNode.getNeighbourCountries() ) {
+								newMap.addPossibleNeighboursToJList_1(neighbour.getCountryName());
+							}
+						}
+					}
+				}
+			}
+		});
+
 		newMap.addActionsToBtnSelectedNeighbours(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(newMap.getNeighboursList().isEmpty()) {
@@ -204,6 +222,30 @@ public class mapEditorController {
 				}	
 			}
 		});
+		
+		newMap.addActionsToBtnDeleteSelectedNeighbours(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(newMap.getNeighboursList_1().isEmpty()) {
+					newMap.noSelectedNeighboursError();
+				}else {
+					ArrayList<CountryNode> neighbours_1= new ArrayList<CountryNode>();
+					for (Object ncountry : newMap.getNeighboursList_1()){
+						CountryNode cn =  new CountryNode(ncountry.toString(), null, null);
+						neighbours_1.add(cn);
+					}
+					for (MapNode node : mapModel.getContinents()){
+						for (CountryNode cNode : node.getCountries()){
+							String sCountrytToDeleteNeighbour = newMap.getSelectedCountryForNeighbourDeletion();
+							if(sCountrytToDeleteNeighbour.compareTo(cNode.getCountryName())==0)
+								for (CountryNode neighbourNode : neighbours_1){
+									cNode.removeNeighbour(neighbourNode);	//check
+								}
+						}
+					}
+				}	
+			}
+		});
+
 
 		newMap.addActionsToBtnDeleteContinent(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

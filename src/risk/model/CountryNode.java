@@ -205,5 +205,9 @@ public class CountryNode {
 	public void setCoordinates(int[] newCoordinates) {
 		this.coordiantes = newCoordinates;		
 	}
+
+	public void removeNeighbour(CountryNode neighbourNode) {
+		neighbourCountries.remove(neighbourNode);	
+	}
 	
 }
