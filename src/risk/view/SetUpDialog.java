@@ -56,21 +56,21 @@ public class SetUpDialog {
 	private String mapRead = null;
 	
 	/**
-	 * Ask user to enter the number of players.
+	 * Ask user to enter an integer value.
 	 * @return number of players entered by user or by default 2.
 	 */
-	private int getPlayerCount(){
+	public int getInput(int min, int max, String message){
 		 JPanel box = new JPanel();
-		 SpinnerModel sm = new SpinnerNumberModel(2, 2, 6, 1); 
+		 SpinnerModel sm = new SpinnerNumberModel(min, min, max, 1); 
 		 JSpinner inputSpinner = new JSpinner(sm);
-         box.add(new JLabel("Number of players: "));
+         box.add(new JLabel("Input"));
          box.add(inputSpinner);
          
-         int result = JOptionPane.showConfirmDialog(null, box, "Enter number of Players", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+         int result = JOptionPane.showConfirmDialog(null, box, message, JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
          if (result == JOptionPane.OK_OPTION) {
              return (int) inputSpinner.getValue();
          }
-		return 2;
+		return min;
 	}
 	
 	/**
@@ -78,7 +78,7 @@ public class SetUpDialog {
 	 * @return string array containing number of players.
 	 */
 	public String[] getPlayerInfo() {
-		int n = getPlayerCount();
+		int n = getInput(2,6,"Enter number of Players");
 		System.out.println(n);
 		playerNames = new String[n];
 		
@@ -181,4 +181,5 @@ public class SetUpDialog {
 	public void playGameAction(ActionListener newAction) {
 		this.playGame.addActionListener(newAction);
 	}
+
 }
