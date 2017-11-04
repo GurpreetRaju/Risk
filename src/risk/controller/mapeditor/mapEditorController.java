@@ -185,12 +185,12 @@ public class mapEditorController {
 		newMap.addActionsToBtnDeleteNeighbours(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				newMap.enableJList_1();
-				String sCountrytToDeleteNeighbour = newMap.getSelectedCountryForNeighbourDeletion();
+				String sCountryToDeleteNeighbour = newMap.getSelectedCountryForNeighbourDeletion();
 				newMap.clearNeighboursJList_1();
 
 				for (MapNode node : mapModel.getContinents()){
 					for (CountryNode countryNode : node.getCountries()){
-						if(sCountrytToDeleteNeighbour.compareTo(countryNode.getCountryName())==0) {
+						if(sCountryToDeleteNeighbour.compareTo(countryNode.getCountryName())==0) {
 							for (CountryNode neighbour : countryNode.getNeighbourCountries() ) {
 								newMap.addPossibleNeighboursToJList_1(neighbour.getCountryName());
 							}
@@ -215,7 +215,18 @@ public class mapEditorController {
 							String sCountrytToAddNeighbour = newMap.getSelectedCountryForNeighbours();
 							if(sCountrytToAddNeighbour.compareTo(cNode.getCountryName())==0)
 								for (CountryNode neighbourNode : neighbours){
-									cNode.addNeighbour(neighbourNode);	
+									cNode.addNeighbour(neighbourNode);
+									
+									//create bidirectional link between the countries
+									//check
+									for (MapNode subNode : mapModel.getContinents()) {
+										for (CountryNode subCNode : subNode.getCountries()) {
+											if(neighbourNode.getCountryName().compareTo(subCNode.getCountryName())==0) {
+												neighbourNode.addNeighbour(cNode);
+											}
+										}
+									}//check	
+									
 								}
 						}
 					}
@@ -223,6 +234,7 @@ public class mapEditorController {
 			}
 		});
 		
+		//check
 		newMap.addActionsToBtnDeleteSelectedNeighbours(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(newMap.getNeighboursList_1().isEmpty()) {
@@ -244,7 +256,7 @@ public class mapEditorController {
 					}
 				}	
 			}
-		});
+		});//check
 
 
 		newMap.addActionsToBtnDeleteContinent(new ActionListener() {
