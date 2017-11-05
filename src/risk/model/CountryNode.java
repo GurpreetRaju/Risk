@@ -207,7 +207,15 @@ public class CountryNode {
 	}
 
 	public void removeNeighbour(CountryNode neighbourNode) {
-		neighbourCountries.remove(neighbourNode);
+		CountryNode cn1 = new CountryNode(null,null,null);
+		for (CountryNode cn : neighbourCountries ) {
+			if(cn.getCountryName().compareTo(neighbourNode.getCountryName())==0) {
+				cn1 = cn;
+				
+			}
+		}
+		neighbourCountries.remove(cn1);
+		
 	}
   
 	public void removeArmy() {
