@@ -11,15 +11,30 @@ import risk.model.map.MapModel;
 import risk.model.map.MapNode;
 import risk.model.map.MapReader;
 
+/**
+ * This class tests all MapModel functions.
+ * @author Harinder
+ * 
+ */
 public class TestMapModel {
-
-private MapModel mapModel;
 	
+	/**
+	 * MapModel reference variable to store its object.
+	 */
+	private MapModel mapModel;
+	
+	/**
+	 * This function is called before every test case.
+	 * @throws Exception any throwable exception.
+	 */
 	@Before
 	public void setUp() throws Exception {
 		mapModel = new MapModel();
 	}
 	
+	/**
+	 * Tests the MapModel function that checks that the map is a connected graph.
+	 */
 	@Test 
 	public void testCheckConnectedMap() {
 		String cn = "Asia";
@@ -42,6 +57,9 @@ private MapModel mapModel;
 		Assert.assertEquals(expected, actual);
 	}
 	
+	/**
+	 * Tests the MapModel function that checks for unique continents.
+	 */
 	@Test
 	public void testCheckContinentExist() {
 		String continent1 = "Asia";
@@ -56,6 +74,9 @@ private MapModel mapModel;
 		Assert.assertEquals(actual, expected);
 	}
 	
+	/**
+	 * Tests the MapModel function that adds a new continent to the map.
+	 */
 	@Test
 	public void testCheckAddContinent() {
 		String cn = "Europe";
@@ -74,6 +95,9 @@ private MapModel mapModel;
 		Assert.assertEquals(continent, "Europe");
 	}
 	
+	/**
+	 * Tests the MapModel function that checks for unique countries.
+	 */
 	@Test
 	public void testCheckCountryExist() {
 		String cn = "Europe";

@@ -10,16 +10,51 @@ import risk.model.GameDriver;
 import risk.model.Player;
 import risk.model.map.MapNode;
 
+/**
+ * Test class that tests all the functions of TurnManager.
+ *
+ */
 public class TestTurnManager {
 
+	/**
+	 * ArrayList to store names of owned neighbors.
+	 */
 	ArrayList<String> actualOwnedNeighbors;
+	
+	/**
+	 * Creates the controller object.
+	 */
 	Controller controller = new Controller(GameDriver.getInstance());
-	CountryNode country1 = new CountryNode("Country1", null, null, null);
-	CountryNode country2 = new CountryNode("Country2", null, null, null);
+	
+	/**
+	 * Creates a CountryNode.
+	 */
+	CountryNode country1 = new CountryNode("Country1", null, null,null);
+	
+	/**
+	 * Creates a CountryNode.
+	 */
+	CountryNode country2 = new CountryNode("Country2", null, null,null);
+	
+	/**
+	 * Creates a CountryNode.
+	 */
 	CountryNode country3 = new CountryNode("Country3", null, null, null);
+	
+	/**
+	 * Creates a CountryNode.
+	 */
 	CountryNode country4 = new CountryNode("Country4", null, null, null);
+	
+	/**
+	 * Creates a CountryNode.
+	 */
 	CountryNode country5 = new CountryNode("Country5", null, null, null);
 	
+	/**
+	 * Called before each test case is run.
+	 * Sets the player and map data.
+	 */
 	@Before
 	public void setPlayerAndMapData() {
 		ArrayList<MapNode> mapData = new ArrayList<MapNode>();
@@ -65,6 +100,10 @@ public class TestTurnManager {
 		country5.addArmy(1);
 	}
 	
+	/**
+	 * Tests the neighbourList function of TurnManager.
+	 * @see TurnManager.
+	 */
 	@Test
 	public void testNeighborList(){
 //		actualOwnedNeighbors = controller.getCorrectNeighbors(country1);
