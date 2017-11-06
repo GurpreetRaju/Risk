@@ -292,8 +292,23 @@ public class Player {
 	}
 	
 	public void attackPhase(){
-		GameDriver.getInstance().getControlGUI().attackControls(getCountriesNames());
-		GameDriver.getInstance().setAttackListeners();
+		ArrayList<String> countriesList = new ArrayList<String>();
+		for(CountryNode c : this.countries) {
+			if(c.getArmiesCount()>1) {
+				for(CountryNode n: c.getNeighbourCountries()) {
+					if(!n.getOwner().equals(this)) {
+						countriesList.add(c.getCountryName());
+					}
+				}
+			}
+		}
+		if(countriesList.isEmpty()) {
+			GameDriver.getInstance().changePhase();
+		}
+		else {
+			GameDriver.getInstance().getControlGUI().attackControls(countriesList.toArray(new String[countriesList.size()]));
+			GameDriver.getInstance().setAttackListeners();
+		}
 	}
 
 	public void fortificationPhase(){
@@ -331,8 +346,11 @@ public class Player {
 	public int selectDiceForAttack(String country) {
 		CountryNode aCountry = getCountry(country);
 		int aArmies = aCountry.getArmiesCount();
-		if(turn & aArmies>3) {
+		if(turn && aArmies>4) {
 			aArmies = 3;
+		}
+		else if(turn) {
+			aArmies =- 1;
 		}
 		else if(aArmies>2) {
 			aArmies = 2;
