@@ -14,11 +14,11 @@ public class TestTurnManager {
 
 	ArrayList<String> actualOwnedNeighbors;
 	Controller controller = new Controller(GameDriver.getInstance());
-	CountryNode country1 = new CountryNode("Country1", null, null);
-	CountryNode country2 = new CountryNode("Country2", null, null);
-	CountryNode country3 = new CountryNode("Country3", null, null);
-	CountryNode country4 = new CountryNode("Country4", null, null);
-	CountryNode country5 = new CountryNode("Country5", null, null);
+	CountryNode country1 = new CountryNode("Country1", null, null, null);
+	CountryNode country2 = new CountryNode("Country2", null, null, null);
+	CountryNode country3 = new CountryNode("Country3", null, null, null);
+	CountryNode country4 = new CountryNode("Country4", null, null, null);
+	CountryNode country5 = new CountryNode("Country5", null, null, null);
 	
 	@Before
 	public void setPlayerAndMapData() {

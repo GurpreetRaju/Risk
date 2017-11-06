@@ -2,6 +2,8 @@ package risk.model;
 
 import java.util.ArrayList;
 
+import risk.model.map.MapNode;
+
 /**
  * This class store the information of a country.
  * @author Gurpreet
@@ -35,15 +37,21 @@ public class CountryNode {
 	private int armies;
 	
 	/**
+	 * Continent this country belongs to.
+	 */
+	private MapNode continent;
+	
+	/**
 	 * This constructor initialize the attributes of this country.
 	 * @param newName name of country.
 	 * @param newNeighbours neighboring countries of this country.
 	 * @param newCoordinates x and y coordinates of country.
 	 */
-	public CountryNode(String newName,ArrayList<CountryNode> newNeighbours, int[] newCoordinates) {
+	public CountryNode(String newName,ArrayList<CountryNode> newNeighbours, int[] newCoordinates,MapNode newContinent) {
 		this.countryName = newName;
 		this.neighbourCountries = newNeighbours;
 		this.coordiantes = newCoordinates;
+		this.continent = newContinent;
 		this.owner = null;
 		this.armies = 0;
 	}
@@ -214,7 +222,7 @@ public class CountryNode {
 	 * @param neighbourNode receives country to be deleted as neighbor.  
 	 */
 	public void removeNeighbour(CountryNode neighbourNode) {
-		CountryNode cn1 = new CountryNode(null,null,null);
+		CountryNode cn1 = new CountryNode(null,null,null,null);
 		for (CountryNode cn : neighbourCountries ) {
 			if(cn.getCountryName().compareTo(neighbourNode.getCountryName())==0) {
 				cn1 = cn;
@@ -229,6 +237,22 @@ public class CountryNode {
 	 */
 	public void removeArmy() {
 		armies = armies-1;	
+	}
+	
+	/**
+	 * Return continent to which this country belongs.
+	 * @return object of MapNode this country belongs to.
+	 */
+	public MapNode getContinent() {
+		return this.continent;
+	}
+	
+	/**
+	 * Set continent this country belongs to.
+	 * @param newContinent Set continent this country belongs to.
+	 */
+	public void setContinent(MapNode newContinent) {
+		this.continent = newContinent;
 	}
 	
 }

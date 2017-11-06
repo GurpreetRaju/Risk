@@ -29,11 +29,11 @@ public class TestGameDriver {
 	public void setPlayerAndMapData(){
 		controller = new Controller(GameDriver.getInstance());
 		ArrayList<MapNode> mapData = new ArrayList<MapNode>();
-		country1 = new CountryNode("Country1", null, null);
-		country2 = new CountryNode("Country2", null, null);
-		country3 = new CountryNode("Country3", null, null);
-		country4 = new CountryNode("Country4", null, null);
-		country5 = new CountryNode("Country5", null, null);
+		country1 = new CountryNode("Country1", null, null, null);
+		country2 = new CountryNode("Country2", null, null, null);
+		country3 = new CountryNode("Country3", null, null, null);
+		country4 = new CountryNode("Country4", null, null, null);
+		country5 = new CountryNode("Country5", null, null, null);
 		country1.addNeighbour(country2);
 		country2.addNeighbour(country1);
 		country1.addNeighbour(country3);

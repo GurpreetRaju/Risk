@@ -184,7 +184,11 @@ public class Map extends Observable {
 		}
 		return playerNeighbourCountries;
 	}
-	
+	/**
+	 * Get object of country from its name
+	 * @param countryName name of country
+	 * @return object of CountryNode required
+	 */
 	public CountryNode getCountry(String countryName) {
 		CountryNode c = null;
 		for(MapNode m: this.mapData) {
@@ -194,5 +198,21 @@ public class Map extends Observable {
 			}
 		}
 		return c;
+	}
+	/**
+	 * Check if a continent is owned by a player to which country belongs
+	 * @param player player for which the continent to be checked
+	 * @param country a country from continent to be checked
+	 * @return true if continent belongs to player, false if continent not belongs to player
+	 */
+	public boolean continentWonByPlayer(Player player,CountryNode country) {
+		MapNode m = country.getContinent();	
+		for(CountryNode c : m.getCountries()) {
+			if(c.getOwner()!=player) {
+					return false;
+			}
+			return true;
+		}
+		return false;
 	}
 }

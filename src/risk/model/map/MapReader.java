@@ -53,7 +53,7 @@ public class MapReader {
 						for(MapNode n : map){
 							if(n.getContinentName().equals(temp[3])){
 								if(!CountryNode.contains(stack, temp[0])){
-									stack.add(new CountryNode(temp[0], null, null));
+									stack.add(new CountryNode(temp[0], null, null,null));
 								}
 								
 								CountryNode newCountry = CountryNode.getCountry(stack, temp[0]);
@@ -62,7 +62,7 @@ public class MapReader {
 								if(temp.length>4) {
 									for(int i=4;i<temp.length;i++){
 										if(!CountryNode.contains(stack, temp[i])){
-											stack.add(new CountryNode(temp[i], null, null));
+											stack.add(new CountryNode(temp[i], null, null,null));
 										}
 										newCountry.addNeighbour(CountryNode.getCountry(stack, temp[i]));
 									}
