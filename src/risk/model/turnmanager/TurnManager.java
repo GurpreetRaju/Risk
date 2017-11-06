@@ -35,6 +35,7 @@ public class TurnManager {
 	}
 	
 	public void startTurn(Player currentPlayer) {
+		currentPlayer.setArmies(this.getCurrentPlayer().getArmies());
 		currentPlayer.reinforcementPhase();
 	}
 	
