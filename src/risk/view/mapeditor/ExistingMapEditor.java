@@ -814,7 +814,7 @@ public class ExistingMapEditor extends JFrame {
 	public void setCountriesComboBox(String country) {
 		comboBox_1.addItem(country);
 		comboBox_2.addItem(country);
-		comboBox_4.removeAllItems();
+		comboBox_4.addItem(country);
 	}
 	
 	/**
