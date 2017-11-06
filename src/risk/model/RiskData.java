@@ -11,7 +11,7 @@ public enum RiskData {
 			int armies = 0;
 			switch(n){
 				case 2:
-					armies = 40;
+					armies = 10;
 					break;
 				case 3:
 					armies = 35;

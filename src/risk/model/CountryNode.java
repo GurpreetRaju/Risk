@@ -115,6 +115,9 @@ public class CountryNode {
 	 * @param player player instance.
 	 */
 	public void setOwner(Player player) {
+		if(this.owner != null) {
+			this.owner.removeCountry(this);
+		}
 		this.owner = player;
 		player.addCountry(this);
 	}

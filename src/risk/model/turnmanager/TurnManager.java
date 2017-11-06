@@ -56,7 +56,7 @@ public class TurnManager extends Observable{
 		setChanged();
 		notifyObservers(this.phase);
 	}
-	
+
 	private Player getCurrentPlayer() {
 		return GameDriver.getInstance().getCurrentPlayer();
 	}
