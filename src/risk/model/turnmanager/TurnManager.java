@@ -1,5 +1,7 @@
 package risk.model.turnmanager;
 
+import java.util.Observable;
+
 import risk.model.GameDriver;
 import risk.model.Player;
 
@@ -8,12 +10,18 @@ import risk.model.Player;
  * @author Gurpreet
  * @version 1.2
  */
-public class TurnManager {
+public class TurnManager extends Observable{
 	
 	/**
 	 * Stores the current phase name.
 	 */
 	private String phase;
+	
+	/**
+	 * Empty constructor to create object for observer.
+	 */
+	public TurnManager(){
+	}
 	
 	/**
 	 * Constructor to set the phase name.
@@ -24,10 +32,12 @@ public class TurnManager {
 	
 	public void startTurn(Player currentPlayer) {
 		currentPlayer.reinforcementPhase();
+		setChanged();
+		notifyObservers(this);
 	}
 	
 	/**
-	 * Function to switch between different phases.
+	 * Function to switch between different phases and notify observers.
 	 */
 	public void changePhase() {
 		if(this.phase.equals("Reinforcement")) {
@@ -43,6 +53,8 @@ public class TurnManager {
 			this.phase = "Reinforcement";
 			getCurrentPlayer().reinforcementPhase();
 		}
+		setChanged();
+		notifyObservers(this);
 	}
 	
 	private Player getCurrentPlayer() {

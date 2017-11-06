@@ -47,6 +47,8 @@ public class MainView extends JFrame{
 	 */
 	private ControlsView controlsArea;
 	
+	private PhaseView phaseArea;
+	
 	/**
 	 * Initialize each view with the object of corresponding type.
 	 * @param newPlayerInfo PlayerInfoView object.
@@ -54,14 +56,16 @@ public class MainView extends JFrame{
 	 * @param newDice DiceRollView object.
 	 * @param newCards Cards object.
 	 * @param newControls ControlsView object.
+	 * @param newPhase PhaseView Object.
 	 */
-	private MainView(PlayerInfoView newPlayerInfo, MapView newMap, DiceRollView newDice, CardsView newCards, ControlsView newControls) 
+	private MainView(PlayerInfoView newPlayerInfo, MapView newMap, DiceRollView newDice, CardsView newCards, ControlsView newControls, PhaseView newPhase) 
 	{	
 		playerData = newPlayerInfo;
         map = newMap;
         diceArea = newDice;
         cardsArea = newCards;
         controlsArea = newControls;
+        phaseArea = newPhase;
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         init();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
@@ -83,11 +87,17 @@ public class MainView extends JFrame{
         contentPane.add(diceArea);
         contentPane.add(cardsArea);
         contentPane.add(controlsArea);
+        contentPane.add(phaseArea);
+        
+        layout.putConstraint(SpringLayout.WEST, phaseArea, 5,  SpringLayout.WEST, contentPane);
+        layout.putConstraint(SpringLayout.EAST, phaseArea, 0,  SpringLayout.EAST, cardsArea);
+        layout.putConstraint(SpringLayout.NORTH, phaseArea, 5, SpringLayout.NORTH, contentPane);
+        layout.putConstraint(SpringLayout.SOUTH, phaseArea, -5,  SpringLayout.NORTH, playerData);
         
 		/*playerData constraints.*/
         layout.putConstraint(SpringLayout.WEST, playerData, 5,  SpringLayout.WEST, contentPane);
         layout.putConstraint(SpringLayout.EAST, playerData, 0,  SpringLayout.EAST, cardsArea);
-        layout.putConstraint(SpringLayout.NORTH, playerData, 5, SpringLayout.NORTH, contentPane);
+        //layout.putConstraint(SpringLayout.NORTH, playerData, -5, SpringLayout.NORTH, contentPane);
         layout.putConstraint(SpringLayout.SOUTH, playerData, -5,  SpringLayout.NORTH, cardsArea);
         
         /*map constraints.*/
@@ -128,11 +138,12 @@ public class MainView extends JFrame{
 	 * @param newDice DiceRollView object
 	 * @param newCards CardsView object
 	 * @param newControls ControlsView object
+	 * @param newPhase 
 	 */
-	public static void createInstance(PlayerInfoView newPlayerInfo, MapView newMap, DiceRollView newDice, CardsView newCards, ControlsView newControls)
+	public static void createInstance(PlayerInfoView newPlayerInfo, MapView newMap, DiceRollView newDice, CardsView newCards, ControlsView newControls, PhaseView newPhase)
 	{
 		if(mainView == null){
-			mainView = new MainView(newPlayerInfo, newMap, newDice, newCards, newControls);
+			mainView = new MainView(newPlayerInfo, newMap, newDice, newCards, newControls, newPhase);
 		}
 	}
 }
