@@ -36,34 +36,24 @@ import java.awt.Font;
  */
 public class ExistingMap extends JFrame {
 
+	/**
+	 * Creates panel for existing map file display.
+	 */
 	private JPanel contentPane;
 
-	private JTable table;
-	private JTextField txtContinentName;
-	private JTextField txtControlValue;
-	private JTextField textField;
-	private JTextField txtContinentName_1;
-	private JTextField txtControlValue_1;
-	private JComboBox comboBox;
-	private JLabel lblName_1;
-	private JTextField textField_1;
-	private JTextField txtCountryName;
-	private JLabel lblNeighbours;
-	private JComboBox comboBox_1;
-	private JButton btnAddCountry;
-	private JLabel lblPickContinent;
-	private JButton btnDeleteContinent;
-	private JComboBox comboBox_2;
-	private JButton btnDeleteCountry;
-	private JComboBox comboBox_3;
-
-
+	/**
+	 * ArrayList of MapNode type to receive all the information of existing map file selected by player.
+	 */
 	ArrayList<MapNode> existingMap = new ArrayList<MapNode>();
-	JButton btnEdit;
+	
+	/**
+	 * JButton to edit the existing map file.
+	 */
+	private JButton btnEdit;
 
 	/**
 	 * Existing Map constructor calls initialize method of the class.
-	 * @param map arraylist of map nodes.
+	 * @param map arrayList of map nodes.
 	 */
 	public ExistingMap(ArrayList<MapNode> map){
 		existingMap = map;
@@ -136,9 +126,6 @@ public class ExistingMap extends JFrame {
 		gbc_table3.gridy = 0;
 		contentPane.add(getContentPane().add(new JScrollPane(table3)), gbc_table3);
 
-		/**
-		 * mouse action listener for selecting row and column
-		 */
 		table1.addMouseListener(new java.awt.event.MouseAdapter() {
 			@Override
 			public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -156,9 +143,6 @@ public class ExistingMap extends JFrame {
 			}
 		});
 
-		/**
-		 * mouse action listener for selecting row and column
-		 */
 		table2.addMouseListener(new java.awt.event.MouseAdapter() {
 			@Override
 			public void mouseClicked(java.awt.event.MouseEvent evt) {

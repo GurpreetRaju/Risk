@@ -109,10 +109,13 @@ public class NewMap extends JFrame {
 	private JComboBox comboBox_1;
 	
 	/**
-	 * Defines list model for JList of neighbours.
+	 * Defines list model for JList of adding neighbours.
 	 */
 	private DefaultListModel<String> model2;
 	
+	/**
+	 * Defines list model for JList of deleting models.
+	 */
 	private DefaultListModel<String> model1;
 	
 	/**
@@ -155,10 +158,29 @@ public class NewMap extends JFrame {
 	 */
 	private JButton btnAddContinent;
 	
+	/**
+	 * ComboBox for displaying list of countries.
+	 */
 	private JComboBox comboBox_4;
+	
+	/**
+	 * Label for JList of neighbors.
+	 */
 	private JLabel lblNeighboursOfSelected;
+	
+	/**
+	 * JList for displaying neighbors of selected country.
+	 */
 	private JList list_1;
+	
+	/**
+	 * JButton to display possible neighbors of a country for deletion. 
+	 */
 	private JButton btnDeleteSelectedNeighbours;
+	
+	/**
+	 * JButton to delete selected neighbors for the selected country.
+	 */
 	private JButton btnDeleteNeighbours;
 
 	/**
@@ -502,6 +524,10 @@ public class NewMap extends JFrame {
 		btnAddNeighbours.addActionListener(newAction);
 	}
 
+	/**
+	 * @see mapEditorController
+	 * @param newAction actionListener for btnDeleteNeighbours
+	 */
 	public void addActionsToBtnDeleteNeighbours(ActionListener newAction) {
 		btnDeleteNeighbours.addActionListener(newAction);
 	}
@@ -515,6 +541,10 @@ public class NewMap extends JFrame {
 		btnSelectedNeighbours.addActionListener(newAction);
 	}
 	
+	/**
+	 * @see mapEditorController
+	 * @param newAction actionListener for btnDeleteSelectedNeighbours
+	 */
 	public void addActionsToBtnDeleteSelectedNeighbours(ActionListener newAction) {
 		btnDeleteSelectedNeighbours.addActionListener(newAction);
 	}
@@ -571,6 +601,10 @@ public class NewMap extends JFrame {
 		return (list.getSelectedValuesList());
 	}
 	
+	/**
+	 * gets list of selected neighbors for deletion.
+	 * @return list of selected neighbors for deletion.
+	 */
 	public List getNeighboursList_1() {
 		return (list_1.getSelectedValuesList());
 	}
@@ -582,6 +616,9 @@ public class NewMap extends JFrame {
 		list.setEnabled(true);
 	}
 	
+	/**
+	 * enables JList of neighbors.
+	 */
 	public void enableJList_1() {
 		list_1.setEnabled(true);
 	}
@@ -612,6 +649,10 @@ public class NewMap extends JFrame {
 		return (comboBox_1.getSelectedItem().toString());
 	}
 	
+	/**
+	 * Gets the country for deleting its neighbors.
+	 * @return the country for neighbor deletion.
+	 */
 	public String getSelectedCountryForNeighbourDeletion() {
 		return (comboBox_4.getSelectedItem().toString());
 	}
@@ -641,24 +682,31 @@ public class NewMap extends JFrame {
 	}
 
 	/**
-	 * clearing the neighbours list
+	 * clearing the neighbors list
 	 */
 	public void clearNeighboursJList() {
 		model2.removeAllElements();
 	}
 	
+	/**
+	 * clears the JList of neighbor countries.
+	 */
 	public void clearNeighboursJList_1() {
 		model1.removeAllElements();
 	}
 
 	/**
-	 * adding neighbour countries to the list
+	 * adding neighbor countries to the list
 	 * @param neighbour include countries
 	 */
 	public void addPossibleNeighboursToJList(String neighbour) {
 		model2.addElement(neighbour);
 	}
 	
+	/**
+	 * Fills the JList with possible neighbors of each country.
+	 * @param neighbour receives neighbor country to be added.
+	 */
 	public void addPossibleNeighboursToJList_1(String neighbour) {
 		model1.addElement(neighbour);
 	}
@@ -783,6 +831,10 @@ public class NewMap extends JFrame {
 		comboBox_4.addItem(country);
 	}
 	
+	/**
+	 * gets the JFrame of newMap.
+	 * @return the current frame.
+	 */
 	public NewMap getFrame() {
 		return this;
 	}
