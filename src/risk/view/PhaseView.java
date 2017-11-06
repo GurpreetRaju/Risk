@@ -8,6 +8,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -39,11 +40,12 @@ public class PhaseView extends JPanel implements Observer{
 		Player current = GameDriver.getInstance().getCurrentPlayer();
 		if(arg.equals("Startup")){
 			this.removeAll();
-			this.add(new JLabel("<html><div><b>Startup Phase</b></div><br/></html>"));
+			this.add(new JLabel("Startup Phase"));
 		}
 		else if(arg.equals("Reinforcement")){
 			this.removeAll();
-			this.add(new JLabel("<html><div><b>Reinforcement Phase</b></div><br/></html>"));
+			this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+			this.add(new JLabel("Reinforcement Phase"));
 			this.add(new JLabel("Player:"));
 			this.add(new JLabel(current.getName()));
 			this.add(new JLabel("Armies:"));
