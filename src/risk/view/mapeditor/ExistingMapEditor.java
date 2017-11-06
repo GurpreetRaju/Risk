@@ -132,6 +132,9 @@ public class ExistingMapEditor extends JFrame {
 	 */
 	private DefaultListModel<String> model2;
 
+	/**
+	 * Stores list model for JList for deleting neighbors.
+	 */
 	private DefaultListModel<String> model1;
 	
 	/**
@@ -169,10 +172,29 @@ public class ExistingMapEditor extends JFrame {
 	 */
 	private JButton btnAddCountry;
 	
+	/**
+	 * JButton to get possible neighbors of a country for deletion.
+	 */
 	private JButton btnDeleteNeighbours;
+	
+	/**
+	 * ComboBox to display country list for deleting neighbors.
+	 */
 	private JComboBox comboBox_4;
+	
+	/**
+	 * JLabel for list of neighbors of each country.
+	 */
 	private JLabel lblNeighboursOfSelected;
+	
+	/**
+	 * JList to display neighbors of selected country.
+	 */
 	private JList list_1;
+	
+	/**
+	 * JButton to delete selected countries.
+	 */
 	private JButton btnDeleteSelectedNeighbours;
 
 	/**
@@ -536,10 +558,18 @@ public class ExistingMapEditor extends JFrame {
 		btnAddNeighbours.addActionListener(newAction);
 	}
 	
+	/**
+	 * @see mapEditorController
+	 * @param newAction actionListener for btnDeleteNeighbors.
+	 */
 	public void addActionsToBtnDeleteNeighbours(ActionListener newAction) {
 		 		btnDeleteNeighbours.addActionListener(newAction);
 	}
 	
+	/**
+	 * @see mapEditorController 
+	 * @param newAction actionListener for btnDeleteSelectedNeighbours.
+	 */
 	public void addActionsToBtnDeleteSelectedNeighbours(ActionListener newAction) {
 		 		btnDeleteSelectedNeighbours.addActionListener(newAction);
 	}
@@ -619,6 +649,10 @@ public class ExistingMapEditor extends JFrame {
 		return (list.getSelectedValuesList());
 	}
 	
+	/**
+	 * gives list of neighbors for deletion
+	 * @return list of neighbor countries for deletion.
+	 */
 	public List getNeighboursList_1() {
 		 return (list_1.getSelectedValuesList());
 	}
@@ -630,6 +664,9 @@ public class ExistingMapEditor extends JFrame {
 		list.setEnabled(true);
 	}
 	
+	/**
+	 * enables the JList of neighbors.
+	 */
 	public void enableJList_1() {
 		list_1.setEnabled(true);
 	}
@@ -667,6 +704,10 @@ public class ExistingMapEditor extends JFrame {
 		return (comboBox_1.getSelectedItem().toString());
 	}
 	
+	/**
+	 * Function to get the selected country for deleting neighbors.
+	 * @return selected country for deleting its neighbors.
+	 */
 	public String getSelectedCountryForNeighbourDeletion() {
 		return (comboBox_4.getSelectedItem().toString());
 	}
@@ -702,6 +743,9 @@ public class ExistingMapEditor extends JFrame {
 		model2.removeAllElements();
 	}
 	
+	/**
+	 * Clears the JList of neighbors.
+	 */
 	public void clearNeighboursJList_1() {
 		model1.removeAllElements();
 	}
@@ -714,6 +758,10 @@ public class ExistingMapEditor extends JFrame {
 		model2.addElement(neighbour);
 	}
 	
+	/**
+	 * This function adds neighbors to JList.
+	 * @param neighbour receives the neighbor to be added to the list.
+	 */
 	public void addPossibleNeighboursToJList_1(String neighbour) {
 		model1.addElement(neighbour);
 	}

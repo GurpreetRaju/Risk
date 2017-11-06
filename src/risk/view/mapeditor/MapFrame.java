@@ -150,6 +150,10 @@ public class MapFrame extends JFrame {
 		this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
 	}
 
+	/**
+	 * Function to see user selection of NewMap or Existing Map.
+	 * @return new or existing based on what is clicked.
+	 */
 	public static String selectedAction() {
 		return selectedAction;
 	}

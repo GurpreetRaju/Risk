@@ -206,6 +206,10 @@ public class CountryNode {
 		this.coordiantes = newCoordinates;		
 	}
 
+	/**
+	 * Removes a neighbor country.
+	 * @param neighbourNode receives country to be deleted as neighbor.  
+	 */
 	public void removeNeighbour(CountryNode neighbourNode) {
 		CountryNode cn1 = new CountryNode(null,null,null);
 		for (CountryNode cn : neighbourCountries ) {
@@ -215,9 +219,11 @@ public class CountryNode {
 			}
 		}
 		neighbourCountries.remove(cn1);
-		
 	}
   
+	/**
+	 * Decrements the army count by 1.
+	 */
 	public void removeArmy() {
 		armies = armies-1;	
 	}
