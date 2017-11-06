@@ -8,10 +8,21 @@ import risk.model.CountryNode;
 import risk.model.Player;
 import risk.model.map.MapNode;
 
+/**
+ * Tests the Player class functions.
+ *
+ */
 public class TestPlayer {
 	
+	/**
+	 * Player reference.
+	 */
 	private Player testPlayer;
 	
+	/**
+	 * Called before each test case of this class is executed.
+	 * @throws Exception any throwable exception.
+	 */
 	@Before
 	public void setUp() throws Exception {
 		CountryNode country1 = new CountryNode("Country1", null, null);
@@ -43,6 +54,10 @@ public class TestPlayer {
 		testPlayer.addCountry(country3);
 	}
 
+	/**
+	 * Tests the getArmies function of Player class.
+	 * @see Player
+	 */
 	@Test
 	public void testGetArmies() {
 		assertEquals(3,testPlayer.getArmies());

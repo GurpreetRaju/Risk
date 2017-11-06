@@ -13,18 +13,60 @@ import risk.model.GameDriver;
 import risk.model.Player;
 import risk.model.map.MapNode;
 
+/**
+ * This class tests all the functions of GameDriver.
+ *
+ */
 public class TestGameDriver {
 	
+	/**
+	 * ArrayList to store owned neighbors.
+	 */
 	ArrayList<String> actualOwnedNeighbors;
+	
+	/**
+	 * Reference for controller object.
+	 */
 	Controller controller;
+	
+	/**
+	 * CountryNode reference.
+	 */
 	CountryNode country1;
+	
+	/**
+	 * CountryNode reference.
+	 */
 	CountryNode country2;
+	
+	/**
+	 * CountryNode reference.
+	 */
 	CountryNode country3;
+	
+	/**
+	 * CountryNode reference.
+	 */
 	CountryNode country4;
+	
+	/**
+	 * CountryNode reference.
+	 */
 	CountryNode country5;
+	
+	/**
+	 * Reference for player object.
+	 */
 	Player player1;
+	
+	/**
+	 * Reference for Player object.
+	 */
 	Player player2;
 	
+	/**
+	 * This function is called before each test case is run.
+	 */
 	@Before
 	public void setPlayerAndMapData(){
 		controller = new Controller(GameDriver.getInstance());
@@ -70,6 +112,10 @@ public class TestGameDriver {
 		GameDriver.getInstance().setPlayerList(player2);
 	}
 	
+	/**
+	 * Tests the leftPlayerArmiesOnReinforcement function of Game driver.
+	 * @see GameDriver
+	 */
 	@Test
 	public void testLeftPlayerArmiesOnReinforcement() {
 //		GameDriver.getInstance().setNextPlayerTurn();
@@ -79,6 +125,9 @@ public class TestGameDriver {
 //		assertEquals(9, left2);
 	}
 	
+	/**
+	 * Tests the GameDriver function that gives the army count of country after reinforcement.
+	 */
 	@Test
 	public void testArmyCountOfCountryAfterReinforcemnt() {
 //		GameDriver.getInstance().setNextPlayerTurn();
