@@ -90,7 +90,7 @@ public class GameDriver extends Observable {
 	 */
 	public void runGame() {
 		setChanged();
-		notifyObservers(this);
+		notifyObservers("Startup");
 		startUpPhase();
 		turnManager.startTurn(this.currentPlayer);
 	}
@@ -103,7 +103,10 @@ public class GameDriver extends Observable {
 		String[] newPlayerData = controller.getPlayerInfo();
 		players = new ArrayList<Player>();
 		for(String newPlayer: newPlayerData){
-			players.add(new Player(newPlayer,RiskData.InitialArmiesCount.getArmiesCount(newPlayerData.length),map.getMapData()));
+			Player temp = new Player(newPlayer,RiskData.InitialArmiesCount.getArmiesCount(newPlayerData.length),map.getMapData());
+			players.add(temp);
+			setChanged();
+			notifyObservers(temp.getName());
 		}
 		players.get(0).setTurnTrue();
 		this.currentPlayer = players.get(0);
