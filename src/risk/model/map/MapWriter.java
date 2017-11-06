@@ -158,6 +158,10 @@ public class MapWriter {
 		}
 	}
 
+	/**
+	 * Function to get the path of map file
+	 * @return the path of map file created or edited.
+	 */
 	public String getMapFilePath() {
 		return FILENAME;
 	}
