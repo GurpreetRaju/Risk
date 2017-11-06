@@ -95,8 +95,6 @@ public class ControlsView extends JPanel {
 		this.add(armiesSpinner);
 		this.add(addArmies);
 		this.add(endPhase);
-		//this.add(playMove);
-		//this.add(doneButton);
 		this.revalidate();
 		this.repaint();
 	}
