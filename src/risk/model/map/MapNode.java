@@ -125,7 +125,7 @@ public class MapNode {
 	}
 	
 	public int getCountriesCount(){
-		this.countriesCount = getCountryList().size() + 1;
+		this.countriesCount = getCountryList().size();
 		return this.countriesCount;
 		
 	}
