@@ -17,6 +17,11 @@ public class TurnManager {
 	private String phase;
 	
 	/**
+	 * Shows if game is over
+	 */
+	private boolean gameOver = false;
+	
+	/**
 	 * Empty constructor to create object for observer.
 	 */
 	public TurnManager(){
@@ -45,10 +50,13 @@ public class TurnManager {
 			this.setPhase("Fortification");
 			getCurrentPlayer().fortificationPhase();
 		}
-		else if(this.getPhase().equals("Fortification")) {
+		else if(this.getPhase().equals("Fortification") && !isGameOver()) {
 			GameDriver.getInstance().setNextPlayerTurn();
 			this.setPhase("Reinforcement");
 			getCurrentPlayer().reinforcementPhase();
+		}
+		else {
+			GameDriver.getInstance().announceGameOver();
 		}
 	}
 
@@ -66,7 +74,7 @@ public class TurnManager {
 			getCurrentPlayer().reinforcementPhase();
 		}
 		else if(this.getPhase().equals("Attack")) {
-			getCurrentPlayer().attackPhase();;
+			getCurrentPlayer().attackPhase();
 		}
 		else if(this.getPhase().equals("Fortification")) {
 			getCurrentPlayer().fortificationPhase();
@@ -85,6 +93,20 @@ public class TurnManager {
 	 */
 	public void setPhase(String phase) {
 		this.phase = phase;
+	}
+
+	/**
+	 * @return the gameOver
+	 */
+	public boolean isGameOver() {
+		return gameOver;
+	}
+
+	/**
+	 * @param gameOver the gameOver to set
+	 */
+	public void setGameOver(boolean gameOver) {
+		this.gameOver = gameOver;
 	}
 
 }

@@ -100,6 +100,7 @@ public class MapNode {
 			this.countries = new ArrayList<CountryNode>();
 		}
 		this.countries.add(newCountry);
+		newCountry.setContinent(this);
 	}
 	
 	/**

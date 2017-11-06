@@ -215,7 +215,7 @@ public class mapEditorController {
 				else {
 					ArrayList<CountryNode> neighbours= new ArrayList<CountryNode>();
 					for (Object ncountry : newMap.getNeighboursList()){
-						CountryNode cn =  new CountryNode(ncountry.toString(), null, null);
+						CountryNode cn =  new CountryNode(ncountry.toString(), null, null,null);
 						neighbours.add(cn);
 					}
 					String sCountrytToAddNeighbour = newMap.getSelectedCountryForNeighbours();
@@ -232,7 +232,7 @@ public class mapEditorController {
 						for (MapNode node : mapModel.getContinents()) {
 							for (CountryNode countryNode : node.getCountries()) {
 								if(countryNode.getCountryName().compareTo(neighbour.getCountryName())==0) {
-									countryNode.addNeighbour(new CountryNode(sCountrytToAddNeighbour, null, null));
+									countryNode.addNeighbour(new CountryNode(sCountrytToAddNeighbour, null, null,null));
 								}
 							}
 						}
@@ -250,7 +250,7 @@ public class mapEditorController {
 				else {
 					ArrayList<CountryNode> neighbours_1= new ArrayList<CountryNode>();
 					for (Object ncountry : newMap.getNeighboursList_1()){
-						CountryNode cn =  new CountryNode(ncountry.toString(), null, null);
+						CountryNode cn =  new CountryNode(ncountry.toString(), null, null,null);
 						neighbours_1.add(cn);
 					}
 					String sCountrytToDeleteNeighbour = newMap.getSelectedCountryForNeighbourDeletion();
@@ -266,7 +266,7 @@ public class mapEditorController {
 						for (MapNode node : mapModel.getContinents()) {
 							for (CountryNode countryNode : node.getCountries()) {
 								if(countryNode.getCountryName().compareTo(neighbour.getCountryName())==0) {
-									countryNode.removeNeighbour(new CountryNode(sCountrytToDeleteNeighbour, null, null));
+									countryNode.removeNeighbour(new CountryNode(sCountrytToDeleteNeighbour, null, null,null));
 								}
 							}
 						}
@@ -345,7 +345,7 @@ public class mapEditorController {
 						if(!countryExist) {
 							ArrayList<CountryNode> neighbours= new ArrayList<CountryNode>();
 							for (Object ncountry : newMap.getNeighboursList()) {
-								CountryNode cn =  new CountryNode(ncountry.toString(), null, null);
+								CountryNode cn =  new CountryNode(ncountry.toString(), null, null,null);
 								neighbours.add(cn);
 							}
 							newMap.clearNeighboursJList();
@@ -353,7 +353,7 @@ public class mapEditorController {
 							for (MapNode node: mapModel.getContinents()) {
 								if(selectedContinent.compareTo(node.getContinentName())==0) {
 									int a[]= {250,250};
-									CountryNode newCountry = new CountryNode(cn1,  neighbours , a);
+									CountryNode newCountry = new CountryNode(cn1,  neighbours , a,null);
 									node.addCountry(newCountry);
 								}
 								for (CountryNode temp : node.getCountries()) {
@@ -419,7 +419,7 @@ public class mapEditorController {
 					ArrayList<CountryNode> neighbours_1= new ArrayList<CountryNode>();
 					String sCountrytToDeleteNeighbour = existingMapEditor.getSelectedCountryForNeighbourDeletion();
 					for (Object ncountry : existingMapEditor.getNeighboursList_1()){
-						CountryNode cn =  new CountryNode(ncountry.toString(), null, null);
+						CountryNode cn =  new CountryNode(ncountry.toString(), null, null, null);
 						neighbours_1.add(cn);
 					}
 					for (MapNode node : mapModel.getContinents()){
@@ -434,7 +434,7 @@ public class mapEditorController {
 						for (MapNode node : mapModel.getContinents()) {
 							for (CountryNode countryNode : node.getCountries()) {
 								if(countryNode.getCountryName().compareTo(neighbour.getCountryName())==0) {
-									countryNode.removeNeighbour(new CountryNode(sCountrytToDeleteNeighbour, null, null));
+									countryNode.removeNeighbour(new CountryNode(sCountrytToDeleteNeighbour, null, null, null));
 								}
 							}
 						}
@@ -490,7 +490,7 @@ public class mapEditorController {
 					ArrayList<CountryNode> neighbours= new ArrayList<CountryNode>();
 					String sCountrytToAddNeighbour = existingMapEditor.getSelectedCountryForNeighbours();
 					for (Object ncountry : existingMapEditor.getNeighboursList()){
-						CountryNode cn =  new CountryNode(ncountry.toString(), null, null);
+						CountryNode cn =  new CountryNode(ncountry.toString(), null, null, null);
 						neighbours.add(cn);
 					}
 					for (MapNode node : mapModel.getContinents()){
@@ -505,7 +505,7 @@ public class mapEditorController {
 						for (MapNode node : mapModel.getContinents()) {
 							for (CountryNode countryNode : node.getCountries()) {
 								if(countryNode.getCountryName().compareTo(neighbour.getCountryName())==0) {
-									countryNode.addNeighbour(new CountryNode(sCountrytToAddNeighbour, null, null));
+									countryNode.addNeighbour(new CountryNode(sCountrytToAddNeighbour, null, null, null));
 								}
 							}
 						}
@@ -586,7 +586,7 @@ public class mapEditorController {
 						if(!countryExist) {
 							ArrayList<CountryNode> neighbours= new ArrayList<CountryNode>();
 							for (Object ncountry : existingMapEditor.getNeighboursList()) {//check
-								CountryNode cn =  new CountryNode(ncountry.toString(), null, null);
+								CountryNode cn =  new CountryNode(ncountry.toString(), null, null, null);
 								neighbours.add(cn);
 							}
 							existingMapEditor.clearNeighboursJList();
@@ -594,7 +594,7 @@ public class mapEditorController {
 							for (MapNode node: mapModel.getContinents()) {
 								if(selectedContinent.compareTo(node.getContinentName())==0) {
 									int a[]= {250,250};
-									CountryNode newCountry = new CountryNode(cn1,  neighbours , a);
+									CountryNode newCountry = new CountryNode(cn1,  neighbours , a, null);
 									node.addCountry(newCountry);
 								}
 								for (CountryNode temp : node.getCountries()) {
