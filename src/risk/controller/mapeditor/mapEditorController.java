@@ -185,12 +185,12 @@ public class mapEditorController {
 		newMap.addActionsToBtnDeleteNeighbours(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				newMap.enableJList_1();
-				String sCountrytToDeleteNeighbour = newMap.getSelectedCountryForNeighbourDeletion();
+				String sCountryToDeleteNeighbour = newMap.getSelectedCountryForNeighbourDeletion();
 				newMap.clearNeighboursJList_1();
 
 				for (MapNode node : mapModel.getContinents()){
 					for (CountryNode countryNode : node.getCountries()){
-						if(sCountrytToDeleteNeighbour.compareTo(countryNode.getCountryName())==0) {
+						if(sCountryToDeleteNeighbour.compareTo(countryNode.getCountryName())==0) {
 							for (CountryNode neighbour : countryNode.getNeighbourCountries() ) {
 								newMap.addPossibleNeighboursToJList_1(neighbour.getCountryName());
 							}
@@ -204,42 +204,64 @@ public class mapEditorController {
 			public void actionPerformed(ActionEvent e) {
 				if(newMap.getNeighboursList().isEmpty()) {
 					newMap.noSelectedNeighboursError();
-				}else {
+				}
+				else {
 					ArrayList<CountryNode> neighbours= new ArrayList<CountryNode>();
 					for (Object ncountry : newMap.getNeighboursList()){
 						CountryNode cn =  new CountryNode(ncountry.toString(), null, null);
 						neighbours.add(cn);
 					}
+					String sCountrytToAddNeighbour = newMap.getSelectedCountryForNeighbours();
 					for (MapNode node : mapModel.getContinents()){
 						for (CountryNode cNode : node.getCountries()){
-							String sCountrytToAddNeighbour = newMap.getSelectedCountryForNeighbours();
 							if(sCountrytToAddNeighbour.compareTo(cNode.getCountryName())==0)
 								for (CountryNode neighbourNode : neighbours){
-									cNode.addNeighbour(neighbourNode);	
+									cNode.addNeighbour(neighbourNode);
 								}
+
+						}
+					}
+					for (CountryNode neighbour : neighbours) {
+						for (MapNode node : mapModel.getContinents()) {
+							for (CountryNode countryNode : node.getCountries()) {
+								if(countryNode.getCountryName().compareTo(neighbour.getCountryName())==0) {
+									countryNode.addNeighbour(new CountryNode(sCountrytToAddNeighbour, null, null));
+								}
+							}
 						}
 					}
 				}	
 			}
 		});
+
 		
 		newMap.addActionsToBtnDeleteSelectedNeighbours(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(newMap.getNeighboursList_1().isEmpty()) {
 					newMap.noSelectedNeighboursError();
-				}else {
+				}
+				else {
 					ArrayList<CountryNode> neighbours_1= new ArrayList<CountryNode>();
 					for (Object ncountry : newMap.getNeighboursList_1()){
 						CountryNode cn =  new CountryNode(ncountry.toString(), null, null);
 						neighbours_1.add(cn);
 					}
+					String sCountrytToDeleteNeighbour = newMap.getSelectedCountryForNeighbourDeletion();
 					for (MapNode node : mapModel.getContinents()){
 						for (CountryNode cNode : node.getCountries()){
-							String sCountrytToDeleteNeighbour = newMap.getSelectedCountryForNeighbourDeletion();
 							if(sCountrytToDeleteNeighbour.compareTo(cNode.getCountryName())==0)
 								for (CountryNode neighbourNode : neighbours_1){
-									cNode.removeNeighbour(neighbourNode);	//check
+									cNode.removeNeighbour(neighbourNode);	
 								}
+						}
+					}
+					for (CountryNode neighbour : neighbours_1) {
+						for (MapNode node : mapModel.getContinents()) {
+							for (CountryNode countryNode : node.getCountries()) {
+								if(countryNode.getCountryName().compareTo(neighbour.getCountryName())==0) {
+									countryNode.removeNeighbour(new CountryNode(sCountrytToDeleteNeighbour, null, null));
+								}
+							}
 						}
 					}
 				}	
@@ -359,7 +381,7 @@ public class mapEditorController {
 				existingMapEditor.enableCountryfield();
 			}
 		});
-		
+
 		existingMapEditor.addActionsToBtnDeleteNeighbours(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				existingMapEditor.enableJList_1();
@@ -377,24 +399,33 @@ public class mapEditorController {
 				}
 			}
 		});
-		
+
 		existingMapEditor.addActionsToBtnDeleteSelectedNeighbours(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(existingMapEditor.getNeighboursList_1().isEmpty()) {
 					existingMapEditor.noSelectedNeighboursError();
 				}else {
 					ArrayList<CountryNode> neighbours_1= new ArrayList<CountryNode>();
+					String sCountrytToDeleteNeighbour = existingMapEditor.getSelectedCountryForNeighbourDeletion();
 					for (Object ncountry : existingMapEditor.getNeighboursList_1()){
 						CountryNode cn =  new CountryNode(ncountry.toString(), null, null);
 						neighbours_1.add(cn);
 					}
 					for (MapNode node : mapModel.getContinents()){
 						for (CountryNode cNode : node.getCountries()){
-							String sCountrytToDeleteNeighbour = existingMapEditor.getSelectedCountryForNeighbourDeletion();
 							if(sCountrytToDeleteNeighbour.compareTo(cNode.getCountryName())==0)
 								for (CountryNode neighbourNode : neighbours_1){
-									cNode.removeNeighbour(neighbourNode);	//check
+									cNode.removeNeighbour(neighbourNode);
 								}
+						}
+					}
+					for (CountryNode neighbour : neighbours_1) {
+						for (MapNode node : mapModel.getContinents()) {
+							for (CountryNode countryNode : node.getCountries()) {
+								if(countryNode.getCountryName().compareTo(neighbour.getCountryName())==0) {
+									countryNode.removeNeighbour(new CountryNode(sCountrytToDeleteNeighbour, null, null));
+								}
+							}
 						}
 					}
 				}	
@@ -446,17 +477,26 @@ public class mapEditorController {
 					existingMapEditor.noSelectedNeighboursError();
 				}else {
 					ArrayList<CountryNode> neighbours= new ArrayList<CountryNode>();
+					String sCountrytToAddNeighbour = existingMapEditor.getSelectedCountryForNeighbours();
 					for (Object ncountry : existingMapEditor.getNeighboursList()){
 						CountryNode cn =  new CountryNode(ncountry.toString(), null, null);
 						neighbours.add(cn);
 					}
 					for (MapNode node : mapModel.getContinents()){
 						for (CountryNode cNode : node.getCountries()){
-							String sCountrytToAddNeighbour = existingMapEditor.getSelectedCountryForNeighbours();
 							if(sCountrytToAddNeighbour.compareTo(cNode.getCountryName())==0)
 								for (CountryNode neighbourNode : neighbours){
 									cNode.addNeighbour(neighbourNode);	
 								}
+						}
+					}
+					for (CountryNode neighbour : neighbours) {
+						for (MapNode node : mapModel.getContinents()) {
+							for (CountryNode countryNode : node.getCountries()) {
+								if(countryNode.getCountryName().compareTo(neighbour.getCountryName())==0) {
+									countryNode.addNeighbour(new CountryNode(sCountrytToAddNeighbour, null, null));
+								}
+							}
 						}
 					}
 				}

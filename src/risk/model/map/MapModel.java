@@ -1,6 +1,8 @@
 package risk.model.map;
 
 import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.Iterator;
 
 import risk.controller.Controller;
 import risk.model.CountryNode;
@@ -13,6 +15,8 @@ import risk.view.mapeditor.MapFrame;
  * @author Jyotsna
  */
 public class MapModel {
+	
+	Hashtable<String, Boolean> countryTable = new Hashtable<String, Boolean>();
 	
 	/**
 	 * Reference to the MapNode object
@@ -86,7 +90,7 @@ public class MapModel {
 	}
 	
 	/**
-	 * function to implement validations befor saving the map file.
+	 * function to implement validations before saving the map file.
 	 * @return true if map is valid.
 	 */
 	public boolean checkOnSaveMap() {
@@ -99,10 +103,52 @@ public class MapModel {
 				if(country.getNeighbourCountries().length == 0) {
 					saveMap = false;
 				}
+				//connected map check
+				if(!connectedMap()) {
+					saveMap = false;
+				}
 			}
 		}
 		return saveMap;
 	}
+	
+	public boolean connectedMap() {
+		
+		for (MapNode mapNode : continents) {
+			for (CountryNode cNode : mapNode.getCountries()) {
+				countryTable.put(cNode.getCountryName(), false);
+			}
+		}
+		String first = countryTable.keySet().iterator().next();
+		search(first);
+		
+		if(countryTable.containsValue(false)) {
+			return false;
+		}else {
+			return true;
+		}
+	}
+	
+	public void search(String s)
+    {
+        // Mark the current node as visited by setting it true 
+        countryTable.put(s, true);
+        for (MapNode mapNode : continents) {
+			for (CountryNode cNode : mapNode.getCountries()) {
+				if(cNode.getCountryName().compareTo(s)==0) {
+					// Recur for all the connected neighbor countries
+			        Iterator<CountryNode> i = cNode.getNeighbours().listIterator();
+			        while (i.hasNext())
+			        {
+			            CountryNode n = i.next();
+			            if (countryTable.get(n.getCountryName())==false)
+			                search(n.getCountryName());
+			        }
+				}
+			}
+		}
+        
+    }
 	
 	/**
 	 * Function to save new map file.
