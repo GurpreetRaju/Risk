@@ -52,6 +52,16 @@ public class Player {
 	private ArrayList<MapNode> mapData;
 	
 	/**
+	 * number of countries owned by player
+	 */
+	private int playerCountryCount;
+
+	/**
+	 * shows if player is still in game 
+	 */
+	private boolean lost = false;
+	
+	/**
 	 * Initialize player object with name.
 	 * @param name name of player.
 	 */
@@ -328,6 +338,28 @@ public class Player {
 			aArmies = 2;
 		}
 		return GameDriver.getInstance().setUpBoxInput(1, aArmies,this.name+"! Please select number of dice to roll.");
+	}
+	
+
+	public int getPlayerCountryCount(){
+		this.playerCountryCount = getCountries().size() + 1;
+		return this.playerCountryCount;
+	}
+
+	/**
+	 * This methods returns value of lost attribute. 
+	 * @return value of lost
+	 */
+	public boolean getPlayerState() {
+		return lost;
+	}
+	
+	/**
+	 * This method set value of lost attribute.
+	 */
+	public void setPlayerState(boolean value) {
+		this.lost = value;
+
 	}
 	
 }

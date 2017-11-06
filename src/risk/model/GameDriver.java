@@ -365,6 +365,12 @@ public class GameDriver extends Observable {
 		int aArmies = this.currentPlayer.selectDiceForAttack(attackerCountry);
 		int dArmies = defender.selectDiceForAttack(defenderCountry);
 		//Rolling dice for attacker and defender 
+		battle(dCountry, defender, aCountry, aArmies, dArmies);
+		map.updateMap();
+		checkGameState(defender);
+	}
+
+	private void battle(CountryNode dCountry, Player defender, CountryNode aCountry, int aArmies, int dArmies) {
 		ArrayList<Integer> aResults = diceRoll(aArmies);
 		ArrayList<Integer> dResults = diceRoll(dArmies);
 		//Compare the results to decide battle result
@@ -390,22 +396,33 @@ public class GameDriver extends Observable {
 			aCountry.setOwner(defender);
 			//phase view code to notify change in ownership of a country
 			System.out.println("Country "+ aCountry.getCountryName() +" won by " + aCountry.getOwner().getName() + ", new armies "+aCountry.getArmiesCount());
+			if(map.continentWonByPlayer(defender, aCountry)) {
+				defender.addContinent(aCountry.getContinent());
+			}				
 		}
 		//check if defender country has armies left
 		if(dCountry.getArmiesCount()==0) {
 			dCountry.setOwner(currentPlayer);
 			//phase view code to notify change in ownership of a country
-			System.out.println("Country "+ dCountry.getCountryName() +" won by " + dCountry.getOwner() + ", new armies "+dCountry.getArmiesCount());
+			System.out.println("Country "+ dCountry.getCountryName() +" won by " + dCountry.getOwner().getName() + ", new armies "+dCountry.getArmiesCount());
+			if(map.continentWonByPlayer(currentPlayer, dCountry)) {
+				currentPlayer.addContinent(dCountry.getContinent());
+			}
 		}
-		map.updateMap();
-		checkGameState();
 	}
 
-	private void checkGameState() {
-		//method to check if game is over
-		//check if a continent is won by a player
+	private void checkGameState(Player defenderPlayer) {
 		//check if a player loose all the countries
-		
+		if(defenderPlayer.getCountries().isEmpty()) {
+			defenderPlayer.setPlayerState(true);
+		}
+		//method to check if game is over
+		for(Player p: players) {
+			if(p!=currentPlayer && !p.getPlayerState()) {
+				turnManager.setGameOver(true);
+				break;
+			}
+		}
 	}
 
 	public int setUpBoxInput(int min, int max, String message) {
@@ -437,4 +454,19 @@ public class GameDriver extends Observable {
         return max;
     }
 	
+	public int getCurrentplayerCountryCount(){
+		return getCurrentPlayer().getPlayerCountryCount();
+	}
+	
+	public ArrayList<Player> getPlayers(){
+		return this.players;
+	}
+
+	/**
+	 * Call Phase View to show game over
+	 */
+	public void announceGameOver() {
+		notifyObservers("GameOver");
+	}
+
 }

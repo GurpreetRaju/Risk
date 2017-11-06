@@ -11,15 +11,30 @@ import risk.model.map.MapModel;
 import risk.model.map.MapNode;
 import risk.model.map.MapReader;
 
+/**
+ * This class tests all MapModel functions.
+ * @author Harinder
+ * 
+ */
 public class TestMapModel {
-
-private MapModel mapModel;
 	
+	/**
+	 * MapModel reference variable to store its object.
+	 */
+	private MapModel mapModel;
+	
+	/**
+	 * This function is called before every test case.
+	 * @throws Exception any throwable exception.
+	 */
 	@Before
 	public void setUp() throws Exception {
 		mapModel = new MapModel();
 	}
 	
+	/**
+	 * Tests the MapModel function that checks that the map is a connected graph.
+	 */
 	@Test 
 	public void testCheckConnectedMap() {
 		String cn = "Asia";
@@ -30,18 +45,21 @@ private MapModel mapModel;
 		ArrayList<CountryNode> neighbourArr1 = new ArrayList<CountryNode>();
 		ArrayList<CountryNode> neighbourArr2 = new ArrayList<CountryNode>();
 		ArrayList<CountryNode> neighbourArr3 = new ArrayList<CountryNode>();
-		neighbourArr1.add(new CountryNode("Japan", neighbourArr, coordinates));
-		neighbourArr2.add(new CountryNode("China", neighbourArr, coordinates));
-		neighbourArr3.add(new CountryNode("India", neighbourArr, coordinates));
-		countryArr.add(new CountryNode("India", neighbourArr1, coordinates));
-		countryArr.add(new CountryNode("Japan", neighbourArr2, coordinates));
-		countryArr.add(new CountryNode("China", neighbourArr3, coordinates));
+		neighbourArr1.add(new CountryNode("Japan", neighbourArr, coordinates,null));
+		neighbourArr2.add(new CountryNode("China", neighbourArr, coordinates,null));
+		neighbourArr3.add(new CountryNode("India", neighbourArr, coordinates,null));
+		countryArr.add(new CountryNode("India", neighbourArr1, coordinates,null));
+		countryArr.add(new CountryNode("Japan", neighbourArr2, coordinates,null));
+		countryArr.add(new CountryNode("China", neighbourArr3, coordinates,null));
 		mapModel.addContinents(cn, countryArr, cv);
 		boolean actual = mapModel.checkOnSaveMap();
 		boolean expected = true;
 		Assert.assertEquals(expected, actual);
 	}
 	
+	/**
+	 * Tests the MapModel function that checks for unique continents.
+	 */
 	@Test
 	public void testCheckContinentExist() {
 		String continent1 = "Asia";
@@ -56,6 +74,9 @@ private MapModel mapModel;
 		Assert.assertEquals(actual, expected);
 	}
 	
+	/**
+	 * Tests the MapModel function that adds a new continent to the map.
+	 */
 	@Test
 	public void testCheckAddContinent() {
 		String cn = "Europe";
@@ -74,6 +95,9 @@ private MapModel mapModel;
 		Assert.assertEquals(continent, "Europe");
 	}
 	
+	/**
+	 * Tests the MapModel function that checks for unique countries.
+	 */
 	@Test
 	public void testCheckCountryExist() {
 		String cn = "Europe";
@@ -81,7 +105,7 @@ private MapModel mapModel;
 		ArrayList<CountryNode> countryArr = new ArrayList<CountryNode>();
 		ArrayList<CountryNode> neighbourArr = new ArrayList<CountryNode>();
 		int[] coordinates = {250, 250};
-		countryArr.add(new CountryNode("Britain", neighbourArr, coordinates));
+		countryArr.add(new CountryNode("Britain", neighbourArr, coordinates,null));
 		mapModel.addContinents(cn, countryArr, cv);
 		boolean actual = mapModel.checkCountryExist("Britain");
 		boolean expected = true;
