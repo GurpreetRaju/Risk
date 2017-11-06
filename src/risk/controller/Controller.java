@@ -11,6 +11,7 @@ import risk.view.MapView;
 import risk.view.PhaseView;
 import risk.view.PlayerInfoView;
 import risk.view.SetUpDialog;
+import risk.view.WorldDominationView;
 import risk.view.mapeditor.MapFrame;
 
 /**
@@ -31,6 +32,12 @@ public class Controller {
 	 * PhaseView object.
 	 */
 	private PhaseView phaseView;
+	
+	/**
+	 * World Domiantion object 
+	 */
+	private WorldDominationView dominationView;
+	
 	/**
 	 * Stores object of CardsView class.
 	 */
@@ -215,8 +222,10 @@ public class Controller {
         cardsGUI = new CardsView();
         controlsGUI = new ControlsView();
         phaseView = new PhaseView();
+        dominationView = new WorldDominationView();
 		this.driver.addObserver(phaseView);
-        MainView.createInstance(playerInfoGUI, mapGUI, diceRollGUI, cardsGUI, controlsGUI, phaseView);
+		this.driver.addObserver(dominationView);
+        MainView.createInstance(playerInfoGUI, mapGUI, diceRollGUI, cardsGUI, controlsGUI, phaseView, dominationView);
         driver.setPlayerView(playerInfoGUI);
 		driver.setMapView(mapGUI);
 		driver.setControlsView(controlsGUI);
