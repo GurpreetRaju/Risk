@@ -41,6 +41,9 @@ public class mapEditorController {
 	 */
 	ExistingMapEditor existingMapEditor;
 
+	/**
+	 * reference to NewMap object.
+	 */
 	NewMap newMap;
 
 	/**
@@ -58,6 +61,9 @@ public class mapEditorController {
 	 */
 	public String path = "";
 
+	/**
+	 * Creates object of MapModel class.
+	 */
 	MapModel mapModel = new MapModel();
 
 	/**
@@ -125,7 +131,8 @@ public class mapEditorController {
 	}
 
 	/**
-	 * NewMap Frame get initialize with this method
+	 * Contains actionListeners for all NewMap buttons.
+	 * @see NewMap
 	 */
 	public void newMapActions() {
 		newMap = new NewMap();
@@ -368,6 +375,10 @@ public class mapEditorController {
 
 	}
 
+	/**
+	 * Contains actionListeners for all ExistingMapEditor buttons.
+	 * @see ExistingMapEditor
+	 */
 	public void existingMapActions() {
 
 		existingMapEditor.addActionsToBtnAddContinent(new ActionListener() {

@@ -16,6 +16,9 @@ import risk.view.mapeditor.MapFrame;
  */
 public class MapModel {
 	
+	/**
+	 * Creates hashtable for storing all countries as keys and their corresponding boolean visited values.
+	 */
 	Hashtable<String, Boolean> countryTable = new Hashtable<String, Boolean>();
 	
 	/**
@@ -112,6 +115,10 @@ public class MapModel {
 		return saveMap;
 	}
 	
+	/**
+	 * checks that all the countrynodes for a connected graph.
+	 * @return true if the map is a connected graph.
+	 */
 	public boolean connectedMap() {
 		
 		for (MapNode mapNode : continents) {
@@ -129,6 +136,10 @@ public class MapModel {
 		}
 	}
 	
+	/**
+	 * this function implements search algorithm on mapNode to check connectedness of graph.
+	 * @param s receives a country to traverse over its neighbors and set its boolean visited value as true.
+	 */
 	public void search(String s)
     {
         // Mark the current node as visited by setting it true 
