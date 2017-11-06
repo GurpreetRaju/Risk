@@ -364,6 +364,13 @@ public class Player {
 
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 */
+	public String toString() {
+		return name;
+	}
+	
 }
 
 

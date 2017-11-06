@@ -366,14 +366,24 @@ public class GameDriver extends Observable {
 		int aArmies = this.currentPlayer.selectDiceForAttack(attackerCountry);
 		int dArmies = defender.selectDiceForAttack(defenderCountry);
 		//Rolling dice for attacker and defender 
-		battle(dCountry, defender, aCountry, aArmies, dArmies);
+		ArrayList<Integer> aResults = diceRoll(aArmies);
+		ArrayList<Integer> dResults = diceRoll(dArmies);
+		String s = this.currentPlayer+" dice : ";
+		for(int i : aResults) {
+			s += i +" ";
+		}
+		s+= defender+" dice: ";
+		for(int j : dResults) {
+			s += j +" ";
+		}
+		setChanged();
+		notifyObservers(s);
+		battle(dCountry, defender, aCountry, aArmies, dArmies, aResults, dResults);
 		map.updateMap();
 		checkGameState(defender);
 	}
 
-	private void battle(CountryNode dCountry, Player defender, CountryNode aCountry, int aArmies, int dArmies) {
-		ArrayList<Integer> aResults = diceRoll(aArmies);
-		ArrayList<Integer> dResults = diceRoll(dArmies);
+	private void battle(CountryNode dCountry, Player defender, CountryNode aCountry, int aArmies, int dArmies,ArrayList<Integer> aResults,ArrayList<Integer> dResults) {
 		//Compare the results to decide battle result
 		while(!aResults.isEmpty() && !dResults.isEmpty()) {
 			int aMax = max(aResults);
@@ -412,7 +422,7 @@ public class GameDriver extends Observable {
 		}
 	}
 
-	private void checkGameState(Player defenderPlayer) {
+	public boolean checkGameState(Player defenderPlayer) {
 		//check if a player loose all the countries
 		if(defenderPlayer.getCountries().isEmpty()) {
 			defenderPlayer.setPlayerState(true);
@@ -420,10 +430,11 @@ public class GameDriver extends Observable {
 		//method to check if game is over
 		for(Player p: players) {
 			if(p!=currentPlayer && !p.getPlayerState()) {
-				turnManager.setGameOver(true);
-				break;
+				return false;
 			}
 		}
+		turnManager.setGameOver(true);
+		return true;
 	}
 
 	public int setUpBoxInput(int min, int max, String message) {
