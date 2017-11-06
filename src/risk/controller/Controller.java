@@ -54,6 +54,11 @@ public class Controller {
 	private PlayerInfoView playerInfoGUI;
 	
 	/**
+	 * PhaseView object.
+	 */
+	PhaseView phaseView;
+	
+	/**
 	 * Stores object of SetUpDialog class.
 	 */
 	private SetUpDialog setupBox;
@@ -85,6 +90,8 @@ public class Controller {
 	 */
 	public Controller(GameDriver newDriver) {
 		this.driver = newDriver;
+		phaseView = new PhaseView();
+		this.driver.addObserver(phaseView);
 		setupBox = new SetUpDialog();
 		this.chooseMapEditorOrPlayGame();
 		this.mapEditorListener();

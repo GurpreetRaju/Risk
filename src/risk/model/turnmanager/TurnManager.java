@@ -77,6 +77,8 @@ public class TurnManager extends Observable{
 		else if(this.phase.equals("Fortification")) {
 			getCurrentPlayer().fortificationPhase();
 		}
+		setChanged();
+		notifyObservers(this.phase);
 	}
 
 }

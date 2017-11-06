@@ -48,9 +48,9 @@ public class PhaseView extends JPanel implements Observer{
 			System.out.println(current.getName()+" in rein");
 			this.add(new JLabel("Player:"));
 			this.add(new JLabel(current.getName()));
-			this.add(new JLabel("\n Armies:"));
+			this.add(new JLabel("Armies:"));
 			this.add(new JLabel(String.valueOf(current.getArmiesCount())));
-			this.add(new JLabel("\n Countries:"));
+			this.add(new JLabel("Countries:"));
 			String[] countries = current.getCountriesNames();
 			for(String s: countries){
 				this.add(new JLabel(s));
