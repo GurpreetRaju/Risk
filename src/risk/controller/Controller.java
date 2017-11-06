@@ -8,6 +8,7 @@ import risk.view.ControlsView;
 import risk.view.DiceRollView;
 import risk.view.MainView;
 import risk.view.MapView;
+import risk.view.PhaseView;
 import risk.view.PlayerInfoView;
 import risk.view.SetUpDialog;
 import risk.view.mapeditor.MapFrame;
@@ -26,6 +27,7 @@ public class Controller {
 	 */
 	private GameDriver driver;
 	
+	private PhaseView phaseGUI;
 	/**
 	 * Stores object of CardsView class.
 	 */
@@ -209,10 +211,12 @@ public class Controller {
         diceRollGUI = new DiceRollView();
         cardsGUI = new CardsView();
         controlsGUI = new ControlsView();
-        MainView.createInstance(playerInfoGUI, mapGUI, diceRollGUI, cardsGUI, controlsGUI);
+        phaseGUI = new PhaseView();
+        MainView.createInstance(playerInfoGUI, mapGUI, diceRollGUI, cardsGUI, controlsGUI, phaseGUI);
         driver.setPlayerView(playerInfoGUI);
 		driver.setMapView(mapGUI);
 		driver.setControlsView(controlsGUI);
+		driver.setPhaseView(phaseGUI);
 		driver.runGame();
 	}
 	

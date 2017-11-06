@@ -1,6 +1,7 @@
 package risk.model;
 
 import java.util.ArrayList;
+import java.util.Observable;
 import java.util.Random;
 
 import risk.controller.Controller;
@@ -17,7 +18,7 @@ import risk.view.*;
  * @author Amitt
  * @version 1.0
  */
-public class GameDriver {
+public class GameDriver extends Observable {
 	
 	/**
 	 * Object of GameDriver class.
@@ -48,6 +49,8 @@ public class GameDriver {
 	 * Object of ControlsView class.
 	 */
 	private ControlsView controlsGUI;
+	
+	private PhaseView phaseGUI;
 	
 	/**
 	 * Object of TurnManager class.
@@ -86,6 +89,8 @@ public class GameDriver {
 	 * Starts the game.
 	 */
 	public void runGame() {
+		setChanged();
+		notifyObservers("Startup");
 		startUpPhase();
 		turnManager.startTurn(this.currentPlayer);
 	}
@@ -98,7 +103,10 @@ public class GameDriver {
 		String[] newPlayerData = controller.getPlayerInfo();
 		players = new ArrayList<Player>();
 		for(String newPlayer: newPlayerData){
-			players.add(new Player(newPlayer,RiskData.InitialArmiesCount.getArmiesCount(newPlayerData.length),map.getMapData()));
+			Player temp = new Player(newPlayer,RiskData.InitialArmiesCount.getArmiesCount(newPlayerData.length),map.getMapData());
+			players.add(temp);
+			setChanged();
+			notifyObservers(temp.getName());
 		}
 		players.get(0).setTurnTrue();
 		this.currentPlayer = players.get(0);
@@ -151,6 +159,10 @@ public class GameDriver {
 		this.controlsGUI = controlView;
 	}
 
+	public void setPhaseView(PhaseView phaseView) {
+		this.phaseGUI = phaseView;
+	}
+	
 	/**
 	 * This method show players information on GUI.
 	 */

@@ -1,11 +1,85 @@
 package risk.view;
 
+import java.awt.Color;
+import java.awt.FlowLayout;
+import java.awt.Label;
+import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
+
+import javax.swing.BorderFactory;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class PhaseView extends JPanel{
+import risk.model.GameDriver;
+import risk.model.Player;
+
+/**
+ * Implements the Phase View panel of the main window.
+ * @author Gunpreet
+ */
+public class PhaseView extends JPanel implements Observer{
 	
-	public void PhaseView() {
+	/**
+	 * Serial Version id for JFrame.
+	 * {@inheritDoc}
+	 */
+	private static final long serialVersionUID = 5240018585440964453L;
+
+	public PhaseView() {
+		JLabel label = new JLabel("PHASE VIEW");
+		this.setLayout(new FlowLayout());
+		this.add(label);
+		this.setBorder(BorderFactory.createLineBorder(Color.black));
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		
+		System.out.println(arg);
+		Player current = GameDriver.getInstance().getCurrentPlayer();
+		if(arg.equals("Startup")){
+			this.removeAll();
+			this.add(new JLabel("Startup Phase"));
+			System.out.println( " in startup");
+		}
+		else if(arg.equals("Reinforcement")){
+			this.removeAll();
+			this.add(new JLabel("Reinforcement Phase"));
+			System.out.println(current.getName()+" in rein");
+			this.add(new JLabel("Player: "));
+			this.add(new JLabel(current.getName()));
+			this.add(new JLabel(String.valueOf(current.getArmiesCount())));
+			String[] countries = current.getCountriesNames();
+			for(String s: countries){
+				this.add(new JLabel(s));
+			}
+		}
+		else if(arg.equals("Attack")){
+			this.removeAll();
+			this.add(new JLabel("Attack Phase"));
+			System.out.println( " in attack");
+			this.add(new JLabel("Player: "));
+			this.add(new JLabel(current.getName()));
+		}
+		else if(arg.equals("Fortification")){
+			this.removeAll();
+			this.add(new JLabel("Fortification Phase"));
+			System.out.println( " in forti");
+			this.add(new JLabel("Player: "));
+			this.add(new JLabel(current.getName()));
+		}
+		else{
+			this.add(new JLabel("Players"));
+			this.add(new JLabel((String) arg));
+			System.out.println(arg + " in list");
+		}
+		System.out.println("Observer");
+		this.validate();
+		this.revalidate();
+		this.repaint();
 		
 	}
+	
 	
 }
