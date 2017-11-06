@@ -36,7 +36,6 @@ public class PhaseView extends JPanel implements Observer{
 	@Override
 	public void update(Observable o, Object arg) {
 		
-		System.out.println(arg);
 		Player current = GameDriver.getInstance().getCurrentPlayer();
 		if(arg.equals("Startup")){
 			this.removeAll();
@@ -47,9 +46,11 @@ public class PhaseView extends JPanel implements Observer{
 			this.removeAll();
 			this.add(new JLabel("Reinforcement Phase"));
 			System.out.println(current.getName()+" in rein");
-			this.add(new JLabel("Player: "));
+			this.add(new JLabel("Player:"));
 			this.add(new JLabel(current.getName()));
+			this.add(new JLabel("\n Armies:"));
 			this.add(new JLabel(String.valueOf(current.getArmiesCount())));
+			this.add(new JLabel("\n Countries:"));
 			String[] countries = current.getCountriesNames();
 			for(String s: countries){
 				this.add(new JLabel(s));
