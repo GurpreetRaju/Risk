@@ -350,6 +350,13 @@ public class Player {
 		this.lost = value;
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 */
+	public String toString() {
+		return name;
+	}
+	
 }
 
 
