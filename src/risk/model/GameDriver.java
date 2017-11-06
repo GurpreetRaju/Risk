@@ -68,7 +68,7 @@ public class GameDriver extends Observable {
 	 */
 	private GameDriver() {
 		controller = new Controller(this);
-		turnManager = new TurnManager("Reinforcement"); 
+		turnManager = new TurnManager("Reinforcement");
 	}
 	
 	/**
@@ -161,6 +161,7 @@ public class GameDriver extends Observable {
 
 	public void setPhaseView(PhaseView phaseView) {
 		this.phaseGUI = phaseView;
+		turnManager.addObserver(this.phaseGUI);
 	}
 	
 	/**

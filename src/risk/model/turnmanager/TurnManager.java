@@ -8,6 +8,7 @@ import risk.model.Player;
 /**
  * This class manages the turn and its phases.
  * @author Gurpreet
+ * @author Gunpreet
  * @version 1.2
  */
 public class TurnManager extends Observable{
