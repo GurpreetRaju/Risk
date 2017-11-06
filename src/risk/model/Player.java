@@ -52,6 +52,11 @@ public class Player {
 	private ArrayList<MapNode> mapData;
 	
 	/**
+	 * number of countries owned by player
+	 */
+	private int playerCountryCount;
+	
+	/**
 	 * Initialize player object with name.
 	 * @param name name of player.
 	 */
@@ -328,6 +333,11 @@ public class Player {
 			aArmies = 2;
 		}
 		return GameDriver.getInstance().setUpBoxInput(1, aArmies,this.name+"! Please select number of dice to roll.");
+	}
+	
+	public int getPlayerCountryCount(){
+		this.playerCountryCount = getCountries().size() + 1;
+		return this.playerCountryCount;
 	}
 	
 }

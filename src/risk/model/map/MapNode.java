@@ -27,6 +27,11 @@ public class MapNode {
 	private int controlValue;
 	
 	/**
+	 * number of countries in the continent
+	 */
+	private int countriesCount;
+	
+	/**
 	 * Initialize attributes of a continent.
 	 * @param newName name of continent
 	 * @param newCountries arraylist containing countries belong to this continent
@@ -116,5 +121,11 @@ public class MapNode {
 			}
 		}
 		return false;
+	}
+	
+	public int getCountriesCount(){
+		this.countriesCount = getCountryList().size() + 1;
+		return this.countriesCount;
+		
 	}
 }

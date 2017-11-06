@@ -21,6 +21,11 @@ public class Map extends Observable {
 	 * @see MapNode
 	 */
 	private ArrayList<MapNode> mapData;
+	
+	/**
+	 * Number of total countries in the Map
+	 */
+	private int countryCount;
 		
 	/**
 	 * This constructor create object of MapReader class and read data from map.
@@ -194,5 +199,13 @@ public class Map extends Observable {
 			}
 		}
 		return c;
+	}
+	
+	public int getCountryCount(){
+		this.countryCount = 0;
+		for (MapNode continent : this.mapData){
+			countryCount += continent.getCountriesCount();
+		}
+		return this.countryCount;
 	}
 }
