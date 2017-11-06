@@ -465,11 +465,19 @@ public class GameDriver extends Observable {
         return max;
     }
 	
+	public int getCurrentplayerCountryCount(){
+		return getCurrentPlayer().getPlayerCountryCount();
+	}
+	
+	public ArrayList<Player> getPlayers(){
+		return this.players;
+	}
+
 	/**
 	 * Call Phase View to show game over
 	 */
 	public void announceGameOver() {
 		notifyObservers("GameOver");
 	}
-	
+
 }

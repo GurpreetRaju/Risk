@@ -21,6 +21,11 @@ public class Map extends Observable {
 	 * @see MapNode
 	 */
 	private ArrayList<MapNode> mapData;
+	
+	/**
+	 * Number of total countries in the Map
+	 */
+	private int countryCount;
 		
 	/**
 	 * This constructor create object of MapReader class and read data from map.
@@ -199,6 +204,16 @@ public class Map extends Observable {
 		}
 		return c;
 	}
+
+	
+	public int getCountryCount(){
+		this.countryCount = 0;
+		for (MapNode continent : this.mapData){
+			countryCount += continent.getCountriesCount();
+		}
+		return this.countryCount;
+	}
+
 	/**
 	 * Check if a continent is owned by a player to which country belongs
 	 * @param player player for which the continent to be checked
@@ -214,5 +229,6 @@ public class Map extends Observable {
 			return true;
 		}
 		return false;
+
 	}
 }
