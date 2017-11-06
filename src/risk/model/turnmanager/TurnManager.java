@@ -33,7 +33,7 @@ public class TurnManager extends Observable{
 	public void startTurn(Player currentPlayer) {
 		currentPlayer.reinforcementPhase();
 		setChanged();
-		notifyObservers(this);
+		notifyObservers("Reinforcement");
 	}
 	
 	/**
@@ -54,7 +54,7 @@ public class TurnManager extends Observable{
 			getCurrentPlayer().reinforcementPhase();
 		}
 		setChanged();
-		notifyObservers(this);
+		notifyObservers(this.phase);
 	}
 	
 	private Player getCurrentPlayer() {
