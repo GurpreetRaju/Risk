@@ -26,8 +26,11 @@ public class Controller {
 	 * Stores instance of GameDriver class.
 	 */
 	private GameDriver driver;
-	
-	private PhaseView phaseGUI;
+
+	/**
+	 * PhaseView object.
+	 */
+	private PhaseView phaseView;
 	/**
 	 * Stores object of CardsView class.
 	 */
@@ -211,12 +214,12 @@ public class Controller {
         diceRollGUI = new DiceRollView();
         cardsGUI = new CardsView();
         controlsGUI = new ControlsView();
-        phaseGUI = new PhaseView();
-        MainView.createInstance(playerInfoGUI, mapGUI, diceRollGUI, cardsGUI, controlsGUI, phaseGUI);
+        phaseView = new PhaseView();
+		this.driver.addObserver(phaseView);
+        MainView.createInstance(playerInfoGUI, mapGUI, diceRollGUI, cardsGUI, controlsGUI, phaseView);
         driver.setPlayerView(playerInfoGUI);
 		driver.setMapView(mapGUI);
 		driver.setControlsView(controlsGUI);
-		driver.setPhaseView(phaseGUI);
 		driver.runGame();
 	}
 	

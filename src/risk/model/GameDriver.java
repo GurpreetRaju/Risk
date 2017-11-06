@@ -49,9 +49,7 @@ public class GameDriver extends Observable {
 	 * Object of ControlsView class.
 	 */
 	private ControlsView controlsGUI;
-	
-	private PhaseView phaseGUI;
-	
+		
 	/**
 	 * Object of TurnManager class.
 	 */
@@ -68,7 +66,7 @@ public class GameDriver extends Observable {
 	 */
 	private GameDriver() {
 		controller = new Controller(this);
-		turnManager = new TurnManager("Reinforcement"); 
+		turnManager = new TurnManager("Reinforcement");
 	}
 	
 	/**
@@ -92,6 +90,8 @@ public class GameDriver extends Observable {
 		setChanged();
 		notifyObservers("Startup");
 		startUpPhase();
+		setChanged();
+		notifyObservers("Reinforcement");
 		turnManager.startTurn(this.currentPlayer);
 	}
 	
@@ -157,10 +157,6 @@ public class GameDriver extends Observable {
 	 */
 	public void setControlsView(ControlsView controlView) {
 		this.controlsGUI = controlView;
-	}
-
-	public void setPhaseView(PhaseView phaseView) {
-		this.phaseGUI = phaseView;
 	}
 	
 	/**
@@ -280,6 +276,8 @@ public class GameDriver extends Observable {
 	public void continuePhase() {
 		turnManager.continuePhase();
 		updateMap();
+		setChanged();
+		notifyObservers(turnManager.getPhase());
 	}
 	
 	/**
@@ -288,6 +286,8 @@ public class GameDriver extends Observable {
 	public void changePhase() {
 		turnManager.changePhase();
 		updateMap();
+		setChanged();
+		notifyObservers(turnManager.getPhase());
 	}
 	
 	/**
@@ -357,27 +357,55 @@ public class GameDriver extends Observable {
 	}
 	
 	public void announceAttack(String attackerCountry, String defenderCountry) {
-		//Announce attack
+		//Write code here to Announce attack on phase view
 		CountryNode dCountry = map.getCountry(defenderCountry);
 		Player defender = dCountry.getOwner();
+		CountryNode aCountry = currentPlayer.getCountry(attackerCountry);
+		//Show dialog boxes and get input from attacker and defender on how many dice to roll
 		int aArmies = this.currentPlayer.selectDiceForAttack(attackerCountry);
 		int dArmies = defender.selectDiceForAttack(defenderCountry);
+		//Rolling dice for attacker and defender 
 		ArrayList<Integer> aResults = diceRoll(aArmies);
 		ArrayList<Integer> dResults = diceRoll(dArmies);
-		int i=0;
+		//Compare the results to decide battle result
 		while(!aResults.isEmpty() && !dResults.isEmpty()) {
 			int aMax = max(aResults);
 			int dMax = max(dResults);
 			if(aResults.get(aMax)>dResults.get(dMax)) {
 				dCountry.removeArmy();
+				//phase view code to show army removed from defender country
+				System.out.println("Army removed from defender country, new armies "+dCountry.getArmiesCount());
 			}
 			else {
-				currentPlayer.getCountry(attackerCountry).removeArmy();
+				aCountry.removeArmy();
+				//phase view code to show army removed from attacker country
+				System.out.println("Army removed from attacker country, new armies "+aCountry.getArmiesCount());
 			}
 			aResults.remove(aMax);
 			dResults.remove(dMax);
 		}
-		//check if countries have armies
+		//check if attacker country has armies left
+		//????after battle movement of countries from winner's country to new country owned
+		if(aCountry.getArmiesCount()==0) {
+			aCountry.setOwner(defender);
+			//phase view code to notify change in ownership of a country
+			System.out.println("Country "+ aCountry.getCountryName() +" won by " + aCountry.getOwner().getName() + ", new armies "+aCountry.getArmiesCount());
+		}
+		//check if defender country has armies left
+		if(dCountry.getArmiesCount()==0) {
+			dCountry.setOwner(currentPlayer);
+			//phase view code to notify change in ownership of a country
+			System.out.println("Country "+ dCountry.getCountryName() +" won by " + dCountry.getOwner() + ", new armies "+dCountry.getArmiesCount());
+		}
+		map.updateMap();
+		checkGameState();
+	}
+
+	private void checkGameState() {
+		//method to check if game is over
+		//check if a continent is won by a player
+		//check if a player loose all the countries
+		
 	}
 
 	public int setUpBoxInput(int min, int max, String message) {
