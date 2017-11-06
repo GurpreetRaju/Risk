@@ -49,9 +49,7 @@ public class GameDriver extends Observable {
 	 * Object of ControlsView class.
 	 */
 	private ControlsView controlsGUI;
-	
-	private PhaseView phaseGUI;
-	
+		
 	/**
 	 * Object of TurnManager class.
 	 */
@@ -92,6 +90,8 @@ public class GameDriver extends Observable {
 		setChanged();
 		notifyObservers("Startup");
 		startUpPhase();
+		setChanged();
+		notifyObservers("Reinforcement");
 		turnManager.startTurn(this.currentPlayer);
 	}
 	
@@ -157,11 +157,6 @@ public class GameDriver extends Observable {
 	 */
 	public void setControlsView(ControlsView controlView) {
 		this.controlsGUI = controlView;
-	}
-
-	public void setPhaseView(PhaseView phaseView) {
-		this.phaseGUI = phaseView;
-		turnManager.addObserver(this.phaseGUI);
 	}
 	
 	/**
@@ -281,6 +276,8 @@ public class GameDriver extends Observable {
 	public void continuePhase() {
 		turnManager.continuePhase();
 		updateMap();
+		setChanged();
+		notifyObservers(turnManager.getPhase());
 	}
 	
 	/**
@@ -289,6 +286,8 @@ public class GameDriver extends Observable {
 	public void changePhase() {
 		turnManager.changePhase();
 		updateMap();
+		setChanged();
+		notifyObservers(turnManager.getPhase());
 	}
 	
 	/**
