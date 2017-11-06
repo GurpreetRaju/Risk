@@ -192,6 +192,7 @@ public class GameDriver extends Observable {
 			this.currentPlayer = players.get(currentPlayerIndex+1);
 		}
 		this.currentPlayer.setTurnTrue();
+		this.getCurrentPlayer().setArmies(this.getCurrentPlayer().getArmies());
 	}
 
 	/**
