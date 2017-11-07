@@ -45,12 +45,12 @@ public class TestMapModel {
 		ArrayList<CountryNode> neighbourArr1 = new ArrayList<CountryNode>();
 		ArrayList<CountryNode> neighbourArr2 = new ArrayList<CountryNode>();
 		ArrayList<CountryNode> neighbourArr3 = new ArrayList<CountryNode>();
-		neighbourArr1.add(new CountryNode("Japan", neighbourArr, coordinates));
-		neighbourArr2.add(new CountryNode("China", neighbourArr, coordinates));
-		neighbourArr3.add(new CountryNode("India", neighbourArr, coordinates));
-		countryArr.add(new CountryNode("India", neighbourArr1, coordinates));
-		countryArr.add(new CountryNode("Japan", neighbourArr2, coordinates));
-		countryArr.add(new CountryNode("China", neighbourArr3, coordinates));
+		neighbourArr1.add(new CountryNode("Japan", neighbourArr, coordinates,null));
+		neighbourArr2.add(new CountryNode("China", neighbourArr, coordinates,null));
+		neighbourArr3.add(new CountryNode("India", neighbourArr, coordinates,null));
+		countryArr.add(new CountryNode("India", neighbourArr1, coordinates,null));
+		countryArr.add(new CountryNode("Japan", neighbourArr2, coordinates,null));
+		countryArr.add(new CountryNode("China", neighbourArr3, coordinates,null));
 		mapModel.addContinents(cn, countryArr, cv);
 		boolean actual = mapModel.checkOnSaveMap();
 		boolean expected = true;
@@ -105,7 +105,7 @@ public class TestMapModel {
 		ArrayList<CountryNode> countryArr = new ArrayList<CountryNode>();
 		ArrayList<CountryNode> neighbourArr = new ArrayList<CountryNode>();
 		int[] coordinates = {250, 250};
-		countryArr.add(new CountryNode("Britain", neighbourArr, coordinates));
+		countryArr.add(new CountryNode("Britain", neighbourArr, coordinates,null));
 		mapModel.addContinents(cn, countryArr, cv);
 		boolean actual = mapModel.checkCountryExist("Britain");
 		boolean expected = true;

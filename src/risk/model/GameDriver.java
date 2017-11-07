@@ -59,6 +59,11 @@ public class GameDriver extends Observable {
 	 * Object of Player class.
 	 */
 	private Player currentPlayer;
+
+	/**
+	 * Pile of cards
+	 */
+	private ArrayList<Card> cards;
 	
 	/**
 	 * Constructor initialize the GUI and  map class object.
@@ -67,8 +72,9 @@ public class GameDriver extends Observable {
 	private GameDriver() {
 		controller = new Controller(this);
 		turnManager = new TurnManager("Reinforcement");
+		cards = Card.generateCardPile();
 	}
-	
+
 	/**
 	 * <p>
 	 * This method create <b>one and only one</b> instance of GameDriver class.
@@ -103,7 +109,7 @@ public class GameDriver extends Observable {
 		String[] newPlayerData = controller.getPlayerInfo();
 		players = new ArrayList<Player>();
 		for(String newPlayer: newPlayerData){
-			Player temp = new Player(newPlayer,RiskData.InitialArmiesCount.getArmiesCount(newPlayerData.length),map.getMapData());
+			Player temp = new Player(newPlayer,RiskData.InitialArmiesCount.getArmiesCount(newPlayerData.length));
 			players.add(temp);
 			setChanged();
 			notifyObservers(temp.getName());
@@ -192,6 +198,7 @@ public class GameDriver extends Observable {
 			this.currentPlayer = players.get(currentPlayerIndex+1);
 		}
 		this.currentPlayer.setTurnTrue();
+		this.getCurrentPlayer().setArmies(this.getCurrentPlayer().getArmies());
 	}
 
 	/**
@@ -367,6 +374,36 @@ public class GameDriver extends Observable {
 		//Rolling dice for attacker and defender 
 		ArrayList<Integer> aResults = diceRoll(aArmies);
 		ArrayList<Integer> dResults = diceRoll(dArmies);
+		String s = this.currentPlayer+" dice : ";
+		for(int i : aResults) {
+			s += i +" ";
+		}
+		s+= defender+" dice: ";
+		for(int j : dResults) {
+			s += j +" ";
+		}
+		setChanged();
+		notifyObservers(s);
+		battle(dCountry, defender, aCountry, aArmies, dArmies, aResults, dResults);
+		//check if defender country has armies left
+		if(dCountry.getArmiesCount()==0) {
+			dCountry.setOwner(currentPlayer);
+			turnManager.setWonCard(true);
+			//phase view code to notify change in ownership of a country
+			System.out.println("Country "+ dCountry.getCountryName() +" won by " + dCountry.getOwner().getName() + ", new armies "+dCountry.getArmiesCount());
+			//move counrties from attacker country to new acquired country
+			int moveArmies = controller.setUpBoxInput(aArmies, aCountry.getArmiesCount()-1, "Select armies to move:");
+			dCountry.addArmy(moveArmies);
+			aCountry.removeArmies(moveArmies);
+			if(map.continentWonByPlayer(currentPlayer, dCountry)) {
+				currentPlayer.addContinent(dCountry.getContinent());
+			}
+		}
+		map.updateMap();
+		checkGameState(defender);
+	}
+
+	private void battle(CountryNode dCountry, Player defender, CountryNode aCountry, int aArmies, int dArmies,ArrayList<Integer> aResults,ArrayList<Integer> dResults) {
 		//Compare the results to decide battle result
 		while(!aResults.isEmpty() && !dResults.isEmpty()) {
 			int aMax = max(aResults);
@@ -384,28 +421,21 @@ public class GameDriver extends Observable {
 			aResults.remove(aMax);
 			dResults.remove(dMax);
 		}
-		//check if attacker country has armies left
-		//????after battle movement of countries from winner's country to new country owned
-		if(aCountry.getArmiesCount()==0) {
-			aCountry.setOwner(defender);
-			//phase view code to notify change in ownership of a country
-			System.out.println("Country "+ aCountry.getCountryName() +" won by " + aCountry.getOwner().getName() + ", new armies "+aCountry.getArmiesCount());
-		}
-		//check if defender country has armies left
-		if(dCountry.getArmiesCount()==0) {
-			dCountry.setOwner(currentPlayer);
-			//phase view code to notify change in ownership of a country
-			System.out.println("Country "+ dCountry.getCountryName() +" won by " + dCountry.getOwner() + ", new armies "+dCountry.getArmiesCount());
-		}
-		map.updateMap();
-		checkGameState();
 	}
 
-	private void checkGameState() {
-		//method to check if game is over
-		//check if a continent is won by a player
+	public boolean checkGameState(Player defenderPlayer) {
 		//check if a player loose all the countries
-		
+		if(defenderPlayer.getCountries().isEmpty()) {
+			defenderPlayer.setPlayerState(true);
+		}
+		//method to check if game is over
+		for(Player p: players) {
+			if(p!=currentPlayer && !p.getPlayerState()) {
+				return false;
+			}
+		}
+		turnManager.setGameOver(true);
+		return true;
 	}
 
 	public int setUpBoxInput(int min, int max, String message) {
@@ -437,4 +467,27 @@ public class GameDriver extends Observable {
         return max;
     }
 	
+	public int getCurrentplayerCountryCount(){
+		return getCurrentPlayer().getPlayerCountryCount();
+	}
+	
+	public ArrayList<Player> getPlayers(){
+		return this.players;
+	}
+
+	/**
+	 * Call Phase View to show game over
+	 */
+	public void announceGameOver() {
+		notifyObservers("GameOver");
+	}
+	
+	/**
+	 * If a player wins a territory during a attack, at the end of the attack phase one card 
+	 * is removed from pile and given to player.
+	 */
+	public void issueCard() {
+		this.currentPlayer.addCard(cards.remove(0));
+	}
+
 }

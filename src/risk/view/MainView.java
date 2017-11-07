@@ -49,6 +49,8 @@ public class MainView extends JFrame{
 	
 	private PhaseView phaseArea;
 	
+	private WorldDominationView dominationView;
+	
 	/**
 	 * Initialize each view with the object of corresponding type.
 	 * @param newPlayerInfo PlayerInfoView object.
@@ -58,7 +60,7 @@ public class MainView extends JFrame{
 	 * @param newControls ControlsView object.
 	 * @param newPhase PhaseView Object.
 	 */
-	private MainView(PlayerInfoView newPlayerInfo, MapView newMap, DiceRollView newDice, CardsView newCards, ControlsView newControls, PhaseView newPhase) 
+	private MainView(PlayerInfoView newPlayerInfo, MapView newMap, DiceRollView newDice, CardsView newCards, ControlsView newControls, PhaseView newPhase, WorldDominationView newDominationView) 
 	{	
 		playerData = newPlayerInfo;
         map = newMap;
@@ -66,6 +68,7 @@ public class MainView extends JFrame{
         cardsArea = newCards;
         controlsArea = newControls;
         phaseArea = newPhase;
+        dominationView = newDominationView;
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         init();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
@@ -88,6 +91,7 @@ public class MainView extends JFrame{
         contentPane.add(cardsArea);
         contentPane.add(controlsArea);
         contentPane.add(phaseArea);
+        contentPane.add(dominationView);
         
         layout.putConstraint(SpringLayout.WEST, phaseArea, 5,  SpringLayout.WEST, contentPane);
         layout.putConstraint(SpringLayout.EAST, phaseArea, 0,  SpringLayout.EAST, cardsArea);
@@ -109,7 +113,12 @@ public class MainView extends JFrame{
         /*diceArea constraints.*/
         layout.putConstraint(SpringLayout.EAST, diceArea, -5,  SpringLayout.EAST, contentPane);
         layout.putConstraint(SpringLayout.NORTH, diceArea, 5, SpringLayout.NORTH, contentPane);
-        layout.putConstraint(SpringLayout.SOUTH, diceArea, 0, SpringLayout.SOUTH, playerData);
+        layout.putConstraint(SpringLayout.SOUTH, diceArea, -150, SpringLayout.NORTH, controlsArea);
+        
+        layout.putConstraint(SpringLayout.NORTH, dominationView, 5, SpringLayout.SOUTH, diceArea);
+        layout.putConstraint(SpringLayout.SOUTH, dominationView, -5, SpringLayout.NORTH, controlsArea);
+        layout.putConstraint(SpringLayout.WEST, dominationView, 5, SpringLayout.EAST, map);
+        layout.putConstraint(SpringLayout.EAST, dominationView, -5, SpringLayout.EAST, contentPane);
         
         /*cardsArea constraints.*/
         layout.putConstraint(SpringLayout.WEST, cardsArea, 5,  SpringLayout.WEST, contentPane);
@@ -140,10 +149,10 @@ public class MainView extends JFrame{
 	 * @param newControls ControlsView object
 	 * @param newPhase 
 	 */
-	public static void createInstance(PlayerInfoView newPlayerInfo, MapView newMap, DiceRollView newDice, CardsView newCards, ControlsView newControls, PhaseView newPhase)
+	public static void createInstance(PlayerInfoView newPlayerInfo, MapView newMap, DiceRollView newDice, CardsView newCards, ControlsView newControls, PhaseView newPhase, WorldDominationView newDominationView)
 	{
 		if(mainView == null){
-			mainView = new MainView(newPlayerInfo, newMap, newDice, newCards, newControls, newPhase);
+			mainView = new MainView(newPlayerInfo, newMap, newDice, newCards, newControls, newPhase, newDominationView);
 		}
 	}
 }

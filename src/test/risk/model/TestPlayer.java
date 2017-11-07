@@ -25,10 +25,10 @@ public class TestPlayer {
 	 */
 	@Before
 	public void setUp() throws Exception {
-		CountryNode country1 = new CountryNode("Country1", null, null);
-		CountryNode country2 = new CountryNode("Country2", null, null);
-		CountryNode country3 = new CountryNode("Country3", null, null);
-		CountryNode country4 = new CountryNode("Country4", null, null);
+		CountryNode country1 = new CountryNode("Country1", null, null, null);
+		CountryNode country2 = new CountryNode("Country2", null, null, null);
+		CountryNode country3 = new CountryNode("Country3", null, null, null);
+		CountryNode country4 = new CountryNode("Country4", null, null, null);
 		
 		ArrayList<MapNode> mapData = new ArrayList<MapNode>();
 		country1.addNeighbour(country2);
@@ -48,10 +48,7 @@ public class TestPlayer {
 		
 		MapNode continent = new MapNode("Continent1", countries, 6);
 		mapData.add(continent);
-		testPlayer = new Player("TestPlayer",0,mapData);
-		testPlayer.addCountry(country1);
-		testPlayer.addCountry(country2);
-		testPlayer.addCountry(country3);
+		testPlayer = new Player("TestPlayer",0,countries);
 	}
 
 	/**

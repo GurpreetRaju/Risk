@@ -52,6 +52,16 @@ public class Player {
 	private ArrayList<MapNode> mapData;
 	
 	/**
+	 * number of countries owned by player
+	 */
+	private int playerCountryCount;
+
+	/**
+	 * shows if player is still in game 
+	 */
+	private boolean lost = false;
+	
+	/**
 	 * Initialize player object with name.
 	 * @param name name of player.
 	 */
@@ -66,15 +76,29 @@ public class Player {
 	 * Initialize player object with name and armies.
 	 * @param name name of the player.
 	 * @param newArmies armies of the player.
-	 * @param mapData ArrayList of all continents in the Map.
 	 */
-	public Player(String name, int newArmies, ArrayList<MapNode> mapData) {
+	public Player(String name, int newArmies) {
 		this.name = name;
 		this.countries = new ArrayList<CountryNode>();
 		this.continents = new ArrayList<MapNode>();
 		this.cards = new ArrayList<Card>();
 		this.armiesCount = newArmies;
-		this.mapData = mapData;
+		this.mapData = new ArrayList<MapNode>();
+	}
+	
+	/**
+	 * Initialize player object with name and armies.
+	 * @param name name of the player.
+	 * @param newArmies armies of the player.
+	 * @param countriesList ArrayList of all countries owned by player.
+	 */
+	public Player(String name, int newArmies, ArrayList<CountryNode> countriesList) {
+		this.name = name;
+		this.countries = countriesList;
+		this.continents = new ArrayList<MapNode>();
+		this.cards = new ArrayList<Card>();
+		this.armiesCount = newArmies;
+		this.mapData = new ArrayList<MapNode>();
 	}
 	
 	/**
@@ -189,27 +213,30 @@ public class Player {
 	public int getArmies() {
 		checkContinent();
 		int countriesCount = this.countries.size();
-		System.out.println(countriesCount);
+		System.out.println("999999"+countriesCount);
 		int continentsCount = this.continents.size();
-		System.out.println(continentsCount);
+		System.out.println("*****"+continentsCount);
 		int cardsCount = this.cards.size();
+		int armyCount = countriesCount/3;
+		if(armyCount<3) {
+			armyCount = 3;
+		}
 		if (continentsCount > 0) {
+			System.out.println("*********"+continentsCount);
+			continentsCount = 0;
 			for (MapNode continent : this.continents){
 				continentsCount =+ continent.getControlValue();
 			}
 		}
-		
-		int armyCount = (int) Math.ceil(countriesCount/3) + continentsCount;
-		
+		armyCount += continentsCount;
+		System.out.println(armyCount);
 		if (cardsCount > 5) {
 			//do something here with the cards count
 			armyCount =+ 5* this.cardsusedCount;
 			this.cardsusedCount++;
 			//remove cards here
 		}
-		if (armyCount < 3){
-			armyCount = 3;
-		}
+		
 		return armyCount;
 	}
 	
@@ -282,8 +309,23 @@ public class Player {
 	}
 	
 	public void attackPhase(){
-		GameDriver.getInstance().getControlGUI().attackControls(getCountriesNames());
-		GameDriver.getInstance().setAttackListeners();
+		ArrayList<String> countriesList = new ArrayList<String>();
+		for(CountryNode c : this.countries) {
+			if(c.getArmiesCount()>1) {
+				for(CountryNode n: c.getNeighbourCountries()) {
+					if(!n.getOwner().equals(this)) {
+						countriesList.add(c.getCountryName());
+					}
+				}
+			}
+		}
+		if(countriesList.isEmpty()) {
+			GameDriver.getInstance().changePhase();
+		}
+		else {
+			GameDriver.getInstance().getControlGUI().attackControls(countriesList.toArray(new String[countriesList.size()]));
+			GameDriver.getInstance().setAttackListeners();
+		}
 	}
 
 	public void fortificationPhase(){
@@ -321,13 +363,45 @@ public class Player {
 	public int selectDiceForAttack(String country) {
 		CountryNode aCountry = getCountry(country);
 		int aArmies = aCountry.getArmiesCount();
-		if(turn & aArmies>3) {
+		if(turn && aArmies>4) {
 			aArmies = 3;
+		}
+		else if(turn) {
+			aArmies =- 1;
 		}
 		else if(aArmies>2) {
 			aArmies = 2;
 		}
 		return GameDriver.getInstance().setUpBoxInput(1, aArmies,this.name+"! Please select number of dice to roll.");
+	}
+	
+
+	public int getPlayerCountryCount(){
+		this.playerCountryCount = getCountries().size();
+		return this.playerCountryCount;
+	}
+
+	/**
+	 * This methods returns value of lost attribute. 
+	 * @return value of lost
+	 */
+	public boolean getPlayerState() {
+		return lost;
+	}
+	
+	/**
+	 * This method set value of lost attribute.
+	 */
+	public void setPlayerState(boolean value) {
+		this.lost = value;
+
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	public String toString() {
+		return name;
 	}
 	
 }

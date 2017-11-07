@@ -29,27 +29,27 @@ public class TestTurnManager {
 	/**
 	 * Creates a CountryNode.
 	 */
-	CountryNode country1 = new CountryNode("Country1", null, null);
+	CountryNode country1 = new CountryNode("Country1", null, null,null);
 	
 	/**
 	 * Creates a CountryNode.
 	 */
-	CountryNode country2 = new CountryNode("Country2", null, null);
+	CountryNode country2 = new CountryNode("Country2", null, null,null);
 	
 	/**
 	 * Creates a CountryNode.
 	 */
-	CountryNode country3 = new CountryNode("Country3", null, null);
+	CountryNode country3 = new CountryNode("Country3", null, null, null);
 	
 	/**
 	 * Creates a CountryNode.
 	 */
-	CountryNode country4 = new CountryNode("Country4", null, null);
+	CountryNode country4 = new CountryNode("Country4", null, null, null);
 	
 	/**
 	 * Creates a CountryNode.
 	 */
-	CountryNode country5 = new CountryNode("Country5", null, null);
+	CountryNode country5 = new CountryNode("Country5", null, null, null);
 	
 	/**
 	 * Called before each test case is run.
@@ -78,8 +78,8 @@ public class TestTurnManager {
 		
 		MapNode continent = new MapNode("Continent1", countries, 6);
 		mapData.add(continent);
-		Player player1 = new Player("Player", 10, mapData);
-		Player player2 = new Player("Player2", 10, mapData);
+		Player player1 = new Player("Player", 10, countries);
+		Player player2 = new Player("Player2", 10, countries);
 		
 		player1.addCountry(country1);
 		player1.addCountry(country2);

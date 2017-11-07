@@ -8,6 +8,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -40,12 +41,11 @@ public class PhaseView extends JPanel implements Observer{
 		if(arg.equals("Startup")){
 			this.removeAll();
 			this.add(new JLabel("Startup Phase"));
-			System.out.println( " in startup");
 		}
 		else if(arg.equals("Reinforcement")){
 			this.removeAll();
+			this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 			this.add(new JLabel("Reinforcement Phase"));
-			System.out.println(current.getName()+" in rein");
 			this.add(new JLabel("Player:"));
 			this.add(new JLabel(current.getName()));
 			this.add(new JLabel("Armies:"));
@@ -58,22 +58,21 @@ public class PhaseView extends JPanel implements Observer{
 		}
 		else if(arg.equals("Attack")){
 			this.removeAll();
-			this.add(new JLabel("Attack Phase"));
+			this.add(new JLabel("<html><div><b>Attack Phase</b></div><br/></html>"));
 			System.out.println( " in attack");
 			this.add(new JLabel("Player: "));
 			this.add(new JLabel(current.getName()));
 		}
 		else if(arg.equals("Fortification")){
 			this.removeAll();
-			this.add(new JLabel("Fortification Phase"));
+			this.add(new JLabel("<html><div><b>Fortification Phase</b></div><br/></html>"));
 			System.out.println( " in forti");
 			this.add(new JLabel("Player: "));
 			this.add(new JLabel(current.getName()));
 		}
 		else{
-			this.add(new JLabel("Players"));
+			this.add(new JLabel("<html><div>Player:</div></html>"));
 			this.add(new JLabel((String) arg));
-			System.out.println(arg + " in list");
 		}
 		System.out.println("Observer");
 		this.validate();
