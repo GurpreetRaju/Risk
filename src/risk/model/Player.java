@@ -213,16 +213,13 @@ public class Player {
 	public int getArmies() {
 		checkContinent();
 		int countriesCount = this.countries.size();
-		System.out.println("999999"+countriesCount);
 		int continentsCount = this.continents.size();
-		System.out.println("*****"+continentsCount);
 		int cardsCount = this.cards.size();
 		int armyCount = countriesCount/3;
 		if(armyCount<3) {
 			armyCount = 3;
 		}
 		if (continentsCount > 0) {
-			System.out.println("*********"+continentsCount);
 			continentsCount = 0;
 			for (MapNode continent : this.continents){
 				continentsCount =+ continent.getControlValue();
@@ -402,6 +399,69 @@ public class Player {
 	 */
 	public String toString() {
 		return name;
+	}
+	
+	public boolean haveInfantryCard(){
+		for (Card card: this.cards){
+			if (card.getName().equals("Infantry")){
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean haveCavalryCard(){
+		for (Card card: this.cards){
+			if (card.getName().equals("Cavalry")){
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean haveArtilleryCard(){
+		for (Card card: this.cards){
+			if (card.getName().equals("Artillery")){
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean haveDistinctCards(){
+		if (haveInfantryCard() && haveArtilleryCard() && haveCavalryCard()){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+	
+	public boolean haveThreeSameTypeCards(){
+		int cavilary = 0;
+		int artillery = 0;
+		int infantry = 0;
+		for (Card card :this.cards){
+			if (card.getName().equals("Artillery")){
+				artillery++;
+			}
+			else if(card.getName().equals("Cavalry")){
+				cavilary++;
+			}
+			else if (card.getName().equals("Infantry")){
+				infantry++;
+			}
+		}
+		if(cavilary == 3 || artillery == 3 || infantry == 3){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+	
+	public ArrayList<Card> getCards(){
+		return this.cards;
 	}
 	
 }
