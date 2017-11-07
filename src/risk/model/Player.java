@@ -476,6 +476,7 @@ public class Player {
 		}
 	}
 	
+
 	/**
 	 * 
 	 * @return list of cards player has.
