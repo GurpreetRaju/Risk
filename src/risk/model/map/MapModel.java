@@ -103,9 +103,6 @@ public class MapModel {
 				saveMap = false;
 			}
 			for (CountryNode country : i.getCountries()) {
-				if(country.getNeighbourCountries().length == 0) {
-					saveMap = false;
-				}
 				//connected map check
 				if(!connectedMap()) {
 					saveMap = false;

@@ -237,6 +237,7 @@ public class mapEditorController {
 							}
 						}
 					}
+					newMap.successAddedNeighbours();
 				}	
 			}
 		});
@@ -271,6 +272,7 @@ public class mapEditorController {
 							}
 						}
 					}
+					newMap.successDeletedNeighbours();
 				}	
 			}
 		});
@@ -303,6 +305,7 @@ public class mapEditorController {
 			public void actionPerformed(ActionEvent e) {
 				if(mapModel.checkOnSaveMap()) {
 					mapModel.saveMapFile();
+					newMap.successfullySaved();
 				}else {
 					newMap.nullCountryError();
 				}
@@ -439,6 +442,7 @@ public class mapEditorController {
 							}
 						}
 					}
+					existingMapEditor.successDeletedNeighbours();
 				}	
 			}
 		});
@@ -510,6 +514,7 @@ public class mapEditorController {
 							}
 						}
 					}
+					existingMapEditor.successAddedNeighbours();
 				}
 			}
 		});
@@ -545,6 +550,7 @@ public class mapEditorController {
 			public void actionPerformed(ActionEvent e) {
 				if(mapModel.checkOnSaveMap()) {
 					mapModel.saveToExistingMapFile(getPath());
+					existingMapEditor.successMessage();
 				}else {
 					existingMapEditor.nullCountryError();
 				}

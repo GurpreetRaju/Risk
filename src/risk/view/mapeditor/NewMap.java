@@ -721,6 +721,20 @@ public class NewMap extends JFrame {
 	}
 
 	/**
+	 * displays dialog box with success message.
+	 */
+	public void successAddedNeighbours() {
+		JOptionPane.showMessageDialog(contentPane, "Successfully added neighbours", "Message", JOptionPane.INFORMATION_MESSAGE);
+	}
+
+	/**
+	 * displays dialog box with success message.
+	 */
+	public void successDeletedNeighbours() {
+		JOptionPane.showMessageDialog(contentPane, "Successfully deleted neighbours", "Message", JOptionPane.INFORMATION_MESSAGE);
+	}
+
+	/**
 	 * dialogue box for error messages
 	 */
 	public void enterValuesError() {
@@ -760,6 +774,13 @@ public class NewMap extends JFrame {
 	 */
 	public void nullCountryError() {
 		JOptionPane.showMessageDialog(contentPane, "Map validation error", "Error", JOptionPane.ERROR_MESSAGE);
+	}
+	
+	/**
+	 * shows dialog box for successful save operation.
+	 */
+	public void successfullySaved() {
+		JOptionPane.showMessageDialog(contentPane, "Successfully saved", "Message", JOptionPane.INFORMATION_MESSAGE);
 	}
 
 	/**

@@ -809,6 +809,27 @@ public class ExistingMapEditor extends JFrame {
 	public void nullCountryError() {
 		JOptionPane.showMessageDialog(contentPane, "Map validation error", "Error", JOptionPane.ERROR_MESSAGE);
 	}
+	
+	/**
+	 * displays dialog box with success message.
+	 */
+	public void successMessage() {
+		JOptionPane.showMessageDialog(contentPane, "Successfully saved", "Message", JOptionPane.INFORMATION_MESSAGE);
+	}
+
+	/**
+	 * displays dialog box with success message.
+	 */
+	public void successAddedNeighbours() {
+		JOptionPane.showMessageDialog(contentPane, "Successfully added neighbours", "Message", JOptionPane.INFORMATION_MESSAGE);
+	}
+
+	/**
+	 * displays dialog box with success message.
+	 */
+	public void successDeletedNeighbours() {
+		JOptionPane.showMessageDialog(contentPane, "Successfully deleted neighbours", "Message", JOptionPane.INFORMATION_MESSAGE);
+	}
 
 	/**
 	 * Function to get the continent control value.
