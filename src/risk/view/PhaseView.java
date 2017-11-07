@@ -40,12 +40,11 @@ public class PhaseView extends JPanel implements Observer{
 		Player current = GameDriver.getInstance().getCurrentPlayer();
 		if(arg.equals("Startup")){
 			this.removeAll();
-			this.add(new JLabel("Startup Phase"));
+			this.add(new JLabel("<html><div><b>Startup Phase</b></div><br/><br/></html>"));
 		}
 		else if(arg.equals("Reinforcement")){
 			this.removeAll();
-			this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-			this.add(new JLabel("Reinforcement Phase"));
+			this.add(new JLabel("<html><div><b>Reinforcement Phase</b></div><br/><br/></html>"));
 			this.add(new JLabel("Player:"));
 			this.add(new JLabel(current.getName()));
 			this.add(new JLabel("Armies:"));
@@ -58,14 +57,16 @@ public class PhaseView extends JPanel implements Observer{
 		}
 		else if(arg.equals("Attack")){
 			this.removeAll();
-			this.add(new JLabel("<html><div><b>Attack Phase</b></div><br/></html>"));
+			this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+			this.add(new JLabel("<html><div><b>Attack Phase</b></div><br/><br/></html>"));
 			System.out.println( " in attack");
 			this.add(new JLabel("Player: "));
 			this.add(new JLabel(current.getName()));
 		}
 		else if(arg.equals("Fortification")){
 			this.removeAll();
-			this.add(new JLabel("<html><div><b>Fortification Phase</b></div><br/></html>"));
+			this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+			this.add(new JLabel("<html><div><b>Fortification Phase</b></div><br/><br/></html>"));
 			System.out.println( " in forti");
 			this.add(new JLabel("Player: "));
 			this.add(new JLabel(current.getName()));
