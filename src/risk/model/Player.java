@@ -325,6 +325,7 @@ public class Player {
 				for(CountryNode n: c.getNeighbourCountries()) {
 					if(!n.getOwner().equals(this)) {
 						countriesList.add(c.getCountryName());
+						break;
 					}
 				}
 			}
