@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 
-import risk.model.CountryNode;
+import risk.model.map.CountryNode;
 
 public class TestCountryNode {
 	CountryNode in;

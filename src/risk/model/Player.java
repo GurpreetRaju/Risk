@@ -2,6 +2,7 @@ package risk.model;
 
 import java.util.ArrayList;
 
+import risk.model.map.CountryNode;
 import risk.model.map.MapNode;
 
 /**

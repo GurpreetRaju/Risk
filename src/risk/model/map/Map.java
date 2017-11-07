@@ -3,7 +3,6 @@ package risk.model.map;
 import java.util.ArrayList;
 import java.util.Observable;
 
-import risk.model.CountryNode;
 import risk.model.Player;
 import risk.view.MapView;
 

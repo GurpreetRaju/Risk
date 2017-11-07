@@ -6,7 +6,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import risk.model.CountryNode;
+import risk.model.map.CountryNode;
 import risk.model.map.MapModel;
 import risk.model.map.MapNode;
 import risk.model.map.MapReader;

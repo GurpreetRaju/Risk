@@ -9,7 +9,7 @@ import javax.swing.JOptionPane;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import risk.model.CountryNode;
+import risk.model.map.CountryNode;
 import risk.model.map.MapModel;
 import risk.model.map.MapNode;
 import risk.model.map.MapReader;

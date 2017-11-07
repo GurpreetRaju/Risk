@@ -4,9 +4,10 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
-import risk.model.CountryNode;
+
 import risk.model.GameDriver;
 import risk.model.Player;
+import risk.model.map.CountryNode;
 import risk.model.map.MapNode;
 
 /**
@@ -93,5 +94,15 @@ public class TestPlayer {
 		assertEquals(4, country1.getArmiesCount());
 	}
 	
+	/**
+	 *  Test method getCountriesNamesNoArmy()
+	 */
+	@Test
+	public void testGetCountriesNamesNoArmy() {
+		country1.addArmy(1);
+		country2.addArmy(7);
+		country4.addArmy(3);
+		assertEquals("Country3",testPlayer.getCountriesNamesNoArmy()[0]);
+	}
 	
 }
