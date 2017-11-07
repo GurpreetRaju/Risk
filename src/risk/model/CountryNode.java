@@ -124,10 +124,16 @@ public class CountryNode {
 	 */
 	public void setOwner(Player player) {
 		if(this.owner != null) {
-			this.owner.removeCountry(this);
+			if(!this.owner.equals(player))
+			{
+				this.owner.removeCountry(this);
+				System.out.println("Country removed");
+			}
 		}
 		this.owner = player;
-		player.addCountry(this);
+		if(!player.getCountries().contains(this)) {
+			player.addCountry(this);
+		}
 	}
 	
 	/**

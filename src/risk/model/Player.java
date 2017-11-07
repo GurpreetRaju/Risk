@@ -94,11 +94,14 @@ public class Player {
 	 */
 	public Player(String name, int newArmies, ArrayList<CountryNode> countriesList) {
 		this.name = name;
-		this.countries = countriesList;
 		this.continents = new ArrayList<MapNode>();
 		this.cards = new ArrayList<Card>();
 		this.armiesCount = newArmies;
 		this.mapData = new ArrayList<MapNode>();
+		this.countries = new ArrayList<CountryNode>();
+		for(CountryNode c: countriesList) {
+			this.addCountry(c);
+		}
 	}
 	
 	/**
@@ -115,6 +118,9 @@ public class Player {
 	 */
 	public void addCountry(CountryNode country) {
 		this.countries.add(country);
+		if(country.getOwner()!=this) {
+			country.setOwner(this);
+		}
 	}
 	
 	/**
@@ -483,6 +489,18 @@ public class Player {
 	 */
 	public ArrayList<Card> getCards(){
 		return this.cards;
+	}
+	
+	/**
+	 * check if two objects are equal.
+	 */
+	public boolean equals(Object o) {
+		if(o instanceof Player) {
+			if(((Player) o).getName().equals(this.getName())) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 }

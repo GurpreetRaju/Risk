@@ -399,7 +399,7 @@ public class GameDriver extends Observable {
 	}
 	
 	/**
-	 * This ethod announce the attack, get number of dice from both attacker and defender.
+	 * This ethod announce the attack, get number of dice from both attacker and defender. If a country loose all its armies, the other player occupy the country.
 	 * @param attackerCountry country attacking
 	 * @param defenderCountry country defending against attack
 	 */
@@ -450,7 +450,8 @@ public class GameDriver extends Observable {
 			}
 		}
 		map.updateMap();
-		checkGameState(defender);
+		setPlayerOut(defender);
+		checkGameState();
 	}
 	
 	/**
@@ -490,19 +491,28 @@ public class GameDriver extends Observable {
 	 * @param defenderPlayer A player recently defending country in a attack.
 	 * @return true if game if over, false if there is atleast two players own atleat one country on map
 	 */
-	public boolean checkGameState(Player defenderPlayer) {
-		//check if a player loose all the countries
-		if(defenderPlayer.getCountries().isEmpty()) {
-			defenderPlayer.setPlayerState(true);
-		}
+	public boolean checkGameState() {
 		//method to check if game is over
 		for(Player p: players) {
-			if(p!=currentPlayer && !p.getPlayerState()) {
-				return false;
+			if(!p.equals(currentPlayer)) {
+				System.out.println(p.getName()+ " " +p.getPlayerState());
+				if(!p.getPlayerState()) {
+					return false;
+				}
 			}
 		}
 		turnManager.setGameOver(true);
 		return true;
+	}
+	/**
+	 * set Player attribute lost true, if player has not country.
+	 * @param defenderPlayer player to be set lost
+	 */
+	public void setPlayerOut(Player defenderPlayer) {
+		//check if a player loose all the countries
+		if(defenderPlayer.getCountries().isEmpty()) {
+			defenderPlayer.setPlayerState(true);
+		}
 	}
 	
 	/**
@@ -521,7 +531,7 @@ public class GameDriver extends Observable {
 	 * @param number of values to be generated.
 	 * @return integer number that represents the value on the dice.
 	 */
-	private ArrayList<Integer> diceRoll(int n) {
+	public ArrayList<Integer> diceRoll(int n) {
 		Random rand = new Random();
 		ArrayList<Integer> diceResults = new ArrayList<Integer>();
 		for(int i=0;i<n;i++) {
@@ -533,9 +543,9 @@ public class GameDriver extends Observable {
 	/**
 	 * This method return maxuimum value in a arraylist.
 	 * @param array list from which max value to be searched
-	 * @return maimum value in list
+	 * @return index of maximum value in list
 	 */
-	private int max(ArrayList<Integer> array) {
+	public int max(ArrayList<Integer> array) {
         int n = array.size();
         int max = 0;
         for(int i=1;i<n;i++) {
@@ -575,6 +585,14 @@ public class GameDriver extends Observable {
 	 */
 	public void issueCard() {
 		this.currentPlayer.addCard(cards.remove(0));
+	}
+
+	/**
+	 * Set current player
+	 * @param player1 player to be set as current player
+	 */
+	public void setCurrentPlayer(Player player1) {
+		this.currentPlayer = player1;
 	}
 
 }
