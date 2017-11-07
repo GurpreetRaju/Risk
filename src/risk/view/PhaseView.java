@@ -55,17 +55,18 @@ public class PhaseView extends JPanel implements Observer{
 				this.add(new JLabel(s));
 			}
 		}
-		else if(arg.equals("Attack")){
+		else if(arg.toString().contains("Attack")){
 			this.removeAll();
 			this.add(new JLabel("<html><div><b>Attack Phase</b></div><br/><br/></html>"));
-			System.out.println( " in attack");
 			this.add(new JLabel("Player: "));
 			this.add(new JLabel(current.getName()));
+			if(arg.toString().length() > 7){
+				this.add(new JLabel(arg.toString().substring(6)));
+			}
 		}
 		else if(arg.equals("Fortification")){
 			this.removeAll();
 			this.add(new JLabel("<html><div><b>Fortification Phase</b></div><br/><br/></html>"));
-			System.out.println( " in forti");
 			this.add(new JLabel("Player: "));
 			this.add(new JLabel(current.getName()));
 		}

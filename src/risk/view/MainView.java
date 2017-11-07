@@ -113,7 +113,7 @@ public class MainView extends JFrame{
         /*diceArea constraints.*/
         layout.putConstraint(SpringLayout.EAST, diceArea, -5,  SpringLayout.EAST, contentPane);
         layout.putConstraint(SpringLayout.NORTH, diceArea, 5, SpringLayout.NORTH, contentPane);
-        layout.putConstraint(SpringLayout.SOUTH, diceArea, -150, SpringLayout.NORTH, controlsArea);
+        layout.putConstraint(SpringLayout.SOUTH, diceArea, -100, SpringLayout.NORTH, controlsArea);
         
         layout.putConstraint(SpringLayout.NORTH, dominationView, 5, SpringLayout.SOUTH, diceArea);
         layout.putConstraint(SpringLayout.SOUTH, dominationView, -5, SpringLayout.NORTH, controlsArea);
