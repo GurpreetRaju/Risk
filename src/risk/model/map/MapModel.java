@@ -21,6 +21,10 @@ public class MapModel {
 	 */
 	Hashtable<String, Boolean> countryTable = new Hashtable<String, Boolean>();
 	
+	/**
+	 * creates hashtable for a continent to store all its countries.
+	 * the country names are stored as keys and their corresponding boolean visited values.
+	 */
 	Hashtable<String, Boolean> continentTable = new Hashtable<String, Boolean>();
 	
 	/**
@@ -135,8 +139,10 @@ public class MapModel {
 		}
 	}
 	
-	
-	
+	/**
+	 * Checks that each continent in itself is a connected continent.
+	 * @return true if all continents are connected continents.
+	 */
 	public boolean checkConnectedContinent() {
 		for (MapNode mapNode : continents) {
 			continentTable.clear();
@@ -153,6 +159,10 @@ public class MapModel {
 		
 	}
 	
+	/**
+	 * This function recurs over the countries of each continent to check their connectivity within the continent.
+	 * @param f receives the country to traverse over its neighbors.
+	 */
 	public void searchForUnconnectedContinent(String f) {
 		// Mark the current node as visited by setting it true 
 		continentTable.put(f, true);
