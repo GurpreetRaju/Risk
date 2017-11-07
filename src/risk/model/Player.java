@@ -213,16 +213,13 @@ public class Player {
 	public int getArmies() {
 		checkContinent();
 		int countriesCount = this.countries.size();
-		System.out.println("999999"+countriesCount);
 		int continentsCount = this.continents.size();
-		System.out.println("*****"+continentsCount);
 		int cardsCount = this.cards.size();
 		int armyCount = countriesCount/3;
 		if(armyCount<3) {
 			armyCount = 3;
 		}
 		if (continentsCount > 0) {
-			System.out.println("*********"+continentsCount);
 			continentsCount = 0;
 			for (MapNode continent : this.continents){
 				continentsCount =+ continent.getControlValue();
