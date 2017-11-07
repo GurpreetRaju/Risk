@@ -146,13 +146,6 @@ public class Controller {
 			}
 		};
 		controlsGUI.addArmiesButtonAction(this.addArmiesListner);
-		
-		controlsGUI.endPhaseAction(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				driver.changePhase();
-			}
-		});
 	}
 	
 	/**
