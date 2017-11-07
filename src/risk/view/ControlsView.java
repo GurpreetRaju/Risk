@@ -87,14 +87,12 @@ public class ControlsView extends JPanel {
 		countriesList = new JComboBox<String>(countryList);
 		countriesList.setSelectedIndex(0);
 		addArmies = new JButton("Add Armies");
-		endPhase = new JButton("End Reinforcement Phase");
 		
 		this.add(new Label(armiesAvailable));
 		this.add(new Label("Country"));
 		this.add(countriesList);
 		this.add(armiesSpinner);
 		this.add(addArmies);
-		this.add(endPhase);
 		this.revalidate();
 		this.repaint();
 	}

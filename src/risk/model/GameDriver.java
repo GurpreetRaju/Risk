@@ -101,9 +101,9 @@ public class GameDriver extends Observable {
 		setChanged();
 		notifyObservers("Startup");
 		startUpPhase();
+		turnManager.startTurn(this.currentPlayer);
 		setChanged();
 		notifyObservers("Reinforcement");
-		turnManager.startTurn(this.currentPlayer);
 	}
 	
 	/**
