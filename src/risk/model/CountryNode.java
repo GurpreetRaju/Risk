@@ -254,5 +254,12 @@ public class CountryNode {
 	public void setContinent(MapNode newContinent) {
 		this.continent = newContinent;
 	}
+	/**
+	 * Subtract multiple armies from country
+	 * @param moveArmies number of armies to subtract
+	 */
+	public void removeArmies(int moveArmies) {
+		armies -= moveArmies;
+	}
 	
 }
