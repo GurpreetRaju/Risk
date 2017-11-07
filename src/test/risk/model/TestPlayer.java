@@ -80,6 +80,15 @@ public class TestPlayer {
 	@Test
 	public void testGetArmies() {
 		assertEquals(3,testPlayer.getArmies());
+		testPlayer.addCountry(new CountryNode("test", null, null, null));
+		testPlayer.addCountry(new CountryNode("test2", null, null, null));
+		testPlayer.addCountry(new CountryNode("test3", null, null, null));
+		testPlayer.addCountry(new CountryNode(null, null, null, null));
+		testPlayer.addCountry(new CountryNode(null, null, null, null));
+		testPlayer.addCountry(new CountryNode(null, null, null, null));
+		testPlayer.addCountry(new CountryNode(null, null, null, null));
+		testPlayer.addCountry(new CountryNode(null, null, null, null));
+		assertEquals(4,testPlayer.getArmies());
 	}
 	
 	/**
@@ -105,4 +114,13 @@ public class TestPlayer {
 		assertEquals("Country3",testPlayer.getCountriesNamesNoArmy()[0]);
 	}
 	
+	/**
+	 * Testing method getArmiesShiftedAfterFortification
+	 */
+	@Test
+	public void testGetArmiesShiftedAfterFortification() {
+		country1.setArmies(3);
+		country2.setArmies(1);
+		assertEquals(3,testPlayer.getArmiesShiftedAfterFortification(country1.getCountryName(), country2.getCountryName(), 2));
+	}
 }
