@@ -21,6 +21,8 @@ public class MapModel {
 	 */
 	Hashtable<String, Boolean> countryTable = new Hashtable<String, Boolean>();
 	
+	Hashtable<String, Boolean> continentTable = new Hashtable<String, Boolean>();
+	
 	/**
 	 * Reference to the MapNode object
 	 */
@@ -113,7 +115,7 @@ public class MapModel {
 	}
 	
 	/**
-	 * checks that all the countrynodes for a connected graph.
+	 * checks that all the country nodes form a connected graph.
 	 * @return true if the map is a connected graph.
 	 */
 	public boolean connectedMap() {
@@ -130,6 +132,49 @@ public class MapModel {
 			return false;
 		}else {
 			return true;
+		}
+	}
+	
+	
+	
+	public boolean checkConnectedContinent() {
+		for (MapNode mapNode : continents) {
+			continentTable.clear();
+			for (CountryNode cNode : mapNode.getCountries()) {
+				continentTable.put(cNode.getCountryName(), false);
+			}
+			String firstCountry = continentTable.keySet().iterator().next();
+			searchForUnconnectedContinent(firstCountry);
+			if(continentTable.containsValue(false)) {
+				return false;
+			}
+		}
+		return true;
+		
+	}
+	
+	public void searchForUnconnectedContinent(String f) {
+		// Mark the current node as visited by setting it true 
+		continentTable.put(f, true);
+		
+		for (MapNode mapNode : continents) {
+			for (CountryNode cNode : mapNode.getCountries()) {
+				if(cNode.getCountryName().compareTo(f)==0) {
+					// get the list of all possible neighbors.
+			        Iterator<CountryNode> i = cNode.getNeighbours().listIterator();
+			        while (i.hasNext())
+			        {
+			        	//pick a neighbor for this country
+			        	CountryNode n = i.next();
+			        	//if this neighbor belongs to the same continent, then recur
+			        	if(continentTable.containsKey(n.getCountryName())) {
+				            if (continentTable.get(n.getCountryName())==false)
+				            	searchForUnconnectedContinent(n.getCountryName());
+			        	}
+			            
+			        }
+				}
+			}
 		}
 	}
 	

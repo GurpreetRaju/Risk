@@ -304,8 +304,12 @@ public class mapEditorController {
 		newMap.addActionsToBtnSave(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(mapModel.checkOnSaveMap()) {
-					mapModel.saveMapFile();
-					newMap.successfullySaved();
+					if(mapModel.checkConnectedContinent()) {
+						mapModel.saveMapFile();
+						newMap.successfullySaved();
+					}else {
+						newMap.nullCountryError();
+					}	
 				}else {
 					newMap.nullCountryError();
 				}
@@ -549,8 +553,11 @@ public class mapEditorController {
 		existingMapEditor.addActionsToBtnSave(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(mapModel.checkOnSaveMap()) {
-					mapModel.saveToExistingMapFile(getPath());
-					existingMapEditor.successMessage();
+					if(mapModel.checkConnectedContinent()) {
+						mapModel.saveToExistingMapFile(getPath());
+						existingMapEditor.successMessage();
+					}
+					
 				}else {
 					existingMapEditor.nullCountryError();
 				}
