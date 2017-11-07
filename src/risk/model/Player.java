@@ -429,7 +429,7 @@ public class Player {
 	}
 	
 	public boolean haveDistinctCards(){
-		if (haveInfantryCard() && haveArtilleryCard() && haveCavalryCard()){
+		if (this.haveInfantryCard() && this.haveArtilleryCard() && this.haveCavalryCard()){
 			return true;
 		}
 		else{
@@ -437,22 +437,56 @@ public class Player {
 		}
 	}
 	
-	public boolean haveThreeSameTypeCards(){
-		int cavilary = 0;
+	public boolean haveThreeArtilleryCards(){
 		int artillery = 0;
-		int infantry = 0;
 		for (Card card :this.cards){
 			if (card.getName().equals("Artillery")){
 				artillery++;
 			}
-			else if(card.getName().equals("Cavalry")){
-				cavilary++;
+		}
+		if(artillery == 3){
+			return true;
+		}
+		else{
+			return false;
+		}
+			
+	}
+	
+	public boolean haveThreeCavalryCards(){
+		int cavalry = 0;
+		for (Card card :this.cards){
+			if (card.getName().equals("Cavalry")){
+				cavalry++;
 			}
-			else if (card.getName().equals("Infantry")){
+		}
+		if(cavalry == 3){
+			return true;
+		}
+		else{
+			return false;
+		}
+			
+	}
+	
+	public boolean haveThreeInfantryCards(){
+		int infantry = 0;
+		for (Card card :this.cards){
+			if (card.getName().equals("Infantry")){
 				infantry++;
 			}
 		}
-		if(cavilary == 3 || artillery == 3 || infantry == 3){
+		if(infantry == 3){
+			return true;
+		}
+		else{
+			return false;
+		}
+			
+	}
+	
+	public boolean haveThreeSameTypeCards(){
+		if(this.haveThreeCavalryCards() || this.haveThreeArtilleryCards() || this.haveThreeInfantryCards()){
 			return true;
 		}
 		else{
@@ -464,6 +498,39 @@ public class Player {
 		return this.cards;
 	}
 	
+	public void removeDistinctCards(){
+		this.removeCard(this.getCard("Cavalry"));
+		this.removeCard(this.getCard("Infantry"));
+		this.removeCard(this.getCard("Artillery"));
+		
+	}
+	
+	public Card getCard(String cardname){
+		for (Card card : this.cards){
+			if ( card.getName().equals(cardname)){
+				return card;
+			}
+		}
+		return null;
+	}
+	
+	public void removeSimilarThreeCards(){
+		if (this.haveThreeArtilleryCards()){
+			this.removeCard(this.getCard("Artillery"));
+			this.removeCard(this.getCard("Artillery"));
+			this.removeCard(this.getCard("Artillery"));
+		}
+		else if (this.haveThreeCavalryCards()){
+			this.removeCard(this.getCard("Cavalry"));
+			this.removeCard(this.getCard("Cavalry"));
+			this.removeCard(this.getCard("Cavalry"));
+		}
+		else if (this.haveThreeInfantryCards()){
+			this.removeCard(this.getCard("Infantry"));
+			this.removeCard(this.getCard("Infantry"));
+			this.removeCard(this.getCard("Infantry"));
+		}
+	}
 }
 
 
