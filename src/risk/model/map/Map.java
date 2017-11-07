@@ -205,7 +205,10 @@ public class Map extends Observable {
 		return c;
 	}
 
-	
+	/**
+	 * Returns the number of countries in map
+	 * @return number of countries in map
+	 */
 	public int getCountryCount(){
 		this.countryCount = 0;
 		for (MapNode continent : this.mapData){

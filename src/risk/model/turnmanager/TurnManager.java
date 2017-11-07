@@ -39,7 +39,10 @@ public class TurnManager {
 	public TurnManager(String string){
 		this.setPhase(string);
 	}
-	
+	/**
+	 * This method starts the turn from reinforcement phase
+	 * @param currentPlayer player having first turn
+	 */
 	public void startTurn(Player currentPlayer) {
 		currentPlayer.setArmies(this.getCurrentPlayer().getArmies());
 		currentPlayer.reinforcementPhase();

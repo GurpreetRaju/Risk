@@ -232,10 +232,18 @@ public class Controller {
 		driver.runGame();
 	}
 	
+	/**
+	 * This method updates the neighbor list combobox in controlsview
+	 * @param newArmies number of armies user can move
+	 * @param newNeighbourList list of neighbor counties
+	 */
 	public void updateControlsFortification(int newArmies, String[] newNeighbourList) {
 		controlsGUI.updateFortification(newArmies, newNeighbourList);
 	}
-
+	
+	/**
+	 * Method set the listeners to components for attack phase in controls view
+	 */
 	public void setAttackListeners() {
 		controlsGUI.countrieslistAction(new ActionListener() {
 			@Override
@@ -261,11 +269,23 @@ public class Controller {
 			}
 		});
 	}
-
+	
+	/**
+	 * Update list of neighbors for combobox in controls view
+	 * @param neighbourList list of neighbor countries
+	 */
 	public void updateNeighborList(String[] neighbourList) {
 		controlsGUI.setNeighborList(neighbourList);
 	}
-
+	
+	/**
+	 * delegate method to call getInput from SetUpDialog class. 
+	 * @see SetUpDialog
+	 * @param min minimum value user can select 
+	 * @param max maximum vlaue user can select
+	 * @param message message explaining the purpose of input
+	 * @return a number selected by user
+	 */
 	public int setUpBoxInput(int min, int max, String message) {
 		return setupBox.getInput(min, max,message);
 	}
