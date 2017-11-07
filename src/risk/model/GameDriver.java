@@ -369,7 +369,7 @@ public class GameDriver extends Observable {
 	}
 	
 	public void announceAttack(String attackerCountry, String defenderCountry) {
-		this.resultNotify = "Attack Attacker Country: "+attackerCountry+" Defender Country: "+defenderCountry+" \n ";
+		this.resultNotify = "Attack Attacker Country: "+attackerCountry+"  Defender Country: "+defenderCountry+"  ";
 		setChanged();
 		notifyObservers(resultNotify);
 		//Write code here to Announce attack on phase view
@@ -386,11 +386,12 @@ public class GameDriver extends Observable {
 		for(int i : aResults) {
 			s += i +" ";
 		}
-		s+= defender+" dice: ";
+		s+= "<br>" + defender+" dice: ";
 		for(int j : dResults) {
 			s += j +" ";
 		}
-		resultNotify += s;
+		resultNotify += "<br>" + s;
+		System.out.println(resultNotify);
 		setChanged();
 		notifyObservers(resultNotify);
 		battle(dCountry, defender, aCountry, aArmies, dArmies, aResults, dResults);
@@ -399,7 +400,7 @@ public class GameDriver extends Observable {
 			dCountry.setOwner(currentPlayer);
 			turnManager.setWonCard(true);
 			//phase view code to notify change in ownership of a country
-			resultNotify += " Country "+ dCountry.getCountryName() +" won by " + dCountry.getOwner().getName() + ", new armies "+dCountry.getArmiesCount();
+			resultNotify += "<br>" + " Country "+ dCountry.getCountryName() +" won by " + dCountry.getOwner().getName() + ", new armies "+dCountry.getArmiesCount();
 			setChanged();
 			notifyObservers(resultNotify);
 			System.out.println("Country "+ dCountry.getCountryName() +" won by " + dCountry.getOwner().getName() + ", new armies "+dCountry.getArmiesCount());
@@ -422,13 +423,13 @@ public class GameDriver extends Observable {
 			int dMax = max(dResults);
 			if(aResults.get(aMax)>dResults.get(dMax)) {
 				dCountry.removeArmy();
-				resultNotify += " Winner Country: "+aCountry.getCountryName();
+				resultNotify += "<br>" + " Winner Country: "+aCountry.getCountryName();
 				//phase view code to show army removed from defender country
 				System.out.println("Army removed from defender country, new armies "+dCountry.getArmiesCount());
 			}
 			else {
 				aCountry.removeArmy();
-				resultNotify += "Winner Country: "+dCountry.getCountryName();
+				resultNotify += "<br>" + "Winner Country: "+dCountry.getCountryName();
 				//phase view code to show army removed from attacker country
 				System.out.println("Army removed from attacker country, new armies "+aCountry.getArmiesCount());
 			}
