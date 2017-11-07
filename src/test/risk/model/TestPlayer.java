@@ -48,10 +48,7 @@ public class TestPlayer {
 		
 		MapNode continent = new MapNode("Continent1", countries, 6);
 		mapData.add(continent);
-		testPlayer = new Player("TestPlayer",0,mapData);
-		testPlayer.addCountry(country1);
-		testPlayer.addCountry(country2);
-		testPlayer.addCountry(country3);
+		testPlayer = new Player("TestPlayer",0,countries);
 	}
 
 	/**

@@ -76,15 +76,29 @@ public class Player {
 	 * Initialize player object with name and armies.
 	 * @param name name of the player.
 	 * @param newArmies armies of the player.
-	 * @param mapData ArrayList of all continents in the Map.
 	 */
-	public Player(String name, int newArmies, ArrayList<MapNode> mapData) {
+	public Player(String name, int newArmies) {
 		this.name = name;
 		this.countries = new ArrayList<CountryNode>();
 		this.continents = new ArrayList<MapNode>();
 		this.cards = new ArrayList<Card>();
 		this.armiesCount = newArmies;
-		this.mapData = mapData;
+		this.mapData = new ArrayList<MapNode>();
+	}
+	
+	/**
+	 * Initialize player object with name and armies.
+	 * @param name name of the player.
+	 * @param newArmies armies of the player.
+	 * @param countriesList ArrayList of all countries owned by player.
+	 */
+	public Player(String name, int newArmies, ArrayList<CountryNode> countriesList) {
+		this.name = name;
+		this.countries = countriesList;
+		this.continents = new ArrayList<MapNode>();
+		this.cards = new ArrayList<Card>();
+		this.armiesCount = newArmies;
+		this.mapData = new ArrayList<MapNode>();
 	}
 	
 	/**
