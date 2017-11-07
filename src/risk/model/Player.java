@@ -386,12 +386,13 @@ public class Player {
 			aArmies = 3;
 		}
 		else if(turn) {
-			aArmies =- 1;
+			aArmies -= 1;
 		}
 		else if(aArmies>2) {
 			aArmies = 2;
 		}
-		return GameDriver.getInstance().setUpBoxInput(1, aArmies,this.name+"! Please select number of dice to roll.");
+//		return GameDriver.getInstance().setUpBoxInput(1, aArmies,this.name+"! Please select number of dice to roll.");
+		return aArmies;
 	}
 	
 	/**
