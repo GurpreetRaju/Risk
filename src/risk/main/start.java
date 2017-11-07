@@ -1,5 +1,6 @@
 package risk.main;
 
+import risk.controller.Controller;
 import risk.model.GameDriver;
 
 /**
@@ -14,7 +15,8 @@ public class start {
           creating and showing this application's GUI.*/
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                GameDriver.getInstance();
+                Controller c = new Controller();
+                c.initialize();;
             }
         });
     }

@@ -9,6 +9,7 @@ import test.risk.model.TestPlayer;
 import test.risk.model.map.TestMapFile;
 import test.risk.model.map.TestMapModel;
 import test.risk.model.map.TestMapValidation;
+import test.risk.model.map.TestMapWriter;
 import test.risk.model.turnmanager.TestTurnManager;
 
 @RunWith(Suite.class)
@@ -19,6 +20,7 @@ import test.risk.model.turnmanager.TestTurnManager;
 				TestPlayer.class,
 				TestGameDriver.class,
 				TestMapModel.class,
+				//TestMapWriter.class
 			})
 
 public class AllTests {

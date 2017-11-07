@@ -94,11 +94,14 @@ public class Player {
 	 */
 	public Player(String name, int newArmies, ArrayList<CountryNode> countriesList) {
 		this.name = name;
-		this.countries = countriesList;
 		this.continents = new ArrayList<MapNode>();
 		this.cards = new ArrayList<Card>();
 		this.armiesCount = newArmies;
 		this.mapData = new ArrayList<MapNode>();
+		this.countries = new ArrayList<CountryNode>();
+		for(CountryNode c: countriesList) {
+			this.addCountry(c);
+		}
 	}
 	
 	/**
@@ -115,6 +118,9 @@ public class Player {
 	 */
 	public void addCountry(CountryNode country) {
 		this.countries.add(country);
+		if(country.getOwner()!=this) {
+			country.setOwner(this);
+		}
 	}
 	
 	/**
@@ -300,11 +306,17 @@ public class Player {
 		this.armiesCount = newArmies;
 	}
 	
+	/**
+	 * This method runs the reinforcement phase
+	 */
 	public void reinforcementPhase(){
 		GameDriver.getInstance().getControlGUI().reinforcementControls(getArmiesCount(), getCountriesNames());
 		GameDriver.getInstance().setControlsActionListeners();
 	}
 	
+	/**
+	 * This method runs attack phase.
+	 */
 	public void attackPhase(){
 		ArrayList<String> countriesList = new ArrayList<String>();
 		for(CountryNode c : this.countries) {
@@ -324,7 +336,10 @@ public class Player {
 			GameDriver.getInstance().setAttackListeners();
 		}
 	}
-
+	
+	/**
+	 * This method runs the fortification phase
+	 */
 	public void fortificationPhase(){
 		GameDriver.getInstance().getControlGUI().fortificationControls(getCountriesNames());
 		GameDriver.getInstance().setFortificationLiteners();
@@ -356,7 +371,12 @@ public class Player {
 		neighbourC.setArmies(neighbourC.getArmiesCount() + selectedArmies);
 		return neighbourC.getArmiesCount();
 	}
-
+	
+	/**
+	 * This method calculate the number of dice a player can roo during attack phase
+	 * @param country country selected as attacking or attacked
+	 * @return number of dice to roll
+	 */
 	public int selectDiceForAttack(String country) {
 		CountryNode aCountry = getCountry(country);
 		int aArmies = aCountry.getArmiesCount();
@@ -372,10 +392,12 @@ public class Player {
 		return GameDriver.getInstance().setUpBoxInput(1, aArmies,this.name+"! Please select number of dice to roll.");
 	}
 	
-
+	/**
+	 * 
+	 * @return number of countries owned by player
+	 */
 	public int getPlayerCountryCount(){
-		this.playerCountryCount = getCountries().size();
-		return this.playerCountryCount;
+		return getCountries().size();
 	}
 
 	/**
@@ -399,6 +421,86 @@ public class Player {
 	 */
 	public String toString() {
 		return name;
+	}
+	
+	public boolean haveInfantryCard(){
+		for (Card card: this.cards){
+			if (card.getName().equals("Infantry")){
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean haveCavalryCard(){
+		for (Card card: this.cards){
+			if (card.getName().equals("Cavalry")){
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean haveArtilleryCard(){
+		for (Card card: this.cards){
+			if (card.getName().equals("Artillery")){
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean haveDistinctCards(){
+		if (haveInfantryCard() && haveArtilleryCard() && haveCavalryCard()){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+	
+	public boolean haveThreeSameTypeCards(){
+		int cavilary = 0;
+		int artillery = 0;
+		int infantry = 0;
+		for (Card card :this.cards){
+			if (card.getName().equals("Artillery")){
+				artillery++;
+			}
+			else if(card.getName().equals("Cavalry")){
+				cavilary++;
+			}
+			else if (card.getName().equals("Infantry")){
+				infantry++;
+			}
+		}
+		if(cavilary == 3 || artillery == 3 || infantry == 3){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+	
+
+	/**
+	 * 
+	 * @return list of cards player has.
+	 */
+	public ArrayList<Card> getCards(){
+		return this.cards;
+	}
+	
+	/**
+	 * check if two objects are equal.
+	 */
+	public boolean equals(Object o) {
+		if(o instanceof Player) {
+			if(((Player) o).getName().equals(this.getName())) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 }
