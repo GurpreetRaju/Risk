@@ -75,7 +75,6 @@ public class GameDriver extends Observable {
 	 * Constructor is private so objects can not be created directly for this class.
 	 */
 	private GameDriver() {
-		controller = new Controller(this);
 		turnManager = new TurnManager("Reinforcement");
 		cards = Card.generateCardPile();
 	}
@@ -93,6 +92,12 @@ public class GameDriver extends Observable {
 		}
 		return driver;
 	}
+	/**
+	 * Set controller in GameDriver class.
+	 */
+	public void setController(Controller newController) {
+		this.controller = newController;
+	}
 	
 	/**
 	 * Starts the game.
@@ -100,7 +105,8 @@ public class GameDriver extends Observable {
 	public void runGame() {
 		setChanged();
 		notifyObservers("Startup");
-		startUpPhase();
+		String[] newPlayerData = controller.getPlayerInfo();
+		startUpPhase(newPlayerData);
 		setChanged();
 		notifyObservers("Reinforcement");
 		turnManager.startTurn(this.currentPlayer);
@@ -110,11 +116,10 @@ public class GameDriver extends Observable {
 	 * This method starts the startup phase of game.
 	 * It assigns countries to players.
 	 */
-	public void startUpPhase() {
-		String[] newPlayerData = controller.getPlayerInfo();
+	public void startUpPhase(String[] playerData) {
 		players = new ArrayList<Player>();
-		for(String newPlayer: newPlayerData){
-			Player temp = new Player(newPlayer,RiskData.InitialArmiesCount.getArmiesCount(newPlayerData.length));
+		for(String newPlayer: playerData){
+			Player temp = new Player(newPlayer,RiskData.InitialArmiesCount.getArmiesCount(playerData.length));
 			players.add(temp);
 			setChanged();
 			notifyObservers(temp.getName());

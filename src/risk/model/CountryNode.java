@@ -78,7 +78,7 @@ public class CountryNode {
 	 */
 	public CountryNode[] getNeighbourCountries() {
 		if(this.neighbourCountries!=null)
-		return this.neighbourCountries.toArray(new CountryNode[this.neighbourCountries.size()]);	
+			return this.neighbourCountries.toArray(new CountryNode[this.neighbourCountries.size()]);
 		return null;
 	}
 	

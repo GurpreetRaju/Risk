@@ -87,6 +87,7 @@ public class Controller {
 	 * Empty constructor for object creation
 	 */
 	public Controller(){
+		this(GameDriver.getInstance());
 	}
 	
 	/**
@@ -95,10 +96,17 @@ public class Controller {
 	 */
 	public Controller(GameDriver newDriver) {
 		this.driver = newDriver;
+		driver.setController(this);
+	}
+	
+	/**
+	 * Method to initialize setupBox and listeners.
+	 */
+	public void initialize() {
 		setupBox = new SetUpDialog();
-		this.chooseMapEditorOrPlayGame();
-		this.mapEditorListener();
-		this.playGameListener();
+		chooseMapEditorOrPlayGame();
+		mapEditorListener();
+		playGameListener();
 	}
 	
 	/**
