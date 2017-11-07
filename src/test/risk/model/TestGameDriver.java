@@ -94,8 +94,8 @@ public class TestGameDriver {
 		countries.add(country5);
 		MapNode continent = new MapNode("Continent1", countries, 6);
 		mapData.add(continent);
-		player1 = new Player("Player1", 15, mapData);
-		player2 = new Player("Player2", 10, mapData);
+		player1 = new Player("Player1", 15, countries);
+		player2 = new Player("Player2", 10, countries);
 		player1.addCountry(country1);
 		player1.addCountry(country2);
 		player1.addCountry(country3);
