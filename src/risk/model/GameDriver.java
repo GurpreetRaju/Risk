@@ -395,6 +395,8 @@ public class GameDriver extends Observable {
 		setChanged();
 		notifyObservers(resultNotify);
 		battle(dCountry, defender, aCountry, aArmies, dArmies, aResults, dResults);
+		setChanged();
+		notifyObservers(resultNotify);
 		//check if defender country has armies left
 		if(dCountry.getArmiesCount()==0) {
 			dCountry.setOwner(currentPlayer);
@@ -433,8 +435,6 @@ public class GameDriver extends Observable {
 				//phase view code to show army removed from attacker country
 				System.out.println("Army removed from attacker country, new armies "+aCountry.getArmiesCount());
 			}
-			setChanged();
-			notifyObservers(resultNotify);
 			aResults.remove(aMax);
 			dResults.remove(dMax);
 		}
