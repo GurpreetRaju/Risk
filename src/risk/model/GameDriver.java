@@ -501,7 +501,7 @@ public class GameDriver extends Observable {
 	}
 	
 	/**
-	 * delecgate method to call setUpBoxInput from controller class.
+	 * delegate method to call setUpBoxInput from controller class.
 	 * @param min minimum value user can select 
 	 * @param max maximum vlaue user can select
 	 * @param message message explaining the purpose of input
