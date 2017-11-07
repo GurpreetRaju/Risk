@@ -7,7 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
-import risk.model.CountryNode;
+import risk.model.map.CountryNode;
 import risk.model.map.MapModel;
 import risk.model.map.MapNode;
 import risk.model.map.MapWriter;
