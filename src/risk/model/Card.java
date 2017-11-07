@@ -1,5 +1,7 @@
 package risk.model;
 
+import java.util.ArrayList;
+
 /**
  * This class defines the card user-defined type.
  */
@@ -39,5 +41,17 @@ public class Card {
 	 */
 	String getType() {
 		return this.type;
+	}
+	
+	/**
+	 * Generate a pile of 44 cards
+	 * @return ArrayList containing 44 cards.
+	 */
+	public static ArrayList<Card> generateCardPile() {
+		ArrayList<Card> cardPile = new ArrayList<Card>();
+		for(int i=0;i<44;i++) {
+			cardPile.add(new Card("Artillery","Normal"));
+		}
+		return cardPile;
 	}
 }
