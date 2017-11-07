@@ -109,7 +109,7 @@ public class GameDriver extends Observable {
 		String[] newPlayerData = controller.getPlayerInfo();
 		players = new ArrayList<Player>();
 		for(String newPlayer: newPlayerData){
-			Player temp = new Player(newPlayer,RiskData.InitialArmiesCount.getArmiesCount(newPlayerData.length),map.getMapData());
+			Player temp = new Player(newPlayer,RiskData.InitialArmiesCount.getArmiesCount(newPlayerData.length));
 			players.add(temp);
 			setChanged();
 			notifyObservers(temp.getName());

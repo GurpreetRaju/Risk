@@ -78,8 +78,8 @@ public class TestTurnManager {
 		
 		MapNode continent = new MapNode("Continent1", countries, 6);
 		mapData.add(continent);
-		Player player1 = new Player("Player", 10, mapData);
-		Player player2 = new Player("Player2", 10, mapData);
+		Player player1 = new Player("Player", 10, countries);
+		Player player2 = new Player("Player2", 10, countries);
 		
 		player1.addCountry(country1);
 		player1.addCountry(country2);

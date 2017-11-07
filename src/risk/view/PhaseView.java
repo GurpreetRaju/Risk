@@ -57,7 +57,6 @@ public class PhaseView extends JPanel implements Observer{
 		}
 		else if(arg.equals("Attack")){
 			this.removeAll();
-			this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 			this.add(new JLabel("<html><div><b>Attack Phase</b></div><br/><br/></html>"));
 			System.out.println( " in attack");
 			this.add(new JLabel("Player: "));
@@ -65,7 +64,6 @@ public class PhaseView extends JPanel implements Observer{
 		}
 		else if(arg.equals("Fortification")){
 			this.removeAll();
-			this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 			this.add(new JLabel("<html><div><b>Fortification Phase</b></div><br/><br/></html>"));
 			System.out.println( " in forti");
 			this.add(new JLabel("Player: "));
@@ -77,8 +75,6 @@ public class PhaseView extends JPanel implements Observer{
 		}
 		System.out.println("Observer");
 		this.validate();
-		this.revalidate();
-		this.repaint();
 		
 	}
 	

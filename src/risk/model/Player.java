@@ -76,15 +76,29 @@ public class Player {
 	 * Initialize player object with name and armies.
 	 * @param name name of the player.
 	 * @param newArmies armies of the player.
-	 * @param mapData ArrayList of all continents in the Map.
 	 */
-	public Player(String name, int newArmies, ArrayList<MapNode> mapData) {
+	public Player(String name, int newArmies) {
 		this.name = name;
 		this.countries = new ArrayList<CountryNode>();
 		this.continents = new ArrayList<MapNode>();
 		this.cards = new ArrayList<Card>();
 		this.armiesCount = newArmies;
-		this.mapData = mapData;
+		this.mapData = new ArrayList<MapNode>();
+	}
+	
+	/**
+	 * Initialize player object with name and armies.
+	 * @param name name of the player.
+	 * @param newArmies armies of the player.
+	 * @param countriesList ArrayList of all countries owned by player.
+	 */
+	public Player(String name, int newArmies, ArrayList<CountryNode> countriesList) {
+		this.name = name;
+		this.countries = countriesList;
+		this.continents = new ArrayList<MapNode>();
+		this.cards = new ArrayList<Card>();
+		this.armiesCount = newArmies;
+		this.mapData = new ArrayList<MapNode>();
 	}
 	
 	/**
@@ -201,17 +215,18 @@ public class Player {
 		int countriesCount = this.countries.size();
 		int continentsCount = this.continents.size();
 		int cardsCount = this.cards.size();
-		if (countriesCount < 3){
-			countriesCount = 9;
+		int armyCount = countriesCount/3;
+		if(armyCount<3) {
+			armyCount = 3;
 		}
 		if (continentsCount > 0) {
+			continentsCount = 0;
 			for (MapNode continent : this.continents){
 				continentsCount =+ continent.getControlValue();
 			}
 		}
-		
-		int armyCount = (int) Math.ceil(countriesCount/3) + continentsCount;
-		
+		armyCount += continentsCount;
+		System.out.println(armyCount);
 		if (cardsCount > 5) {
 			//do something here with the cards count
 			armyCount =+ 5* this.cardsusedCount;
