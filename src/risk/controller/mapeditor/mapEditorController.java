@@ -9,7 +9,7 @@ import javax.swing.JOptionPane;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import risk.model.CountryNode;
+import risk.model.map.CountryNode;
 import risk.model.map.MapModel;
 import risk.model.map.MapNode;
 import risk.model.map.MapReader;
@@ -304,8 +304,12 @@ public class mapEditorController {
 		newMap.addActionsToBtnSave(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(mapModel.checkOnSaveMap()) {
-					mapModel.saveMapFile();
-					newMap.successfullySaved();
+					if(mapModel.checkConnectedContinent()) {
+						mapModel.saveMapFile();
+						newMap.successfullySaved();
+					}else {
+						newMap.nullCountryError();
+					}	
 				}else {
 					newMap.nullCountryError();
 				}
@@ -549,8 +553,11 @@ public class mapEditorController {
 		existingMapEditor.addActionsToBtnSave(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(mapModel.checkOnSaveMap()) {
-					mapModel.saveToExistingMapFile(getPath());
-					existingMapEditor.successMessage();
+					if(mapModel.checkConnectedContinent()) {
+						mapModel.saveToExistingMapFile(getPath());
+						existingMapEditor.successMessage();
+					}
+					
 				}else {
 					existingMapEditor.nullCountryError();
 				}

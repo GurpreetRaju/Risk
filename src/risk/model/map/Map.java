@@ -3,7 +3,6 @@ package risk.model.map;
 import java.util.ArrayList;
 import java.util.Observable;
 
-import risk.model.CountryNode;
 import risk.model.Player;
 import risk.view.MapView;
 
@@ -205,7 +204,10 @@ public class Map extends Observable {
 		return c;
 	}
 
-	
+	/**
+	 * Returns the number of countries in map
+	 * @return number of countries in map
+	 */
 	public int getCountryCount(){
 		this.countryCount = 0;
 		for (MapNode continent : this.mapData){

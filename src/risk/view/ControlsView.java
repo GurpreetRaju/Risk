@@ -87,14 +87,12 @@ public class ControlsView extends JPanel {
 		countriesList = new JComboBox<String>(countryList);
 		countriesList.setSelectedIndex(0);
 		addArmies = new JButton("Add Armies");
-		endPhase = new JButton("End Reinforcement Phase");
 		
 		this.add(new Label(armiesAvailable));
 		this.add(new Label("Country"));
 		this.add(countriesList);
 		this.add(armiesSpinner);
 		this.add(addArmies);
-		this.add(endPhase);
 		this.revalidate();
 		this.repaint();
 	}
@@ -168,7 +166,11 @@ public class ControlsView extends JPanel {
 		this.armiesSpinner.setEnabled(true);
 		setNeighborList(neighbourNames);
 	}
-
+	
+	/**
+	 * This method set list of neighbors to neighborList combobox.
+	 * @param newNeighbourNames list of neighbors
+	 */
 	public void setNeighborList(String[] newNeighbourNames) {
 		this.neighborList.setModel(new DefaultComboBoxModel<String>(newNeighbourNames));
 		this.neighborList.setSelectedIndex(0);
@@ -207,7 +209,11 @@ public class ControlsView extends JPanel {
 	public boolean isNeighbourSelected() {
 		return this.neighborList.isEnabled();
 	}
-
+	
+	/**
+	 * This method reset the controls for attack phase
+	 * @param countriesNames list of countries
+	 */
 	public void attackControls(String[] countriesNames) {
 		this.removeAll();
 

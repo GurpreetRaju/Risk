@@ -5,7 +5,6 @@ import java.util.Hashtable;
 import java.util.Iterator;
 
 import risk.controller.Controller;
-import risk.model.CountryNode;
 import risk.view.mapeditor.MapFrame;
 
 /**
@@ -20,6 +19,12 @@ public class MapModel {
 	 * Creates hashtable for storing all countries as keys and their corresponding boolean visited values.
 	 */
 	Hashtable<String, Boolean> countryTable = new Hashtable<String, Boolean>();
+	
+	/**
+	 * creates hashtable for a continent to store all its countries.
+	 * the country names are stored as keys and their corresponding boolean visited values.
+	 */
+	Hashtable<String, Boolean> continentTable = new Hashtable<String, Boolean>();
 	
 	/**
 	 * Reference to the MapNode object
@@ -113,7 +118,7 @@ public class MapModel {
 	}
 	
 	/**
-	 * checks that all the countrynodes for a connected graph.
+	 * checks that all the country nodes form a connected graph.
 	 * @return true if the map is a connected graph.
 	 */
 	public boolean connectedMap() {
@@ -130,6 +135,55 @@ public class MapModel {
 			return false;
 		}else {
 			return true;
+		}
+	}
+	
+	/**
+	 * Checks that each continent in itself is a connected continent.
+	 * @return true if all continents are connected continents.
+	 */
+	public boolean checkConnectedContinent() {
+		for (MapNode mapNode : continents) {
+			continentTable.clear();
+			for (CountryNode cNode : mapNode.getCountries()) {
+				continentTable.put(cNode.getCountryName(), false);
+			}
+			String firstCountry = continentTable.keySet().iterator().next();
+			searchForUnconnectedContinent(firstCountry);
+			if(continentTable.containsValue(false)) {
+				return false;
+			}
+		}
+		return true;
+		
+	}
+	
+	/**
+	 * This function recurs over the countries of each continent to check their connectivity within the continent.
+	 * @param f receives the country to traverse over its neighbors.
+	 */
+	public void searchForUnconnectedContinent(String f) {
+		// Mark the current node as visited by setting it true 
+		continentTable.put(f, true);
+		
+		for (MapNode mapNode : continents) {
+			for (CountryNode cNode : mapNode.getCountries()) {
+				if(cNode.getCountryName().compareTo(f)==0) {
+					// get the list of all possible neighbors.
+			        Iterator<CountryNode> i = cNode.getNeighbours().listIterator();
+			        while (i.hasNext())
+			        {
+			        	//pick a neighbor for this country
+			        	CountryNode n = i.next();
+			        	//if this neighbor belongs to the same continent, then recur
+			        	if(continentTable.containsKey(n.getCountryName())) {
+				            if (continentTable.get(n.getCountryName())==false)
+				            	searchForUnconnectedContinent(n.getCountryName());
+			        	}
+			            
+			        }
+				}
+			}
 		}
 	}
 	
