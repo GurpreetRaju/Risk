@@ -34,11 +34,17 @@ public class PhaseView extends JPanel implements Observer{
 
 	@Override
 	public void update(Observable o, Object arg) {
-		
 		Player current = GameDriver.getInstance().getCurrentPlayer();
 		if(arg.equals("Startup")){
 			this.removeAll();
 			this.add(new JLabel("<html><div><b>Startup Phase</b></div><br/><br/></html>"));
+		}
+		else if(arg.equals("Cards")){
+			this.removeAll();
+			this.add(new JLabel("<html><div><b>Cards Exchange</b></div><br/><br/></html>"));
+			this.add(new JLabel("Player: "));
+			this.add(new JLabel(current.getName()));
+			this.add(new JLabel(" can exchange cards to get more armies  "));
 		}
 		else if(arg.equals("Reinforcement")){
 			this.removeAll();
@@ -67,16 +73,10 @@ public class PhaseView extends JPanel implements Observer{
 		}
 		else if(arg.equals("Fortification")){
 			this.removeAll();
+			this.setLayout(new FlowLayout());
 			this.add(new JLabel("<html><div><b>Fortification Phase</b></div><br/><br/></html>"));
 			this.add(new JLabel("Player: "));
 			this.add(new JLabel(current.getName()));
-		}
-		else if(arg.equals("Cards")){
-			this.removeAll();
-			this.add(new JLabel("<html><div><b>Cards Exchange</b></div><br/><br/></html>"));
-			this.add(new JLabel("Player: "));
-			this.add(new JLabel(current.getName()));
-			this.add(new JLabel(" can exchange cards to get more armies  "));
 		}
 		else{
 			this.add(new JLabel("<html><div>Player:</div></html>"));
@@ -84,8 +84,5 @@ public class PhaseView extends JPanel implements Observer{
 		}
 		System.out.println("Observer");
 		this.validate();
-		
 	}
-	
-	
 }
