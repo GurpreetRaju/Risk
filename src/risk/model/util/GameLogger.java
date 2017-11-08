@@ -1,4 +1,4 @@
-package risk.view;
+package risk.model.util;
 
 import java.awt.Color;
 import java.awt.FlowLayout;
@@ -13,51 +13,46 @@ import javax.swing.JPanel;
 import risk.model.GameDriver;
 import risk.model.Player;
 
-/**
- * Implements the Phase View panel of the main window using Observer Pattern.
- * @author Gunpreet
- * @version 1.2
- */
-public class PhaseView extends JPanel implements Observer{
-	
+public class GameLogger extends JPanel implements Observer {
+
 	/**
 	 * Serial Version id for JFrame.
 	 * {@inheritDoc}
 	 */
-	private static final long serialVersionUID = 5240018585440964453L;
-
+	private static final long serialVersionUID = -8766321280014020596L;
+	
 	/**
-	 * Constructor to initialize PhaseView.
+	 * Constructor to intialize GameLogger
 	 */
-	public PhaseView() {
-		JLabel label = new JLabel("PHASE VIEW");
+	public GameLogger(){
+		JLabel label = new JLabel("<html><b>Game Logger</b></html>");
 		this.setLayout(new FlowLayout());
 		this.add(label);
 		this.setBorder(BorderFactory.createLineBorder(Color.black));
 	}
 
 	/**
-	 * Observer method called on notifyObservers for PhaseView.
+	 * Observer method called on notifyObservers for GameLogger.
 	 */
 	@Override
 	public void update(Observable o, Object arg) {
 		Player current = GameDriver.getInstance().getCurrentPlayer();
-		/*Startup Phase View Display.*/
+		/*Startup GameLogger Display.*/
 		if(arg.equals("Startup")){
-			this.removeAll();
+			
 			this.add(new JLabel("<html><div><b>Startup Phase</b></div><br/><br/></html>"));
 		}
 		/*Cards Exchange View Display.*/
 		else if(arg.equals("Cards")){
-			this.removeAll();
+			
 			this.add(new JLabel("<html><div><b>Cards Exchange</b></div><br/><br/></html>"));
 			this.add(new JLabel("Player: "));
 			this.add(new JLabel(current.getName()));
 			this.add(new JLabel(" can exchange cards to get more armies  "));
 		}
-		/*Reinforcement Phase View Display.*/
+		/*Reinforcement Game Logger Display.*/
 		else if(arg.equals("Reinforcement")){
-			this.removeAll();
+			
 			this.add(new JLabel("<html><div><b>Reinforcement Phase</b></div><br/><br/></html>"));
 			this.add(new JLabel("Player:"));
 			this.add(new JLabel(current.getName()));
@@ -69,9 +64,9 @@ public class PhaseView extends JPanel implements Observer{
 				this.add(new JLabel(s));
 			}
 		}
-		/*Attack Phase View Display.*/
+		/*Attack Game Logger Display.*/
 		else if(arg.toString().contains("Attack")){
-			this.removeAll();
+			
 			this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 			this.add(new JLabel("<html><div><b>Attack Phase</b></div><br/><br/></html>"));
 			this.add(new JLabel("Player: "+ current.getName()));
@@ -82,14 +77,13 @@ public class PhaseView extends JPanel implements Observer{
 				}
 			}
 		}
-		/*Fortification Phase View Display.*/
+		/*Fortification Game Logger Display.*/
 		else if(arg.equals("Fortification")){
-			this.removeAll();
+			
 			this.setLayout(new FlowLayout());
 			this.add(new JLabel("<html><div><b>Fortification Phase</b></div><br/><br/></html>"));
 			this.add(new JLabel("Player: "));
 			this.add(new JLabel(current.getName()));
-			this.add(new JLabel("Player can move armies to other country once"));
 		}
 		/*Players Display for Startup Phase.*/
 		else{
@@ -99,4 +93,5 @@ public class PhaseView extends JPanel implements Observer{
 		System.out.println("Observer");
 		this.validate();
 	}
+
 }
