@@ -405,7 +405,7 @@ public class GameDriver extends Observable {
 	}
 	
 	/**
-	 * This ethod announce the attack, get number of dice from both attacker and defender. If a country loose all its armies, the other player occupy the country.
+	 * This method announce the attack, get number of dice from both attacker and defender. If a country loose all its armies, the other player occupy the country.
 	 * @param attackerCountry country attacking
 	 * @param defenderCountry country defending against attack
 	 */
