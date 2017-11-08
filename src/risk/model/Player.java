@@ -319,6 +319,7 @@ public class Player {
 				for(CountryNode n: c.getNeighbourCountries()) {
 					if(!n.getOwner().equals(this)) {
 						countriesList.add(c.getCountryName());
+						break;
 					}
 				}
 			}
@@ -379,7 +380,7 @@ public class Player {
 			aArmies = 3;
 		}
 		else if(turn) {
-			aArmies =- 1;
+			aArmies -= 1;
 		}
 		else if(aArmies>2) {
 			aArmies = 2;
@@ -562,7 +563,7 @@ public class Player {
 	 */
 	public boolean equals(Object o) {
 		if(o instanceof Player) {
-			if(((Player) o).getName().equals(this.getName())) {
+			if(((Player) o).getName().equals(this.getName())){
 				return true;
 			}
 		}

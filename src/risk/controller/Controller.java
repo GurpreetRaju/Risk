@@ -291,5 +291,9 @@ public class Controller {
 	public int setUpBoxInput(int min, int max, String message) {
 		return setupBox.getInput(min, max,message);
 	}
+
+	public void removeAllControls() {
+		controlsGUI.removeAll();
+	}
 	
 }

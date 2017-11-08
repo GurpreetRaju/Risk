@@ -137,7 +137,10 @@ public class GameDriver extends Observable {
 				}
 			}
 		}
-		for(int i1=0;i1<players.get(0).getArmiesCount();i1++){
+		
+		int totalArmiesDiv = players.get(0).getArmiesCount();
+		for(int i1=0;i1<totalArmiesDiv ;i1++){
+			System.out.print("Armies divided"+players.get(0).getArmiesCount());
 			for(Player p: players){
 				String s;
 				if(p.getCountriesNamesNoArmy().length!=0){
@@ -580,6 +583,7 @@ public class GameDriver extends Observable {
 	 */
 	public void announceGameOver() {
 		notifyObservers("GameOver");
+		controller.removeAllControls();
 	}
 	
 	/**
