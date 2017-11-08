@@ -344,7 +344,8 @@ public class mapEditorController {
 				newMap.clearNeighboursJList();
 				newMap.clearCountryComBoxContents();
 				ArrayList<MapNode> continents = mapModel.getContinents();
-
+				
+				/*find the selected country and delete it*/
 				for (MapNode node: continents) {
 					for (CountryNode temp : node.getCountries()) {
 						if(temp.getCountryName().compareTo(selectedcountry)==0) {
@@ -352,6 +353,7 @@ public class mapEditorController {
 						}
 					}
 				}
+				/*Update the JFrame contents*/
 				for (MapNode node: continents) {
 					for (CountryNode temp : node.getCountries()) {
 						newMap.setCountriesComboBox(temp.getCountryName());
@@ -371,7 +373,9 @@ public class mapEditorController {
 					}else {
 						String selectedContinent = newMap.getSelectedContinent();
 						Boolean countryExist = mapModel.checkCountryExist(cn1);
+						/*if the country is unique and does not exist before*/
 						if(!countryExist) {
+							/*arrayList to store neighbors*/
 							ArrayList<CountryNode> neighbours= new ArrayList<CountryNode>();
 							for (Object ncountry : newMap.getNeighboursList()) {
 								CountryNode cn =  new CountryNode(ncountry.toString(), null, null,null);
@@ -380,11 +384,13 @@ public class mapEditorController {
 							newMap.clearNeighboursJList();
 							newMap.clearCountryComBoxContents();
 							for (MapNode node: mapModel.getContinents()) {
+								/*get the value of selected continent and add country to it*/
 								if(selectedContinent.compareTo(node.getContinentName())==0) {
 									int a[]= {250,250};
 									CountryNode newCountry = new CountryNode(cn1,  neighbours , a,null);
 									node.addCountry(newCountry);
 								}
+								/*update the contents of JFrame*/
 								for (CountryNode temp : node.getCountries()) {
 									newMap.addPossibleNeighboursToJList(temp.getCountryName());
 									newMap.setCountriesComboBox(temp.getCountryName());
@@ -410,6 +416,8 @@ public class mapEditorController {
 	 */
 	public void existingMapActions() {
 
+		/*actionListeners for all the existing map editor buttons*/
+		
 		existingMapEditor.addActionsToBtnAddContinent(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				existingMapEditor.enableContinentFields();
@@ -428,6 +436,9 @@ public class mapEditorController {
 				String sCountrytToDeleteNeighbour = existingMapEditor.getSelectedCountryForNeighbourDeletion();
 				existingMapEditor.clearNeighboursJList_1();
 
+				/*find the selected country whose neighbors are to be deleted
+				 * and display its all possible neighbors
+				 */
 				for (MapNode node : mapModel.getContinents()){
 					for (CountryNode countryNode : node.getCountries()){
 						if(sCountrytToDeleteNeighbour.compareTo(countryNode.getCountryName())==0) {
@@ -451,6 +462,7 @@ public class mapEditorController {
 						CountryNode cn =  new CountryNode(ncountry.toString(), null, null, null);
 						neighbours_1.add(cn);
 					}
+					/*remove the selected neighbors*/
 					for (MapNode node : mapModel.getContinents()){
 						for (CountryNode cNode : node.getCountries()){
 							if(sCountrytToDeleteNeighbour.compareTo(cNode.getCountryName())==0)
@@ -459,6 +471,7 @@ public class mapEditorController {
 								}
 						}
 					}
+					/*delete the neighbor link from both sides*/
 					for (CountryNode neighbour : neighbours_1) {
 						for (MapNode node : mapModel.getContinents()) {
 							for (CountryNode countryNode : node.getCountries()) {
@@ -483,12 +496,14 @@ public class mapEditorController {
 				}else{
 					int control_value= Integer.parseInt(cv);
 					Boolean continentExist1 = mapModel.checkContinentExist(cn);
+					/*if the continent is not already present, add it*/
 					if(!continentExist1){
 						ArrayList<CountryNode> countryArr = new ArrayList<CountryNode>();
 						mapModel.addContinents(cn, countryArr, control_value);
 						existingMapEditor.clearComboBoxContents();
 						for(MapNode i: mapModel.getContinents()){
 							String continent = i.getContinentName();
+							/*update the JFrame*/
 							existingMapEditor.setContinentsComboBox(continent);
 						}
 					}
@@ -504,6 +519,7 @@ public class mapEditorController {
 				existingMapEditor.clearNeighboursJList();
 				for (MapNode node : mapModel.getContinents()){
 					for (CountryNode countryNode : node.getCountries()){
+						/*add all the possible neighbors for a country*/
 						if(sCountrytToAddNeighbour.compareTo(countryNode.getCountryName())==0)
 							continue;
 						existingMapEditor.addPossibleNeighboursToJList(countryNode.getCountryName());
@@ -517,12 +533,14 @@ public class mapEditorController {
 				if(existingMapEditor.getNeighboursList().isEmpty()) {
 					existingMapEditor.noSelectedNeighboursError();
 				}else {
+					/*create a neighbor arrayList and add all the possible neighbors to it*/
 					ArrayList<CountryNode> neighbours= new ArrayList<CountryNode>();
 					String sCountrytToAddNeighbour = existingMapEditor.getSelectedCountryForNeighbours();
 					for (Object ncountry : existingMapEditor.getNeighboursList()){
 						CountryNode cn =  new CountryNode(ncountry.toString(), null, null, null);
 						neighbours.add(cn);
 					}
+					/*get the selected country and add neighbors to it.*/
 					for (MapNode node : mapModel.getContinents()){
 						for (CountryNode cNode : node.getCountries()){
 							if(sCountrytToAddNeighbour.compareTo(cNode.getCountryName())==0)
@@ -531,6 +549,7 @@ public class mapEditorController {
 								}
 						}
 					}
+					/*create bidirectional link between adjacent countries.*/
 					for (CountryNode neighbour : neighbours) {
 						for (MapNode node : mapModel.getContinents()) {
 							for (CountryNode countryNode : node.getCountries()) {
@@ -551,7 +570,7 @@ public class mapEditorController {
 				String delete_continent = existingMapEditor.getContinentToDelete();
 				for (MapNode i :continents) {
 					if(i.getContinentName().compareTo(delete_continent)==0) {
-						continents.remove(i);
+						continents.remove(i); // remove the continent.
 						break;
 					}
 				}
@@ -559,6 +578,7 @@ public class mapEditorController {
 				for(MapNode i: continents) {
 					existingMapEditor.setContinentsComboBox(i.getContinentName());
 				}
+				/*update the JFrame*/
 				existingMapEditor.clearNeighboursJList();
 				existingMapEditor.clearComboBoxContents();
 				existingMapEditor.clearCountryComBoxContents();
@@ -572,6 +592,7 @@ public class mapEditorController {
 			}
 		});
 
+		/*actionListener for save button*/
 		existingMapEditor.addActionsToBtnSave(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(mapModel.checkOnSaveMap()) {
@@ -586,6 +607,7 @@ public class mapEditorController {
 			}
 		});
 
+		/*actionListener for delete country button*/
 		existingMapEditor.addActionsToBtnDeleteCountry(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String selectedcountry = existingMapEditor.getCountryForDeletion();
@@ -595,7 +617,7 @@ public class mapEditorController {
 				for (MapNode node: continents) {
 					for (CountryNode temp : node.getCountries()) {
 						if(temp.getCountryName().compareTo(selectedcountry)==0) {
-							node.removeCountry(temp);
+							node.removeCountry(temp); //delete the countrynode
 						}
 					}
 				}
@@ -618,6 +640,9 @@ public class mapEditorController {
 					}else {
 						String selectedContinent = existingMapEditor.getSelectedContinent();
 						Boolean countryExist = mapModel.checkCountryExist(cn1);
+						/*if the country is not already present, then add it
+						 * else give error
+						 */
 						if(!countryExist) {
 							ArrayList<CountryNode> neighbours= new ArrayList<CountryNode>();
 							for (Object ncountry : existingMapEditor.getNeighboursList()) {//check
@@ -627,6 +652,7 @@ public class mapEditorController {
 							existingMapEditor.clearNeighboursJList();
 							existingMapEditor.clearCountryComBoxContents();
 							for (MapNode node: mapModel.getContinents()) {
+								/*when the appropriate continent is found, add country to it*/
 								if(selectedContinent.compareTo(node.getContinentName())==0) {
 									int a[]= {250,250};
 									CountryNode newCountry = new CountryNode(cn1,  neighbours , a, null);
