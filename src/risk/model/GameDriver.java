@@ -118,6 +118,35 @@ public class GameDriver extends Observable {
 	 * @param playerData String array to store elements of player type.
 	 */
 	public void startUpPhase(String[] playerData) {
+		
+		dividingCountries(playerData,map.getMapData());
+		
+		updatePlayerView();
+		
+		/*Distribute armies to countries as per player's choice.*/
+		int totalArmiesDiv = players.get(0).getArmiesCount();
+		for(int i1=0;i1<totalArmiesDiv ;i1++){
+			System.out.print("Armies divided"+players.get(0).getArmiesCount());
+			for(Player p: players){
+				String s;
+				if(p.getCountriesNamesNoArmy().length!=0){
+					s = controller.placeArmyDialog(p.getCountriesNamesNoArmy(), p.getName()+" Place your army");
+				}else{
+					s= controller.placeArmyDialog(p.getCountriesNames(),p.getName()+" Place your army");
+				}
+				p.getCountry(s).addArmy(1);
+				p.removeArmies(1);
+			}
+		}
+		updateMap();
+	}
+	
+	/**
+	 * This method create player objects and divide countries among them.
+	 * @param playerData list of players
+	 * @param mapData arraylist containing MapNode Objects representing continents
+	 */
+	public void dividingCountries(String[] playerData, ArrayList<MapNode> mapData) {
 		players = new ArrayList<Player>();
 		for(String newPlayer: playerData){
 			Player temp = new Player(newPlayer,RiskData.InitialArmiesCount.getArmiesCount(playerData.length));
@@ -127,10 +156,9 @@ public class GameDriver extends Observable {
 		}
 		players.get(0).setTurnTrue();
 		this.currentPlayer = players.get(0);
-		updatePlayerView();
 		int i = 0;
 		/*Random distribution of countries among the players.*/
-		for(MapNode m : map.getMapData()){
+		for(MapNode m : mapData){
 			for(CountryNode c: m.getCountries()){
 				c.setOwner(players.get(i));
 				if(++i>=players.size()){
@@ -138,23 +166,6 @@ public class GameDriver extends Observable {
 				}
 			}
 		}
-		
-		/*Distribute armies to countries as per player's choice.*/
-		int totalArmiesDiv = players.get(0).getArmiesCount();
-		for(int i1=0;i1<totalArmiesDiv ;i1++){
-			System.out.print("Armies divided"+players.get(0).getArmiesCount());
-			for(Player p: players){
-				String s;
-				if(p.getCountriesNamesNoArmy().length!=0){
-					s = controller.placeArmyDialog(p.getCountriesNamesNoArmy());
-				}else{
-					s= controller.placeArmyDialog(p.getCountriesNames());
-				}
-				p.getCountry(s).addArmy(1);
-				p.removeArmies(1);
-			}
-		}
-		updateMap();
 	}
 
 	/**
@@ -500,25 +511,20 @@ public class GameDriver extends Observable {
 	 * @return true if game if over, false if there is at least two players own at least one country on map
 	 */
 	public boolean checkGameState() {
-		for(Player p: players) {
-			if(!p.equals(currentPlayer)) {
-				System.out.println(p.getName()+ " " +p.getPlayerState());
-				if(!p.getPlayerState()) {
-					return false;
-				}
-			}
+		if(players.size()<2) {
+			turnManager.setGameOver(true);
+			return true;
 		}
-		turnManager.setGameOver(true);
-		return true;
+		return false;
 	}
 	
 	/**
-	 * set Player attribute lost true, if player has not country.
-	 * @param defenderPlayer player to be set lost
+	 * remove player from players list, if player has not country.
+	 * @param defenderPlayer player to be removed
 	 */
 	public void setPlayerOut(Player defenderPlayer) {
 		if(defenderPlayer.getCountries().isEmpty()) {
-			defenderPlayer.setPlayerState(true);
+			players.remove(defenderPlayer);
 		}
 	}
 	

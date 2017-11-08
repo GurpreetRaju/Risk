@@ -42,17 +42,19 @@ public class MapReader {
 						t = false;
 						continue;
 					}
+					//check if current line is for continent
 					if(c){
 						int indexEqualTo = sCurrentLine.indexOf("=");
 						map.add(new MapNode(sCurrentLine.substring(0, indexEqualTo), null, Integer.parseInt(sCurrentLine.substring(indexEqualTo+1).trim())));
-					}else if(t){
+					}
+					else if(t){  //check if current line is for territory
 						String[] temp = sCurrentLine.split(",");
 						for(MapNode n : map){
 							if(n.getContinentName().equals(temp[3])){
-								if(!CountryNode.contains(stack, temp[0])){
+								if(!CountryNode.contains(stack, temp[0])){//check if the neighbor country object not already created
 									stack.add(new CountryNode(temp[0], null, null,null));
 								}
-								
+								//get country object from stack and update its neighbours and other information
 								CountryNode newCountry = CountryNode.getCountry(stack, temp[0]);
 								int[] newCoordinates = {Integer.parseInt(temp[1]),Integer.parseInt(temp[2])};
 								newCountry.setCoordinates(newCoordinates);

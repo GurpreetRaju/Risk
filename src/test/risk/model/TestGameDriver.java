@@ -10,6 +10,7 @@ import org.junit.Test;
 import risk.model.GameDriver;
 import risk.model.Player;
 import risk.model.map.CountryNode;
+import risk.model.map.MapNode;
 
 
 /**
@@ -40,22 +41,27 @@ public class TestGameDriver {
 	/**
 	 * CountryNode reference.
 	 */
-	CountryNode country4;
+	private CountryNode country4;
 	
 	/**
 	 * CountryNode reference.
 	 */
-	CountryNode country5;
+	private CountryNode country5;
 	
 	/**
 	 * Reference for player object.
 	 */
-	Player player1;
+	private Player player1;
 	
 	/**
 	 * Reference for Player object.
 	 */
-	Player player2;
+	private Player player2;
+	
+	/**
+	 * Reference for MapNode object
+	 */
+	private ArrayList<MapNode> mapData;
 	
 	/**
 	 * This function is called before each test case is run.
@@ -78,6 +84,13 @@ public class TestGameDriver {
 		country4.addNeighbour(country3);
 		country5.addNeighbour(country1);
 		country1.addNeighbour(country5);
+	}
+	
+	/**
+	 * This method tests the battle method from GameDriver class.
+	 */
+	@Test
+	public void testBattle() {
 		ArrayList<CountryNode> countries = new ArrayList<CountryNode>();
 		countries.add(country1);
 		countries.add(country2);
@@ -97,13 +110,6 @@ public class TestGameDriver {
 		driver.setPlayerList(player1);
 		driver.setPlayerList(player2);
 		driver.setCurrentPlayer(player1);
-	}
-	
-	/**
-	 * This method tests the battle method from GameDriver class.
-	 */
-	@Test
-	public void testBattle() {
 		ArrayList<Integer> aResults = new ArrayList<Integer>();
 		aResults.add(4);
 		aResults.add(2);
@@ -122,11 +128,48 @@ public class TestGameDriver {
 	 */
 	@Test
 	public void testMax() {
+		ArrayList<CountryNode> countries = new ArrayList<CountryNode>();
+		countries.add(country1);
+		countries.add(country2);
+		countries.add(country3);
+		ArrayList<CountryNode> countries1 = new ArrayList<CountryNode>();
+		countries1.add(country4);
+		countries1.add(country5);
+		player1 = new Player("Player1", 15, countries);
+		player2 = new Player("Player2", 10, countries1);
+		country1.addArmy(1);
+		country2.addArmy(1);
+		country3.addArmy(1);
+		country4.addArmy(1);
+		country5.addArmy(1);
+		player1.setTurnTrue();
+		player2.setTurnFalse();
+		driver.setPlayerList(player1);
+		driver.setPlayerList(player2);
+		driver.setCurrentPlayer(player1);
 		ArrayList<Integer> aResults = new ArrayList<Integer>();
 		aResults.add(4);
 		aResults.add(2);
 		aResults.add(3);
 		aResults.add(6);
 		assertEquals(3,driver.max(aResults));
+	}
+	
+	/**
+	 * This method tests the dividingCountries()
+	 */
+	@Test
+	public void testDividingCountries() {
+		ArrayList<CountryNode> countries = new ArrayList<CountryNode>();
+		countries.add(country1);
+		countries.add(country2);
+		countries.add(country3);
+		countries.add(country4);
+		MapNode m = new MapNode("Asia", countries, 2);
+		mapData = new ArrayList<MapNode>();
+		mapData.add(m);
+		String[] playerData = {"Player3","Player4"};
+		driver.dividingCountries(playerData, mapData);
+		assertEquals(2,driver.getCurrentPlayer().getPlayerCountryCount());
 	}
 }

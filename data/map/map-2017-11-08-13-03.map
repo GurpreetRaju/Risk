@@ -1,0 +1,14 @@
+[Map]
+author=Iceworm72
+image=001_I72_Ghtroc 720.bmp
+wrap=no
+scroll=vertical
+warn=no
+
+[Continents]
+Asia=2
+
+[Territories]
+India,250,250,Asia,Japan
+Japan,250,250,Asia,China
+China,250,250,Asia,India
