@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 
+import risk.model.Card;
 import risk.model.GameDriver;
 import risk.model.Player;
 import risk.model.map.CountryNode;
@@ -12,7 +13,8 @@ import risk.model.map.MapNode;
 
 /**
  * Tests the Player class functions.
- *
+ *@author gurpreet
+ *@author amitt
  */
 public class TestPlayer {
 	
@@ -42,6 +44,51 @@ public class TestPlayer {
 	private CountryNode country4;
 	
 	/**
+	 * Card Reference
+	 */
+	private Card card1;
+	
+	/**
+	 * Card Reference
+	 */
+	private Card card2;
+	
+	/**
+	 * Card Reference
+	 */
+	private Card card3;
+	
+	/**
+	 * Card Reference
+	 */
+	private Card card4;
+	
+	/**
+	 * Card Reference
+	 */
+	private Card card5;
+	
+	/**
+	 * Card Reference
+	 */
+	private Card card6;
+	
+	/**
+	 * Card Reference
+	 */
+	private Card card7;
+	
+	/**
+	 * Card Reference
+	 */
+	private Card card8;
+	
+	/**
+	 * Card Reference
+	 */
+	private Card card9;
+	
+	/**
 	 * Called before each test case of this class is executed.
 	 * @throws Exception any throwable exception.
 	 */
@@ -51,6 +98,16 @@ public class TestPlayer {
 		country2 = new CountryNode("Country2", null, null, null);
 		country3 = new CountryNode("Country3", null, null, null);
 		country4 = new CountryNode("Country4", null, null, null);
+		
+		card1 = new Card("Artillery","General");
+		card2 = new Card("Infantry","General");
+		card3 = new Card("Cavalry","General");
+		card4 = new Card("Artillery","General");
+		card5 = new Card("Artillery","General");
+		card6 = new Card("Cavalry","General");
+		card7 = new Card("Cavalry","General");
+		card8 = new Card("Infantry","General");
+		card9 = new Card("Infantry","General");
 		
 		ArrayList<MapNode> mapData = new ArrayList<MapNode>();
 		country1.addNeighbour(country2);
@@ -123,4 +180,112 @@ public class TestPlayer {
 		country2.setArmies(1);
 		assertEquals(3,testPlayer.getArmiesShiftedAfterFortification(country1.getCountryName(), country2.getCountryName(), 2));
 	}
+	
+	/**
+	 * Testing method haveInfantryCard
+	 */
+	@Test
+	public void testHaveInfantryCard() {
+		testPlayer.addCard(card2);
+		assertTrue(testPlayer.haveInfantryCard());
+	}
+	
+	/**
+	 * Testing method haveCavalryCard
+	 */
+	@Test
+	public void testHaveCavalryCard() {
+		testPlayer.addCard(card3);
+		assertTrue(testPlayer.haveCavalryCard());
+	}
+	
+	/**
+	 * Testing method haveArtilleryCard
+	 */
+	@Test
+	public void testHaveArtilleryCard() {
+		testPlayer.addCard(card1);
+		assertTrue(testPlayer.haveArtilleryCard());
+	}
+	
+	/**
+	 * Testing method haveDistinctCards
+	 */
+	@Test
+	public void testHaveDistinctCard() {
+		testPlayer.addCard(card1);
+		testPlayer.addCard(card2);
+		testPlayer.addCard(card3);
+		assertTrue(testPlayer.haveDistinctCards());
+	}
+	
+	/**
+	 * Testing method haveThreeArtilleryCards
+	 */
+	@Test
+	public void testHaveThreeArtilleryCards() {
+		testPlayer.addCard(card1);
+		testPlayer.addCard(card4);
+		testPlayer.addCard(card5);
+		assertTrue(testPlayer.haveThreeArtilleryCards());
+	}
+	
+	/**
+	 * Testing method haveThreeCavalryCards
+	 */
+	@Test
+	public void testHaveThreeCavalryCards() {
+		testPlayer.addCard(card3);
+		testPlayer.addCard(card6);
+		testPlayer.addCard(card7);
+		assertTrue(testPlayer.haveThreeCavalryCards());
+	}
+	
+	/**
+	 * Testing method haveThreeInfantryCards
+	 */
+	@Test
+	public void testHaveThreeInfantryCards() {
+		testPlayer.addCard(card2);
+		testPlayer.addCard(card8);
+		testPlayer.addCard(card9);
+		assertTrue(testPlayer.haveThreeInfantryCards());
+	}
+	
+	/**
+	 * Testing method haveThreeSameTypeCards
+	 */
+	@Test
+	public void testHaveThreeSameTypeCards() {
+		testPlayer.addCard(card2);
+		testPlayer.addCard(card8);
+		testPlayer.addCard(card9);
+		assertTrue(testPlayer.haveThreeSameTypeCards());
+	}
+	
+	/**
+	 * Testing method removeDistinctCards
+	 */
+	@Test
+	public void testRemoveDistinctCards() {
+		testPlayer.addCard(card1);
+		testPlayer.addCard(card2);
+		testPlayer.addCard(card3);
+		testPlayer.removeDistinctCards();
+		assertEquals(0, testPlayer.getCards().size());
+	}
+	
+	/**
+	 * Testing method removeSimilarThreeCards
+	 */
+	@Test
+	public void testRemoveSimilarThreeCards() {
+		testPlayer.addCard(card1);
+		testPlayer.addCard(card4);
+		testPlayer.addCard(card5);
+		testPlayer.addCard(card2);
+		testPlayer.removeSimilarThreeCards();
+		assertEquals(1, testPlayer.getCards().size());
+	}	
+	
 }
