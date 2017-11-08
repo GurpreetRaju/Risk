@@ -35,7 +35,7 @@ public class Player {
 	/**
 	 * number of times player exchanged the cards.
 	 */
-	private int cardsusedCount = 1;
+	private int cardsUsedCount = 1;
 	
 	/**
 	 * number of armies player has.
@@ -234,12 +234,6 @@ public class Player {
 		}
 		armyCount += continentsCount;
 		System.out.println(armyCount);
-		if (cardsCount > 5) {
-			//do something here with the cards count
-			armyCount =+ 5* this.cardsusedCount;
-			this.cardsusedCount++;
-			//remove cards here
-		}
 		
 		return armyCount;
 	}
@@ -531,7 +525,7 @@ public class Player {
 		this.removeCard(this.getCard("Cavalry"));
 		this.removeCard(this.getCard("Infantry"));
 		this.removeCard(this.getCard("Artillery"));
-		
+		this.assignArmies(5*this.cardsUsedCount++);
 	}
 	
 	public Card getCard(String cardname){
@@ -559,6 +553,8 @@ public class Player {
 			this.removeCard(this.getCard("Infantry"));
 			this.removeCard(this.getCard("Infantry"));
 		}
+		this.assignArmies(5*this.cardsUsedCount++);
+		
 	}
 
 	/**

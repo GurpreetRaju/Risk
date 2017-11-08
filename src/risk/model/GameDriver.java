@@ -210,6 +210,8 @@ public class GameDriver extends Observable {
 		}
 		this.currentPlayer.setTurnTrue();
 		this.getCurrentPlayer().setArmies(this.getCurrentPlayer().getArmies());
+		setChanged();
+		notifyObservers("Cards");
 	}
 
 	/**

@@ -226,6 +226,7 @@ public class Controller {
         dominationView = new WorldDominationView();
 		this.driver.addObserver(phaseView);
 		this.driver.addObserver(dominationView);
+		this.driver.addObserver(cardsGUI);
         MainView.createInstance(playerInfoGUI, mapGUI, diceRollGUI, cardsGUI, controlsGUI, phaseView, dominationView);
         driver.setPlayerView(playerInfoGUI);
 		driver.setMapView(mapGUI);

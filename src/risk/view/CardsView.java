@@ -10,6 +10,8 @@ import java.util.Observer;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -43,9 +45,11 @@ public class CardsView extends JPanel implements Observer {
 	
 	public void showCards(Player player){
 		this.removeAll();
+		JFrame frame = new JFrame("Card Exchange View");
+		JDialog cardExchange = new JDialog(frame, "Choose to Exchange");
 		for (risk.model.Card card : player.getCards()){
 			JLabel cardName = new JLabel(card.getName()); 
-			this.add(cardName);
+			cardExchange.add(cardName);
 		}
 		
 		exchangeCards = new JButton("Exchange Cards for Armies");
@@ -55,19 +59,33 @@ public class CardsView extends JPanel implements Observer {
 				exchangeCards(player);
 			}
 		});
-		this.add(exchangeCards);
+		JButton cancel = new JButton("Cancel");
+		cancel.addActionListener(new ActionListener (){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+			}
+			
+		});
+		cardExchange.add(exchangeCards);
 		
 	}
 	
 	
 	public void exchangeCards(Player player){
-		
+		if (player.haveDistinctCards()){
+			player.removeDistinctCards();
+		}
+		else if (player.haveThreeSameTypeCards()){
+			player.removeSimilarThreeCards();
+		}
 	}
 
 	@Override
 	public void update(Observable o, Object arg) {
 		Player player = GameDriver.getInstance().getCurrentPlayer();
-		if (arg.equals("Reinforcement")){
+		if (arg.equals("Cards")){
 			if( player.getCards().size()>2 && player.getCards().size() <5){
 				if(player.haveDistinctCards() || player.haveThreeSameTypeCards()){
 					this.showCards(player);
