@@ -104,7 +104,7 @@ public class TurnManager {
 	 * @return the phase
 	 */
 	public String getPhase() {
-		return phase;
+		return this.phase;
 	}
 
 	/**
