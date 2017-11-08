@@ -1,0 +1,28 @@
+[Map]
+author=Gurpreet
+image=Test.bmp
+wrap=yes
+scroll=none
+warn=yes
+
+[Continents]
+Column 1=3
+
+[Territories]
+Territory00,148,70,Column 1,Territory16
+Territory01,150,134,Column 1,Territory02
+Territory02,150,167,Column 1,Territory01,Territory03
+Territory03,150,199,Column 1,Territory04,Territory02
+Territory04,150,236,Column 1,Territory03,Territory05
+Territory05,151,274,Column 1,Territory04
+Territory06,152,348,Column 1,Territory07
+Territory07,152,389,Column 1,Territory06,Territory08
+Territory08,152,429,Column 1,Territory07
+Territory09,148,523,Column 1,Territory10
+Territory10,149,565,Column 1,Territory11,Territory09
+Territory11,149,611,Column 1,Territory10,Territory12
+Territory12,148,651,Column 1,Territory11,Territory13
+Territory13,149,696,Column 1,Territory12,Territory14
+Territory14,150,737,Column 1,Territory13,Territory15
+Territory15,151,772,Column 1,Territory14,
+Territory16,152,835,Column 1,Territory00

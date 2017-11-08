@@ -581,6 +581,7 @@ public class GameDriver extends Observable {
 	 */
 	public void announceGameOver() {
 		notifyObservers("GameOver");
+		controller.removeAllControls();
 	}
 	
 	/**

@@ -237,5 +237,5 @@ public class ControlsView extends JPanel {
 		this.revalidate();
 		this.repaint();
 	}
-	
+		
 }
