@@ -499,7 +499,7 @@ public class Player {
 	 */
 	public boolean equals(Object o) {
 		if(o instanceof Player) {
-			if(((Player) o).getName().equals(this.getName())) {
+			if(((Player) o).getName().equals(this.getName())){
 				return true;
 			}
 		}
