@@ -102,10 +102,10 @@ public class SetUpDialog {
 	 * @param countryList List of countries where the player can place armies.
 	 * @return country name selected.
 	 */
-	public String placeArmyDialog(String[] countryList) {
+	public String placeArmyDialog(String[] countryList, String message) {
 		JComboBox<String> countriesList = new JComboBox<String>(countryList);
 		String[] options = {"OK"};		
-		JOptionPane.showOptionDialog(null, countriesList, "Place your army", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null,		
+		JOptionPane.showOptionDialog(null, countriesList, message, JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null,		
 		options, options[0]);
 		String country = countryList[countriesList.getSelectedIndex()];
 		return country;

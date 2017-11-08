@@ -158,6 +158,7 @@ public class TestGameDriver {
 	/**
 	 * This method tests the dividingCountries()
 	 */
+	@Test
 	public void testDividingCountries() {
 		ArrayList<CountryNode> countries = new ArrayList<CountryNode>();
 		countries.add(country1);

@@ -130,9 +130,9 @@ public class GameDriver extends Observable {
 			for(Player p: players){
 				String s;
 				if(p.getCountriesNamesNoArmy().length!=0){
-					s = controller.placeArmyDialog(p.getCountriesNamesNoArmy());
+					s = controller.placeArmyDialog(p.getCountriesNamesNoArmy(), p.getName()+" Place your army");
 				}else{
-					s= controller.placeArmyDialog(p.getCountriesNames());
+					s= controller.placeArmyDialog(p.getCountriesNames(),p.getName()+" Place your army");
 				}
 				p.getCountry(s).addArmy(1);
 				p.removeArmies(1);
@@ -511,25 +511,20 @@ public class GameDriver extends Observable {
 	 * @return true if game if over, false if there is at least two players own at least one country on map
 	 */
 	public boolean checkGameState() {
-		for(Player p: players) {
-			if(!p.equals(currentPlayer)) {
-				System.out.println(p.getName()+ " " +p.getPlayerState());
-				if(!p.getPlayerState()) {
-					return false;
-				}
-			}
+		if(players.size()<2) {
+			turnManager.setGameOver(true);
+			return true;
 		}
-		turnManager.setGameOver(true);
-		return true;
+		return false;
 	}
 	
 	/**
-	 * set Player attribute lost true, if player has not country.
-	 * @param defenderPlayer player to be set lost
+	 * remove player from players list, if player has not country.
+	 * @param defenderPlayer player to be removed
 	 */
 	public void setPlayerOut(Player defenderPlayer) {
 		if(defenderPlayer.getCountries().isEmpty()) {
-			defenderPlayer.setPlayerState(true);
+			players.remove(defenderPlayer);
 		}
 	}
 	

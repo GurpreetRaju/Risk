@@ -127,8 +127,8 @@ public class Controller {
 	 * @param countriesNamesNoArmy list of countries with no armies. 
 	 * @return the country selected by the user to place army.
 	 */
-	public String placeArmyDialog(String[] countriesNamesNoArmy) {
-		return setupBox.placeArmyDialog(countriesNamesNoArmy);
+	public String placeArmyDialog(String[] countriesNamesNoArmy, String message) {
+		return setupBox.placeArmyDialog(countriesNamesNoArmy, message);
 	}
 	
 	/**
