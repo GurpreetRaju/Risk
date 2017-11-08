@@ -35,7 +35,7 @@ public class Player {
 	/**
 	 * number of times player exchanged the cards.
 	 */
-	private int cardsusedCount = 1;
+	private int cardsUsedCount = 1;
 	
 	/**
 	 * number of armies player has.
@@ -234,12 +234,6 @@ public class Player {
 		}
 		armyCount += continentsCount;
 		System.out.println(armyCount);
-		if (cardsCount > 5) {
-			//do something here with the cards count
-			armyCount =+ 5* this.cardsusedCount;
-			this.cardsusedCount++;
-			//remove cards here
-		}
 		
 		return armyCount;
 	}
@@ -453,7 +447,7 @@ public class Player {
 	}
 	
 	public boolean haveDistinctCards(){
-		if (haveInfantryCard() && haveArtilleryCard() && haveCavalryCard()){
+		if (this.haveInfantryCard() && this.haveArtilleryCard() && this.haveCavalryCard()){
 			return true;
 		}
 		else{
@@ -461,22 +455,56 @@ public class Player {
 		}
 	}
 	
-	public boolean haveThreeSameTypeCards(){
-		int cavilary = 0;
+	public boolean haveThreeArtilleryCards(){
 		int artillery = 0;
-		int infantry = 0;
 		for (Card card :this.cards){
 			if (card.getName().equals("Artillery")){
 				artillery++;
 			}
-			else if(card.getName().equals("Cavalry")){
-				cavilary++;
+		}
+		if(artillery == 3){
+			return true;
+		}
+		else{
+			return false;
+		}
+			
+	}
+	
+	public boolean haveThreeCavalryCards(){
+		int cavalry = 0;
+		for (Card card :this.cards){
+			if (card.getName().equals("Cavalry")){
+				cavalry++;
 			}
-			else if (card.getName().equals("Infantry")){
+		}
+		if(cavalry == 3){
+			return true;
+		}
+		else{
+			return false;
+		}
+			
+	}
+	
+	public boolean haveThreeInfantryCards(){
+		int infantry = 0;
+		for (Card card :this.cards){
+			if (card.getName().equals("Infantry")){
 				infantry++;
 			}
 		}
-		if(cavilary == 3 || artillery == 3 || infantry == 3){
+		if(infantry == 3){
+			return true;
+		}
+		else{
+			return false;
+		}
+			
+	}
+	
+	public boolean haveThreeSameTypeCards(){
+		if(this.haveThreeCavalryCards() || this.haveThreeArtilleryCards() || this.haveThreeInfantryCards()){
 			return true;
 		}
 		else{
@@ -493,6 +521,43 @@ public class Player {
 		return this.cards;
 	}
 	
+
+	public void removeDistinctCards(){
+		this.removeCard(this.getCard("Cavalry"));
+		this.removeCard(this.getCard("Infantry"));
+		this.removeCard(this.getCard("Artillery"));
+		this.assignArmies(5*this.cardsUsedCount++);
+	}
+	
+	public Card getCard(String cardname){
+		for (Card card : this.cards){
+			if ( card.getName().equals(cardname)){
+				return card;
+			}
+		}
+		return null;
+	}
+	
+	public void removeSimilarThreeCards(){
+		if (this.haveThreeArtilleryCards()){
+			this.removeCard(this.getCard("Artillery"));
+			this.removeCard(this.getCard("Artillery"));
+			this.removeCard(this.getCard("Artillery"));
+		}
+		else if (this.haveThreeCavalryCards()){
+			this.removeCard(this.getCard("Cavalry"));
+			this.removeCard(this.getCard("Cavalry"));
+			this.removeCard(this.getCard("Cavalry"));
+		}
+		else if (this.haveThreeInfantryCards()){
+			this.removeCard(this.getCard("Infantry"));
+			this.removeCard(this.getCard("Infantry"));
+			this.removeCard(this.getCard("Infantry"));
+		}
+		this.assignArmies(5*this.cardsUsedCount++);
+		
+	}
+
 	/**
 	 * check if two objects are equal.
 	 */
@@ -505,6 +570,7 @@ public class Player {
 		return false;
 	}
 	
+
 }
 
 
