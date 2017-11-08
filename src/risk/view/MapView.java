@@ -80,7 +80,7 @@ public class MapView extends JPanel implements Observer {
 	 * Sets map data on the map view in a tabular format.
 	 * @param newMapData Map data to be displayed.
 	 */
-	public void setMap(String[][] newMapData) {
+	public void setMap(String[][] newMapData){
 		this.removeAll();
 		JPanel pane = new JPanel();
 		GridBagLayout gb = new GridBagLayout();
@@ -88,7 +88,7 @@ public class MapView extends JPanel implements Observer {
 		int i = 0;
 		for(String[] o : newMapData){
 			int j=0;
-			for(String k: o) {
+			for(String k: o){
 			    GridBagConstraints gbc = new GridBagConstraints();
 			    gbc.ipadx = 20;
 			    gbc.gridx = j;

@@ -42,10 +42,12 @@ public class PhaseView extends JPanel implements Observer{
 	@Override
 	public void update(Observable o, Object arg) {
 		Player current = GameDriver.getInstance().getCurrentPlayer();
+		/*Startup Phase View Display.*/
 		if(arg.equals("Startup")){
 			this.removeAll();
 			this.add(new JLabel("<html><div><b>Startup Phase</b></div><br/><br/></html>"));
 		}
+		/*Cards Exchange View Display.*/
 		else if(arg.equals("Cards")){
 			this.removeAll();
 			this.add(new JLabel("<html><div><b>Cards Exchange</b></div><br/><br/></html>"));
@@ -53,6 +55,7 @@ public class PhaseView extends JPanel implements Observer{
 			this.add(new JLabel(current.getName()));
 			this.add(new JLabel(" can exchange cards to get more armies  "));
 		}
+		/*Reinforcement Phase View Display.*/
 		else if(arg.equals("Reinforcement")){
 			this.removeAll();
 			this.add(new JLabel("<html><div><b>Reinforcement Phase</b></div><br/><br/></html>"));
@@ -66,6 +69,7 @@ public class PhaseView extends JPanel implements Observer{
 				this.add(new JLabel(s));
 			}
 		}
+		/*Attack Phase View Display.*/
 		else if(arg.toString().contains("Attack")){
 			this.removeAll();
 			this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -78,6 +82,7 @@ public class PhaseView extends JPanel implements Observer{
 				}
 			}
 		}
+		/*Fortification Phase View Display.*/
 		else if(arg.equals("Fortification")){
 			this.removeAll();
 			this.setLayout(new FlowLayout());
@@ -85,6 +90,7 @@ public class PhaseView extends JPanel implements Observer{
 			this.add(new JLabel("Player: "));
 			this.add(new JLabel(current.getName()));
 		}
+		/*Players Display for Startup Phase.*/
 		else{
 			this.add(new JLabel("<html><div>Player:</div></html>"));
 			this.add(new JLabel((String) arg));

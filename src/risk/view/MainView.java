@@ -55,8 +55,7 @@ public class MainView extends JFrame{
 	 * @param newPhase PhaseView Object.
 	 * @param newDominationView WorldDominationView object.
 	 */
-	private MainView(PlayerInfoView newPlayerInfo, MapView newMap, ControlsView newControls, PhaseView newPhase, WorldDominationView newDominationView) 
-	{	
+	private MainView(PlayerInfoView newPlayerInfo, MapView newMap, ControlsView newControls, PhaseView newPhase, WorldDominationView newDominationView){	
 		playerData = newPlayerInfo;
         map = newMap;
         controlsArea = newControls;

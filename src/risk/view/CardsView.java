@@ -49,18 +49,19 @@ public class CardsView extends JPanel implements Observer {
 	}
 	
 	/**
-	 * Shows a dailog to the player to exchange the cards to get additional armies
+	 * Shows a dialog to the player to exchange the cards to get additional armies
 	 * @param player current player whose turn is going on
 	 */
 	public void showCards(Player player){
 		this.removeAll();
+		/*Cards exchange Dialog Box.*/
 		JFrame frame = new JFrame("Card Exchange View");
 		JDialog cardExchange = new JDialog(frame, "Choose to Exchange");
 		for (risk.model.Card card : player.getCards()){
 			JLabel cardName = new JLabel(card.getName()); 
 			cardExchange.add(cardName);
 		}
-		
+		/*Exchange button listener.*/
 		exchangeCards = new JButton("Exchange Cards for Armies");
 		exchangeCards.addActionListener(new ActionListener (){
 			@Override
@@ -68,17 +69,15 @@ public class CardsView extends JPanel implements Observer {
 				exchangeCards(player);
 			}
 		});
+		/*Cancel exchange cards.*/
 		JButton cancel = new JButton("Cancel");
 		cancel.addActionListener(new ActionListener (){
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
 			}
-			
 		});
 		cardExchange.add(exchangeCards);
-		
 	}
 	
 	/**
@@ -108,12 +107,10 @@ public class CardsView extends JPanel implements Observer {
 				if(player.haveDistinctCards() || player.haveThreeSameTypeCards()){
 					this.showCards(player);
 				}
-		}
+			}
 			if (player.getCards().size()==5){
 				this.exchangeCards(player);
 			}
-			
 		}
-		
 	}
 }

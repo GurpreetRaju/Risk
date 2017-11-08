@@ -221,13 +221,10 @@ public class ControlsView extends JPanel {
 	 */
 	public void attackControls(String[] countriesNames) {
 		this.removeAll();
-
 		countriesList = new JComboBox<String>(countriesNames);
 		countriesList.setSelectedIndex(0);
-		
 		neighborList = new JComboBox<String>();
 		neighborList.setEnabled(false);
-		
 		playMove = new JButton("Announce attack");
 		playMove.setEnabled(false);
 		endPhase = new JButton("Skip attack");
@@ -238,7 +235,6 @@ public class ControlsView extends JPanel {
 		this.add(neighborList);
 		this.add(playMove);
 		this.add(endPhase);
-		
 		this.revalidate();
 		this.repaint();
 	}

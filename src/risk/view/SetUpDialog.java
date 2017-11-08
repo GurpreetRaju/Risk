@@ -121,12 +121,14 @@ public class SetUpDialog {
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.validate();
 		frame.setVisible(true);
+		/*JFileChooser to ask user to choose a map file.*/
 		JFileChooser jfc = new JFileChooser();
 		jfc.setCurrentDirectory(new File("./data/map"));
 		FileNameExtensionFilter filter = new FileNameExtensionFilter("Map Files", newExtension);
 		jfc.setFileFilter(filter);
 
 		int returnValue = jfc.showOpenDialog(frame);
+		/*Get the path of the map file chosen*/
 		if (returnValue == JFileChooser.APPROVE_OPTION) {
 			File selectedFile = jfc.getSelectedFile();
 			mapRead = selectedFile.getAbsolutePath();
