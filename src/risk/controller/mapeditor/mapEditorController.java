@@ -5,7 +5,6 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -13,7 +12,6 @@ import risk.model.map.CountryNode;
 import risk.model.map.MapModel;
 import risk.model.map.MapNode;
 import risk.model.map.MapReader;
-import risk.model.map.MapWriter;
 import risk.view.mapeditor.ExistingMap;
 import risk.view.mapeditor.ExistingMapEditor;
 import risk.view.mapeditor.MapFileChooser;
@@ -48,11 +46,6 @@ public class mapEditorController {
 	 * action listener applied on button "Choose Map File" for selecting map file
 	 */	
 	private ActionListener existingBtnAction;
-
-	/**
-	 * action listener applied on button "Choose Map File" for selecting map file
-	 */
-	private ActionListener newButtonAction;
 
 	/**
 	 * Stores the path of the file chosen

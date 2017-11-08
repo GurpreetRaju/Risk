@@ -53,11 +53,6 @@ public class Player {
 	private ArrayList<MapNode> mapData;
 	
 	/**
-	 * number of countries owned by player
-	 */
-	private int playerCountryCount;
-
-	/**
 	 * shows if player is still in game 
 	 */
 	private boolean lost = false;

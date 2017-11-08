@@ -122,7 +122,6 @@ public class MapModel {
 	 * @return true if the map is a connected graph.
 	 */
 	public boolean connectedMap() {
-		
 		for (MapNode mapNode : continents) {
 			for (CountryNode cNode : mapNode.getCountries()) {
 				countryTable.put(cNode.getCountryName(), false);

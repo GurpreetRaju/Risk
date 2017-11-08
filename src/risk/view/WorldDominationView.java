@@ -2,8 +2,6 @@ package risk.view;
 
 import java.awt.Color;
 import java.awt.FlowLayout;
-import java.awt.Label;
-import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 

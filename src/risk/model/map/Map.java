@@ -4,12 +4,9 @@ import java.util.ArrayList;
 import java.util.Observable;
 
 import risk.model.Player;
-import risk.view.MapView;
 
 /**
- * This class perform functions related to map for example storing map data,
- * update map etc.
- * 
+ * This class perform functions related to map for example storing map data, update map etc.
  * @author Gurpreet
  * @version 1.0
  */

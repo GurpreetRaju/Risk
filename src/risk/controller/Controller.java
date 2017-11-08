@@ -283,7 +283,7 @@ public class Controller {
 	 * delegate method to call getInput from SetUpDialog class. 
 	 * @see SetUpDialog
 	 * @param min minimum value user can select 
-	 * @param max maximum vlaue user can select
+	 * @param max maximum value user can select
 	 * @param message message explaining the purpose of input
 	 * @return a number selected by user
 	 */

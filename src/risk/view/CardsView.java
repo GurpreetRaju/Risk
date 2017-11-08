@@ -15,7 +15,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import risk.model.Card;
 import risk.model.GameDriver;
 import risk.model.Player;
 

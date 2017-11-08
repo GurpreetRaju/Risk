@@ -7,7 +7,6 @@ import java.util.ArrayList;
 
 /**
  * This class read map file.
- * 
  * @author Gurpreet
  * @version 1.0
  */
