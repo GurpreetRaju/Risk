@@ -58,6 +58,7 @@ public class PhaseView extends JPanel implements Observer{
 		/*Reinforcement Phase View Display.*/
 		else if(arg.equals("Reinforcement")){
 			this.removeAll();
+			this.setLayout(new FlowLayout());
 			this.add(new JLabel("<html><div><b>Reinforcement Phase</b></div><br/><br/></html>"));
 			this.add(new JLabel("Player:"));
 			this.add(new JLabel(current.getName()));
