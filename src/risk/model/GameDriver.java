@@ -13,7 +13,6 @@ import risk.view.*;
 
 /**
  * This class controls the turns - Startup phase, Fortification, reinforcement and attack phase.
- * 
  * @author Gurpreet
  * @author Gunpreet
  * @author Amitt
@@ -95,6 +94,7 @@ public class GameDriver extends Observable {
 	}
 	/**
 	 * Set controller in GameDriver class.
+	 * @param newController Used to set the Controller object.
 	 */
 	public void setController(Controller newController) {
 		this.controller = newController;
@@ -114,8 +114,8 @@ public class GameDriver extends Observable {
 	}
 	
 	/**
-	 * This method starts the startup phase of game.
-	 * It assigns countries to players.
+	 * This method starts the startup phase of game. It assigns countries to players.
+	 * @param playerData String array to store elements of player type.
 	 */
 	public void startUpPhase(String[] playerData) {
 		players = new ArrayList<Player>();
@@ -405,7 +405,7 @@ public class GameDriver extends Observable {
 	}
 	
 	/**
-	 * This ethod announce the attack, get number of dice from both attacker and defender. If a country loose all its armies, the other player occupy the country.
+	 * This method announce the attack, get number of dice from both attacker and defender. If a country loose all its armies, the other player occupy the country.
 	 * @param attackerCountry country attacking
 	 * @param defenderCountry country defending against attack
 	 */
@@ -494,8 +494,7 @@ public class GameDriver extends Observable {
 	
 	/**
 	 * This method declares the game end if all the countries are owned by one player only.
-	 * @param defenderPlayer A player recently defending country in a attack.
-	 * @return true if game if over, false if there is atleast two players own atleat one country on map
+	 * @return true if game if over, false if there is at least two players own at least one country on map
 	 */
 	public boolean checkGameState() {
 		//method to check if game is over
@@ -510,6 +509,7 @@ public class GameDriver extends Observable {
 		turnManager.setGameOver(true);
 		return true;
 	}
+	
 	/**
 	 * set Player attribute lost true, if player has not country.
 	 * @param defenderPlayer player to be set lost
@@ -534,7 +534,7 @@ public class GameDriver extends Observable {
 	
 	/**
 	 * Generate random values between 1 and 6 and add them to an arraylist.
-	 * @param number of values to be generated.
+	 * @param n number of values to be generated.
 	 * @return integer number that represents the value on the dice.
 	 */
 	public ArrayList<Integer> diceRoll(int n) {

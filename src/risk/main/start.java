@@ -9,6 +9,11 @@ import risk.model.GameDriver;
  * @version 1.0
  */
 public class start {
+	
+	/**
+	 * Main method that starts the game.
+	 * @param args for command-line arguments.
+	 */
 	public static void main(String[] args) {
         
 		/*Schedule a job for the event-dispatching thread:

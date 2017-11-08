@@ -179,7 +179,7 @@ public class ExistingMap extends JFrame {
 	}
 
 	/**
-	 * @see mapEditorController
+	 * @see risk.controller.mapeditor.mapEditorController
 	 * @param newAction actionListener for btnEdit
 	 */
 	public void addActionsToBtnEdit(ActionListener newAction) {

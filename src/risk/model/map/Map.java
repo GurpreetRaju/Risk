@@ -167,7 +167,7 @@ public class Map extends Observable {
 	
 	/**
 	 * return Arraylist of neighbouring countries owned by a player or not owned by player, depending on flag value
-	 * @param countryName Country node whose neighbors are required.
+	 * @param newCountry Country node whose neighbors are required.
 	 * @param newPlayer player who owns the required neighbours.
 	 * @param flag if true, method returns countries owned by newPlayer, if false return countries owned by other players except newPlayer.
 	 * @return playerNeighbouringCountries returns neighbouring countries of the country of same owner
@@ -188,6 +188,7 @@ public class Map extends Observable {
 		}
 		return playerNeighbourCountries;
 	}
+	
 	/**
 	 * Get object of country from its name
 	 * @param countryName name of country

@@ -57,8 +57,8 @@ public class MapModel {
 	Controller controller = new Controller();
 	
 	/**
-	 * initializes the continent list with existing continents in the map file. 
-	 * @param continents
+	 * Initializes the continent list with existing continents in the map file. 
+	 * @param continents ArrayList of MapNode containing continents.
 	 */
 	public void writeExistingMap(ArrayList<MapNode> continents) {
 		this.continents = continents;

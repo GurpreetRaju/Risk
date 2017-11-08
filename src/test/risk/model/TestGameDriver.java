@@ -106,8 +106,6 @@ public class TestGameDriver {
 		driver.setCurrentPlayer(player1);
 	}
 	
-	
-	
 	/**
 	 * This method tests the battle method from GameDriver class.
 	 */
@@ -138,5 +136,4 @@ public class TestGameDriver {
 		aResults.add(6);
 		assertEquals(3,driver.max(aResults));
 	}
-	
 }
