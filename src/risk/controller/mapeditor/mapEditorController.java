@@ -22,12 +22,10 @@ import risk.view.mapeditor.NewMap;
 /**
  * mapEditorController perform action listeners for 
  * New Map and Existing Map buttons in @see MapFrame view 
- * and choosing map file action
- * 
+ * and choosing map file action.
  * @see MapFileChooser
  * @author jyotsna
  * @author Harinder
- *
  */
 public class mapEditorController {
 
@@ -39,12 +37,12 @@ public class mapEditorController {
 	/**
 	 * object of ExistingMapEditor class used for calling the class methods 
 	 */
-	ExistingMapEditor existingMapEditor;
+	private ExistingMapEditor existingMapEditor;
 
 	/**
 	 * reference to NewMap object.
 	 */
-	NewMap newMap;
+	private NewMap newMap;
 
 	/**
 	 * action listener applied on button "Choose Map File" for selecting map file
@@ -64,7 +62,7 @@ public class mapEditorController {
 	/**
 	 * Creates object of MapModel class.
 	 */
-	MapModel mapModel = new MapModel();
+	private MapModel mapModel = new MapModel();
 
 	/**
 	 * Calls the readMap function of MapReader to read the map file

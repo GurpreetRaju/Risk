@@ -355,7 +355,8 @@ public class NewMap extends JFrame {
 		gbc_btnAdd.gridy = 8;
 		contentPane.add(btnAdd, gbc_btnAdd);
 
-		btnDeleteContinent = new JButton("Delete Continent");			/*deleting continent*/
+		/*deleting continent*/
+		btnDeleteContinent = new JButton("Delete Continent");
 		btnDeleteContinent.setBackground(new Color(240, 255, 255));
 		btnDeleteContinent.setFont(new Font("Bookman Old Style", Font.BOLD | Font.ITALIC, 18));
 		btnDeleteContinent.setForeground(Color.BLACK);
@@ -485,7 +486,7 @@ public class NewMap extends JFrame {
 	}
 
 	/**
-	 * @see mapEditorController
+	 * @see risk.controller.mapeditor.mapEditorController
 	 * @param newAction actionListener for add country button
 	 */
 	public void addActionsToBtnAddCountry(ActionListener newAction) {
@@ -493,7 +494,7 @@ public class NewMap extends JFrame {
 	}
 
 	/**
-	 * @see mapEditorController
+	 * @see risk.controller.mapeditor.mapEditorController
 	 * @param newAction actionlistener for add continent button.
 	 */
 	public void addActionsToBtnAddContinent(ActionListener newAction) {
@@ -501,7 +502,7 @@ public class NewMap extends JFrame {
 	}
 
 	/**
-	 * @see mapEditorController
+	 * @see risk.controller.mapeditor.mapEditorController
 	 * @param newAction actionListener for btnDone
 	 */
 	public void addActionsToBtnDone(ActionListener newAction) {
@@ -509,7 +510,7 @@ public class NewMap extends JFrame {
 	}
 
 	/**
-	 * @see mapEditorController
+	 * @see risk.controller.mapeditor.mapEditorController
 	 * @param newAction actionListener for btnAdd
 	 */
 	public void addActionsToBtnAdd(ActionListener newAction) {
@@ -517,7 +518,7 @@ public class NewMap extends JFrame {
 	}
 
 	/**
-	 * @see mapEditorController
+	 * @see risk.controller.mapeditor.mapEditorController
 	 * @param newAction actionListener for btnAddNeighbours
 	 */
 	public void addActionsToBtnAddNeighbours(ActionListener newAction) {
@@ -525,16 +526,15 @@ public class NewMap extends JFrame {
 	}
 
 	/**
-	 * @see mapEditorController
+	 * @see risk.controller.mapeditor.mapEditorController
 	 * @param newAction actionListener for btnDeleteNeighbours
 	 */
 	public void addActionsToBtnDeleteNeighbours(ActionListener newAction) {
 		btnDeleteNeighbours.addActionListener(newAction);
 	}
-
 	
 	/**
-	 * @see mapEditorController
+	 * @see risk.controller.mapeditor.mapEditorController
 	 * @param newAction actionListener for btnSelectedNeighbours
 	 */
 	public void addActionsToBtnSelectedNeighbours(ActionListener newAction) {
@@ -542,7 +542,7 @@ public class NewMap extends JFrame {
 	}
 	
 	/**
-	 * @see mapEditorController
+	 * @see risk.controller.mapeditor.mapEditorController
 	 * @param newAction actionListener for btnDeleteSelectedNeighbours
 	 */
 	public void addActionsToBtnDeleteSelectedNeighbours(ActionListener newAction) {
@@ -550,7 +550,7 @@ public class NewMap extends JFrame {
 	}
 
 	/**
-	 * @see mapEditorController
+	 * @see risk.controller.mapeditor.mapEditorController
 	 * @param newAction actionListener for btnDeleteContinent
 	 */
 	public void addActionsToBtnDeleteContinent(ActionListener newAction) {
@@ -558,7 +558,7 @@ public class NewMap extends JFrame {
 	}
 
 	/**
-	 * @see mapEditorController
+	 * @see risk.controller.mapeditor.mapEditorController
 	 * @param newAction actionListener for btnSaveMap
 	 */
 	public void addActionsToBtnSave(ActionListener newAction) {
@@ -566,7 +566,7 @@ public class NewMap extends JFrame {
 	}
 
 	/**
-	 * @see mapEditorController
+	 * @see risk.controller.mapeditor.mapEditorController
 	 * @param newAction actionListener for btnDeleteCountry
 	 */
 	public void addActionsToBtnDeleteCountry(ActionListener newAction) {

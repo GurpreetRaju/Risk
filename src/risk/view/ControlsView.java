@@ -15,6 +15,12 @@ import javax.swing.JSpinner;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 
+/**
+ * Controls the Control Panel on the main window to display the phase controls.
+ * @author Gurpreet
+ * @author Gunpreet
+ * @author Amitt
+ */
 public class ControlsView extends JPanel {
 	
 	/**

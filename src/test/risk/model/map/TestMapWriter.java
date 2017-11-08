@@ -14,7 +14,6 @@ import risk.model.map.MapWriter;
 /**
  * This test class tests the MapWriter class
  * @author Harinder
- *
  */
 public class TestMapWriter {
 

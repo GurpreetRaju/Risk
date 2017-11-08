@@ -19,7 +19,6 @@ import risk.view.mapeditor.MapFrame;
  * @author Gunpreet
  * @author Gurpreet
  * @author Amitt
- *
  */
 public class Controller {
 	
@@ -292,6 +291,9 @@ public class Controller {
 		return setupBox.getInput(min, max,message);
 	}
 
+	/**
+	 * Removes all controls when Game is Over.
+	 */
 	public void removeAllControls() {
 		controlsGUI.removeAll();
 	}

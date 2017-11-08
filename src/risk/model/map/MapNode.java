@@ -122,6 +122,10 @@ public class MapNode {
 		return false;
 	}
 	
+	/**
+	 * Gives the number of countries in the Continent.
+	 * @return the country count of the continent.
+	 */
 	public int getCountriesCount(){
 		this.countriesCount = getCountryList().size();
 		return this.countriesCount;

@@ -14,7 +14,6 @@ import risk.model.map.MapReader;
 /**
  * This class tests all MapModel functions.
  * @author Harinder
- * 
  */
 public class TestMapModel {
 	

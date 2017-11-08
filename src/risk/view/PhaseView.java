@@ -14,7 +14,7 @@ import risk.model.GameDriver;
 import risk.model.Player;
 
 /**
- * Implements the Phase View panel of the main window.
+ * Implements the Phase View panel of the main window using Observer Pattern.
  * @author Gunpreet
  */
 public class PhaseView extends JPanel implements Observer{
@@ -25,6 +25,9 @@ public class PhaseView extends JPanel implements Observer{
 	 */
 	private static final long serialVersionUID = 5240018585440964453L;
 
+	/**
+	 * Constructor to initialize PhaseView.
+	 */
 	public PhaseView() {
 		JLabel label = new JLabel("PHASE VIEW");
 		this.setLayout(new FlowLayout());
@@ -32,13 +35,22 @@ public class PhaseView extends JPanel implements Observer{
 		this.setBorder(BorderFactory.createLineBorder(Color.black));
 	}
 
+	/**
+	 * Observer method called on notifyObservers for PhaseView.
+	 */
 	@Override
 	public void update(Observable o, Object arg) {
-		
 		Player current = GameDriver.getInstance().getCurrentPlayer();
 		if(arg.equals("Startup")){
 			this.removeAll();
 			this.add(new JLabel("<html><div><b>Startup Phase</b></div><br/><br/></html>"));
+		}
+		else if(arg.equals("Cards")){
+			this.removeAll();
+			this.add(new JLabel("<html><div><b>Cards Exchange</b></div><br/><br/></html>"));
+			this.add(new JLabel("Player: "));
+			this.add(new JLabel(current.getName()));
+			this.add(new JLabel(" can exchange cards to get more armies  "));
 		}
 		else if(arg.equals("Reinforcement")){
 			this.removeAll();
@@ -67,16 +79,10 @@ public class PhaseView extends JPanel implements Observer{
 		}
 		else if(arg.equals("Fortification")){
 			this.removeAll();
+			this.setLayout(new FlowLayout());
 			this.add(new JLabel("<html><div><b>Fortification Phase</b></div><br/><br/></html>"));
 			this.add(new JLabel("Player: "));
 			this.add(new JLabel(current.getName()));
-		}
-		else if(arg.equals("Cards")){
-			this.removeAll();
-			this.add(new JLabel("<html><div><b>Cards Exchange</b></div><br/><br/></html>"));
-			this.add(new JLabel("Player: "));
-			this.add(new JLabel(current.getName()));
-			this.add(new JLabel(" can exchange cards to get more armies  "));
 		}
 		else{
 			this.add(new JLabel("<html><div>Player:</div></html>"));
@@ -84,8 +90,5 @@ public class PhaseView extends JPanel implements Observer{
 		}
 		System.out.println("Observer");
 		this.validate();
-		
 	}
-	
-	
 }

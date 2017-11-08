@@ -23,7 +23,6 @@ import javax.swing.filechooser.FileSystemView;
 
 /**
  * This class display a dialog to ask user for number of players and map file to use.
- * 
  * @author Gurpreet
  * @author Gunpreet
  * @version 1.0
@@ -57,6 +56,9 @@ public class SetUpDialog {
 	
 	/**
 	 * Ask user to enter an integer value.
+	 * @param min Minimum value for spinner.
+	 * @param max Maximum value for Spinner.
+	 * @param message The message to be displayed on the spinner.
 	 * @return number of players entered by user or by default 2.
 	 */
 	public int getInput(int min, int max, String message){

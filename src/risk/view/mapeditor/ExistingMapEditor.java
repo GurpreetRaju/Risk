@@ -34,10 +34,9 @@ import java.util.List;
 import java.awt.event.ActionEvent;
 
 /**
- * New map class opens the JFrame view for  
- *  add/delete country and continent
- *  @author jyotsna
- *  @author Harinder
+ * New map class opens the JFrame view for add/delete country and continent.
+ * @author jyotsna
+ * @author Harinder
  */
 public class ExistingMapEditor extends JFrame {
 

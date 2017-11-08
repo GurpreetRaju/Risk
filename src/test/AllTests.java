@@ -12,6 +12,9 @@ import test.risk.model.map.TestMapModel;
 import test.risk.model.map.TestMapValidation;
 import test.risk.model.map.TestMapWriter;
 
+/**
+ * This Test Suite calls all the test classes.
+ */
 @RunWith(Suite.class)
 @SuiteClasses({ 
 				TestCountryNode.class,
