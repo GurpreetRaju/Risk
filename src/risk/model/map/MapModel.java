@@ -72,6 +72,7 @@ public class MapModel {
 	public boolean checkContinentExist(String cn) {
 		Boolean continentExist = false;
 		for (MapNode con: continents){
+			/*if the continent with same name is found, return true*/
 			if(con.getContinentName().compareTo(cn)==0){
 				continentExist = true;
 			}
@@ -108,7 +109,7 @@ public class MapModel {
 				saveMap = false;
 			}
 			for (CountryNode country : i.getCountries()) {
-				//connected map check
+				/*connected map check*/
 				if(!connectedMap()) {
 					saveMap = false;
 				}
@@ -127,9 +128,10 @@ public class MapModel {
 				countryTable.put(cNode.getCountryName(), false);
 			}
 		}
+		/* Get the first country from the hashtable*/
 		String first = countryTable.keySet().iterator().next();
+		/*call to search function which recurs over the neighbor countries*/
 		search(first);
-		
 		if(countryTable.containsValue(false)) {
 			return false;
 		}else {
@@ -147,14 +149,14 @@ public class MapModel {
 			for (CountryNode cNode : mapNode.getCountries()) {
 				continentTable.put(cNode.getCountryName(), false);
 			}
+			/*Get the first country from the hashtable for the current continent*/
 			String firstCountry = continentTable.keySet().iterator().next();
 			searchForUnconnectedContinent(firstCountry);
 			if(continentTable.containsValue(false)) {
 				return false;
 			}
 		}
-		return true;
-		
+		return true;	
 	}
 	
 	/**
@@ -162,19 +164,19 @@ public class MapModel {
 	 * @param f receives the country to traverse over its neighbors.
 	 */
 	public void searchForUnconnectedContinent(String f) {
-		// Mark the current node as visited by setting it true 
+		/* Mark the current node as visited by setting it true*/ 
 		continentTable.put(f, true);
 		
 		for (MapNode mapNode : continents) {
 			for (CountryNode cNode : mapNode.getCountries()) {
 				if(cNode.getCountryName().compareTo(f)==0) {
-					// get the list of all possible neighbors.
+					/* get the list of all possible neighbors.*/
 			        Iterator<CountryNode> i = cNode.getNeighbours().listIterator();
 			        while (i.hasNext())
 			        {
-			        	//pick a neighbor for this country
+			        	/*pick a neighbor for this country*/
 			        	CountryNode n = i.next();
-			        	//if this neighbor belongs to the same continent, then recur
+			        	/*if this neighbor belongs to the same continent, then recur*/
 			        	if(continentTable.containsKey(n.getCountryName())) {
 				            if (continentTable.get(n.getCountryName())==false)
 				            	searchForUnconnectedContinent(n.getCountryName());
@@ -192,12 +194,12 @@ public class MapModel {
 	 */
 	public void search(String s)
     {
-        // Mark the current node as visited by setting it true 
+        /* Mark the current node as visited by setting it true */
         countryTable.put(s, true);
         for (MapNode mapNode : continents) {
 			for (CountryNode cNode : mapNode.getCountries()) {
 				if(cNode.getCountryName().compareTo(s)==0) {
-					// Recur for all the connected neighbor countries
+					/* Recur for all the connected neighbor countries*/
 			        Iterator<CountryNode> i = cNode.getNeighbours().listIterator();
 			        while (i.hasNext())
 			        {
@@ -249,10 +251,12 @@ public class MapModel {
 	 * @return the path of the file saved.
 	 */
 	public String getFinalPath() {
+		/*if new map file is created, get its path*/
 		if(MapFrame.selectedAction().compareTo("new")==0) {
 			System.out.println(newFilePath());
-			return newFilePath();
+			return newFilePath(); 
 		}
+		/*if existing file is edited, get its path*/
 		else if(MapFrame.selectedAction().compareTo("existing")==0){
 			System.out.println(existingFilePath());
 			return existingFilePath();
@@ -269,6 +273,7 @@ public class MapModel {
 		Boolean countryExist = false;
 		for (MapNode node: continents) {
 			for (CountryNode country : node.getCountries()) {
+				/*if country with same name is found, return true*/
 				if(country.getCountryName().compareTo(cn1)==0) {
 					countryExist=true;
 				}
