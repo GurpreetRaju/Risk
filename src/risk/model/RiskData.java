@@ -29,6 +29,10 @@ public enum RiskData {
 			return armies;
 		}
 	};
-	
+	/**
+	 * Abstract method for Risk Data enum to get number of armies given based on number of players
+	 * @param n number of players
+	 * @return number of armies each player gets
+	 */
 	public abstract int getArmiesCount(int n);
 }
