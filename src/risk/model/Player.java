@@ -389,7 +389,7 @@ public class Player {
 	}
 	
 	/**
-	 * 
+	 * Get the number of countries owned by player.
 	 * @return number of countries owned by player
 	 */
 	public int getPlayerCountryCount(){
@@ -406,6 +406,7 @@ public class Player {
 	
 	/**
 	 * This method set value of lost attribute.
+	 * @param value Boolean value for lost attribute.
 	 */
 	public void setPlayerState(boolean value) {
 		this.lost = value;

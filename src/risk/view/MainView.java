@@ -47,8 +47,14 @@ public class MainView extends JFrame{
 	 */
 	private ControlsView controlsArea;
 	
+	/**
+	 * PhaseView class object.
+	 */
 	private PhaseView phaseArea;
 	
+	/**
+	 * WorldDominationView class object.
+	 */
 	private WorldDominationView dominationView;
 	
 	/**
@@ -59,6 +65,7 @@ public class MainView extends JFrame{
 	 * @param newCards Cards object.
 	 * @param newControls ControlsView object.
 	 * @param newPhase PhaseView Object.
+	 * @param newDominationView WorldDominationView object.
 	 */
 	private MainView(PlayerInfoView newPlayerInfo, MapView newMap, DiceRollView newDice, CardsView newCards, ControlsView newControls, PhaseView newPhase, WorldDominationView newDominationView) 
 	{	
@@ -93,6 +100,7 @@ public class MainView extends JFrame{
         contentPane.add(phaseArea);
         contentPane.add(dominationView);
         
+        /*phaseArea constraints.*/
         layout.putConstraint(SpringLayout.WEST, phaseArea, 5,  SpringLayout.WEST, contentPane);
         layout.putConstraint(SpringLayout.EAST, phaseArea, 0,  SpringLayout.EAST, cardsArea);
         layout.putConstraint(SpringLayout.NORTH, phaseArea, 5, SpringLayout.NORTH, contentPane);
@@ -115,6 +123,7 @@ public class MainView extends JFrame{
         layout.putConstraint(SpringLayout.NORTH, diceArea, 5, SpringLayout.NORTH, contentPane);
         layout.putConstraint(SpringLayout.SOUTH, diceArea, -100, SpringLayout.NORTH, controlsArea);
         
+        /*dominationView constraints.*/
         layout.putConstraint(SpringLayout.NORTH, dominationView, 5, SpringLayout.SOUTH, diceArea);
         layout.putConstraint(SpringLayout.SOUTH, dominationView, -5, SpringLayout.NORTH, controlsArea);
         layout.putConstraint(SpringLayout.WEST, dominationView, 5, SpringLayout.EAST, map);
@@ -142,12 +151,13 @@ public class MainView extends JFrame{
 	
 	/**
 	 * Creates the instance of the MainView class.
-	 * @param newPlayerInfo PlayerInfoView object
-	 * @param newMap MapView object
-	 * @param newDice DiceRollView object
-	 * @param newCards CardsView object
-	 * @param newControls ControlsView object
-	 * @param newPhase 
+	 * @param newPlayerInfo PlayerInfoView object.
+	 * @param newMap MapView object.
+	 * @param newDice DiceRollView object.
+	 * @param newCards CardsView object.
+	 * @param newControls ControlsView object.
+	 * @param newPhase PhaseView object.
+	 * @param newDominationView WorldDominationView object.
 	 */
 	public static void createInstance(PlayerInfoView newPlayerInfo, MapView newMap, DiceRollView newDice, CardsView newCards, ControlsView newControls, PhaseView newPhase, WorldDominationView newDominationView)
 	{

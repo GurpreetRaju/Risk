@@ -10,7 +10,6 @@ import risk.model.map.Map;
  * This test class tests all the functions of Map class.
  * @author Gunpreet
  * @author Amitt
- * 
  */
 public class TestMapValidation {
 
@@ -18,6 +17,10 @@ public class TestMapValidation {
 	 * Map type reference variable to store its object.
 	 */
 	private Map map;
+	
+	/**
+	 * Stores path of the map file.
+	 */
 	private String path;
 	
 	/**
@@ -26,7 +29,6 @@ public class TestMapValidation {
 	 */
 	@Before
 	public void setUp() throws Exception {
-		
 	}
 
 	/**
@@ -72,5 +74,4 @@ public class TestMapValidation {
 		Boolean b = map.isMapNodesContainUniqueCountries();
 		assertFalse(b);
 	}
-
 }

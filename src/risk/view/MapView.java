@@ -18,6 +18,9 @@ import javax.swing.JScrollPane;
 
 import risk.model.map.Map;
 
+/**
+ * Controls the Map view on the main window.
+ */
 public class MapView extends JPanel implements Observer {
 	
 	/**

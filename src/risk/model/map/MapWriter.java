@@ -28,19 +28,19 @@ public class MapWriter {
 	 */
 	public void writeMap(ArrayList<MapNode> map) {
 		
-		//Date object for writing the date and time of creation map file
+		/*Date object for writing the date and time of creation map file*/
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd-HH-mm");
 		
-		// Stores the Date Object. 
+		/*Stores the Date Object.*/ 
 		Date date = new Date();
 		
-		// FILENAME Stores the file name of the newly created map file.
+		/*FILENAME Stores the file name of the newly created map file.*/
 		FILENAME = System.getProperty("user.dir") + "\\data\\map\\map-"+ dateFormat.format(date) + ".map";
 		
-		//Stores BufferedWriter object.
+		/*Stores BufferedWriter object.*/
 		BufferedWriter bw = null;
 		
-		 // Stores FileWriter object.
+		/*Stores FileWriter object.*/
 		FileWriter fw = null;
 
 		try {

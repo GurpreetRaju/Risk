@@ -7,6 +7,9 @@ import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+/**
+ * Controls the Dice View on the main window.
+ */
 public class DiceRollView extends JPanel{
 	
 	/**

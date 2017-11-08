@@ -35,6 +35,7 @@ public class TurnManager {
 	
 	/**
 	 * Constructor to set the phase name.
+	 * @param string Phase name.
 	 */
 	public TurnManager(String string){
 		this.setPhase(string);
@@ -74,6 +75,7 @@ public class TurnManager {
 			GameDriver.getInstance().announceGameOver();
 		}
 	}
+	
 	/**
 	 * Returns the current player object.
 	 * @return current player.
@@ -81,11 +83,9 @@ public class TurnManager {
 	private Player getCurrentPlayer() {
 		return GameDriver.getInstance().getCurrentPlayer();
 	}
-	
 
 	/**
 	 * Refreshes the phases.
-	 * @param currentPlayer 
 	 */
 	public void continuePhase() {
 		if(this.getPhase().equals("Reinforcement")) {
@@ -100,6 +100,7 @@ public class TurnManager {
 	}
 
 	/**
+	 * Get the current phase name.
 	 * @return the phase
 	 */
 	public String getPhase() {

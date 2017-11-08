@@ -46,8 +46,9 @@ public class CountryNode {
 	 * @param newName name of country.
 	 * @param newNeighbours neighboring countries of this country.
 	 * @param newCoordinates x and y coordinates of country.
+	 * @param newContinent name of the continent.
 	 */
-	public CountryNode(String newName,ArrayList<CountryNode> newNeighbours, int[] newCoordinates,MapNode newContinent) {
+	public CountryNode(String newName,ArrayList<CountryNode> newNeighbours, int[] newCoordinates, MapNode newContinent) {
 		this.countryName = newName;
 		this.neighbourCountries = newNeighbours;
 		this.coordiantes = newCoordinates;
@@ -260,6 +261,7 @@ public class CountryNode {
 	public void setContinent(MapNode newContinent) {
 		this.continent = newContinent;
 	}
+	
 	/**
 	 * Subtract multiple armies from country
 	 * @param moveArmies number of armies to subtract

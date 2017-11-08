@@ -9,11 +9,23 @@ import org.junit.Test;
 
 import risk.model.map.CountryNode;
 
+/**
+ * Tests the Country Node class.
+ */
 public class TestCountryNode {
-	CountryNode in;
-	ArrayList<CountryNode> list;
+	
 	/**
-	 * Set up dummy data required for test
+	 * CountryNode variable.
+	 */
+	CountryNode in;
+	
+	/**
+	 * ArrayList of type CountryNode.
+	 */
+	ArrayList<CountryNode> list;
+	
+	/**
+	 * Set up dummy data required for test.
 	 */
 	@Before
 	public void setUp(){
@@ -27,7 +39,7 @@ public class TestCountryNode {
 	}
 
 	/**
-	 * test the getCountries method for retrieving a CountryNode from a list of CountryNode by the name of country.
+	 * Test the getCountries method for retrieving a CountryNode from a list of CountryNode by the name of country.
 	 */
 	@Test
 	public void testGetCountries() {
