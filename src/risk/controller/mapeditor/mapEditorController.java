@@ -72,6 +72,7 @@ public class mapEditorController {
 	 */
 	public void mapFileChooserActions() {
 		try {
+			/*creates object of mapFileChooser*/
 			this.mapChooser = new MapFileChooser();
 		} catch (ClassNotFoundException e1) {
 			e1.printStackTrace();
@@ -83,6 +84,7 @@ public class mapEditorController {
 			e1.printStackTrace();
 		}
 
+		/*actionListener for choose map file button*/
 		existingBtnAction=(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				final JFileChooser fc = new JFileChooser();
@@ -93,9 +95,12 @@ public class mapEditorController {
 				fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
 
 				if (fc.showOpenDialog(null) == JFileChooser.APPROVE_OPTION){
+					/*get the path of the selected file*/
 					path = fc.getSelectedFile().getAbsolutePath();
 					MapReader mapReader = new MapReader();
+					/*pass the existing map file information to the existing file editor*/
 					ExistingMap existingMap = new ExistingMap(mapReader.readMap(fc.getSelectedFile().getAbsolutePath()));
+					/*actionListener for edit button of existing map frame*/
 					existingMap.addActionsToBtnEdit(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
 							existingMap.setVisible(false);
@@ -145,11 +150,16 @@ public class mapEditorController {
 			public void actionPerformed(ActionEvent e) {
 				String cn = newMap.getContinentName();
 				String cv = newMap.getControlValue();
+				/*
+				 * if continent name or control value fields are empty,
+				 * give 'enter values' error dialog box. 
+				 */
 				if(cn.compareTo("")==0 || cv.compareTo("")==0){
 					newMap.enterValuesError();
 				}else{
 					int control_value= Integer.parseInt(cv);
 					Boolean continentExist1 = mapModel.checkContinentExist(cn);
+					/*check first that the continent is unique*/
 					if(!continentExist1){
 						ArrayList<CountryNode> countryArr = new ArrayList<CountryNode>();
 						mapModel.addContinents(cn, countryArr, control_value);
@@ -172,6 +182,7 @@ public class mapEditorController {
 
 				for (MapNode node : mapModel.getContinents()){
 					for (CountryNode countryNode : node.getCountries()){
+						/*add all possible neighbor countries to the JList*/
 						if(sCountrytToAddNeighbour.compareTo(countryNode.getCountryName())==0)
 							continue;
 						newMap.addPossibleNeighboursToJList(countryNode.getCountryName());
@@ -205,6 +216,9 @@ public class mapEditorController {
 				}
 				else {
 					ArrayList<CountryNode> neighbours= new ArrayList<CountryNode>();
+					/*Get the selected neighbors from the JList 
+					 *and add them to the neighbors arrayList
+					 **/
 					for (Object ncountry : newMap.getNeighboursList()){
 						CountryNode cn =  new CountryNode(ncountry.toString(), null, null,null);
 						neighbours.add(cn);
@@ -212,6 +226,10 @@ public class mapEditorController {
 					String sCountrytToAddNeighbour = newMap.getSelectedCountryForNeighbours();
 					for (MapNode node : mapModel.getContinents()){
 						for (CountryNode cNode : node.getCountries()){
+							/*When the selected country is found for which 
+							 * neighbors need to added, add all the neighbors in arrayList
+							 * to this countryNode
+							 * */
 							if(sCountrytToAddNeighbour.compareTo(cNode.getCountryName())==0)
 								for (CountryNode neighbourNode : neighbours){
 									cNode.addNeighbour(neighbourNode);
@@ -219,6 +237,9 @@ public class mapEditorController {
 
 						}
 					}
+					/*When a country A adds B as its neighbor,
+					 * then B also adds A in its list of neighbors,
+					 * forming bidirectional links between the countries.*/
 					for (CountryNode neighbour : neighbours) {
 						for (MapNode node : mapModel.getContinents()) {
 							for (CountryNode countryNode : node.getCountries()) {
@@ -241,6 +262,9 @@ public class mapEditorController {
 				}
 				else {
 					ArrayList<CountryNode> neighbours_1= new ArrayList<CountryNode>();
+					/*get the list of neighbors selected to be deleted 
+					 * and store them in an arraList.
+					 * */
 					for (Object ncountry : newMap.getNeighboursList_1()){
 						CountryNode cn =  new CountryNode(ncountry.toString(), null, null,null);
 						neighbours_1.add(cn);
@@ -248,12 +272,16 @@ public class mapEditorController {
 					String sCountrytToDeleteNeighbour = newMap.getSelectedCountryForNeighbourDeletion();
 					for (MapNode node : mapModel.getContinents()){
 						for (CountryNode cNode : node.getCountries()){
+							/*When the selected country is found, delete its neighbors.
+							 */
 							if(sCountrytToDeleteNeighbour.compareTo(cNode.getCountryName())==0)
 								for (CountryNode neighbourNode : neighbours_1){
 									cNode.removeNeighbour(neighbourNode);	
 								}
 						}
 					}
+					/*Delete the neighbor link from both sides.
+					 */
 					for (CountryNode neighbour : neighbours_1) {
 						for (MapNode node : mapModel.getContinents()) {
 							for (CountryNode countryNode : node.getCountries()) {
@@ -279,6 +307,8 @@ public class mapEditorController {
 						break;
 					}
 				}
+				/*Update view
+				 */
 				newMap.clearNeighboursJList();
 				newMap.clearComboBoxContents();
 				newMap.clearCountryComBoxContents();
@@ -296,6 +326,7 @@ public class mapEditorController {
 			public void actionPerformed(ActionEvent e) {
 				if(mapModel.checkOnSaveMap()) {
 					if(mapModel.checkConnectedContinent()) {
+						/*if map satisfies all the validations, save it.*/
 						mapModel.saveMapFile();
 						newMap.successfullySaved();
 					}else {
