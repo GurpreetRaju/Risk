@@ -217,6 +217,7 @@ public class Controller {
 	    }else {
 	    		mapGUI = new MapView();
 	    }
+	    /*Initialize all the views for the main window and run game.*/
 		playerInfoGUI = new PlayerInfoView();
         diceRollGUI = new DiceRollView();
         cardsGUI = new CardsView();

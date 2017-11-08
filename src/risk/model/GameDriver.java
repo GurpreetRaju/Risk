@@ -129,6 +129,7 @@ public class GameDriver extends Observable {
 		this.currentPlayer = players.get(0);
 		updatePlayerView();
 		int i = 0;
+		/*Random distribution of countries among the players.*/
 		for(MapNode m : map.getMapData()){
 			for(CountryNode c: m.getCountries()){
 				c.setOwner(players.get(i));
@@ -138,6 +139,7 @@ public class GameDriver extends Observable {
 			}
 		}
 		
+		/*Distribute armies to countries as per player's choice.*/
 		int totalArmiesDiv = players.get(0).getArmiesCount();
 		for(int i1=0;i1<totalArmiesDiv ;i1++){
 			System.out.print("Armies divided"+players.get(0).getArmiesCount());
@@ -413,14 +415,14 @@ public class GameDriver extends Observable {
 		this.resultNotify = "Attack Attacker Country: "+attackerCountry+"  Defender Country: "+defenderCountry+"  ";
 		setChanged();
 		notifyObservers(resultNotify);
-		//Write code here to Announce attack on phase view
+		/*Announce attack on phase view.*/
 		CountryNode dCountry = map.getCountry(defenderCountry);
 		Player defender = dCountry.getOwner();
 		CountryNode aCountry = currentPlayer.getCountry(attackerCountry);
-		//Show dialog boxes and get input from attacker and defender on how many dice to roll
+		/*Show dialog boxes and get input from attacker and defender on how many dice to roll.*/
 		int aArmies = this.currentPlayer.selectDiceForAttack(attackerCountry);
 		int dArmies = defender.selectDiceForAttack(defenderCountry);
-		//Rolling dice for attacker and defender 
+		/*Rolling dice for attacker and defender.*/
 		ArrayList<Integer> aResults = diceRoll(aArmies);
 		ArrayList<Integer> dResults = diceRoll(dArmies);
 		String s = this.currentPlayer+" dice : ";
@@ -438,16 +440,16 @@ public class GameDriver extends Observable {
 		battle(dCountry, defender, aCountry, aArmies, dArmies, aResults, dResults);
 		setChanged();
 		notifyObservers(resultNotify);
-		//check if defender country has armies left
+		/*check if defender country has armies left.*/
 		if(dCountry.getArmiesCount()==0) {
 			dCountry.setOwner(currentPlayer);
 			turnManager.setWonCard(true);
-			//phase view code to notify change in ownership of a country
+			/*Notify change in ownership of a country.*/
 			resultNotify += "<br>" + " Country "+ dCountry.getCountryName() +" won by " + dCountry.getOwner().getName() + ", new armies "+dCountry.getArmiesCount();
 			setChanged();
 			notifyObservers(resultNotify);
 			System.out.println("Country "+ dCountry.getCountryName() +" won by " + dCountry.getOwner().getName() + ", new armies "+dCountry.getArmiesCount());
-			//move counrties from attacker country to new acquired country
+			/*move countries from attacker country to new acquired country.*/
 			int moveArmies = controller.setUpBoxInput(aArmies, aCountry.getArmiesCount()-1, "Select armies to move:");
 			dCountry.addArmy(moveArmies);
 			aCountry.removeArmies(moveArmies);
@@ -471,20 +473,20 @@ public class GameDriver extends Observable {
 	 * @param dResults results of dice rolled by defender
 	 */
 	public void battle(CountryNode dCountry, Player defender, CountryNode aCountry, int aArmies, int dArmies,ArrayList<Integer> aResults,ArrayList<Integer> dResults) {
-		//Compare the results to decide battle result
+		/*Compare the results to decide battle result.*/
 		while(!aResults.isEmpty() && !dResults.isEmpty()) {
 			int aMax = max(aResults);
 			int dMax = max(dResults);
 			if(aResults.get(aMax)>dResults.get(dMax)) {
 				dCountry.removeArmy();
+				/*Show army removed from defender country.*/
 				resultNotify += "<br>" + " Winner Country: "+aCountry.getCountryName();
-				//phase view code to show army removed from defender country
 				System.out.println("Army removed from defender country, new armies "+dCountry.getArmiesCount());
 			}
 			else {
 				aCountry.removeArmy();
 				resultNotify += "<br>" + "Winner Country: "+dCountry.getCountryName();
-				//phase view code to show army removed from attacker country
+				/*Show army removed from attacker country*/
 				System.out.println("Army removed from attacker country, new armies "+aCountry.getArmiesCount());
 			}
 			aResults.remove(aMax);
@@ -497,7 +499,6 @@ public class GameDriver extends Observable {
 	 * @return true if game if over, false if there is at least two players own at least one country on map
 	 */
 	public boolean checkGameState() {
-		//method to check if game is over
 		for(Player p: players) {
 			if(!p.equals(currentPlayer)) {
 				System.out.println(p.getName()+ " " +p.getPlayerState());
@@ -515,7 +516,6 @@ public class GameDriver extends Observable {
 	 * @param defenderPlayer player to be set lost
 	 */
 	public void setPlayerOut(Player defenderPlayer) {
-		//check if a player loose all the countries
 		if(defenderPlayer.getCountries().isEmpty()) {
 			defenderPlayer.setPlayerState(true);
 		}
