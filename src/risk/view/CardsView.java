@@ -9,10 +9,12 @@ import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import risk.model.GameDriver;
@@ -55,29 +57,15 @@ public class CardsView extends JPanel implements Observer {
 	public void showCards(Player player){
 		this.removeAll();
 		/*Cards exchange Dialog Box.*/
-		JFrame frame = new JFrame("Card Exchange View");
-		JDialog cardExchange = new JDialog(frame, "Choose to Exchange");
-		for (risk.model.Card card : player.getCards()){
-			JLabel cardName = new JLabel(card.getName()); 
-			cardExchange.add(cardName);
+		String cards = "";
+		for (risk.model.Card card : player.getCards()){ 
+			cards += (card.getName()+",");
 		}
-		/*Exchange button listener.*/
-		exchangeCards = new JButton("Exchange Cards for Armies");
-		exchangeCards.addActionListener(new ActionListener (){
-			@Override
-            public void actionPerformed(ActionEvent e) {
-				exchangeCards(player);
-			}
-		});
-		/*Cancel exchange cards.*/
-		JButton cancel = new JButton("Cancel");
-		cancel.addActionListener(new ActionListener (){
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				frame.dispose();
-			}
-		});
-		cardExchange.add(exchangeCards);
+		int cardExchange = JOptionPane.showConfirmDialog (null, cards,"Warning",JOptionPane.YES_OPTION);
+		if(cardExchange == JOptionPane.YES_OPTION){
+			exchangeCards(player);
+		}
+		
 	}
 	
 	/**
@@ -102,9 +90,9 @@ public class CardsView extends JPanel implements Observer {
 	@Override
 	public void update(Observable o, Object arg) {
 		Player player = GameDriver.getInstance().getCurrentPlayer();
-		if (arg.equals("Cards")){
+		if (((String) arg).equals("Cards")){
 			if( player.getCards().size()>2 && player.getCards().size() <5){
-				if(player.haveDistinctCards() || player.haveThreeSameTypeCards()){
+				if(player.haveDistinctCards() || player.haveThreeSameTypeCards()){					
 					this.showCards(player);
 				}
 			}

@@ -342,8 +342,24 @@ public class Player {
 	 * This method runs the fortification phase
 	 */
 	public void fortificationPhase(){
-		GameDriver.getInstance().getControlGUI().fortificationControls(getCountriesNames());
-		GameDriver.getInstance().setFortificationLiteners();
+		ArrayList<String> countriesList = new ArrayList<String>();
+		for(CountryNode c : this.countries) {
+			if(c.getArmiesCount()>1) {
+				for(CountryNode n: c.getNeighbourCountries()) {
+					if(n.getOwner().equals(this)) {
+						countriesList.add(c.getCountryName());
+						break;
+					}
+				}
+			}
+		}
+		if(countriesList.isEmpty()) {
+			GameDriver.getInstance().changePhase();
+		}
+		else {
+			GameDriver.getInstance().getControlGUI().fortificationControls(countriesList.toArray(new String[countriesList.size()]));
+			GameDriver.getInstance().setFortificationLiteners();
+		}
 	}
 	
 	/**
