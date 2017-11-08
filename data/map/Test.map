@@ -1,0 +1,18 @@
+[Map]
+author=Gurpreet
+image=Test.bmp
+wrap=yes
+scroll=none
+warn=yes
+
+[Continents]
+Column 1=3
+
+[Territories]
+Territory00,148,70,Column 1,Territory06
+Territory01,150,134,Column 1,Territory02
+Territory02,150,167,Column 1,Territory01,Territory03
+Territory03,150,199,Column 1,Territory04,Territory02
+Territory04,150,236,Column 1,Territory03,Territory05
+Territory05,151,274,Column 1,Territory04
+Territory06,152,348,Column 1,Territory00

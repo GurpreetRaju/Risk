@@ -8,7 +8,7 @@ import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
 import risk.controller.mapeditor.mapEditorController;
-import risk.model.CountryNode;
+import risk.model.map.CountryNode;
 import risk.model.map.MapNode;
 import risk.model.map.MapWriter;
 

@@ -5,7 +5,6 @@ import java.util.Hashtable;
 import java.util.Iterator;
 
 import risk.controller.Controller;
-import risk.model.CountryNode;
 import risk.view.mapeditor.MapFrame;
 
 /**

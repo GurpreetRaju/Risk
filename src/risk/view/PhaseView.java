@@ -2,8 +2,6 @@ package risk.view;
 
 import java.awt.Color;
 import java.awt.FlowLayout;
-import java.awt.Label;
-import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -72,6 +70,13 @@ public class PhaseView extends JPanel implements Observer{
 			this.add(new JLabel("<html><div><b>Fortification Phase</b></div><br/><br/></html>"));
 			this.add(new JLabel("Player: "));
 			this.add(new JLabel(current.getName()));
+		}
+		else if(arg.equals("Cards")){
+			this.removeAll();
+			this.add(new JLabel("<html><div><b>Cards Exchange</b></div><br/><br/></html>"));
+			this.add(new JLabel("Player: "));
+			this.add(new JLabel(current.getName()));
+			this.add(new JLabel(" can exchange cards to get more armies  "));
 		}
 		else{
 			this.add(new JLabel("<html><div>Player:</div></html>"));

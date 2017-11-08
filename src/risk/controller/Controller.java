@@ -87,6 +87,7 @@ public class Controller {
 	 * Empty constructor for object creation
 	 */
 	public Controller(){
+		this(GameDriver.getInstance());
 	}
 	
 	/**
@@ -95,10 +96,17 @@ public class Controller {
 	 */
 	public Controller(GameDriver newDriver) {
 		this.driver = newDriver;
+		driver.setController(this);
+	}
+	
+	/**
+	 * Method to initialize setupBox and listeners.
+	 */
+	public void initialize() {
 		setupBox = new SetUpDialog();
-		this.chooseMapEditorOrPlayGame();
-		this.mapEditorListener();
-		this.playGameListener();
+		chooseMapEditorOrPlayGame();
+		mapEditorListener();
+		playGameListener();
 	}
 	
 	/**
@@ -138,13 +146,6 @@ public class Controller {
 			}
 		};
 		controlsGUI.addArmiesButtonAction(this.addArmiesListner);
-		
-		controlsGUI.endPhaseAction(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				driver.changePhase();
-			}
-		});
 	}
 	
 	/**
@@ -225,6 +226,7 @@ public class Controller {
         dominationView = new WorldDominationView();
 		this.driver.addObserver(phaseView);
 		this.driver.addObserver(dominationView);
+		this.driver.addObserver(cardsGUI);
         MainView.createInstance(playerInfoGUI, mapGUI, diceRollGUI, cardsGUI, controlsGUI, phaseView, dominationView);
         driver.setPlayerView(playerInfoGUI);
 		driver.setMapView(mapGUI);
@@ -288,6 +290,10 @@ public class Controller {
 	 */
 	public int setUpBoxInput(int min, int max, String message) {
 		return setupBox.getInput(min, max,message);
+	}
+
+	public void removeAllControls() {
+		controlsGUI.removeAll();
 	}
 	
 }

@@ -10,19 +10,19 @@ public class Card {
 	/**
 	 * Stores the name of the card.
 	 */
-	String name;
+	private String name;
 	
 	/**
 	 * Stores the type of the card.
 	 */
-	String type;
+	private String type;
 	
 	/**
 	 * Constructor to assign value to name and type of the card.
 	 * @param name Stores the name of the card.
 	 * @param type Stores the type of the card.
 	 */
-	Card(String name, String type) {
+	public Card(String name, String type) {
 		this.name = name;
 		this.type = type;
 	}
@@ -31,7 +31,7 @@ public class Card {
 	 * Function to get the name of the card.
 	 * @return name of the card.
 	 */
-	String getName() {
+	public String getName() {
 		return this.name;
 	}
 	
@@ -39,7 +39,7 @@ public class Card {
 	 * Function to get the type of the card.
 	 * @return type of the card.
 	 */
-	String getType() {
+	public String getType() {
 		return this.type;
 	}
 	
