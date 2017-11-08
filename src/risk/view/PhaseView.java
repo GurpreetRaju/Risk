@@ -16,6 +16,7 @@ import risk.model.Player;
 /**
  * Implements the Phase View panel of the main window using Observer Pattern.
  * @author Gunpreet
+ * @version 1.2
  */
 public class PhaseView extends JPanel implements Observer{
 	

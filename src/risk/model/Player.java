@@ -272,14 +272,14 @@ public class Player {
 	}
 	
 	/**
-	 *  sets player turn to true
+	 * Sets player turn to true
 	 */
 	public void setTurnTrue() {
 		this.turn = true;
 	}
 	
 	/**
-	 *  sets player turn to false
+	 * Sets player turn to false
 	 */
 	public void setTurnFalse() {
 		this.turn = false;
@@ -287,7 +287,7 @@ public class Player {
 	
 	/**
 	 * Gives the value of the turn of the player (True or False).
-	 *  @return turn of player
+	 * @return turn of player
 	 */
 	public boolean getTurn() {
 		return this.turn;
@@ -602,7 +602,7 @@ public class Player {
 	}
 
 	/**
-	 * check if two objects are equal.
+	 * Checks if two objects are equal.
 	 */
 	public boolean equals(Object o) {
 		if(o instanceof Player) {
