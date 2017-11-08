@@ -20,7 +20,10 @@ import risk.model.GameDriver;
 import risk.model.Player;
 
 /**
- * Creates cards view on main window.
+ * This class implements the Card Exchange View
+ * 
+ * @author amitt
+ * @version 1.0
  */
 public class CardsView extends JPanel implements Observer {
 	
@@ -43,6 +46,10 @@ public class CardsView extends JPanel implements Observer {
 		this.setPreferredSize(new Dimension(400,150));
 	}
 	
+	/**
+	 * Shows a dailog to the player to exchange the cards to get additional armies
+	 * @param player current player whose turn is going on
+	 */
 	public void showCards(Player player){
 		this.removeAll();
 		JFrame frame = new JFrame("Card Exchange View");
@@ -72,7 +79,10 @@ public class CardsView extends JPanel implements Observer {
 		
 	}
 	
-	
+	/**
+	 * Removes cards from the player and assign additional armies
+	 * @param player current player whose turn is going on
+	 */
 	public void exchangeCards(Player player){
 		if (player.haveDistinctCards()){
 			player.removeDistinctCards();
@@ -81,7 +91,13 @@ public class CardsView extends JPanel implements Observer {
 			player.removeSimilarThreeCards();
 		}
 	}
-
+	
+	/**
+	 * Observer pattern function for Observers to update when there is a notification from the observable.
+	 * It checks if the player has atleast 3 similar cards or 3 distinct cards or 5 cards.
+	 * If user has 3 or more cards it asks player if he wants to exchange cards for armies.
+	 * if user has 5 armies it forces player to exchange card for armies.
+	 */
 	@Override
 	public void update(Observable o, Object arg) {
 		Player player = GameDriver.getInstance().getCurrentPlayer();
