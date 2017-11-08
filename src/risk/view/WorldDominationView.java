@@ -2,8 +2,6 @@ package risk.view;
 
 import java.awt.Color;
 import java.awt.FlowLayout;
-import java.awt.Label;
-import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -17,11 +15,10 @@ import risk.model.Player;
 /**
  * This class implements the World Domination View which shows 
  * the portion of countries each player occupy.
- * @author amitt
- *@version 1.0
+ * @author Amitt
+ * @version 1.2
  */
 public class WorldDominationView extends JPanel implements Observer {
-	
 	
 	/**
 	 * Serial Version id for JFrame.
@@ -33,7 +30,7 @@ public class WorldDominationView extends JPanel implements Observer {
 	 * Creates World Domination View on the Main frame
 	 */
 	public WorldDominationView() {
-		JLabel label = new JLabel("<html><p><b>World Domination View</b></p><br/><br/></html>");
+		JLabel label = new JLabel("<html><b>World Domination View</b></html>");
 		this.setLayout(new FlowLayout());
 		this.add(label);
 		this.setBorder(BorderFactory.createLineBorder(Color.black));
@@ -46,7 +43,7 @@ public class WorldDominationView extends JPanel implements Observer {
 	public void update(Observable o, Object arg) {
 		if(arg.equals("Reinforcement") || arg.equals("Fortification")){
 			this.removeAll();
-			JLabel label = new JLabel("<html><p><b>World Domination View</b></p><br/><br/></html>");
+			JLabel label = new JLabel("<html><b>World Domination View</b></html>");
 			this.add(label);
 			
 			int totalCountries = GameDriver.getInstance().getMap().getCountryCount();

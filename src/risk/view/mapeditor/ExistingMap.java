@@ -1,30 +1,20 @@
 package risk.view.mapeditor;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
-import risk.model.map.MapModel;
 import risk.model.map.MapNode;
 
-import java.awt.GridLayout;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Vector;
-import java.awt.event.ActionEvent;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JTable;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.JComboBox;
 import java.awt.Color;
 import java.awt.Font;
 
@@ -35,6 +25,12 @@ import java.awt.Font;
  *@author Harinder
  */
 public class ExistingMap extends JFrame {
+
+	/**
+	 * Serial Version id for JFrame.
+	 * {@inheritDoc}
+	 */
+	private static final long serialVersionUID = 257217734140252917L;
 
 	/**
 	 * Creates panel for existing map file display.

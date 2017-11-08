@@ -1,7 +1,5 @@
 package risk.view.mapeditor;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
@@ -25,6 +23,12 @@ import risk.controller.mapeditor.mapEditorController;
  */
 public class MapFrame extends JFrame {
 
+	/**
+	 * Serial Version id for JFrame.
+	 * {@inheritDoc}
+	 */
+	private static final long serialVersionUID = -2141527704750049674L;
+	
 	/**
 	 * Stores the JPanel of map frame.
 	 */

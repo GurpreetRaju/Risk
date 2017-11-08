@@ -7,15 +7,13 @@ import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 
-import risk.controller.Controller;
 import risk.model.GameDriver;
 import risk.model.Player;
 import risk.model.map.CountryNode;
-import risk.model.map.MapNode;
+
 
 /**
  * This class tests all the functions of GameDriver.
- *
  */
 public class TestGameDriver {
 	
@@ -23,11 +21,6 @@ public class TestGameDriver {
 	 * GameDriver class object to access GameDriver class
 	 */
 	private GameDriver driver;
-	
-	/**
-	 * ArrayList to store owned neighbors.
-	 */
-	private ArrayList<String> actualOwnedNeighbors;
 	
 	/**
 	 * CountryNode reference.

@@ -1,7 +1,5 @@
 package risk.view.mapeditor;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -13,7 +11,6 @@ import risk.model.map.MapNode;
 import risk.model.map.MapWriter;
 
 import java.awt.GridBagLayout;
-import java.awt.BorderLayout;
 import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -31,7 +28,7 @@ import javax.swing.JComboBox;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
-import java.awt.event.ActionEvent;
+
 
 /**
  * New map class opens the JFrame view for add/delete country and continent.
