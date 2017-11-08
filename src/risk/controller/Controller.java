@@ -226,7 +226,7 @@ public class Controller {
 		this.driver.addObserver(phaseView);
 		this.driver.addObserver(dominationView);
 		this.driver.addObserver(cardsGUI);
-        MainView.createInstance(playerInfoGUI, mapGUI, diceRollGUI, cardsGUI, controlsGUI, phaseView, dominationView);
+        MainView.createInstance(playerInfoGUI, mapGUI, controlsGUI, phaseView, dominationView);
         driver.setPlayerView(playerInfoGUI);
 		driver.setMapView(mapGUI);
 		driver.setControlsView(controlsGUI);

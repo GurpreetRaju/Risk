@@ -33,16 +33,6 @@ public class MainView extends JFrame{
 	private MapView map;
 	
 	/**
-	 * DiceRollView class object.
-	 */
-	private DiceRollView diceArea;
-	
-	/**
-	 * CardsView class object.
-	 */
-	private CardsView cardsArea;
-	
-	/**
 	 * ControlsView class object.
 	 */
 	private ControlsView controlsArea;
@@ -61,18 +51,14 @@ public class MainView extends JFrame{
 	 * Initialize each view with the object of corresponding type.
 	 * @param newPlayerInfo PlayerInfoView object.
 	 * @param newMap MapView object.
-	 * @param newDice DiceRollView object.
-	 * @param newCards Cards object.
 	 * @param newControls ControlsView object.
 	 * @param newPhase PhaseView Object.
 	 * @param newDominationView WorldDominationView object.
 	 */
-	private MainView(PlayerInfoView newPlayerInfo, MapView newMap, DiceRollView newDice, CardsView newCards, ControlsView newControls, PhaseView newPhase, WorldDominationView newDominationView) 
+	private MainView(PlayerInfoView newPlayerInfo, MapView newMap, ControlsView newControls, PhaseView newPhase, WorldDominationView newDominationView) 
 	{	
 		playerData = newPlayerInfo;
         map = newMap;
-        diceArea = newDice;
-        cardsArea = newCards;
         controlsArea = newControls;
         phaseArea = newPhase;
         dominationView = newDominationView;
@@ -90,54 +76,42 @@ public class MainView extends JFrame{
         SpringLayout layout = new SpringLayout();
         contentPane.setLayout(layout);
         
-        diceArea.setPreferredSize(new Dimension(400,playerData.getHeight()));
+        dominationView.setPreferredSize(new Dimension(map.getWidth(), 400));
+        playerData.setPreferredSize(new Dimension(400, 150));
         
         contentPane.add(playerData);
         contentPane.add(map);
-        contentPane.add(diceArea);
-        contentPane.add(cardsArea);
         contentPane.add(controlsArea);
         contentPane.add(phaseArea);
         contentPane.add(dominationView);
         
         /*phaseArea constraints.*/
         layout.putConstraint(SpringLayout.WEST, phaseArea, 5,  SpringLayout.WEST, contentPane);
-        layout.putConstraint(SpringLayout.EAST, phaseArea, 0,  SpringLayout.EAST, cardsArea);
+        layout.putConstraint(SpringLayout.EAST, phaseArea, -5,  SpringLayout.WEST, map);
         layout.putConstraint(SpringLayout.NORTH, phaseArea, 5, SpringLayout.NORTH, contentPane);
         layout.putConstraint(SpringLayout.SOUTH, phaseArea, -5,  SpringLayout.NORTH, playerData);
         
 		/*playerData constraints.*/
         layout.putConstraint(SpringLayout.WEST, playerData, 5,  SpringLayout.WEST, contentPane);
-        layout.putConstraint(SpringLayout.EAST, playerData, 0,  SpringLayout.EAST, cardsArea);
-        //layout.putConstraint(SpringLayout.NORTH, playerData, -5, SpringLayout.NORTH, contentPane);
-        layout.putConstraint(SpringLayout.SOUTH, playerData, -5,  SpringLayout.NORTH, cardsArea);
+        layout.putConstraint(SpringLayout.SOUTH, playerData, -5,  SpringLayout.SOUTH, contentPane);
         
         /*map constraints.*/
         layout.putConstraint(SpringLayout.WEST, map, 5,  SpringLayout.EAST, playerData);
         layout.putConstraint(SpringLayout.NORTH, map, 5, SpringLayout.NORTH, contentPane);
-        layout.putConstraint(SpringLayout.SOUTH, map, 0, SpringLayout.SOUTH, playerData);
-        layout.putConstraint(SpringLayout.EAST, map, -5, SpringLayout.WEST, diceArea);
-        
-        /*diceArea constraints.*/
-        layout.putConstraint(SpringLayout.EAST, diceArea, -5,  SpringLayout.EAST, contentPane);
-        layout.putConstraint(SpringLayout.NORTH, diceArea, 5, SpringLayout.NORTH, contentPane);
-        layout.putConstraint(SpringLayout.SOUTH, diceArea, -100, SpringLayout.NORTH, controlsArea);
+        layout.putConstraint(SpringLayout.SOUTH, map, -50, SpringLayout.NORTH, controlsArea);
+        layout.putConstraint(SpringLayout.EAST, map, -5, SpringLayout.EAST, contentPane);
         
         /*dominationView constraints.*/
-        layout.putConstraint(SpringLayout.NORTH, dominationView, 5, SpringLayout.SOUTH, diceArea);
+        layout.putConstraint(SpringLayout.NORTH, dominationView, 5, SpringLayout.SOUTH, map);
         layout.putConstraint(SpringLayout.SOUTH, dominationView, -5, SpringLayout.NORTH, controlsArea);
-        layout.putConstraint(SpringLayout.WEST, dominationView, 5, SpringLayout.EAST, map);
+        layout.putConstraint(SpringLayout.WEST, dominationView, 0, SpringLayout.WEST, map);
         layout.putConstraint(SpringLayout.EAST, dominationView, -5, SpringLayout.EAST, contentPane);
         
-        /*cardsArea constraints.*/
-        layout.putConstraint(SpringLayout.WEST, cardsArea, 5,  SpringLayout.WEST, contentPane);
-        layout.putConstraint(SpringLayout.SOUTH, cardsArea, -5, SpringLayout.SOUTH, contentPane);
-        
         /*controlsArea constraints.*/
-        layout.putConstraint(SpringLayout.WEST, controlsArea, 5,  SpringLayout.EAST, cardsArea);
+        layout.putConstraint(SpringLayout.WEST, controlsArea, 5,  SpringLayout.EAST, playerData);
         layout.putConstraint(SpringLayout.EAST, controlsArea, -5,  SpringLayout.EAST, contentPane);
-        layout.putConstraint(SpringLayout.NORTH, controlsArea, 0, SpringLayout.NORTH, cardsArea);
-        layout.putConstraint(SpringLayout.SOUTH, controlsArea, 0, SpringLayout.SOUTH, cardsArea);
+        layout.putConstraint(SpringLayout.NORTH, controlsArea, 0, SpringLayout.NORTH, playerData);
+        layout.putConstraint(SpringLayout.SOUTH, controlsArea, -5, SpringLayout.SOUTH, contentPane);
         this.pack();
 	}
 
@@ -153,16 +127,14 @@ public class MainView extends JFrame{
 	 * Creates the instance of the MainView class.
 	 * @param newPlayerInfo PlayerInfoView object.
 	 * @param newMap MapView object.
-	 * @param newDice DiceRollView object.
-	 * @param newCards CardsView object.
 	 * @param newControls ControlsView object.
 	 * @param newPhase PhaseView object.
 	 * @param newDominationView WorldDominationView object.
 	 */
-	public static void createInstance(PlayerInfoView newPlayerInfo, MapView newMap, DiceRollView newDice, CardsView newCards, ControlsView newControls, PhaseView newPhase, WorldDominationView newDominationView)
+	public static void createInstance(PlayerInfoView newPlayerInfo, MapView newMap, ControlsView newControls, PhaseView newPhase, WorldDominationView newDominationView)
 	{
 		if(mainView == null){
-			mainView = new MainView(newPlayerInfo, newMap, newDice, newCards, newControls, newPhase, newDominationView);
+			mainView = new MainView(newPlayerInfo, newMap, newControls, newPhase, newDominationView);
 		}
 	}
 }

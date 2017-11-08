@@ -30,7 +30,7 @@ public class WorldDominationView extends JPanel implements Observer {
 	 * Creates World Domination View on the Main frame
 	 */
 	public WorldDominationView() {
-		JLabel label = new JLabel("<html><p><b>World Domination View</b></p><br/><br/></html>");
+		JLabel label = new JLabel("<html><b>World Domination View</b></html>");
 		this.setLayout(new FlowLayout());
 		this.add(label);
 		this.setBorder(BorderFactory.createLineBorder(Color.black));
@@ -43,7 +43,7 @@ public class WorldDominationView extends JPanel implements Observer {
 	public void update(Observable o, Object arg) {
 		if(arg.equals("Reinforcement") || arg.equals("Fortification")){
 			this.removeAll();
-			JLabel label = new JLabel("<html><p><b>World Domination View</b></p><br/><br/></html>");
+			JLabel label = new JLabel("<html><b>World Domination View</b></html>");
 			this.add(label);
 			
 			int totalCountries = GameDriver.getInstance().getMap().getCountryCount();
