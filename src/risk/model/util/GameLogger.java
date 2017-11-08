@@ -5,14 +5,16 @@ import java.awt.FlowLayout;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 import risk.model.GameDriver;
 import risk.model.Player;
 
-public class GameLogger extends JPanel implements Observer {
+public class GameLogger extends JFrame implements Observer {
 
 	/**
 	 * Serial Version id for JFrame.
@@ -21,18 +23,15 @@ public class GameLogger extends JPanel implements Observer {
 	private static final long serialVersionUID = -8766321280014020596L;
 	
 	/**
-	 * Frame for the logging window.
+	 * Panel for the logging window.
 	 */
-	private JFrame frame;
+	private JPanel frame;
 	/**
 	 * Constructor to intialize GameLogger
 	 */
 	public GameLogger(){
-		frame = new JFrame("GameLogger");
-		frame.setSize(new Dimension(400,1000));
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.validate();
-		frame.setVisible(true);
+		frame = new JPanel();
+		frame.setLayout(new BoxLayout(frame, BoxLayout.Y_AXIS));
 	}
 
 	/**
@@ -41,7 +40,6 @@ public class GameLogger extends JPanel implements Observer {
 	@Override
 	public void update(Observable o, Object arg) {
 		Player current = GameDriver.getInstance().getCurrentPlayer();
-		frame.setLayout(new FlowLayout());
 		/*Startup GameLogger Display.*/
 		if(arg.equals("Startup")){
 			frame.add(new JLabel("<html><div><b>Startup Phase</b></div><br/><br/></html>"));
@@ -91,6 +89,7 @@ public class GameLogger extends JPanel implements Observer {
 			frame.add(new JLabel("<html><p><b>Fortification Phase</b></p><br/><br/></html>"));
 			frame.add(new JLabel("Player: "));
 			frame.add(new JLabel(current.getName()));
+			frame.add(new JLabel(" Armies moved from: " + current.getCountrySelected().getCountryName()+ " to "+ current.getNeighbourSelected().getCountryName()));
 		}
 		/*Players Display for Startup Phase.*/
 		else{
@@ -99,7 +98,12 @@ public class GameLogger extends JPanel implements Observer {
 		}
 		frame.add(new JLabel("<html><p></p><br/><br/></html>"));
 		System.out.println("Observer");
-		frame.validate();
+		this.setSize(400, 800);
+		JScrollPane scroll = new JScrollPane(frame);
+		scroll.setPreferredSize(getSize());
+		this.add(scroll);
+		this.validate();
+		this.setVisible(true);
 	}
 
 }

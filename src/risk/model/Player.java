@@ -68,6 +68,16 @@ public class Player {
 	public int armiesMoved;
 	
 	/**
+	 * Stores Fortification Country selected .
+	 */
+	private CountryNode countrySelect;
+	
+	/**
+	 * Stores Neightbour Countries of country selected.
+	 */
+	private CountryNode neighbourC;
+	
+	/**
 	 * Initialize player object with name.
 	 * @param name name of player.
 	 */
@@ -371,8 +381,8 @@ public class Player {
 	public int shiftArmiesOnReinforcement(String country, int armies) {
 		this.countrySelected = country;
 		this.armiesMoved = armies;
-		getCountry(countrySelected).addArmy(armiesMoved);
-		removeArmies(armiesMoved);
+		getCountry(this.countrySelected).addArmy(this.armiesMoved);
+		removeArmies(this.armiesMoved);
 		return this.armiesCount;
 	}
 	
@@ -384,11 +394,27 @@ public class Player {
 	 * @return the army count left in sNeighbour country.
 	 */
 	public int getArmiesShiftedAfterFortification(String sCountry, String sNeighbour, int selectedArmies){
-		CountryNode countrySelect = getCountry(sCountry);
-		CountryNode neighbourC = getCountry(sNeighbour);
+		this.countrySelect = getCountry(sCountry);
+		this.neighbourC = getCountry(sNeighbour);
 		countrySelect.setArmies(countrySelect.getArmiesCount()-selectedArmies);
 		neighbourC.setArmies(neighbourC.getArmiesCount() + selectedArmies);
 		return neighbourC.getArmiesCount();
+	}
+	
+	/**
+	 * Get the country selected to move armies from.
+	 * @return country selected to move armies from.
+	 */
+	public CountryNode getCountrySelected(){
+		return this.countrySelect;
+	}
+	
+	/**
+	 * Get the neighbour selected to move armies to.
+	 * @return neighbour selected to move armies to.
+	 */
+	public CountryNode getNeighbourSelected(){
+		return this.neighbourC;
 	}
 	
 	/**
