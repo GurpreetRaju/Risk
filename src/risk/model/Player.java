@@ -419,6 +419,10 @@ public class Player {
 		return name;
 	}
 	
+	/**
+	 * Checks if player have Infantry Card
+	 * @return true if player have Infantry Card otherwise false
+	 */
 	public boolean haveInfantryCard(){
 		for (Card card: this.cards){
 			if (card.getName().equals("Infantry")){
@@ -428,6 +432,10 @@ public class Player {
 		return false;
 	}
 	
+	/**
+	 * Checks if player have Cavalry Card
+	 * @return true if player have Cavalry Card otherwise false
+	 */
 	public boolean haveCavalryCard(){
 		for (Card card: this.cards){
 			if (card.getName().equals("Cavalry")){
@@ -437,6 +445,10 @@ public class Player {
 		return false;
 	}
 	
+	/**
+	 * Checks if player have Artillery Card
+	 * @return true if player have Artillery Card otherwise false
+	 */
 	public boolean haveArtilleryCard(){
 		for (Card card: this.cards){
 			if (card.getName().equals("Artillery")){
@@ -446,6 +458,10 @@ public class Player {
 		return false;
 	}
 	
+	/**
+	 * Checks if player have Infantry, Artillery and Cavalry Cards
+	 * @return true if player have Infantry, Artillery and Cavalry Cards otherwise false
+	 */
 	public boolean haveDistinctCards(){
 		if (this.haveInfantryCard() && this.haveArtilleryCard() && this.haveCavalryCard()){
 			return true;
@@ -455,6 +471,10 @@ public class Player {
 		}
 	}
 	
+	/**
+	 * Checks if player have three Artillery cards
+	 * @return true if player have three Artillery cards otherwise false
+	 */
 	public boolean haveThreeArtilleryCards(){
 		int artillery = 0;
 		for (Card card :this.cards){
@@ -471,6 +491,10 @@ public class Player {
 			
 	}
 	
+	/**
+	 * Checks if player have three Cavalry cards
+	 * @return true if player have three Cavalry cards otherwise false
+	 */
 	public boolean haveThreeCavalryCards(){
 		int cavalry = 0;
 		for (Card card :this.cards){
@@ -487,6 +511,10 @@ public class Player {
 			
 	}
 	
+	/**
+	 * Checks if player have three Infantry cards
+	 * @return true if player have three Infantry Cards otherwise false
+	 */
 	public boolean haveThreeInfantryCards(){
 		int infantry = 0;
 		for (Card card :this.cards){
@@ -503,6 +531,10 @@ public class Player {
 			
 	}
 	
+	/**
+	 * Checks if player have either three Cavalry, Artillery or Infantry cards
+	 * @return true if player have either three Cavalry, Artillery or Infantry cards otherwise false
+	 */
 	public boolean haveThreeSameTypeCards(){
 		if(this.haveThreeCavalryCards() || this.haveThreeArtilleryCards() || this.haveThreeInfantryCards()){
 			return true;
@@ -521,7 +553,9 @@ public class Player {
 		return this.cards;
 	}
 	
-
+	/**
+	 * Removes one Infantry, Artillery and Cavalry cards
+	 */
 	public void removeDistinctCards(){
 		this.removeCard(this.getCard("Cavalry"));
 		this.removeCard(this.getCard("Infantry"));
@@ -529,6 +563,11 @@ public class Player {
 		this.assignArmies(5*this.cardsUsedCount++);
 	}
 	
+	/**
+	 * Returns the card from player cardlist
+	 * @param cardname name of the card
+	 * @return card with cardname equals to parameter
+	 */
 	public Card getCard(String cardname){
 		for (Card card : this.cards){
 			if ( card.getName().equals(cardname)){
@@ -538,6 +577,9 @@ public class Player {
 		return null;
 	}
 	
+	/**
+	 * Removes either of three Infantry or Artillery or Cavalry cards
+	 */
 	public void removeSimilarThreeCards(){
 		if (this.haveThreeArtilleryCards()){
 			this.removeCard(this.getCard("Artillery"));
