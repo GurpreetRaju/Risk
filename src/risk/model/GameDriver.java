@@ -118,26 +118,10 @@ public class GameDriver extends Observable {
 	 * @param playerData String array to store elements of player type.
 	 */
 	public void startUpPhase(String[] playerData) {
-		players = new ArrayList<Player>();
-		for(String newPlayer: playerData){
-			Player temp = new Player(newPlayer,RiskData.InitialArmiesCount.getArmiesCount(playerData.length));
-			players.add(temp);
-			setChanged();
-			notifyObservers(temp.getName());
-		}
-		players.get(0).setTurnTrue();
-		this.currentPlayer = players.get(0);
+		
+		dividingCountries(playerData,map.getMapData());
+		
 		updatePlayerView();
-		int i = 0;
-		/*Random distribution of countries among the players.*/
-		for(MapNode m : map.getMapData()){
-			for(CountryNode c: m.getCountries()){
-				c.setOwner(players.get(i));
-				if(++i>=players.size()){
-					i=0;
-				}
-			}
-		}
 		
 		/*Distribute armies to countries as per player's choice.*/
 		int totalArmiesDiv = players.get(0).getArmiesCount();
@@ -155,6 +139,33 @@ public class GameDriver extends Observable {
 			}
 		}
 		updateMap();
+	}
+	
+	/**
+	 * This method create player objects and divide countries among them.
+	 * @param playerData list of players
+	 * @param mapData arraylist containing MapNode Objects representing continents
+	 */
+	public void dividingCountries(String[] playerData, ArrayList<MapNode> mapData) {
+		players = new ArrayList<Player>();
+		for(String newPlayer: playerData){
+			Player temp = new Player(newPlayer,RiskData.InitialArmiesCount.getArmiesCount(playerData.length));
+			players.add(temp);
+			setChanged();
+			notifyObservers(temp.getName());
+		}
+		players.get(0).setTurnTrue();
+		this.currentPlayer = players.get(0);
+		int i = 0;
+		/*Random distribution of countries among the players.*/
+		for(MapNode m : mapData){
+			for(CountryNode c: m.getCountries()){
+				c.setOwner(players.get(i));
+				if(++i>=players.size()){
+					i=0;
+				}
+			}
+		}
 	}
 
 	/**
