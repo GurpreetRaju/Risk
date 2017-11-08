@@ -58,6 +58,16 @@ public class Player {
 	private boolean lost = false;
 	
 	/**
+	 * Stores reinforcement Country selected.
+	 */
+	public String countrySelected;
+	
+	/**
+	 * Stores the armies moved in Reinforcement.
+	 */
+	public int armiesMoved;
+	
+	/**
 	 * Initialize player object with name.
 	 * @param name name of player.
 	 */
@@ -343,8 +353,10 @@ public class Player {
 	 * @return the army count left for the player.
 	 */
 	public int shiftArmiesOnReinforcement(String country, int armies) {
-		getCountry(country).addArmy(armies);
-		removeArmies(armies);
+		this.countrySelected = country;
+		this.armiesMoved = armies;
+		getCountry(countrySelected).addArmy(armiesMoved);
+		removeArmies(armiesMoved);
 		return this.armiesCount;
 	}
 	

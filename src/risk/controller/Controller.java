@@ -3,6 +3,7 @@ package risk.controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import risk.model.GameDriver;
+import risk.model.util.GameLogger;
 import risk.view.CardsView;
 import risk.view.ControlsView;
 import risk.view.DiceRollView;
@@ -81,6 +82,11 @@ public class Controller {
 	 * ActionListener to add listener to "Play Game" button.
 	 */
 	private ActionListener playGameListener;
+	
+	/**
+	 * Stores object of GameLogger
+	 */
+	private GameLogger gameLogger;
 	
 	/**
 	 * Empty constructor for object creation
@@ -217,15 +223,18 @@ public class Controller {
 	    }else {
 	    		mapGUI = new MapView();
 	    }
+	    /*Initialize all the views for the main window and run game.*/
 		playerInfoGUI = new PlayerInfoView();
         diceRollGUI = new DiceRollView();
         cardsGUI = new CardsView();
         controlsGUI = new ControlsView();
         phaseView = new PhaseView();
         dominationView = new WorldDominationView();
+        gameLogger = new GameLogger();
 		this.driver.addObserver(phaseView);
 		this.driver.addObserver(dominationView);
 		this.driver.addObserver(cardsGUI);
+		this.driver.addObserver(gameLogger);
         MainView.createInstance(playerInfoGUI, mapGUI, controlsGUI, phaseView, dominationView);
         driver.setPlayerView(playerInfoGUI);
 		driver.setMapView(mapGUI);
