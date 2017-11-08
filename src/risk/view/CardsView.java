@@ -15,15 +15,13 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import risk.model.Card;
 import risk.model.GameDriver;
 import risk.model.Player;
 
 /**
- * This class implements the Card Exchange View
- * 
- * @author amitt
- * @version 1.0
+ * This class implements the Card Exchange View.
+ * @author Amitt
+ * @version 1.2
  */
 public class CardsView extends JPanel implements Observer {
 	
@@ -33,7 +31,11 @@ public class CardsView extends JPanel implements Observer {
 	 */
 	private static final long serialVersionUID = 9127819244400811786L;
 
+	/**
+	 * JButton to initiate card exchange.
+	 */
 	private JButton exchangeCards;
+	
 	/**
 	 * Creates cards view.
 	 */

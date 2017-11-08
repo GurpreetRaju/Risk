@@ -1,7 +1,6 @@
 package risk.main;
 
 import risk.controller.Controller;
-import risk.model.GameDriver;
 
 /**
  * This class create a threat and call GameDriver class instance.

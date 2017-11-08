@@ -2,8 +2,6 @@ package risk.view;
 
 import java.awt.Color;
 import java.awt.FlowLayout;
-import java.awt.Label;
-import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -17,11 +15,10 @@ import risk.model.Player;
 /**
  * This class implements the World Domination View which shows 
  * the portion of countries each player occupy.
- * @author amitt
- *@version 1.0
+ * @author Amitt
+ * @version 1.2
  */
 public class WorldDominationView extends JPanel implements Observer {
-	
 	
 	/**
 	 * Serial Version id for JFrame.
