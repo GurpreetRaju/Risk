@@ -181,24 +181,36 @@ public class TestPlayer {
 		assertEquals(3,testPlayer.getArmiesShiftedAfterFortification(country1.getCountryName(), country2.getCountryName(), 2));
 	}
 	
+	/**
+	 * Testing method haveInfantryCard
+	 */
 	@Test
 	public void testHaveInfantryCard() {
 		testPlayer.addCard(card2);
 		assertTrue(testPlayer.haveInfantryCard());
 	}
 	
+	/**
+	 * Testing method haveCavalryCard
+	 */
 	@Test
 	public void testHaveCavalryCard() {
 		testPlayer.addCard(card3);
 		assertTrue(testPlayer.haveCavalryCard());
 	}
 	
+	/**
+	 * Testing method haveArtilleryCard
+	 */
 	@Test
 	public void testHaveArtilleryCard() {
 		testPlayer.addCard(card1);
 		assertTrue(testPlayer.haveArtilleryCard());
 	}
 	
+	/**
+	 * Testing method haveDistinctCards
+	 */
 	@Test
 	public void testHaveDistinctCard() {
 		testPlayer.addCard(card1);
@@ -207,6 +219,9 @@ public class TestPlayer {
 		assertTrue(testPlayer.haveDistinctCards());
 	}
 	
+	/**
+	 * Testing method haveThreeArtilleryCards
+	 */
 	@Test
 	public void testHaveThreeArtilleryCards() {
 		testPlayer.addCard(card1);
@@ -215,6 +230,9 @@ public class TestPlayer {
 		assertTrue(testPlayer.haveThreeArtilleryCards());
 	}
 	
+	/**
+	 * Testing method haveThreeCavalryCards
+	 */
 	@Test
 	public void testHaveThreeCavalryCards() {
 		testPlayer.addCard(card3);
@@ -223,6 +241,9 @@ public class TestPlayer {
 		assertTrue(testPlayer.haveThreeCavalryCards());
 	}
 	
+	/**
+	 * Testing method haveThreeInfantryCards
+	 */
 	@Test
 	public void testHaveThreeInfantryCards() {
 		testPlayer.addCard(card2);
@@ -231,6 +252,9 @@ public class TestPlayer {
 		assertTrue(testPlayer.haveThreeInfantryCards());
 	}
 	
+	/**
+	 * Testing method haveThreeSameTypeCards
+	 */
 	@Test
 	public void testHaveThreeSameTypeCards() {
 		testPlayer.addCard(card2);
@@ -239,6 +263,9 @@ public class TestPlayer {
 		assertTrue(testPlayer.haveThreeSameTypeCards());
 	}
 	
+	/**
+	 * Testing method removeDistinctCards
+	 */
 	@Test
 	public void testRemoveDistinctCards() {
 		testPlayer.addCard(card1);
@@ -248,6 +275,9 @@ public class TestPlayer {
 		assertEquals(0, testPlayer.getCards().size());
 	}
 	
+	/**
+	 * Testing method removeSimilarThreeCards
+	 */
 	@Test
 	public void testRemoveSimilarThreeCards() {
 		testPlayer.addCard(card1);
@@ -256,9 +286,6 @@ public class TestPlayer {
 		testPlayer.addCard(card2);
 		testPlayer.removeSimilarThreeCards();
 		assertEquals(1, testPlayer.getCards().size());
-	}
-	
-	
-	
+	}	
 	
 }
