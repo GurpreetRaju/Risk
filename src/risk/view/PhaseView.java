@@ -11,7 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import risk.model.GameDriver;
-import risk.model.Player;
+import risk.model.player.Player;
 
 /**
  * Implements the Phase View panel of the main window using Observer Pattern.

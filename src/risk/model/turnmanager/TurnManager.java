@@ -1,7 +1,7 @@
 package risk.model.turnmanager;
 
 import risk.model.GameDriver;
-import risk.model.Player;
+import risk.model.player.Player;
 
 /**
  * This class manages the turn and its phases.

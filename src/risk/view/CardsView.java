@@ -18,7 +18,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import risk.model.GameDriver;
-import risk.model.Player;
+import risk.model.player.Player;
 
 /**
  * This class implements the Card Exchange View.

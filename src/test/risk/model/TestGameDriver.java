@@ -8,9 +8,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import risk.model.GameDriver;
-import risk.model.Player;
 import risk.model.map.CountryNode;
 import risk.model.map.MapNode;
+import risk.model.player.Player;
 
 
 /**

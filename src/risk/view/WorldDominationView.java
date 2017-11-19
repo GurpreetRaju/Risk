@@ -10,7 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import risk.model.GameDriver;
-import risk.model.Player;
+import risk.model.player.Player;
 
 /**
  * This class implements the World Domination View which shows 

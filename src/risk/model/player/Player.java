@@ -1,7 +1,9 @@
-package risk.model;
+package risk.model.player;
 
 import java.util.ArrayList;
 
+import risk.model.Card;
+import risk.model.GameDriver;
 import risk.model.map.CountryNode;
 import risk.model.map.MapNode;
 
@@ -78,6 +80,11 @@ public class Player {
 	private CountryNode neighbourC;
 	
 	/**
+	 * Strategy for the player that can be changed on runtime
+	 */
+	private PlayerStrategy strategy;
+	
+	/**
 	 * Initialize player object with name.
 	 * @param name name of player.
 	 */
@@ -86,6 +93,7 @@ public class Player {
 		this.countries = new ArrayList<CountryNode>();
 		this.continents = new ArrayList<MapNode>();
 		this.cards = new ArrayList<Card>();
+		this.strategy = new HumanStrategy();
 	}
 	
 	/**
@@ -94,10 +102,7 @@ public class Player {
 	 * @param newArmies armies of the player.
 	 */
 	public Player(String name, int newArmies) {
-		this.name = name;
-		this.countries = new ArrayList<CountryNode>();
-		this.continents = new ArrayList<MapNode>();
-		this.cards = new ArrayList<Card>();
+		this(name);
 		this.armiesCount = newArmies;
 		this.mapData = new ArrayList<MapNode>();
 	}
@@ -109,12 +114,9 @@ public class Player {
 	 * @param countriesList ArrayList of all countries owned by player.
 	 */
 	public Player(String name, int newArmies, ArrayList<CountryNode> countriesList) {
-		this.name = name;
-		this.continents = new ArrayList<MapNode>();
-		this.cards = new ArrayList<Card>();
+		this(name);
 		this.armiesCount = newArmies;
 		this.mapData = new ArrayList<MapNode>();
-		this.countries = new ArrayList<CountryNode>();
 		for(CountryNode c: countriesList) {
 			this.addCountry(c);
 		}
@@ -320,8 +322,7 @@ public class Player {
 	 * This method runs the reinforcement phase
 	 */
 	public void reinforcementPhase(){
-		GameDriver.getInstance().getControlGUI().reinforcementControls(getArmiesCount(), getCountriesNames());
-		GameDriver.getInstance().setControlsActionListeners();
+		strategy.reinforcementPhase(armiesCount, getCountriesNames());
 	}
 	
 	/**
@@ -343,8 +344,7 @@ public class Player {
 			GameDriver.getInstance().changePhase();
 		}
 		else {
-			GameDriver.getInstance().getControlGUI().attackControls(countriesList.toArray(new String[countriesList.size()]));
-			GameDriver.getInstance().setAttackListeners();
+			strategy.attackPhase(countriesList);
 		}
 	}
 	
@@ -367,8 +367,7 @@ public class Player {
 			GameDriver.getInstance().changePhase();
 		}
 		else {
-			GameDriver.getInstance().getControlGUI().fortificationControls(countriesList.toArray(new String[countriesList.size()]));
-			GameDriver.getInstance().setFortificationLiteners();
+			strategy.fortificationPhase(countriesList);
 		}
 	}
 	
@@ -660,6 +659,13 @@ public class Player {
 			}
 		}
 		return false;
+	}
+	
+	/**
+	 * Set a new strategy for player
+	 */
+	public void setStrategy(PlayerStrategy newStrategy) {
+		this.strategy = newStrategy;
 	}
 	
 

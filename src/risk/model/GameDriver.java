@@ -8,6 +8,7 @@ import risk.controller.Controller;
 import risk.model.map.CountryNode;
 import risk.model.map.Map;
 import risk.model.map.MapNode;
+import risk.model.player.Player;
 import risk.model.turnmanager.TurnManager;
 import risk.view.*;
 

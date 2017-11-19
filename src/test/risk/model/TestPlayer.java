@@ -7,9 +7,9 @@ import org.junit.Test;
 
 import risk.model.Card;
 import risk.model.GameDriver;
-import risk.model.Player;
 import risk.model.map.CountryNode;
 import risk.model.map.MapNode;
+import risk.model.player.Player;
 
 /**
  * Tests the Player class functions.
