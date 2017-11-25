@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Iterator;
 
-import risk.controller.Controller;
+import risk.controller.GameController;
 import risk.view.mapeditor.MapFrame;
 
 /**
@@ -54,7 +54,7 @@ public class MapModel {
 	/**
 	 * New controller object.
 	 */
-	Controller controller = new Controller();
+	GameController controller = new GameController();
 	
 	/**
 	 * Initializes the continent list with existing continents in the map file. 

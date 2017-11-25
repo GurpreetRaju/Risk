@@ -2,7 +2,8 @@ package risk.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import risk.model.GameDriver;
+
+import risk.model.gamemode.GameDriver;
 import risk.model.util.GameLogger;
 import risk.view.CardsView;
 import risk.view.ControlsView;
@@ -21,7 +22,7 @@ import risk.view.mapeditor.MapFrame;
  * @author Gurpreet
  * @author Amitt
  */
-public class Controller {
+public class GameController {
 	
 	/**
 	 * Stores instance of GameDriver class.
@@ -49,11 +50,6 @@ public class Controller {
 	private ControlsView controlsGUI;
 	
 	/**
-	 * Stores object of DiceRollView class.
-	 */
-	private DiceRollView diceRollGUI;
-	
-	/**
 	 * Stores object of MapView class.
 	 */
 	private MapView mapGUI;
@@ -74,16 +70,6 @@ public class Controller {
 	private ActionListener addArmiesListner;
 	
 	/**
-	 * ActionListener to add listener to "Edit Map" button.
-	 */
-	private ActionListener mapEditListener;
-	
-	/**
-	 * ActionListener to add listener to "Play Game" button.
-	 */
-	private ActionListener playGameListener;
-	
-	/**
 	 * Stores object of GameLogger
 	 */
 	private GameLogger gameLogger;
@@ -91,27 +77,19 @@ public class Controller {
 	/**
 	 * Empty constructor for object creation
 	 */
-	public Controller(){
-		this(GameDriver.getInstance());
+	public GameController(SetUpDialog newSetupBox){
+		this(GameDriver.getInstance(), newSetupBox);
 	}
 	
 	/**
 	 * Controller class constructor to initialize GameDriver and SetUpDialog class objects.
 	 * @param newDriver GameDriver instance.
 	 */
-	public Controller(GameDriver newDriver) {
+	public GameController(GameDriver newDriver, SetUpDialog newSetupBox) {
+		this.setupBox = newSetupBox;
 		this.driver = newDriver;
 		driver.setController(this);
-	}
-	
-	/**
-	 * Method to initialize setupBox and listeners.
-	 */
-	public void initialize() {
-		setupBox = new SetUpDialog();
-		chooseMapEditorOrPlayGame();
-		mapEditorListener();
-		playGameListener();
+		init();
 	}
 	
 	/**
@@ -176,42 +154,7 @@ public class Controller {
 			}
 		});
 	}
-	
-	/**
-	 * Calls chooseMapEditorOrPlayGame() function of the SetUpDialog class to display Edit Map and Play Game options.
-	 */
-	public void chooseMapEditorOrPlayGame() {
-		this.setupBox.chooseMapEditorOrPlayGame();
-	}
 
-	/**
-	 * Sets listener for Edit Map button.
-	 */
-	public void mapEditorListener() {
-		mapEditListener =  new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				MapFrame newMapFrame = new MapFrame();
-				setupBox.chooseOptionFrame().dispose();
-			}
-		};
-		this.setupBox.mapEditAction(mapEditListener);
-	}
-	
-	/**
-	 * Sets listener for Play Game button.
-	 */
-	public void playGameListener() {
-		playGameListener =  new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				init();
-				setupBox.chooseOptionFrame().dispose();
-			}
-		};
-		this.setupBox.playGameAction(playGameListener);
-	}
-	
 	/**
 	 * Initializes the game after Play Game button selection.
 	 */
@@ -225,7 +168,6 @@ public class Controller {
 	    }
 	    /*Initialize all the views for the main window and run game.*/
 		playerInfoGUI = new PlayerInfoView();
-        diceRollGUI = new DiceRollView();
         cardsGUI = new CardsView();
         controlsGUI = new ControlsView();
         phaseView = new PhaseView();

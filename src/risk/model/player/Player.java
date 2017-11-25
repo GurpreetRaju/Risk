@@ -3,7 +3,7 @@ package risk.model.player;
 import java.util.ArrayList;
 
 import risk.model.Card;
-import risk.model.GameDriver;
+import risk.model.gamemode.GameDriver;
 import risk.model.map.CountryNode;
 import risk.model.map.MapNode;
 
@@ -88,12 +88,12 @@ public class Player {
 	 * Initialize player object with name.
 	 * @param name name of player.
 	 */
-	public Player(String name) {
+	public Player(String name, PlayerStrategy newStrategy) {
 		this.name = name;
+		this.strategy = newStrategy;
 		this.countries = new ArrayList<CountryNode>();
 		this.continents = new ArrayList<MapNode>();
 		this.cards = new ArrayList<Card>();
-		this.strategy = new HumanStrategy();
 	}
 	
 	/**
@@ -101,8 +101,8 @@ public class Player {
 	 * @param name name of the player.
 	 * @param newArmies armies of the player.
 	 */
-	public Player(String name, int newArmies) {
-		this(name);
+	public Player(String name, int newArmies, PlayerStrategy newStrategy) {
+		this(name, newStrategy);
 		this.armiesCount = newArmies;
 		this.mapData = new ArrayList<MapNode>();
 	}
@@ -113,8 +113,8 @@ public class Player {
 	 * @param newArmies armies of the player.
 	 * @param countriesList ArrayList of all countries owned by player.
 	 */
-	public Player(String name, int newArmies, ArrayList<CountryNode> countriesList) {
-		this(name);
+	public Player(String name, int newArmies, ArrayList<CountryNode> countriesList, PlayerStrategy newStrategy) {
+		this(name, newStrategy);
 		this.armiesCount = newArmies;
 		this.mapData = new ArrayList<MapNode>();
 		for(CountryNode c: countriesList) {
@@ -667,8 +667,15 @@ public class Player {
 	public void setStrategy(PlayerStrategy newStrategy) {
 		this.strategy = newStrategy;
 	}
-	
 
+	public String placeArmyOnStartUp() {
+		if(getCountriesNamesNoArmy().length!=0){
+			return this.strategy.placeArmy(getCountriesNamesNoArmy(), getName());
+		}else{
+			return this.strategy.placeArmy(getCountriesNames(), getName());
+		}
+	}
+	
 }
 
 

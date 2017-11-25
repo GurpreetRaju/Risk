@@ -10,4 +10,6 @@ public interface PlayerStrategy {
 	
 	public void fortificationPhase(ArrayList<String> countryList);
 
+	public String placeArmy(String[] strings, String string);
+
 }

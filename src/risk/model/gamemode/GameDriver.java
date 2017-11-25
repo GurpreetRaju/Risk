@@ -1,13 +1,16 @@
-package risk.model;
+package risk.model.gamemode;
 
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Random;
 
-import risk.controller.Controller;
+import risk.controller.GameController;
+import risk.model.Card;
+import risk.model.RiskData;
 import risk.model.map.CountryNode;
 import risk.model.map.Map;
 import risk.model.map.MapNode;
+import risk.model.player.HumanStrategy;
 import risk.model.player.Player;
 import risk.model.turnmanager.TurnManager;
 import risk.view.*;
@@ -44,7 +47,7 @@ public class GameDriver extends Observable {
 	/**
 	 * Object of Controller class.
 	 */
-	private Controller controller;
+	private GameController controller;
 	
 	/**
 	 * Object of ControlsView class.
@@ -97,7 +100,7 @@ public class GameDriver extends Observable {
 	 * Set controller in GameDriver class.
 	 * @param newController Used to set the Controller object.
 	 */
-	public void setController(Controller newController) {
+	public void setController(GameController newController) {
 		this.controller = newController;
 	}
 	
@@ -129,12 +132,7 @@ public class GameDriver extends Observable {
 		for(int i1=0;i1<totalArmiesDiv ;i1++){
 			System.out.print("Armies divided"+players.get(0).getArmiesCount());
 			for(Player p: players){
-				String s;
-				if(p.getCountriesNamesNoArmy().length!=0){
-					s = controller.placeArmyDialog(p.getCountriesNamesNoArmy(), p.getName()+" Place your army");
-				}else{
-					s= controller.placeArmyDialog(p.getCountriesNames(),p.getName()+" Place your army");
-				}
+				String s = p.placeArmyOnStartUp();
 				p.getCountry(s).addArmy(1);
 				p.removeArmies(1);
 			}
@@ -150,7 +148,7 @@ public class GameDriver extends Observable {
 	public void dividingCountries(String[] playerData, ArrayList<MapNode> mapData) {
 		players = new ArrayList<Player>();
 		for(String newPlayer: playerData){
-			Player temp = new Player(newPlayer,RiskData.InitialArmiesCount.getArmiesCount(playerData.length));
+			Player temp = new Player(newPlayer,RiskData.InitialArmiesCount.getArmiesCount(playerData.length), new HumanStrategy());
 			players.add(temp);
 			setChanged();
 			notifyObservers(temp.getName());
@@ -608,6 +606,10 @@ public class GameDriver extends Observable {
 	 */
 	public void setCurrentPlayer(Player player1) {
 		this.currentPlayer = player1;
+	}
+
+	public Object placeArmyDialog(String[] countries, String string) {
+		return controller.placeArmyDialog(countries, string);
 	}
 
 }

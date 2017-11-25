@@ -6,9 +6,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 import risk.model.Card;
-import risk.model.GameDriver;
+import risk.model.gamemode.GameDriver;
 import risk.model.map.CountryNode;
 import risk.model.map.MapNode;
+import risk.model.player.HumanStrategy;
 import risk.model.player.Player;
 
 /**
@@ -127,7 +128,7 @@ public class TestPlayer {
 		
 		MapNode continent = new MapNode("Continent1", countries, 6);
 		mapData.add(continent);
-		testPlayer = new Player("TestPlayer",0,countries);
+		testPlayer = new Player("TestPlayer",0,countries, new HumanStrategy());
 	}
 
 	/**

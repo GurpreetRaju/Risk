@@ -11,7 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import risk.model.GameDriver;
+import risk.model.gamemode.GameDriver;
 import risk.model.player.Player;
 
 public class GameLogger extends JFrame implements Observer {

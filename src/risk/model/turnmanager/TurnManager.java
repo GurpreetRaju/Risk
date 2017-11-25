@@ -1,6 +1,6 @@
 package risk.model.turnmanager;
 
-import risk.model.GameDriver;
+import risk.model.gamemode.GameDriver;
 import risk.model.player.Player;
 
 /**

@@ -17,7 +17,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import risk.model.GameDriver;
+import risk.model.gamemode.GameDriver;
 import risk.model.player.Player;
 
 /**
