@@ -68,8 +68,21 @@ public class MainController {
 		this.setupBox.chooseMapEditorOrPlayGame();
 	}
 	
+	/**
+	 * This method is responsible for taking input from user to whether user wants 
+	 * to play tournament or single game, and accordingly create the tournament or single game object.
+	 */
 	private void init() {
-		GameController controller = new GameController(this.setupBox);
+		String mode = this.setupBox.gameMode();
+		if(mode.equals("single")) {
+			GameController controller = new GameController(this.setupBox);
+		}
+		else if(mode.equals("tournament")){
+			System.out.print("Tournament");
+		}
+		else {
+			init();
+		}
 	}
 
 }

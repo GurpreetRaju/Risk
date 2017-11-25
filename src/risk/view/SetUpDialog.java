@@ -182,5 +182,27 @@ public class SetUpDialog {
 	public void playGameAction(ActionListener newAction) {
 		this.playGame.addActionListener(newAction);
 	}
+	
+	/**
+	 * This method display a dialog box with two buttons for user to select game mode.
+	 * @return returns the string object containing game mode.
+	 */
+	public String gameMode() {
+		JFrame frame = new JFrame("Map File Chooser");
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frame.validate();
+		frame.setVisible(true);
+		Object[] options = {"Single Mode", "Tournament Mode"};
+		int n = JOptionPane.showOptionDialog(frame,	"Please select a mode.", "Game Mode",	
+				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+		frame.dispose();
+		if(n==0) {
+			return "single";
+		}
+		else if(n==1) {
+			return "tournament";
+		}
+		return "noMode";
+	}
 
 }
