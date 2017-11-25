@@ -77,6 +77,14 @@ public class GameController {
 	/**
 	 * Empty constructor for object creation
 	 */
+	public GameController() {
+		this(GameDriver.getInstance(), new SetUpDialog());
+	}
+	
+	/**
+	 * Constructor for object creation
+	 * @param newSetupBox SetUpDialog object
+	 */
 	public GameController(SetUpDialog newSetupBox){
 		this(GameDriver.getInstance(), newSetupBox);
 	}
@@ -84,6 +92,7 @@ public class GameController {
 	/**
 	 * Controller class constructor to initialize GameDriver and SetUpDialog class objects.
 	 * @param newDriver GameDriver instance.
+	 * @param newSetupBox SetUpDialog object
 	 */
 	public GameController(GameDriver newDriver, SetUpDialog newSetupBox) {
 		this.setupBox = newSetupBox;
