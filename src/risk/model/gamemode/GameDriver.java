@@ -153,14 +153,6 @@ public class GameDriver extends Observable {
 			}
 		}
 	}
-
-	/**
-	 * Sets Map view.
-	 * @param newGui MapView object initialized.
-	 */
-	public void setMapView(MapView newGui) {
-		map.addObserver(newGui);
-	}
 	
 	/**
 	 * This method show players information on GUI.

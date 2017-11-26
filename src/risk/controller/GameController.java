@@ -137,11 +137,11 @@ public class GameController {
         dominationView = new WorldDominationView();
         gameLogger = new GameLogger();
         MainView.createInstance(playerInfoGUI, mapGUI, controlsGUI, phaseView, dominationView);
-		driver.addObserver(mapGUI);
 		driver.addObserver(phaseView);
 		driver.addObserver(dominationView);
 		driver.addObserver(cardsGUI);
 		driver.addObserver(gameLogger);
+		driver.getMap().addObserver(mapGUI);
 	}
 	
 	/**
