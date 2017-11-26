@@ -88,6 +88,12 @@ public class MainController {
 	
 	private void getTournamentInfo() {
 		TournamentInfo infoView = new TournamentInfo();
+		infoView.setListeners(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				
+			}
+		});
 	}
 
 }
