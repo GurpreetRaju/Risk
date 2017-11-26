@@ -13,17 +13,17 @@ public class HumanStrategy implements PlayerStrategy{
 	}
 
 	public void reinforcementPhase(int armies, String[] countryList) {
-		driver.getControlGUI().reinforcementControls(armies, countryList);
+		driver.reinforcementControls(armies, countryList);
 		driver.setControlsActionListeners();
 	}
 
 	public void attackPhase(ArrayList<String> countryList) {
-		driver.getControlGUI().attackControls(countryList.toArray(new String[countryList.size()]));
+		driver.attackControls(countryList.toArray(new String[countryList.size()]));
 		driver.setAttackListeners();
 	}
 
 	public void fortificationPhase(ArrayList<String> countryList) {
-		driver.getControlGUI().fortificationControls(countryList.toArray(new String[countryList.size()]));
+		driver.fortificationControls(countryList.toArray(new String[countryList.size()]));
 		driver.setFortificationLiteners();
 	}
 

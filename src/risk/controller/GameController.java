@@ -75,13 +75,6 @@ public class GameController {
 	private GameLogger gameLogger;
 	
 	/**
-	 * Empty constructor for object creation
-	 */
-	public GameController() {
-		this(new GameDriver(), new SetUpDialog());
-	}
-	
-	/**
 	 * Constructor for object creation
 	 * @param newSetupBox SetUpDialog object
 	 */
@@ -101,16 +94,54 @@ public class GameController {
 		init();
 	}
 	
-	public GameController(String string, String[] behaviors, int moveLimit) {
-		
-	}
-
 	/**
-	 * Gets the player name from the user (functionality in SetUpDialog class).
-	 * @return a string array containing the names of players.
+	 * Controller class constructor to initialize GameDriver and SetUpDialog class objects.
+	 * @param newDriver GameDriver instance.
+	 * @param newSetupBox SetUpDialog object
 	 */
-	public String[] getPlayerInfo() {
-		return setupBox.getPlayerInfo();
+	public GameController(String newMap, String newMapImage, String[] playerNames, String[] behaviors, int moveLimit) {
+		mapGUI = new MapView(newMapImage);
+		setupBox = new SetUpDialog();
+		driver = new GameDriver(newMap, moveLimit);
+		driver.setController(this);
+		playerInfoGUI = new PlayerInfoView();
+		playerInfoGUI.setPlayerInfo(playerNames);
+		init();
+		driver.runGame(playerNames, behaviors);
+	}
+	
+	/**
+	 * Controller class constructor to initialize GameDriver and SetUpDialog class objects.
+	 * @param newDriver GameDriver instance.
+	 * @param newSetupBox SetUpDialog object
+	 */
+	public GameController(String newMap, String[] playerNames, String[] behaviors, int moveLimit) {
+		mapGUI = new MapView();
+		setupBox = new SetUpDialog();
+		driver = new GameDriver(newMap, moveLimit);
+		driver.setController(this);
+		playerInfoGUI = new PlayerInfoView();
+		playerInfoGUI.setPlayerInfo(playerNames);
+		init();
+		driver.runGame(playerNames, behaviors);
+	}
+	
+	/**
+	 * Initializes the game after Play Game button selection.
+	 */
+	public void init() {
+		/*Initialize all the views for the main window and run game.*/
+        cardsGUI = new CardsView();
+        controlsGUI = new ControlsView();
+        phaseView = new PhaseView();
+        dominationView = new WorldDominationView();
+        gameLogger = new GameLogger();
+        MainView.createInstance(playerInfoGUI, mapGUI, controlsGUI, phaseView, dominationView);
+		driver.addObserver(mapGUI);
+		driver.addObserver(phaseView);
+		driver.addObserver(dominationView);
+		driver.addObserver(cardsGUI);
+		driver.addObserver(gameLogger);
 	}
 	
 	/**
@@ -120,14 +151,6 @@ public class GameController {
 	 */
 	public String placeArmyDialog(String[] countriesNamesNoArmy, String message) {
 		return setupBox.placeArmyDialog(countriesNamesNoArmy, message);
-	}
-	
-	/**
-	 * Fetches the instance of GameDriver class.
-	 * @return the GameDriver class instance.
-	 */
-	public GameDriver getGameDriver() {
-		return this.driver;
 	}
 	
 	/**
@@ -166,35 +189,6 @@ public class GameController {
 				driver.changePhase();
 			}
 		});
-	}
-
-	/**
-	 * Initializes the game after Play Game button selection.
-	 */
-	public void init() {
-		driver.createMapObject(setupBox.getMapInfo("map"));
-		String temp = setupBox.getMapInfo("bmp");
-	    if(temp!=null) {
-	    		mapGUI = new MapView(temp);
-	    }else {
-	    		mapGUI = new MapView();
-	    }
-	    /*Initialize all the views for the main window and run game.*/
-		playerInfoGUI = new PlayerInfoView();
-        cardsGUI = new CardsView();
-        controlsGUI = new ControlsView();
-        phaseView = new PhaseView();
-        dominationView = new WorldDominationView();
-        gameLogger = new GameLogger();
-		driver.addObserver(phaseView);
-		driver.addObserver(dominationView);
-		driver.addObserver(cardsGUI);
-		driver.addObserver(gameLogger);
-        MainView.createInstance(playerInfoGUI, mapGUI, controlsGUI, phaseView, dominationView);
-        driver.setPlayerView(playerInfoGUI);
-		driver.setMapView(mapGUI);
-		driver.setControlsView(controlsGUI);
-		driver.runGame();
 	}
 	
 	/**
@@ -260,6 +254,18 @@ public class GameController {
 	 */
 	public void removeAllControls() {
 		controlsGUI.removeAll();
+	}
+
+	public void setReinforcementControls(int armies, String[] countryList) {
+		controlsGUI.reinforcementControls(armies, countryList);
+	}
+
+	public void setAttackControls(String[] array) {
+		controlsGUI.attackControls(array);
+	}
+
+	public void setFortificationControls(String[] array) {
+		controlsGUI.fortificationControls(array);		
 	}
 	
 }

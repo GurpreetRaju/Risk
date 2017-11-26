@@ -3,6 +3,7 @@ package risk.controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import risk.model.gamemode.SingleMode;
 import risk.model.gamemode.TournamentMode;
 import risk.view.SetUpDialog;
 import risk.view.TournamentInfo;
@@ -77,7 +78,15 @@ public class MainController {
 	private void init() {
 		String mode = this.setupBox.gameMode();
 		if(mode.equals("single")) {
-			GameController controller = new GameController(this.setupBox);
+			GameController controller;
+			String map = setupBox.getMapInfo("map");
+			String bmp = setupBox.getMapInfo("bmp");
+			String[] players = setupBox.getPlayerInfo();
+			if(bmp!=null) {
+	    		controller = new GameController(map, bmp, players, setupBox.getPlayerBehavior(players), 0);
+			}else {
+				controller = new GameController(map, players, setupBox.getPlayerBehavior(players), 0);	
+			}
 		}
 		else if(mode.equals("tournament")){
 			getTournamentInfo();

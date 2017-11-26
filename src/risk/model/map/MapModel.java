@@ -52,11 +52,6 @@ public class MapModel {
 	MapWriter mapWriter = new MapWriter();
 	
 	/**
-	 * New controller object.
-	 */
-	GameController controller = new GameController();
-	
-	/**
 	 * Initializes the continent list with existing continents in the map file. 
 	 * @param continents ArrayList of MapNode containing continents.
 	 */

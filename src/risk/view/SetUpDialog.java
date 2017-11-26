@@ -205,4 +205,12 @@ public class SetUpDialog {
 		return "noMode";
 	}
 
+	public String[] getPlayerBehavior(String[] playerInfo) {
+		String[] behaviors = new String[playerInfo.length];
+		for(int i=0;i<playerInfo.length;i++) {
+			behaviors[i] = "Human";
+		}
+		return behaviors;
+	}
+
 }

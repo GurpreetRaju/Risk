@@ -25,11 +25,6 @@ import risk.view.*;
 public class GameDriver extends Observable {
 	
 	/**
-	 * Object of PlayerInfoView class.
-	 */
-	private PlayerInfoView playerInfoGUI;
-	
-	/**
 	 * Object of Map class.
 	 */
 	private Map map;
@@ -43,11 +38,6 @@ public class GameDriver extends Observable {
 	 * Object of Controller class.
 	 */
 	private GameController controller;
-	
-	/**
-	 * Object of ControlsView class.
-	 */
-	private ControlsView controlsGUI;
 		
 	/**
 	 * Object of TurnManager class.
@@ -69,6 +59,22 @@ public class GameDriver extends Observable {
 	 */
 	private String resultNotify;
 	
+	private int moveLimit = 0;;
+	
+	/**
+	 * Constructor initialize the GUI and  map class object.
+	 * Constructor is private so objects can not be created directly for this class.
+	 * @param moveLimit Number of moves limited to game
+	 * @param behaviors list of behaviors of players
+	 * @param playerNames names of players
+	 * @param newMap url of map game to be played on
+	 */
+	public GameDriver(String newMap, int newMoveLimit) {
+		this();
+		moveLimit = newMoveLimit;
+		map = new Map(newMap);
+	}
+	
 	/**
 	 * Constructor initialize the GUI and  map class object.
 	 * Constructor is private so objects can not be created directly for this class.
@@ -89,10 +95,9 @@ public class GameDriver extends Observable {
 	/**
 	 * Starts the game.
 	 */
-	public void runGame() {
+	public void runGame(String[] newPlayerData, String[] behaviors) {
 		setChanged();
 		notifyObservers("Startup");
-		String[] newPlayerData = controller.getPlayerInfo();
 		startUpPhase(newPlayerData);
 		turnManager.startTurn(this.currentPlayer);
 		setChanged();
@@ -150,27 +155,11 @@ public class GameDriver extends Observable {
 	}
 
 	/**
-	 * Sets PlayerInfo view.
-	 * @param newView PlayerInfoView object initialized.
-	 */
-	public void setPlayerView(PlayerInfoView newView) {
-		this.playerInfoGUI = newView;
-	}
-
-	/**
 	 * Sets Map view.
 	 * @param newGui MapView object initialized.
 	 */
 	public void setMapView(MapView newGui) {
 		map.addObserver(newGui);
-	}
-
-	/**
-	 * Sets Controls view.
-	 * @param controlView ControlsView object initialized.
-	 */
-	public void setControlsView(ControlsView controlView) {
-		this.controlsGUI = controlView;
 	}
 	
 	/**
@@ -183,7 +172,6 @@ public class GameDriver extends Observable {
 			playerNames[i] = p.getName();
 			i++;
 		}
-		playerInfoGUI.setPlayerInfo(playerNames);
 	}
 
 	/**
@@ -209,14 +197,6 @@ public class GameDriver extends Observable {
 		this.getCurrentPlayer().setArmies(this.getCurrentPlayer().getArmies());
 		setChanged();
 		notifyObservers("Cards");
-	}
-
-	/**
-	 * Creates the object of Map Class by passing the map file path.
-	 * @param mapPath stores the path of the map file.
-	 */
-	public void createMapObject(String mapPath) {
-		map = new Map(mapPath);
 	}
 	
 	/**
@@ -277,14 +257,6 @@ public class GameDriver extends Observable {
 	 */
 	public void setControlsActionListeners() {
 		this.controller.setActionListner();
-	}
-	
-	/**
-	 * Gives the instance of ControlsView class.
-	 * @return ControlsView class object.
-	 */
-	public ControlsView getControlGUI() {
-		return this.controlsGUI;
 	}
 
 	/**
@@ -592,6 +564,18 @@ public class GameDriver extends Observable {
 
 	public Object placeArmyDialog(String[] countries, String string) {
 		return controller.placeArmyDialog(countries, string);
+	}
+
+	public void reinforcementControls(int armies, String[] countryList) {
+		controller.setReinforcementControls(armies, countryList);
+	}
+
+	public void attackControls(String[] array) {
+		controller.setAttackControls(array);
+	}
+
+	public void fortificationControls(String[] array) {
+		controller.setFortificationControls(array);
 	}
 
 }

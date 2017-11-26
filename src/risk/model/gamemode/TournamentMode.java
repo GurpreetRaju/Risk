@@ -31,6 +31,11 @@ public class TournamentMode {
 	private String[] maps;
 	
 	/**
+	 * List of players names.
+	 */
+	private String[] playerInfo;
+	
+	/**
 	 *  Constructor for TournamentMode class.
 	 *  @param newController object of MainController class.
 	 */
@@ -46,9 +51,10 @@ public class TournamentMode {
 	}
 	
 	public void start() {
+		
 		for(int m = 0; m < maps.length; m++) {
 			for(int g = 0; g < games; g++) {
-				GameController gController = new GameController(maps[m],behaviors,moveLimit);
+				GameController gController = new GameController(maps[m],behaviors,behaviors,moveLimit);
 			}
 		}
 	}
