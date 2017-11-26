@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import risk.view.SetUpDialog;
+import risk.view.TournamentInfo;
 import risk.view.mapeditor.MapFrame;
 
 public class MainController {
@@ -78,7 +79,7 @@ public class MainController {
 			GameController controller = new GameController(this.setupBox);
 		}
 		else if(mode.equals("tournament")){
-			
+			getTournamentInfo();
 		}
 		else {
 			init();
@@ -86,7 +87,7 @@ public class MainController {
 	}
 	
 	private void getTournamentInfo() {
-		
+		TournamentInfo infoView = new TournamentInfo();
 	}
 
 }
