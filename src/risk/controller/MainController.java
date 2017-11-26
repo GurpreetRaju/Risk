@@ -78,11 +78,15 @@ public class MainController {
 			GameController controller = new GameController(this.setupBox);
 		}
 		else if(mode.equals("tournament")){
-			System.out.print("Tournament");
+			
 		}
 		else {
 			init();
 		}
+	}
+	
+	private void getTournamentInfo() {
+		
 	}
 
 }
