@@ -5,24 +5,30 @@ import java.util.ArrayList;
 import risk.model.gamemode.GameDriver;
 
 public class HumanStrategy implements PlayerStrategy{
+	
+	private GameDriver driver;
+	
+	public HumanStrategy(GameDriver newDriver) {
+		driver = newDriver;
+	}
 
 	public void reinforcementPhase(int armies, String[] countryList) {
-		GameDriver.getInstance().getControlGUI().reinforcementControls(armies, countryList);
-		GameDriver.getInstance().setControlsActionListeners();
+		driver.getControlGUI().reinforcementControls(armies, countryList);
+		driver.setControlsActionListeners();
 	}
 
 	public void attackPhase(ArrayList<String> countryList) {
-		GameDriver.getInstance().getControlGUI().attackControls(countryList.toArray(new String[countryList.size()]));
-		GameDriver.getInstance().setAttackListeners();
+		driver.getControlGUI().attackControls(countryList.toArray(new String[countryList.size()]));
+		driver.setAttackListeners();
 	}
 
 	public void fortificationPhase(ArrayList<String> countryList) {
-		GameDriver.getInstance().getControlGUI().fortificationControls(countryList.toArray(new String[countryList.size()]));
-		GameDriver.getInstance().setFortificationLiteners();
+		driver.getControlGUI().fortificationControls(countryList.toArray(new String[countryList.size()]));
+		driver.setFortificationLiteners();
 	}
 
 	public String placeArmy(String[] countries, String name) {
-		return (String) GameDriver.getInstance().placeArmyDialog(countries, name+" Place your army");
+		return (String) driver.placeArmyDialog(countries, name+" Place your army");
 	}
 
 }

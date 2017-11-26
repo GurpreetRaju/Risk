@@ -26,6 +26,7 @@ public class GameLogger extends JFrame implements Observer {
 	 * Panel for the logging window.
 	 */
 	private JPanel frame;
+	
 	/**
 	 * Constructor to intialize GameLogger
 	 */
@@ -39,7 +40,7 @@ public class GameLogger extends JFrame implements Observer {
 	 */
 	@Override
 	public void update(Observable o, Object arg) {
-		Player current = GameDriver.getInstance().getCurrentPlayer();
+		Player current = ((GameDriver) o).getCurrentPlayer();
 		/*Startup GameLogger Display.*/
 		if(arg.equals("Startup")){
 			frame.add(new JLabel("<html><div><b>Startup Phase</b></div><br/><br/></html>"));

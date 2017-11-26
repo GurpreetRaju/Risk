@@ -41,7 +41,7 @@ public class PhaseView extends JPanel implements Observer{
 	 */
 	@Override
 	public void update(Observable o, Object arg) {
-		Player current = GameDriver.getInstance().getCurrentPlayer();
+		Player current = ((GameDriver) o).getCurrentPlayer();
 		/*Startup Phase View Display.*/
 		if(arg.equals("Startup")){
 			this.removeAll();

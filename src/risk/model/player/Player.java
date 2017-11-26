@@ -85,12 +85,18 @@ public class Player {
 	private PlayerStrategy strategy;
 	
 	/**
+	 * Stores instance of GameDriver class.
+	 */
+	private GameDriver driver;
+	
+	/**
 	 * Initialize player object with name.
 	 * @param name name of player.
 	 */
-	public Player(String name, PlayerStrategy newStrategy) {
+	public Player(String name, PlayerStrategy newStrategy, GameDriver nDriver) {
 		this.name = name;
 		this.strategy = newStrategy;
+		this.driver = nDriver;
 		this.countries = new ArrayList<CountryNode>();
 		this.continents = new ArrayList<MapNode>();
 		this.cards = new ArrayList<Card>();
@@ -101,8 +107,8 @@ public class Player {
 	 * @param name name of the player.
 	 * @param newArmies armies of the player.
 	 */
-	public Player(String name, int newArmies, PlayerStrategy newStrategy) {
-		this(name, newStrategy);
+	public Player(String name, int newArmies, PlayerStrategy newStrategy, GameDriver nDriver) {
+		this(name, newStrategy, nDriver);
 		this.armiesCount = newArmies;
 		this.mapData = new ArrayList<MapNode>();
 	}
@@ -113,8 +119,8 @@ public class Player {
 	 * @param newArmies armies of the player.
 	 * @param countriesList ArrayList of all countries owned by player.
 	 */
-	public Player(String name, int newArmies, ArrayList<CountryNode> countriesList, PlayerStrategy newStrategy) {
-		this(name, newStrategy);
+	public Player(String name, int newArmies, ArrayList<CountryNode> countriesList, PlayerStrategy newStrategy, GameDriver nDriver) {
+		this(name, newStrategy, nDriver);
 		this.armiesCount = newArmies;
 		this.mapData = new ArrayList<MapNode>();
 		for(CountryNode c: countriesList) {
@@ -341,7 +347,7 @@ public class Player {
 			}
 		}
 		if(countriesList.isEmpty()) {
-			GameDriver.getInstance().changePhase();
+			driver.changePhase();
 		}
 		else {
 			strategy.attackPhase(countriesList);
@@ -364,7 +370,7 @@ public class Player {
 			}
 		}
 		if(countriesList.isEmpty()) {
-			GameDriver.getInstance().changePhase();
+			driver.changePhase();
 		}
 		else {
 			strategy.fortificationPhase(countriesList);
@@ -433,7 +439,7 @@ public class Player {
 		else if(aArmies>2) {
 			aArmies = 2;
 		}
-		return GameDriver.getInstance().setUpBoxInput(1, aArmies,this.name+"! Please select number of dice to roll.");
+		return driver.setUpBoxInput(1, aArmies,this.name+"! Please select number of dice to roll.");
 	}
 	
 	/**

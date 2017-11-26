@@ -25,11 +25,6 @@ import risk.view.*;
 public class GameDriver extends Observable {
 	
 	/**
-	 * Object of GameDriver class.
-	 */
-	private static GameDriver driver;
-	
-	/**
 	 * Object of PlayerInfoView class.
 	 */
 	private PlayerInfoView playerInfoGUI;
@@ -78,24 +73,11 @@ public class GameDriver extends Observable {
 	 * Constructor initialize the GUI and  map class object.
 	 * Constructor is private so objects can not be created directly for this class.
 	 */
-	private GameDriver() {
-		turnManager = new TurnManager("Reinforcement");
+	public GameDriver() {
+		turnManager = new TurnManager("Reinforcement", this);
 		cards = Card.generateCardPile();
 	}
 
-	/**
-	 * <p>
-	 * This method create <b>one and only one</b> instance of GameDriver class.
-	 * This method is used to access only object of this class.
-	 * </p>
-	 * @return instance of GameDriver class.
-	 */
-	public static GameDriver getInstance() {
-		if(driver==null){
-			driver = new GameDriver();
-		}
-		return driver;
-	}
 	/**
 	 * Set controller in GameDriver class.
 	 * @param newController Used to set the Controller object.
@@ -148,7 +130,7 @@ public class GameDriver extends Observable {
 	public void dividingCountries(String[] playerData, ArrayList<MapNode> mapData) {
 		players = new ArrayList<Player>();
 		for(String newPlayer: playerData){
-			Player temp = new Player(newPlayer,RiskData.InitialArmiesCount.getArmiesCount(playerData.length), new HumanStrategy());
+			Player temp = new Player(newPlayer,RiskData.InitialArmiesCount.getArmiesCount(playerData.length), new HumanStrategy(this), this);
 			players.add(temp);
 			setChanged();
 			notifyObservers(temp.getName());

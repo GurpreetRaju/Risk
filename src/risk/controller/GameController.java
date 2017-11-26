@@ -78,7 +78,7 @@ public class GameController {
 	 * Empty constructor for object creation
 	 */
 	public GameController() {
-		this(GameDriver.getInstance(), new SetUpDialog());
+		this(new GameDriver(), new SetUpDialog());
 	}
 	
 	/**
@@ -86,7 +86,7 @@ public class GameController {
 	 * @param newSetupBox SetUpDialog object
 	 */
 	public GameController(SetUpDialog newSetupBox){
-		this(GameDriver.getInstance(), newSetupBox);
+		this(new GameDriver(), newSetupBox);
 	}
 	
 	/**
@@ -101,6 +101,10 @@ public class GameController {
 		init();
 	}
 	
+	public GameController(String string, String[] behaviors, int moveLimit) {
+		
+	}
+
 	/**
 	 * Gets the player name from the user (functionality in SetUpDialog class).
 	 * @return a string array containing the names of players.
@@ -182,10 +186,10 @@ public class GameController {
         phaseView = new PhaseView();
         dominationView = new WorldDominationView();
         gameLogger = new GameLogger();
-		this.driver.addObserver(phaseView);
-		this.driver.addObserver(dominationView);
-		this.driver.addObserver(cardsGUI);
-		this.driver.addObserver(gameLogger);
+		driver.addObserver(phaseView);
+		driver.addObserver(dominationView);
+		driver.addObserver(cardsGUI);
+		driver.addObserver(gameLogger);
         MainView.createInstance(playerInfoGUI, mapGUI, controlsGUI, phaseView, dominationView);
         driver.setPlayerView(playerInfoGUI);
 		driver.setMapView(mapGUI);

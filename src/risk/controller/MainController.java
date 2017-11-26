@@ -3,6 +3,7 @@ package risk.controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import risk.model.gamemode.TournamentMode;
 import risk.view.SetUpDialog;
 import risk.view.TournamentInfo;
 import risk.view.mapeditor.MapFrame;
@@ -91,7 +92,8 @@ public class MainController {
 		infoView.setListeners(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				
+				TournamentMode tournament = new TournamentMode(infoView.getGamesCount(), infoView.getMapDetails(),
+						infoView.getPlayerBehaviorDetails(), infoView.getMovesCount());
 			}
 		});
 	}

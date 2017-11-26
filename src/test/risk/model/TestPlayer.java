@@ -90,11 +90,17 @@ public class TestPlayer {
 	private Card card9;
 	
 	/**
+	 * GameDriver class object to access GameDriver class
+	 */
+	private GameDriver driver;
+	
+	/**
 	 * Called before each test case of this class is executed.
 	 * @throws Exception any throwable exception.
 	 */
 	@Before
 	public void setUp() throws Exception {
+		driver = new GameDriver();
 		country1 = new CountryNode("Country1", null, null, null);
 		country2 = new CountryNode("Country2", null, null, null);
 		country3 = new CountryNode("Country3", null, null, null);
@@ -128,7 +134,7 @@ public class TestPlayer {
 		
 		MapNode continent = new MapNode("Continent1", countries, 6);
 		mapData.add(continent);
-		testPlayer = new Player("TestPlayer",0,countries, new HumanStrategy());
+		testPlayer = new Player("TestPlayer",0,countries, new HumanStrategy(driver),driver);
 	}
 
 	/**
