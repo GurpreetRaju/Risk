@@ -100,14 +100,13 @@ public class MapModel {
 	public boolean checkOnSaveMap() {
 		Boolean saveMap = true;
 		for (MapNode i :continents) {
+			//a map file with zero countries cannot be saved.
 			if(i.getCountries().length == 0) {
 				saveMap = false;
 			}
-			for (CountryNode country : i.getCountries()) {
-				/*connected map check*/
-				if(!connectedMap()) {
-					saveMap = false;
-				}
+			/*connected map check*/
+			if(!connectedMap()) {
+				saveMap = false;
 			}
 		}
 		return saveMap;
