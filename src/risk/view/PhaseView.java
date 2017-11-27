@@ -10,8 +10,8 @@ import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import risk.model.GameDriver;
-import risk.model.Player;
+import risk.model.gamemode.GameDriver;
+import risk.model.player.Player;
 
 /**
  * Implements the Phase View panel of the main window using Observer Pattern.
@@ -41,7 +41,7 @@ public class PhaseView extends JPanel implements Observer{
 	 */
 	@Override
 	public void update(Observable o, Object arg) {
-		Player current = GameDriver.getInstance().getCurrentPlayer();
+		Player current = ((GameDriver) o).getCurrentPlayer();
 		/*Startup Phase View Display.*/
 		if(arg.equals("Startup")){
 			this.removeAll();

@@ -9,8 +9,8 @@ import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import risk.model.GameDriver;
-import risk.model.Player;
+import risk.model.gamemode.GameDriver;
+import risk.model.player.Player;
 
 /**
  * This class implements the World Domination View which shows 
@@ -46,9 +46,9 @@ public class WorldDominationView extends JPanel implements Observer {
 			JLabel label = new JLabel("<html><b>World Domination View</b></html>");
 			this.add(label);
 			
-			int totalCountries = GameDriver.getInstance().getMap().getCountryCount();
+			int totalCountries = ((GameDriver) o).getMap().getCountryCount();
 			System.out.println(totalCountries);
-			for (Player player : GameDriver.getInstance().getPlayers()){
+			for (Player player : ((GameDriver) o).getPlayers()){
 				System.out.println(player.getPlayerCountryCount());
 				this.add(new JLabel(" "+player.getName() + ": " + ((float)(player.getPlayerCountryCount()/(float)totalCountries))*100 + "% "));
 			}

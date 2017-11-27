@@ -17,8 +17,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import risk.model.GameDriver;
-import risk.model.Player;
+import risk.model.gamemode.GameDriver;
+import risk.model.player.Player;
 
 /**
  * This class implements the Card Exchange View.
@@ -89,7 +89,7 @@ public class CardsView extends JPanel implements Observer {
 	 */
 	@Override
 	public void update(Observable o, Object arg) {
-		Player player = GameDriver.getInstance().getCurrentPlayer();
+		Player player = ((GameDriver) o).getCurrentPlayer();
 		if (((String) arg).equals("Cards")){
 			if( player.getCards().size()>2 && player.getCards().size() <5){
 				if(player.haveDistinctCards() || player.haveThreeSameTypeCards()){					

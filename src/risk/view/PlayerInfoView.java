@@ -1,6 +1,9 @@
 package risk.view;
 
 import java.awt.Color;
+import java.util.Observable;
+import java.util.Observer;
+
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
@@ -12,7 +15,7 @@ import javax.swing.border.EmptyBorder;
 /**
  * Controls the Players data input and view on the main window.
  */
-public class PlayerInfoView extends JPanel {
+public class PlayerInfoView extends JPanel implements Observer{
 	
 	/**
 	 * Serial Version id for JFrame.
@@ -43,5 +46,12 @@ public class PlayerInfoView extends JPanel {
 			this.add(comp);
 		}
 		this.validate();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public void update(Observable o, Object arg) {
+		
 	}
 }

@@ -1,7 +1,7 @@
 package risk.model.turnmanager;
 
-import risk.model.GameDriver;
-import risk.model.Player;
+import risk.model.gamemode.GameDriver;
+import risk.model.player.Player;
 
 /**
  * This class manages the turn and its phases.
@@ -28,16 +28,23 @@ public class TurnManager {
 	private boolean wonCard = false;
 	
 	/**
+	 * Stores instance of GameDriver class.
+	 */
+	private GameDriver driver;
+	
+	/**
 	 * Empty constructor to create object for observer.
 	 */
-	public TurnManager(){
+	public TurnManager(GameDriver nDriver){
+		driver = nDriver;
 	}
 	
 	/**
 	 * Constructor to set the phase name.
 	 * @param string Phase name.
 	 */
-	public TurnManager(String string){
+	public TurnManager(String string, GameDriver nDriver){
+		this(nDriver);
 		this.setPhase(string);
 	}
 	/**
@@ -60,19 +67,19 @@ public class TurnManager {
 		}
 		else if(this.getPhase().equals("Attack")) {
 			if(wonCard) {
-				GameDriver.getInstance().issueCard();
+				driver.issueCard();
 				wonCard = false;
 			}
 			this.setPhase("Fortification");
 			getCurrentPlayer().fortificationPhase();
 		}
 		else if(this.getPhase().equals("Fortification") && !isGameOver()) {
-			GameDriver.getInstance().setNextPlayerTurn();
+			driver.setNextPlayerTurn();
 			this.setPhase("Reinforcement");
 			getCurrentPlayer().reinforcementPhase();
 		}
 		else {
-			GameDriver.getInstance().announceGameOver();
+			driver.announceGameOver();
 		}
 	}
 	
@@ -81,7 +88,7 @@ public class TurnManager {
 	 * @return current player.
 	 */
 	private Player getCurrentPlayer() {
-		return GameDriver.getInstance().getCurrentPlayer();
+		return driver.getCurrentPlayer();
 	}
 
 	/**

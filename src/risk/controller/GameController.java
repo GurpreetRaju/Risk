@@ -2,7 +2,8 @@ package risk.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import risk.model.GameDriver;
+
+import risk.model.gamemode.GameDriver;
 import risk.model.util.GameLogger;
 import risk.view.CardsView;
 import risk.view.ControlsView;
@@ -21,7 +22,7 @@ import risk.view.mapeditor.MapFrame;
  * @author Gurpreet
  * @author Amitt
  */
-public class Controller {
+public class GameController {
 	
 	/**
 	 * Stores instance of GameDriver class.
@@ -49,11 +50,6 @@ public class Controller {
 	private ControlsView controlsGUI;
 	
 	/**
-	 * Stores object of DiceRollView class.
-	 */
-	private DiceRollView diceRollGUI;
-	
-	/**
 	 * Stores object of MapView class.
 	 */
 	private MapView mapGUI;
@@ -74,52 +70,78 @@ public class Controller {
 	private ActionListener addArmiesListner;
 	
 	/**
-	 * ActionListener to add listener to "Edit Map" button.
-	 */
-	private ActionListener mapEditListener;
-	
-	/**
-	 * ActionListener to add listener to "Play Game" button.
-	 */
-	private ActionListener playGameListener;
-	
-	/**
 	 * Stores object of GameLogger
 	 */
 	private GameLogger gameLogger;
 	
 	/**
-	 * Empty constructor for object creation
+	 * Constructor for object creation
+	 * @param newSetupBox SetUpDialog object
 	 */
-	public Controller(){
-		this(GameDriver.getInstance());
+	public GameController(SetUpDialog newSetupBox){
+		this(new GameDriver(), newSetupBox);
 	}
 	
 	/**
 	 * Controller class constructor to initialize GameDriver and SetUpDialog class objects.
 	 * @param newDriver GameDriver instance.
+	 * @param newSetupBox SetUpDialog object
 	 */
-	public Controller(GameDriver newDriver) {
+	public GameController(GameDriver newDriver, SetUpDialog newSetupBox) {
+		this.setupBox = newSetupBox;
 		this.driver = newDriver;
 		driver.setController(this);
+		init();
 	}
 	
 	/**
-	 * Method to initialize setupBox and listeners.
+	 * Controller class constructor to initialize GameDriver and SetUpDialog class objects.
+	 * @param newDriver GameDriver instance.
+	 * @param newSetupBox SetUpDialog object
 	 */
-	public void initialize() {
+	public GameController(String newMap, String newMapImage, String[] playerNames, String[] behaviors, int moveLimit) {
+		mapGUI = new MapView(newMapImage);
 		setupBox = new SetUpDialog();
-		chooseMapEditorOrPlayGame();
-		mapEditorListener();
-		playGameListener();
+		driver = new GameDriver(newMap, moveLimit);
+		driver.setController(this);
+		playerInfoGUI = new PlayerInfoView();
+		playerInfoGUI.setPlayerInfo(playerNames);
+		init();
+		driver.runGame(playerNames, behaviors);
 	}
 	
 	/**
-	 * Gets the player name from the user (functionality in SetUpDialog class).
-	 * @return a string array containing the names of players.
+	 * Controller class constructor to initialize GameDriver and SetUpDialog class objects.
+	 * @param newDriver GameDriver instance.
+	 * @param newSetupBox SetUpDialog object
 	 */
-	public String[] getPlayerInfo() {
-		return setupBox.getPlayerInfo();
+	public GameController(String newMap, String[] playerNames, String[] behaviors, int moveLimit) {
+		mapGUI = new MapView();
+		setupBox = new SetUpDialog();
+		driver = new GameDriver(newMap, moveLimit);
+		driver.setController(this);
+		playerInfoGUI = new PlayerInfoView();
+		playerInfoGUI.setPlayerInfo(playerNames);
+		init();
+		driver.runGame(playerNames, behaviors);
+	}
+	
+	/**
+	 * Initializes the game after Play Game button selection.
+	 */
+	public void init() {
+		/*Initialize all the views for the main window and run game.*/
+        cardsGUI = new CardsView();
+        controlsGUI = new ControlsView();
+        phaseView = new PhaseView();
+        dominationView = new WorldDominationView();
+        gameLogger = new GameLogger();
+        MainView.createInstance(playerInfoGUI, mapGUI, controlsGUI, phaseView, dominationView);
+		driver.addObserver(phaseView);
+		driver.addObserver(dominationView);
+		driver.addObserver(cardsGUI);
+		driver.addObserver(gameLogger);
+		driver.getMap().addObserver(mapGUI);
 	}
 	
 	/**
@@ -129,14 +151,6 @@ public class Controller {
 	 */
 	public String placeArmyDialog(String[] countriesNamesNoArmy, String message) {
 		return setupBox.placeArmyDialog(countriesNamesNoArmy, message);
-	}
-	
-	/**
-	 * Fetches the instance of GameDriver class.
-	 * @return the GameDriver class instance.
-	 */
-	public GameDriver getGameDriver() {
-		return this.driver;
 	}
 	
 	/**
@@ -175,71 +189,6 @@ public class Controller {
 				driver.changePhase();
 			}
 		});
-	}
-	
-	/**
-	 * Calls chooseMapEditorOrPlayGame() function of the SetUpDialog class to display Edit Map and Play Game options.
-	 */
-	public void chooseMapEditorOrPlayGame() {
-		this.setupBox.chooseMapEditorOrPlayGame();
-	}
-
-	/**
-	 * Sets listener for Edit Map button.
-	 */
-	public void mapEditorListener() {
-		mapEditListener =  new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				MapFrame newMapFrame = new MapFrame();
-				setupBox.chooseOptionFrame().dispose();
-			}
-		};
-		this.setupBox.mapEditAction(mapEditListener);
-	}
-	
-	/**
-	 * Sets listener for Play Game button.
-	 */
-	public void playGameListener() {
-		playGameListener =  new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				init();
-				setupBox.chooseOptionFrame().dispose();
-			}
-		};
-		this.setupBox.playGameAction(playGameListener);
-	}
-	
-	/**
-	 * Initializes the game after Play Game button selection.
-	 */
-	public void init() {
-		driver.createMapObject(setupBox.getMapInfo("map"));
-		String temp = setupBox.getMapInfo("bmp");
-	    if(temp!=null) {
-	    		mapGUI = new MapView(temp);
-	    }else {
-	    		mapGUI = new MapView();
-	    }
-	    /*Initialize all the views for the main window and run game.*/
-		playerInfoGUI = new PlayerInfoView();
-        diceRollGUI = new DiceRollView();
-        cardsGUI = new CardsView();
-        controlsGUI = new ControlsView();
-        phaseView = new PhaseView();
-        dominationView = new WorldDominationView();
-        gameLogger = new GameLogger();
-		this.driver.addObserver(phaseView);
-		this.driver.addObserver(dominationView);
-		this.driver.addObserver(cardsGUI);
-		this.driver.addObserver(gameLogger);
-        MainView.createInstance(playerInfoGUI, mapGUI, controlsGUI, phaseView, dominationView);
-        driver.setPlayerView(playerInfoGUI);
-		driver.setMapView(mapGUI);
-		driver.setControlsView(controlsGUI);
-		driver.runGame();
 	}
 	
 	/**
@@ -305,6 +254,18 @@ public class Controller {
 	 */
 	public void removeAllControls() {
 		controlsGUI.removeAll();
+	}
+
+	public void setReinforcementControls(int armies, String[] countryList) {
+		controlsGUI.reinforcementControls(armies, countryList);
+	}
+
+	public void setAttackControls(String[] array) {
+		controlsGUI.attackControls(array);
+	}
+
+	public void setFortificationControls(String[] array) {
+		controlsGUI.fortificationControls(array);		
 	}
 	
 }

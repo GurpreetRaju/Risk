@@ -1,7 +1,9 @@
-package risk.model;
+package risk.model.player;
 
 import java.util.ArrayList;
 
+import risk.model.Card;
+import risk.model.gamemode.GameDriver;
 import risk.model.map.CountryNode;
 import risk.model.map.MapNode;
 
@@ -68,11 +70,33 @@ public class Player {
 	public int armiesMoved;
 	
 	/**
+	 * Stores Fortification Country selected .
+	 */
+	private CountryNode countrySelect;
+	
+	/**
+	 * Stores Neightbour Countries of country selected.
+	 */
+	private CountryNode neighbourC;
+	
+	/**
+	 * Strategy for the player that can be changed on runtime
+	 */
+	private PlayerStrategy strategy;
+	
+	/**
+	 * Stores instance of GameDriver class.
+	 */
+	private GameDriver driver;
+	
+	/**
 	 * Initialize player object with name.
 	 * @param name name of player.
 	 */
-	public Player(String name) {
+	public Player(String name, PlayerStrategy newStrategy, GameDriver nDriver) {
 		this.name = name;
+		this.strategy = newStrategy;
+		this.driver = nDriver;
 		this.countries = new ArrayList<CountryNode>();
 		this.continents = new ArrayList<MapNode>();
 		this.cards = new ArrayList<Card>();
@@ -83,11 +107,8 @@ public class Player {
 	 * @param name name of the player.
 	 * @param newArmies armies of the player.
 	 */
-	public Player(String name, int newArmies) {
-		this.name = name;
-		this.countries = new ArrayList<CountryNode>();
-		this.continents = new ArrayList<MapNode>();
-		this.cards = new ArrayList<Card>();
+	public Player(String name, int newArmies, PlayerStrategy newStrategy, GameDriver nDriver) {
+		this(name, newStrategy, nDriver);
 		this.armiesCount = newArmies;
 		this.mapData = new ArrayList<MapNode>();
 	}
@@ -98,13 +119,10 @@ public class Player {
 	 * @param newArmies armies of the player.
 	 * @param countriesList ArrayList of all countries owned by player.
 	 */
-	public Player(String name, int newArmies, ArrayList<CountryNode> countriesList) {
-		this.name = name;
-		this.continents = new ArrayList<MapNode>();
-		this.cards = new ArrayList<Card>();
+	public Player(String name, int newArmies, ArrayList<CountryNode> countriesList, PlayerStrategy newStrategy, GameDriver nDriver) {
+		this(name, newStrategy, nDriver);
 		this.armiesCount = newArmies;
 		this.mapData = new ArrayList<MapNode>();
-		this.countries = new ArrayList<CountryNode>();
 		for(CountryNode c: countriesList) {
 			this.addCountry(c);
 		}
@@ -310,8 +328,7 @@ public class Player {
 	 * This method runs the reinforcement phase
 	 */
 	public void reinforcementPhase(){
-		GameDriver.getInstance().getControlGUI().reinforcementControls(getArmiesCount(), getCountriesNames());
-		GameDriver.getInstance().setControlsActionListeners();
+		strategy.reinforcementPhase(armiesCount, getCountriesNames());
 	}
 	
 	/**
@@ -330,11 +347,10 @@ public class Player {
 			}
 		}
 		if(countriesList.isEmpty()) {
-			GameDriver.getInstance().changePhase();
+			driver.changePhase();
 		}
 		else {
-			GameDriver.getInstance().getControlGUI().attackControls(countriesList.toArray(new String[countriesList.size()]));
-			GameDriver.getInstance().setAttackListeners();
+			strategy.attackPhase(countriesList);
 		}
 	}
 	
@@ -354,11 +370,10 @@ public class Player {
 			}
 		}
 		if(countriesList.isEmpty()) {
-			GameDriver.getInstance().changePhase();
+			driver.changePhase();
 		}
 		else {
-			GameDriver.getInstance().getControlGUI().fortificationControls(countriesList.toArray(new String[countriesList.size()]));
-			GameDriver.getInstance().setFortificationLiteners();
+			strategy.fortificationPhase(countriesList);
 		}
 	}
 	
@@ -371,8 +386,8 @@ public class Player {
 	public int shiftArmiesOnReinforcement(String country, int armies) {
 		this.countrySelected = country;
 		this.armiesMoved = armies;
-		getCountry(countrySelected).addArmy(armiesMoved);
-		removeArmies(armiesMoved);
+		getCountry(this.countrySelected).addArmy(this.armiesMoved);
+		removeArmies(this.armiesMoved);
 		return this.armiesCount;
 	}
 	
@@ -384,11 +399,27 @@ public class Player {
 	 * @return the army count left in sNeighbour country.
 	 */
 	public int getArmiesShiftedAfterFortification(String sCountry, String sNeighbour, int selectedArmies){
-		CountryNode countrySelect = getCountry(sCountry);
-		CountryNode neighbourC = getCountry(sNeighbour);
+		this.countrySelect = getCountry(sCountry);
+		this.neighbourC = getCountry(sNeighbour);
 		countrySelect.setArmies(countrySelect.getArmiesCount()-selectedArmies);
 		neighbourC.setArmies(neighbourC.getArmiesCount() + selectedArmies);
 		return neighbourC.getArmiesCount();
+	}
+	
+	/**
+	 * Get the country selected to move armies from.
+	 * @return country selected to move armies from.
+	 */
+	public CountryNode getCountrySelected(){
+		return this.countrySelect;
+	}
+	
+	/**
+	 * Get the neighbour selected to move armies to.
+	 * @return neighbour selected to move armies to.
+	 */
+	public CountryNode getNeighbourSelected(){
+		return this.neighbourC;
 	}
 	
 	/**
@@ -408,7 +439,7 @@ public class Player {
 		else if(aArmies>2) {
 			aArmies = 2;
 		}
-		return GameDriver.getInstance().setUpBoxInput(1, aArmies,this.name+"! Please select number of dice to roll.");
+		return driver.setUpBoxInput(1, aArmies,this.name+"! Please select number of dice to roll.");
 	}
 	
 	/**
@@ -636,7 +667,21 @@ public class Player {
 		return false;
 	}
 	
+	/**
+	 * Set a new strategy for player
+	 */
+	public void setStrategy(PlayerStrategy newStrategy) {
+		this.strategy = newStrategy;
+	}
 
+	public String placeArmyOnStartUp() {
+		if(getCountriesNamesNoArmy().length!=0){
+			return this.strategy.placeArmy(getCountriesNamesNoArmy(), getName());
+		}else{
+			return this.strategy.placeArmy(getCountriesNames(), getName());
+		}
+	}
+	
 }
 
 

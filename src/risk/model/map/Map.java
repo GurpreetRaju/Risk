@@ -3,7 +3,7 @@ package risk.model.map;
 import java.util.ArrayList;
 import java.util.Observable;
 
-import risk.model.Player;
+import risk.model.player.Player;
 
 /**
  * This class perform functions related to map for example storing map data, update map etc.
