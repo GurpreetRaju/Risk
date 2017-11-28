@@ -56,6 +56,21 @@ public class mapEditorController {
 	 * Creates object of MapModel class.
 	 */
 	private MapModel mapModel = new MapModel();
+	
+	/**
+	 * Reference variable for existing map frame
+	 */
+	ExistingMap existingMap;
+	
+	/**
+	 * Object for existing map frame
+	 */
+	ExistingMap existingMap1 = new ExistingMap();
+	
+	/**
+	 * Object for MapReader class.
+	 */
+	MapReader mapReader = new MapReader();
 
 	/**
 	 * Calls the readMap function of MapReader to read the map file
@@ -97,21 +112,14 @@ public class mapEditorController {
 				if (fc.showOpenDialog(null) == JFileChooser.APPROVE_OPTION){
 					/*get the path of the selected file*/
 					path = fc.getSelectedFile().getAbsolutePath();
-		
-					ExistingMap existingMap;
-					ExistingMap existingMap1 = new ExistingMap() ;
-					MapReader mapReader = new MapReader();
 					
 					ArrayList<MapNode> map = mapReader.readMap(fc.getSelectedFile().getAbsolutePath());
 					mapModel.writeExistingMap(map);
 					
 					if(mapModel.checkOnSaveMap()) {
-						System.out.println("there");
 						if(mapModel.checkConnectedContinent()) {
-							System.out.println("hi");
 							//dialog box
 							existingMap1.successfullLoad();
-							System.out.println("helo");
 							/*pass the existing map file information to the existing file editor*/
 							existingMap = new ExistingMap(mapReader.readMap(fc.getSelectedFile().getAbsolutePath()));
 							/*actionListener for edit button of existing map frame*/
@@ -133,8 +141,6 @@ public class mapEditorController {
 					}else {
 						existingMap1.cannotLoadMapError();
 					}
-					
-					
 				}
 			}
 		});

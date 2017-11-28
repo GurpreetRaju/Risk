@@ -198,8 +198,11 @@ public class MapModel {
 			        while (i.hasNext())
 			        {
 			            CountryNode n = i.next();
-			            if (countryTable.get(n.getCountryName())==false)
-			                search(n.getCountryName());
+			            try {
+			            	if (countryTable.get(n.getCountryName())==false)
+			            		search(n.getCountryName());
+			            }catch(NullPointerException e) {
+			            }
 			        }
 				}
 			}
