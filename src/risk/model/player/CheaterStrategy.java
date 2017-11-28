@@ -2,11 +2,16 @@ package risk.model.player;
 
 import java.util.ArrayList;
 
+import risk.model.gamemode.GameDriver;
+
 public class CheaterStrategy implements PlayerStrategy {
 
+	private GameDriver driver;
+	
 	@Override
 	public void reinforcementPhase(int armies, String[] countryList) {
-		// TODO Auto-generated method stub
+		driver.reinforcementControls(2 * armies, countryList);
+		driver.setControlsActionListeners();
 
 	}
 
