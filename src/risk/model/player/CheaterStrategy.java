@@ -3,6 +3,7 @@ package risk.model.player;
 import java.util.ArrayList;
 
 import risk.model.gamemode.GameDriver;
+import risk.model.map.CountryNode;
 
 public class CheaterStrategy implements PlayerStrategy {
 
@@ -10,8 +11,9 @@ public class CheaterStrategy implements PlayerStrategy {
 	
 	@Override
 	public void reinforcementPhase(int armies, String[] countryList) {
-		driver.reinforcementControls(2 * armies, countryList);
-		driver.setControlsActionListeners();
+		for (CountryNode country : driver.getCurrentPlayer().getCountries()) {
+			country.addArmy(country.getArmiesCount());
+		}
 
 	}
 
