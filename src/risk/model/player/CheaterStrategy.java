@@ -1,6 +1,7 @@
 package risk.model.player;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import risk.model.gamemode.GameDriver;
 import risk.model.map.CountryNode;
@@ -44,8 +45,7 @@ public class CheaterStrategy implements PlayerStrategy {
 
 	@Override
 	public String placeArmy(String[] strings, String string) {
-		// TODO Auto-generated method stub
-		return null;
+		return strings[new Random().nextInt(strings.length)];
 	}
 
 }
