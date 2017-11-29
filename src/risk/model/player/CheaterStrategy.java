@@ -36,7 +36,7 @@ public class CheaterStrategy implements PlayerStrategy {
 				}
 			}
 		}
-
+		driver.changePhase();
 	}
 
 	@Override
