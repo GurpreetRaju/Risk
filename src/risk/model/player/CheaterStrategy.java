@@ -14,6 +14,8 @@ public class CheaterStrategy implements PlayerStrategy {
 		for (CountryNode country : driver.getCurrentPlayer().getCountries()) {
 			country.addArmy(country.getArmiesCount());
 		}
+		driver.getCurrentPlayer().setArmies(0);
+		driver.changePhase();
 
 	}
 
