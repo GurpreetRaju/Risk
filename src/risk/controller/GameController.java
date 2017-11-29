@@ -123,6 +123,7 @@ public class GameController {
 		playerInfoGUI = new PlayerInfoView();
 		playerInfoGUI.setPlayerInfo(playerNames);
 		init();
+		driver.runGame(playerNames, behaviors);
 	}
 	
 	/**
@@ -265,11 +266,6 @@ public class GameController {
 
 	public void setFortificationControls(String[] array) {
 		controlsGUI.fortificationControls(array);		
-	}
-
-	public String start(String[] playerNames, String[] behaviors) {
-		driver.runGame(playerNames, behaviors);
-		return "draw";
 	}
 	
 }
