@@ -23,8 +23,11 @@ public class CheaterStrategy implements PlayerStrategy {
 
 	@Override
 	public void attackPhase(ArrayList<String> countryList) {
-		// TODO Auto-generated method stub
-
+		for (CountryNode country : player.getCountries()) {
+			for (CountryNode neighbour : country.getNeighbours()) {
+				neighbour.setOwner(player);
+			}
+		}
 	}
 
 	@Override
