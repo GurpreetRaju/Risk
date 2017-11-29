@@ -119,8 +119,7 @@ public class AggressiveStrategy implements PlayerStrategy {
 
 	@Override
 	public String placeArmy(String[] strings, String string) {
-		// TODO Auto-generated method stub
-		return null;
+		return strings[new Random().nextInt(strings.length)];
 	}
 
 }
