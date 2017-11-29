@@ -9,12 +9,14 @@ public class CheaterStrategy implements PlayerStrategy {
 
 	private GameDriver driver;
 	
+	private Player player = driver.getCurrentPlayer();
+	
 	@Override
 	public void reinforcementPhase(int armies, String[] countryList) {
-		for (CountryNode country : driver.getCurrentPlayer().getCountries()) {
+		for (CountryNode country : player.getCountries()) {
 			country.addArmy(country.getArmiesCount());
 		}
-		driver.getCurrentPlayer().setArmies(0);
+		player.setArmies(0);
 		driver.changePhase();
 
 	}
@@ -27,7 +29,13 @@ public class CheaterStrategy implements PlayerStrategy {
 
 	@Override
 	public void fortificationPhase(ArrayList<String> countryList) {
-		// TODO Auto-generated method stub
+		for (CountryNode country : player.getCountries()) {
+			for (CountryNode neighbour : country.getNeighbours()) {
+				if (!neighbour.getOwner().getName().equals(player.getName())) {
+					country.addArmy(country.getArmiesCount());
+				}
+			}
+		}
 
 	}
 
