@@ -1,6 +1,7 @@
 package risk.view.mapeditor;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
@@ -54,6 +55,10 @@ public class ExistingMap extends JFrame {
 	public ExistingMap(ArrayList<MapNode> map){
 		existingMap = map;
 		initialize();
+	}
+
+	public ExistingMap() {
+		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -162,7 +167,7 @@ public class ExistingMap extends JFrame {
 			}
 		});
 
-		btnEdit = new JButton("Edit Map");
+		btnEdit = new JButton("Edit and Save Map");
 		btnEdit.setBackground(new Color(152, 251, 152));
 		btnEdit.setFont(new Font("Script MT Bold", Font.BOLD, 18));
 		GridBagConstraints gbc_btnEdit = new GridBagConstraints();
@@ -172,6 +177,27 @@ public class ExistingMap extends JFrame {
 		gbc_btnEdit.gridx = 13;
 		gbc_btnEdit.gridy = 2;
 		contentPane.add(btnEdit, gbc_btnEdit);
+	}
+	
+	/**
+	 * Function to display error message dialog box.
+	 */
+	public void cannotLoadMapError() {
+		JOptionPane.showMessageDialog(contentPane, "Map file validation error", "Error", JOptionPane.ERROR_MESSAGE);
+	}
+	
+	/**
+	 * Function to display error message dialog box.
+	 */
+	public void showUnconnectedContinentError() {
+		JOptionPane.showMessageDialog(contentPane, "Cannot load Map file with unconnected continent", "Error", JOptionPane.ERROR_MESSAGE);
+	}
+	
+	/**
+	 * displays dialog box with success message.
+	 */
+	public void successfullLoad() {
+		JOptionPane.showMessageDialog(contentPane, "Map file validated => Click ok to load the map data", "Message", JOptionPane.INFORMATION_MESSAGE);
 	}
 
 	/**

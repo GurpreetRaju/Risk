@@ -56,6 +56,21 @@ public class mapEditorController {
 	 * Creates object of MapModel class.
 	 */
 	private MapModel mapModel = new MapModel();
+	
+	/**
+	 * Reference variable for existing map frame
+	 */
+	ExistingMap existingMap;
+	
+	/**
+	 * Object for existing map frame
+	 */
+	ExistingMap existingMap1 = new ExistingMap();
+	
+	/**
+	 * Object for MapReader class.
+	 */
+	MapReader mapReader = new MapReader();
 
 	/**
 	 * Calls the readMap function of MapReader to read the map file
@@ -97,21 +112,35 @@ public class mapEditorController {
 				if (fc.showOpenDialog(null) == JFileChooser.APPROVE_OPTION){
 					/*get the path of the selected file*/
 					path = fc.getSelectedFile().getAbsolutePath();
-					MapReader mapReader = new MapReader();
-					/*pass the existing map file information to the existing file editor*/
-					ExistingMap existingMap = new ExistingMap(mapReader.readMap(fc.getSelectedFile().getAbsolutePath()));
-					/*actionListener for edit button of existing map frame*/
-					existingMap.addActionsToBtnEdit(new ActionListener() {
-						public void actionPerformed(ActionEvent e) {
-							existingMap.setVisible(false);
-							ArrayList<MapNode> existing_map_Info = existingMap.getExistingMapInfo();
-							mapModel.writeExistingMap(existing_map_Info);
-							existingMapEditor = new ExistingMapEditor(existing_map_Info);
-							existingMapEditor.setVisible(true);
-							existingMapActions();
+					
+					ArrayList<MapNode> map = mapReader.readMap(fc.getSelectedFile().getAbsolutePath());
+					mapModel.writeExistingMap(map);
+					
+					if(mapModel.checkOnSaveMap()) {
+						if(mapModel.checkConnectedContinent()) {
+							//dialog box
+							existingMap1.successfullLoad();
+							/*pass the existing map file information to the existing file editor*/
+							existingMap = new ExistingMap(mapReader.readMap(fc.getSelectedFile().getAbsolutePath()));
+							/*actionListener for edit button of existing map frame*/
+							existingMap.addActionsToBtnEdit(new ActionListener() {
+								public void actionPerformed(ActionEvent e) {
+									existingMap.setVisible(false);
+									ArrayList<MapNode> existing_map_Info = existingMap.getExistingMapInfo();
+									mapModel.writeExistingMap(existing_map_Info);
+									existingMapEditor = new ExistingMapEditor(existing_map_Info);
+									existingMapEditor.setVisible(true);
+									existingMapActions();
+								}
+							});
+							existingMap.setVisible(true);
+						}else {
+							existingMap1.showUnconnectedContinentError();
 						}
-					});
-					existingMap.setVisible(true);
+						
+					}else {
+						existingMap1.cannotLoadMapError();
+					}
 				}
 			}
 		});
