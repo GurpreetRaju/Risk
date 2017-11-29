@@ -68,6 +68,7 @@ public class BenevolentStrategy implements PlayerStrategy {
 
 	@Override
 	public void fortificationPhase(ArrayList<String> countryList) {
+		//fortify the weakest country.
 		CountryNode weakest = countries.get(0);
 		CountryNode strongest = countries.get(countries.size()-1);
 		int average = (int)(weakest.getArmiesCount() + strongest.getArmiesCount()) / 2;
