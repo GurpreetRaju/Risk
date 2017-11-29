@@ -415,8 +415,12 @@ public class GameDriver extends Observable {
 		}
 		map.updateMap();
 		setPlayerOut(defender);
-		checkGameState();
-		continuePhase();
+		if(!checkGameState()) {
+			continuePhase();
+		}
+		else {
+			announceGameOver();
+		}
 	}
 	
 	/**
