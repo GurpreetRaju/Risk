@@ -51,7 +51,6 @@ public class TournamentMode {
 	}
 	
 	public void start() {
-		
 		for(int m = 0; m < maps.length; m++) {
 			for(int g = 0; g < games; g++) {
 				GameController gController = new GameController(maps[m],behaviors,behaviors,moveLimit);
