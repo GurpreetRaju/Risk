@@ -8,13 +8,35 @@ import java.util.Random;
 import risk.model.gamemode.GameDriver;
 import risk.model.map.CountryNode;
 
+/**
+ * Class for Aggressive player that implements the PlayerStrategy interface.
+ */
 public class AggressiveStrategy implements PlayerStrategy {
 
+	/**
+	 * GameDriver instance for benevolent player.
+	 */
 	GameDriver driver = new GameDriver();
+	
+	/**
+	 * Stores the current player.
+	 */
 	Player player = driver.getCurrentPlayer();
+	
+	/**
+	 * Stores the list of country nodes of the player.
+	 */
 	ArrayList<CountryNode> countries = player.getCountries();
+	
+	/**
+	 * Stores the strongest country of the player.
+	 */
 	CountryNode strongest;
 	
+	/**
+	 * Reinforcement phase of aggressive player that reinforces its strongest countries.
+	 * @see risk.model.player.PlayerStrategy#reinforcementPhase(int, java.lang.String[])
+	 */
 	@Override
 	public void reinforcementPhase(int armies, String[] countryList) {
 		//sort countries according to armies count in descending order.
@@ -61,6 +83,10 @@ public class AggressiveStrategy implements PlayerStrategy {
 
 	}
 
+	/**
+	 * Attack phase: aggressive player always attack with it until it cannot attack anymore.
+	 * @see risk.model.player.PlayerStrategy#attackPhase(java.util.ArrayList)
+	 */
 	@Override
 	public void attackPhase(ArrayList<String> countryList) {
 		//to be implemented
@@ -76,6 +102,10 @@ public class AggressiveStrategy implements PlayerStrategy {
 		*/
 	}
 
+	/**
+	 * Fortification phase of aggressive player: maximizes aggregation of forces in one country.
+	 * @see risk.model.player.PlayerStrategy#fortificationPhase(java.util.ArrayList)
+	 */
 	@Override
 	public void fortificationPhase(ArrayList<String> countryList) {
 		//fortify the strongest country.
