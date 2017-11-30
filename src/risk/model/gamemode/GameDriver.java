@@ -11,10 +11,14 @@ import risk.model.Stats;
 import risk.model.map.CountryNode;
 import risk.model.map.Map;
 import risk.model.map.MapNode;
+import risk.model.player.AggressiveStrategy;
+import risk.model.player.BenevolentStrategy;
+import risk.model.player.CheaterStrategy;
 import risk.model.player.HumanStrategy;
 import risk.model.player.Player;
+import risk.model.player.PlayerStrategy;
+import risk.model.player.RandomStrategy;
 import risk.model.turnmanager.TurnManager;
-import risk.view.*;
 
 /**
  * This class controls the turns - Startup phase, Fortification, reinforcement and attack phase.
@@ -104,22 +108,65 @@ public class GameDriver extends Observable {
 	/**
 	 * Starts the game.
 	 */
-	public void runGame(String[] newPlayerData, String[] behaviors) {
+	public void runGame(String[] playerData, String[] behaviors) {
 		setChanged();
 		notifyObservers("Startup");
-		startUpPhase(newPlayerData);
+		createPlayers(playerData, behaviors);
+		startUpPhase();
 		turnManager.startTurn(this.currentPlayer);
 		setChanged();
 		notifyObservers("Reinforcement");
 	}
 	
 	/**
+	 * Create player objects
+	 * @param playerData name of players
+	 * @param behaviors behavior of players
+	 */
+	public void createPlayers(String[] playerData, String[] behaviors) {
+		players = new ArrayList<Player>();
+		for(int i=0; i < playerData.length; i++){
+			Player temp = new Player(playerData[i],RiskData.InitialArmiesCount.getArmiesCount(playerData.length), createBehavior(behaviors[i]), this);
+			players.add(temp);
+			setChanged();
+			notifyObservers(temp.getName());
+		}
+	}
+	
+	/**
+	 * Create PlayerStartegy object from string
+	 * @param strategy strategy for which object is required
+	 * @return object of PlayerStrategy
+	 */
+	private PlayerStrategy createBehavior(String strategy) {
+			PlayerStrategy pStrategy = null;
+			switch(strategy) {
+				case "human":
+					new HumanStrategy(this);
+					break;
+				case "benevolent":
+					new BenevolentStrategy();
+					break;
+				case "aggressive":
+					new AggressiveStrategy();
+					break;
+				case "cheater":
+					new CheaterStrategy();
+					break;
+				case "random":
+					new RandomStrategy();
+					break;
+			}
+			return pStrategy;
+	}
+
+	/**
 	 * This method starts the startup phase of game. It assigns countries to players.
 	 * @param playerData String array to store elements of player type.
 	 */
-	public void startUpPhase(String[] playerData) {
+	public void startUpPhase() {
 		
-		dividingCountries(playerData,map.getMapData());
+		dividingCountries(map.getMapData());
 		
 		updatePlayerView();
 		
@@ -141,14 +188,7 @@ public class GameDriver extends Observable {
 	 * @param playerData list of players
 	 * @param mapData arraylist containing MapNode Objects representing continents
 	 */
-	public void dividingCountries(String[] playerData, ArrayList<MapNode> mapData) {
-		players = new ArrayList<Player>();
-		for(String newPlayer: playerData){
-			Player temp = new Player(newPlayer,RiskData.InitialArmiesCount.getArmiesCount(playerData.length), new HumanStrategy(this), this);
-			players.add(temp);
-			setChanged();
-			notifyObservers(temp.getName());
-		}
+	public void dividingCountries(ArrayList<MapNode> mapData) {
 		players.get(0).setTurnTrue();
 		this.currentPlayer = players.get(0);
 		int i = 0;
