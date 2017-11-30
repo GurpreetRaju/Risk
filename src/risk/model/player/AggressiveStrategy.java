@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Random;
 
-import risk.controller.GameController;
 import risk.model.gamemode.GameDriver;
 import risk.model.map.CountryNode;
 import risk.model.turnmanager.TurnManager;
@@ -27,34 +26,22 @@ public class AggressiveStrategy implements PlayerStrategy {
 	 */
 	private TurnManager turnManager;
 	
-	
-	/**
-	 * Stores the list of country nodes of the player.
-	 */
-	ArrayList<CountryNode> countries = new ArrayList<CountryNode>();
-	
-	/**
-	 * Stores the strongest country of the player.
-	 */
-	CountryNode strongest;
-	
 	/**
 	 * Reinforcement phase of aggressive player that reinforces its strongest countries.
 	 * @see risk.model.player.PlayerStrategy#reinforcementPhase(int, java.lang.String[])
 	 */
 	@Override
 	public void reinforcementPhase(int armies, String[] countryList) {
-		countries = driver.getPlayerCountries();
-		/*sort countries according to armies count in descending order.*/
-		Collections.sort(countries, new Comparator<CountryNode>(){
-
-			@Override
-			public int compare(CountryNode o1, CountryNode o2) {
-				return o2.getArmiesCount() - o1.getArmiesCount();
-			}
-		}); 
+		ArrayList<CountryNode> countries = new ArrayList<CountryNode>();
+		/*get country node for corresponding country name.*/
+		for(String c: countryList){
+			countries.add(driver.getCountry(c));
+		}
 		
-		strongest = countries.get(0);
+		/*sort countries according to armies count in descending order.*/
+		countries = sortCountries(countries);
+		
+		CountryNode strongest = countries.get(0);
 		
 		/*get the list of strong countries.*/
 		int countOfStrongCountries = 1;
@@ -95,8 +82,17 @@ public class AggressiveStrategy implements PlayerStrategy {
 	 */
 	@Override
 	public void attackPhase(ArrayList<String> countryList) {
-		if(strongest.getArmiesCount() > 1){
-			CountryNode aCountry = strongest;
+		ArrayList<CountryNode> countries = new ArrayList<CountryNode>();
+		/*get country node for corresponding country name.*/
+		for(String c: countryList){
+			countries.add(driver.getCountry(c));
+		}
+		
+		/*sort countries according to armies count in descending order.*/
+		countries = sortCountries(countries);
+		CountryNode aCountry = countries.get(0);
+		
+		if(aCountry.getArmiesCount() > 1){
 			
 			/*calculate number of dice for attacker.*/
 			int aArmies = aCountry.getArmiesCount();
@@ -172,13 +168,23 @@ public class AggressiveStrategy implements PlayerStrategy {
 	 */
 	@Override
 	public void fortificationPhase(ArrayList<String> countryList) {
+		ArrayList<CountryNode> countries = new ArrayList<CountryNode>();
+		/*get country node for corresponding country name.*/
+		for(String c: countryList){
+			countries.add(driver.getCountry(c));
+		}
+		
+		/*sort countries according to armies count in descending order.*/
+		countries = sortCountries(countries);
+		
+		CountryNode strongest = countries.get(0);
+		
 		/*fortify the strongest country.*/
 		CountryNode weakest = countries.get(countries.size()-1);
 		int average = (int)(weakest.getArmiesCount() + strongest.getArmiesCount()) / 2;
 		strongest.addArmy(average);
 		weakest.removeArmies(average);
 		driver.changePhase();
-
 	}
 
 	/**
@@ -189,4 +195,18 @@ public class AggressiveStrategy implements PlayerStrategy {
 		return strings[new Random().nextInt(strings.length)];
 	}
 
+	/**
+	 * Sort countries in descending order as per the armies.
+	 * @param countryList list of country nodes to be sorted.
+	 * @return sorted list of country nodes.
+	 */
+	private ArrayList<CountryNode> sortCountries(ArrayList<CountryNode> countryList){
+		Collections.sort(countryList, new Comparator<CountryNode>(){
+			@Override
+			public int compare(CountryNode o1, CountryNode o2) {
+				return o2.getArmiesCount() - o1.getArmiesCount();
+			}
+		});
+		return countryList;
+	}
 }

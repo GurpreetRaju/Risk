@@ -29,7 +29,7 @@ public class RandomStrategy implements PlayerStrategy {
 	/**
 	 * Stores the current player.
 	 */
-	Player player = driver.getCurrentPlayer();
+	private Player player = driver.getCurrentPlayer();
 	
 	/**
 	 * Count the number of attacks.
