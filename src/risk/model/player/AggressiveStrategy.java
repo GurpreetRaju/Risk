@@ -40,9 +40,7 @@ public class AggressiveStrategy implements PlayerStrategy {
 		
 		/*sort countries according to armies count in descending order.*/
 		countries = sortCountries(countries);
-		
-		CountryNode strongest = countries.get(0);
-		
+				
 		/*get the list of strong countries.*/
 		int countOfStrongCountries = 1;
 		ArrayList<CountryNode> strongCountryList = new ArrayList<CountryNode>();

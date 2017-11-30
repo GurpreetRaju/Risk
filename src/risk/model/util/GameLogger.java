@@ -32,7 +32,7 @@ public class GameLogger extends JFrame implements Observer {
 	private JPanel frame;
 	
 	/**
-	 * Constructor to intialize GameLogger
+	 * Constructor to initialize GameLogger
 	 */
 	public GameLogger(){
 		frame = new JPanel();
