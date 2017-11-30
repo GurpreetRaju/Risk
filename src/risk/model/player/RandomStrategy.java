@@ -8,7 +8,14 @@ import risk.model.gamemode.GameDriver;
 import risk.model.map.CountryNode;
 import risk.model.turnmanager.TurnManager;
 
+/**
+ * Class for Random player that implements the PlayerStrategy interface.
+ */
 public class RandomStrategy implements PlayerStrategy {
+	
+	/**
+	 * GameDriver instance for Cheater player.
+	 */
 	private GameDriver driver;
 	
 	/**
@@ -26,6 +33,10 @@ public class RandomStrategy implements PlayerStrategy {
 	 */
 	private int countAttacks = 0;
 
+	/**
+	 * Reinforcement phase of random player that reinforces random a random country.
+	 * @see risk.model.player.PlayerStrategy#reinforcementPhase(int, java.lang.String[])
+	 */
 	@Override
 	public void reinforcementPhase(int armies, String[] countryList) {
 		countAttacks = 0;
@@ -35,6 +46,10 @@ public class RandomStrategy implements PlayerStrategy {
 		driver.changePhase();
 	}
 
+	/**
+	 * Attack phase: random player  attacks a random number of times a random country.
+	 * @see risk.model.player.PlayerStrategy#attackPhase(java.util.ArrayList)
+	 */
 	@Override
 	public void attackPhase(ArrayList<String> countryList) {
 		CountryNode randomCountry = driver.getCountry(countryList.get(new Random().nextInt(countryList.size())));
@@ -111,6 +126,10 @@ public class RandomStrategy implements PlayerStrategy {
 
 	}
 
+	/**
+	 * Fortification phase of random player: fortifies a random country  
+	 * @see risk.model.player.PlayerStrategy#fortificationPhase(java.util.ArrayList)
+	 */
 	@Override
 	public void fortificationPhase(ArrayList<String> countryList) {
 		ArrayList<CountryNode> countries = new ArrayList<CountryNode>() ;
