@@ -31,6 +31,8 @@ public class RandomStrategy implements PlayerStrategy {
 	 */
 	private int countAttacks = 0;
 	
+	private int randomAttacknumber = 0;
+	
 	public RandomStrategy(GameDriver nDriver) {
 		driver = nDriver;
 		turnManager = driver.getTurnManager();
@@ -43,6 +45,7 @@ public class RandomStrategy implements PlayerStrategy {
 	@Override
 	public void reinforcementPhase(int armies, String[] countryList) {
 		countAttacks = 0;
+		randomAttacknumber = new Random().nextInt(6);
 		String country = countryList[new Random().nextInt(countryList.length)];
 		driver.shiftArmiesOnReinforcement(country, armies);
 		driver.nottifyObservers(driver.getTurnManager().getPhase());
@@ -56,22 +59,10 @@ public class RandomStrategy implements PlayerStrategy {
 	@Override
 	public void attackPhase(ArrayList<String> countryList) {
 		CountryNode randomCountry = driver.getCountry(countryList.get(new Random().nextInt(countryList.size())));
-		int numberOfAttacks = new Random().nextInt(30);
-		if(randomCountry.getArmiesCount() > 1 && numberOfAttacks > countAttacks){
+		if(randomCountry.getArmiesCount() > 1 && randomAttacknumber > countAttacks){
 			countAttacks++;
 			CountryNode aCountry = randomCountry;
 			
-			/*calculate number of dice for attacker.*/
-			int aArmies = aCountry.getArmiesCount();
-			if(driver.getCurrentPlayer().getTurn() && aArmies>4) {
-				aArmies = 3;
-			}
-			else if(driver.getCurrentPlayer().getTurn()) {
-				aArmies -= 1;
-			}
-			else if(aArmies>2) {
-				aArmies = 2;
-			}
 			
 			/*randomly select a country to be attacked.*/
 			CountryNode dCountry = null;
@@ -82,48 +73,8 @@ public class RandomStrategy implements PlayerStrategy {
 					break;
 				}
 			}
-			
-			/*calculate the number of dice for defender.*/
-			int dArmies = dCountry.getArmiesCount();
-			if(driver.getCurrentPlayer().getTurn() && dArmies>4) {
-				dArmies = 3;
-			}
-			else if(driver.getCurrentPlayer().getTurn()) {
-				dArmies -= 1;
-			}
-			else if(dArmies>2) {
-				dArmies = 2;
-			}
-			
-			/*find the attack result.*/
-			ArrayList<Integer> aResults = driver.diceRoll(aArmies);
-			ArrayList<Integer> dResults = driver.diceRoll(dArmies);
-			driver.battle(dCountry, dCountry.getOwner(), aCountry, aArmies, dArmies, aResults, dResults);
-			
-			/*check if defender country can be occupied.*/
-			if(dCountry.getArmiesCount()==0) {
-				dCountry.setOwner(driver.getCurrentPlayer());
-				turnManager.setWonCard(true);
-				
-				System.out.println("Country "+ dCountry.getCountryName() +" won by " + dCountry.getOwner().getName() + ", new armies "+dCountry.getArmiesCount());
-				
-				/*move countries from attacker country to newly acquired country.*/
-				int moveArmies = 1;
-				dCountry.addArmy(moveArmies);
-				aCountry.removeArmies(moveArmies);
-				if(driver.getMap().continentWonByPlayer(driver.getCurrentPlayer(), dCountry)) {
-					driver.getCurrentPlayer().addContinent(dCountry.getContinent());
-				}
-			}
-			driver.setPlayerOut(dCountry.getOwner());
-			if(!driver.checkGameState()) {
-				driver.nottifyObservers(driver.getTurnManager().getPhase());
-				driver.continuePhase();
-			}
-			else {
-				driver.announceGameOver(driver.getPlayers().get(0).getName());
-			}
-		}
+			driver.announceAttack(aCountry.getCountryName(), dCountry.getCountryName());
+		}		
 		else{
 			driver.nottifyObservers(driver.getTurnManager().getPhase());
 			driver.changePhase();

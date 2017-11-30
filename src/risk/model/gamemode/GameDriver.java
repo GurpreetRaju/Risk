@@ -229,6 +229,7 @@ public class GameDriver extends Observable {
 		int currentPlayerIndex = players.indexOf(getCurrentPlayer());
 		this.currentPlayer.setTurnFalse();
 		if (currentPlayerIndex == players.size()-1){
+			moveCounter();
 			this.currentPlayer = players.get(0);
 		}else{
 			this.currentPlayer = players.get(currentPlayerIndex+1);
@@ -302,20 +303,16 @@ public class GameDriver extends Observable {
 	 * Delegate method to call method from TurnManager class to continue phases.
 	 */
 	public void continuePhase() {
-		if(moveCounter()) {
-			updateMap();
-			turnManager.continuePhase();
-		}
+		updateMap();
+		turnManager.continuePhase();
 	}
 
 	/**
 	 * Delegate method to call method from TurnManager class to change between phases.
 	 */
 	public void changePhase() {
-		if(moveCounter()) {
-			turnManager.changePhase();
-			updateMap();
-		}
+		turnManager.changePhase();
+		updateMap();
 	}
 	
 	/**

@@ -31,11 +31,6 @@ public class TournamentMode implements Mode{
 	private String[] maps;
 	
 	/**
-	 * List of players names.
-	 */
-	private String[] playerInfo;
-	
-	/**
 	 * List of Winners
 	 */
 	private String[][] winners;
@@ -95,4 +90,12 @@ public class TournamentMode implements Mode{
 		}
 	}
 
+	public static void main(String[] arg) {
+		String[][] myPs = {{"Gur","aggressive"},{"Raj","aggressive"}};
+		String[] maps = {"D:\\Gurpreet\\Study\\Meng\\SEM6\\SOEN6441\\project\\World2005.map","D:\\Gurpreet\\Study\\Meng\\SEM6\\SOEN6441\\project\\World2005.bmp"};
+		TournamentMode s = new TournamentMode(2,maps, myPs, 10, MainController.getInstance());
+		MainController.getInstance().setMode(s);
+		s.start();
+	}
+	
 }
