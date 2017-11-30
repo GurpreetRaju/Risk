@@ -18,22 +18,16 @@ public class CheaterStrategy implements PlayerStrategy {
 	 */
 	private GameDriver driver;
 	
-
-	/**
-	 * Stores the current player.
-	 */
-	private Player player = driver.getCurrentPlayer();
-	
 	/**
 	 * Reinforcement phase of cheater player that doubles the number of armies on all its countries
 	 * @see risk.model.player.PlayerStrategy#reinforcementPhase(int, java.lang.String[])
 	 */
 	@Override
 	public void reinforcementPhase(int armies, String[] countryList) {
-		for (CountryNode country : player.getCountries()) {
-			country.addArmy(country.getArmiesCount());
+		for (String country : countryList) {
+			driver.getCountry(country).addArmy(driver.getCountry(country).getArmiesCount());
 		}
-		player.setArmies(0);
+		driver.getCurrentPlayer().setArmies(0);
 		driver.changePhase();
 
 	}
@@ -44,9 +38,9 @@ public class CheaterStrategy implements PlayerStrategy {
 	 */
 	@Override
 	public void attackPhase(ArrayList<String> countryList) {
-		for (CountryNode country : player.getCountries()) {
-			for (CountryNode neighbour : country.getNeighbours()) {
-				neighbour.setOwner(player);
+		for (String country : countryList) {
+			for (CountryNode neighbour : driver.getCountry(country).getNeighbours()) {
+				neighbour.setOwner(driver.getCurrentPlayer());
 			}
 		}
 	}
@@ -58,10 +52,10 @@ public class CheaterStrategy implements PlayerStrategy {
 	 */
 	@Override
 	public void fortificationPhase(ArrayList<String> countryList) {
-		for (CountryNode country : player.getCountries()) {
-			for (CountryNode neighbour : country.getNeighbours()) {
-				if (!neighbour.getOwner().getName().equals(player.getName())) {
-					country.addArmy(country.getArmiesCount());
+		for (String country : countryList) {
+			for (CountryNode neighbour : driver.getCountry(country).getNeighbours()) {
+				if (!neighbour.getOwner().equals(driver.getCurrentPlayer())) {
+					driver.getCountry(country).addArmy(driver.getCountry(country).getArmiesCount());
 				}
 			}
 		}

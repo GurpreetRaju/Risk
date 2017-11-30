@@ -18,17 +18,7 @@ public class BenevolentStrategy implements PlayerStrategy {
 	/**
 	 * GameDriver instance for benevolent player.
 	 */
-	GameDriver driver = new GameDriver();
-	
-	/**
-	 * Stores the current player.
-	 */
-	Player player = driver.getCurrentPlayer();
-	
-	/**
-	 * Stores the list of country nodes of the player.
-	 */
-	ArrayList<CountryNode> countries = player.getCountries();
+	private GameDriver driver = new GameDriver();
 	
 	/**
 	 * Reinforcement phase of benevolent player that reinforces its weakest countries.
@@ -36,15 +26,14 @@ public class BenevolentStrategy implements PlayerStrategy {
 	 */
 	@Override
 	public void reinforcementPhase(int armies, String[] countryList) {
+		ArrayList<CountryNode> countries = new ArrayList<CountryNode>();
+		/*get country node for corresponding country name.*/
+		for(String c: countryList){
+			countries.add(driver.getCountry(c));
+		}
 		
-		/*sort countries according to armies count.*/
-		Collections.sort(countries, new Comparator<CountryNode>(){
-
-			@Override
-			public int compare(CountryNode o1, CountryNode o2) {
-				return o1.getArmiesCount() - o2.getArmiesCount();
-			}
-		}); 
+		/*sort countries according to armies count in descending order.*/
+		countries = sortCountries(countries);
 		
 		/*get the list of weak countries.*/
 		int countOfWeakCountries = 1;
@@ -59,6 +48,7 @@ public class BenevolentStrategy implements PlayerStrategy {
 				break;
 			}
 		}
+		Player player = driver.getCurrentPlayer();
 		
 		/*get the integer round-off of the armies to be alloted to each weak country.*/
 		int armiesToBeReinforced = (int)(player.getArmiesCount()/countOfWeakCountries);
@@ -74,7 +64,6 @@ public class BenevolentStrategy implements PlayerStrategy {
 			weakCountryList.get(0).addArmy(playerArmiesLeft);
 			player.removeArmies(playerArmiesLeft);
 		}
-		
 		driver.changePhase();
 	}
 
@@ -94,6 +83,15 @@ public class BenevolentStrategy implements PlayerStrategy {
 	 */
 	@Override
 	public void fortificationPhase(ArrayList<String> countryList) {
+		ArrayList<CountryNode> countries = new ArrayList<CountryNode>();
+		/*get country node for corresponding country name.*/
+		for(String c: countryList){
+			countries.add(driver.getCountry(c));
+		}
+		
+		/*sort countries according to armies count in descending order.*/
+		countries = sortCountries(countries);
+		
 		/*fortify the weakest country.*/
 		CountryNode weakest = countries.get(0);
 		CountryNode strongest = countries.get(countries.size()-1);
@@ -109,6 +107,22 @@ public class BenevolentStrategy implements PlayerStrategy {
 	@Override
 	public String placeArmy(String[] strings, String string) {
 		return strings[new Random().nextInt(strings.length)];
+	}
+	
+	/**
+	 * sort countries according to armies count.
+	 * @param countryList list of country nodes to be sorted.
+	 * @return sorted list of country nodes.
+	 */
+	private ArrayList<CountryNode> sortCountries(ArrayList<CountryNode> countryList){
+		Collections.sort(countryList, new Comparator<CountryNode>(){
+
+			@Override
+			public int compare(CountryNode o1, CountryNode o2) {
+				return o1.getArmiesCount() - o2.getArmiesCount();
+			}
+		});
+		return countryList;
 	}
 
 }
