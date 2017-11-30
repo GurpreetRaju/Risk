@@ -134,7 +134,7 @@ public class TestPlayer {
 		
 		MapNode continent = new MapNode("Continent1", countries, 6);
 		mapData.add(continent);
-		testPlayer = new Player("TestPlayer",0,countries, new HumanStrategy(driver),driver);
+		testPlayer = new Player("TestPlayer",0,countries, driver);
 	}
 
 	/**
