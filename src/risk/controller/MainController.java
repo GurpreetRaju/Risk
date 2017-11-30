@@ -100,9 +100,12 @@ public class MainController {
 		TournamentInfo infoView = new TournamentInfo();
 		infoView.setListeners(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent arg0) {
+			public void actionPerformed(ActionEvent a) {
+				System.out.print("Hello");
 				TournamentMode tournament = new TournamentMode(infoView.getGamesCount(), infoView.getMapDetails(),
 						infoView.getPlayerBehaviorDetails(), infoView.getMovesCount());
+				tournament.start();
+				infoView.dispose();
 			}
 		});
 	}
