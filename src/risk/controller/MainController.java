@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import risk.model.gamemode.Mode;
 import risk.model.gamemode.SingleMode;
 import risk.model.gamemode.TournamentMode;
+import risk.view.ResultView;
 import risk.view.SetUpDialog;
 import risk.view.TournamentInfo;
 import risk.view.mapeditor.MapFrame;
@@ -109,6 +110,10 @@ public class MainController {
 				infoView.dispose();
 			}
 		});
+	}
+
+	public void setResults(String[][] winners) {
+		ResultView result = new ResultView(winners);
 	}
 
 }

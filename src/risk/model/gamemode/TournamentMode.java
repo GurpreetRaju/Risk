@@ -63,7 +63,10 @@ public class TournamentMode implements Mode{
 		maps = mapDetails;
 		behaviors = playerBehaviorDetails;
 		moveLimit = movesCount;
-		winners = new String[mapDetails.length][gamesCount];
+		winners = new String[mapDetails.length][gamesCount+1];
+		for(int i=0; i<maps.length; i++) {
+			winners[i][0] = maps[i];
+		}
 		currentMap = 0;
 		currentGame = 1;
 	}
@@ -73,7 +76,6 @@ public class TournamentMode implements Mode{
 	}
 	
 	
-
 	public void updateResults(String winner) {
 		winners[currentMap][currentGame] = winner;
 		if(currentGame==games) {
@@ -83,7 +85,7 @@ public class TournamentMode implements Mode{
 				start();
 			}
 			else {
-				//Show results
+				mController.setResults(winners);
 			}
 		}
 		else {
