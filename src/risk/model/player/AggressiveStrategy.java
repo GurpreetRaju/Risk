@@ -48,8 +48,7 @@ public class AggressiveStrategy implements PlayerStrategy {
 		countries = sortCountries(countries);
 		
 		CountryNode strongest = countries.get(0);
-		strongest.addArmy(armies);
-		driver.getCurrentPlayer().setArmies(0);
+		driver.shiftArmiesOnReinforcement(strongest.getCountryName(), armies);
 
 		driver.nottifyObservers(driver.getTurnManager().getPhase());
 		driver.changePhase();
