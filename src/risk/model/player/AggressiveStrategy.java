@@ -46,35 +46,9 @@ public class AggressiveStrategy implements PlayerStrategy {
 		
 		/*sort countries according to armies count in descending order.*/
 		countries = sortCountries(countries);
-				
-		/*get the list of strong countries.*/
-		int countOfStrongCountries = 1;
-		ArrayList<CountryNode> strongCountryList = new ArrayList<CountryNode>();
-		strongCountryList.add(countries.get(0));
-		for(int i= 1; i < countries.size(); i++){
-			if(countries.get(i).getArmiesCount() == countries.get(i-1).getArmiesCount()){
-				strongCountryList.add(countries.get(i));
-				countOfStrongCountries++;
-			}
-			else{
-				break;
-			}
-		}
 		
-		/*get the integer round-off of the armies to be alloted to each strong country.*/
-		int armiesToBeReinforced = (int)(driver.getCurrentPlayer().getArmiesCount()/countOfStrongCountries);
-		for( CountryNode country: strongCountryList){
-			country.addArmy(armiesToBeReinforced);
-			driver.getCurrentPlayer().removeArmies(armiesToBeReinforced);
-		}
-		
-		/*Move the armies remaining into the first strong country in the list.*/
-		int playerArmiesLeft = driver.getCurrentPlayer().getArmiesCount();
-				
-		if(!(playerArmiesLeft == 0)){
-			strongCountryList.get(0).addArmy(playerArmiesLeft);
-			driver.getCurrentPlayer().removeArmies(playerArmiesLeft);
-		}
+		CountryNode strongest = countries.get(0);
+		driver.shiftArmiesOnReinforcement(strongest.getCountryName(), armies);
 
 		driver.nottifyObservers(driver.getTurnManager().getPhase());
 		driver.changePhase();

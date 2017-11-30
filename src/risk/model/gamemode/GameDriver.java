@@ -109,7 +109,7 @@ public class GameDriver extends Observable {
 	 * @param newPlayerData String array to store elements of player name and type.
 	 */
 	public void runGame(String[][] playerData) {
-		nottifyObservers("Startup");
+		nottifyObservers("Startup"+ playerData);
 		createPlayers(playerData);
 		startUpPhase();
 		turnManager.startTurn(this.currentPlayer);

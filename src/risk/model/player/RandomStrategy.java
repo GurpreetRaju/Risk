@@ -43,9 +43,8 @@ public class RandomStrategy implements PlayerStrategy {
 	@Override
 	public void reinforcementPhase(int armies, String[] countryList) {
 		countAttacks = 0;
-		CountryNode country = driver.getCountry(countryList[new Random().nextInt(countryList.length)]);
-		country.addArmy(armies);
-		driver.getCurrentPlayer().setArmies(0);
+		String country = countryList[new Random().nextInt(countryList.length)];
+		driver.shiftArmiesOnReinforcement(country, armies);
 		driver.nottifyObservers(driver.getTurnManager().getPhase());
 		driver.changePhase();
 	}
@@ -149,8 +148,8 @@ public class RandomStrategy implements PlayerStrategy {
 		if (armies == 0) {
 			armies = 1;
 		}
-		country.getNeighbours().get(new Random().nextInt(country.getNeighbours().size())).addArmy(armies);
-		country.removeArmies(armies);
+		String neighbour = country.getNeighbours().get(new Random().nextInt(country.getNeighbours().size())).getCountryName();
+		driver.getArmiesShiftedAfterFortification(country.getCountryName(), neighbour, armies);
 		driver.nottifyObservers(driver.getTurnManager().getPhase());
 		driver.changePhase();
 	}
