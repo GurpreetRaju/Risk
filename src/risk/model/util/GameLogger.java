@@ -32,7 +32,7 @@ public class GameLogger extends JFrame implements Observer {
 	private JPanel frame;
 	
 	/**
-	 * Constructor to intialize GameLogger
+	 * Constructor to initialize GameLogger
 	 */
 	public GameLogger(){
 		frame = new JPanel();
@@ -45,11 +45,11 @@ public class GameLogger extends JFrame implements Observer {
 	@Override
 	public void update(Observable o, Object arg) {
 		Player current = ((GameDriver) o).getCurrentPlayer();
-		/*Startup GameLogger Display.*/
+		/*Startup GameLogger Display.
 		if(arg.equals("Startup")){
 			frame.add(new JLabel("<html><div><b>Startup Phase</b></div><br/><br/></html>"));
 		}
-		/*Cards Exchange View Display.*/
+		/*Cards Exchange View Display.
 		else if(arg.equals("Cards")){
 			frame.add(new JLabel("<html><p></p><br/><br/></html>"));
 			frame.add(new JLabel("<html><div><b>Cards Exchange</b></div><br/><br/></html>"));
@@ -57,7 +57,7 @@ public class GameLogger extends JFrame implements Observer {
 			frame.add(new JLabel(current.getName()));
 			frame.add(new JLabel(" can exchange cards to get more armies.  "));
 		}
-		/*Reinforcement Game Logger Display.*/
+		/*Reinforcement Game Logger Display.
 		else if(arg.equals("Reinforcement")){
 			frame.add(new JLabel("<html><p></p><br/><br/></html>"));
 			if(!(current.armiesMoved > 0)){
@@ -76,7 +76,7 @@ public class GameLogger extends JFrame implements Observer {
 				frame.add(new JLabel(String.valueOf(current.armiesMoved)+" armies Reinforced to: "+current.countrySelected));
 			}
 		}
-		/*Attack Game Logger Display.*/
+		/*Attack Game Logger Display.
 		else if(arg.toString().contains("Attack")){
 			frame.add(new JLabel("<html><p></p><br/><br/></html>"));
 			frame.add(new JLabel("<html><p><b>Attack Phase</b></p><br/><br/></html>"));
@@ -88,7 +88,7 @@ public class GameLogger extends JFrame implements Observer {
 				}
 			}
 		}
-		/*Fortification Game Logger Display.*/
+		/*Fortification Game Logger Display.
 		else if(arg.equals("Fortification")){
 			frame.add(new JLabel("<html><p></p><br/><br/></html>"));
 			frame.add(new JLabel("<html><p><b>Fortification Phase</b></p><br/><br/></html>"));
@@ -96,16 +96,15 @@ public class GameLogger extends JFrame implements Observer {
 			frame.add(new JLabel(current.getName()));
 			frame.add(new JLabel(" Armies moved from: " + current.getCountrySelected().getCountryName()+ " to "+ current.getNeighbourSelected().getCountryName()));
 		}
-		/*Players Display for Startup Phase.*/
-		else{
-			frame.add(new JLabel("<html><p>Player:</p></html>"));
+		/*Players Display for Startup Phase.
+		else{*/
 			frame.add(new JLabel((String) arg));
-		}
+		//}
 		frame.add(new JLabel("<html><p></p><br/><br/></html>"));
 		System.out.println("Observer");
 		this.setSize(400, 800);
 		JScrollPane scroll = new JScrollPane(frame);
-		scroll.setPreferredSize(new Dimension(160, 200));
+		scroll.setPreferredSize(new Dimension(400, 300));
 		this.add(scroll);
 		this.validate();
 		this.setVisible(true);
