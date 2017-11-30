@@ -12,6 +12,8 @@ import risk.model.turnmanager.TurnManager;
 
 /**
  * Class for Aggressive player that implements the PlayerStrategy interface.
+ * @author Gunpreet
+ * @version 1.3
  */
 public class AggressiveStrategy implements PlayerStrategy {
 
@@ -170,7 +172,7 @@ public class AggressiveStrategy implements PlayerStrategy {
 	 */
 	@Override
 	public void fortificationPhase(ArrayList<String> countryList) {
-		//fortify the strongest country.
+		/*fortify the strongest country.*/
 		CountryNode weakest = countries.get(countries.size()-1);
 		int average = (int)(weakest.getArmiesCount() + strongest.getArmiesCount()) / 2;
 		strongest.addArmy(average);
