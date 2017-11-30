@@ -150,7 +150,7 @@ public class TournamentInfo extends JFrame{
 		playerPanel.removeAll();
 		playerPanel.setLayout(new GridBagLayout());
 		behaviors = new ArrayList<JComboBox<String>>();
-		String[] tempBeh = {"Aggressive", "Benevolent", "Cheater", "Human","Random"};
+		String[] tempBeh = {"aggressive", "benevolent", "cheater", "human","random"};
 		for(int i=0; i< (int) playerCount.getValue(); i++) {
 			GridBagConstraints c = new GridBagConstraints();
 			c.gridx = 0;
