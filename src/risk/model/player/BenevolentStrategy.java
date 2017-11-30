@@ -57,8 +57,9 @@ public class BenevolentStrategy implements PlayerStrategy {
 		/*get the integer round-off of the armies to be alloted to each weak country.*/
 		int armiesToBeReinforced = (int)(player.getArmiesCount()/countOfWeakCountries);
 		for( CountryNode country: weakCountryList){
-			country.addArmy(armiesToBeReinforced);
-			player.removeArmies(armiesToBeReinforced);
+			driver.shiftArmiesOnReinforcement(country.getCountryName(), armiesToBeReinforced);
+//			country.addArmy(armiesToBeReinforced);
+//			player.removeArmies(armiesToBeReinforced);
 		}
 		
 		/*Move the armies remaining into the first weakest country in the list.*/
@@ -102,8 +103,7 @@ public class BenevolentStrategy implements PlayerStrategy {
 		CountryNode weakest = countries.get(0);
 		CountryNode strongest = countries.get(countries.size()-1);
 		int average = (int)(weakest.getArmiesCount() + strongest.getArmiesCount()) / 2;
-		weakest.addArmy(average);
-		strongest.removeArmies(average);
+		driver.getArmiesShiftedAfterFortification(strongest.getCountryName(), weakest.getCountryName(), average);
 		driver.nottifyObservers(driver.getTurnManager().getPhase());
 		driver.changePhase();
 	}
