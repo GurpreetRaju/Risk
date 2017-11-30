@@ -424,7 +424,7 @@ public class GameDriver extends Observable {
 	}
 	
 	/**
-	 * This method decides the result of battle between attacking country and defecding country and update the state of countries.
+	 * This method decides the result of battle between attacking country and defending country and update the state of countries.
 	 * @param dCountry country defending the attack
 	 * @param defender player defending the attack
 	 * @param aCountry attacking country
