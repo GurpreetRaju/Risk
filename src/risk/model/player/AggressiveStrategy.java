@@ -26,11 +26,6 @@ public class AggressiveStrategy implements PlayerStrategy {
 	private TurnManager turnManager;
 	
 	/**
-	 * Object of Controller class.
-	 */
-	private GameController controller;
-	
-	/**
 	 * Stores the current player.
 	 */
 	Player player = driver.getCurrentPlayer();
@@ -51,7 +46,7 @@ public class AggressiveStrategy implements PlayerStrategy {
 	 */
 	@Override
 	public void reinforcementPhase(int armies, String[] countryList) {
-		//sort countries according to armies count in descending order.
+		/*sort countries according to armies count in descending order.*/
 		Collections.sort(countries, new Comparator<CountryNode>(){
 
 			@Override
@@ -62,7 +57,7 @@ public class AggressiveStrategy implements PlayerStrategy {
 		
 		strongest = countries.get(0);
 		
-		//get the list of strong countries.
+		/*get the list of strong countries.*/
 		int countOfStrongCountries = 1;
 		ArrayList<CountryNode> strongCountryList = new ArrayList<CountryNode>();
 		strongCountryList.add(countries.get(0));
@@ -76,14 +71,14 @@ public class AggressiveStrategy implements PlayerStrategy {
 			}
 		}
 		
-		//get the integer round-off of the armies to be alloted to each strong country.
+		/*get the integer round-off of the armies to be alloted to each strong country.*/
 		int armiesToBeReinforced = (int)(player.getArmiesCount()/countOfStrongCountries);
 		for( CountryNode country: strongCountryList){
 			country.addArmy(armiesToBeReinforced);
 			player.removeArmies(armiesToBeReinforced);
 		}
 		
-		//Move the armies remaining into the first strong country in the list.
+		/*Move the armies remaining into the first strong country in the list.*/
 		int playerArmiesLeft = player.getArmiesCount();
 				
 		if(!(playerArmiesLeft == 0)){
@@ -104,7 +99,7 @@ public class AggressiveStrategy implements PlayerStrategy {
 		if(strongest.getArmiesCount() > 1){
 			CountryNode aCountry = strongest;
 			
-			//calculate number of dice for attacker.
+			/*calculate number of dice for attacker.*/
 			int aArmies = aCountry.getArmiesCount();
 			if(player.getTurn() && aArmies>4) {
 				aArmies = 3;
@@ -116,7 +111,7 @@ public class AggressiveStrategy implements PlayerStrategy {
 				aArmies = 2;
 			}
 			
-			//randomly select a country to be attacked.
+			/*randomly select a country to be attacked.*/
 			CountryNode dCountry = null;
 			Collections.shuffle(aCountry.getNeighbours());
 			for (CountryNode neighbour : aCountry.getNeighbours()) {
@@ -126,7 +121,7 @@ public class AggressiveStrategy implements PlayerStrategy {
 				}
 			}
 			
-			//calculate the number of dice for defender.
+			/*calculate the number of dice for defender.*/
 			int dArmies = dCountry.getArmiesCount();
 			if(player.getTurn() && dArmies>4) {
 				dArmies = 3;
@@ -138,7 +133,7 @@ public class AggressiveStrategy implements PlayerStrategy {
 				dArmies = 2;
 			}
 			
-			//find the attack result.
+			/*find the attack result.*/
 			ArrayList<Integer> aResults = driver.diceRoll(aArmies);
 			ArrayList<Integer> dResults = driver.diceRoll(dArmies);
 			driver.battle(dCountry, dCountry.getOwner(), aCountry, aArmies, dArmies, aResults, dResults);
@@ -149,6 +144,7 @@ public class AggressiveStrategy implements PlayerStrategy {
 				turnManager.setWonCard(true);
 				
 				System.out.println("Country "+ dCountry.getCountryName() +" won by " + dCountry.getOwner().getName() + ", new armies "+dCountry.getArmiesCount());
+				
 				/*move countries from attacker country to newly acquired country.*/
 				int moveArmies = 1;
 				dCountry.addArmy(moveArmies);
