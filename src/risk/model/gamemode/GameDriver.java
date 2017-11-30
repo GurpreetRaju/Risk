@@ -126,7 +126,8 @@ public class GameDriver extends Observable {
 	public void createPlayers(String[] playerData, String[] behaviors) {
 		players = new ArrayList<Player>();
 		for(int i=0; i < playerData.length; i++){
-			Player temp = new Player(playerData[i],RiskData.InitialArmiesCount.getArmiesCount(playerData.length), createBehavior(behaviors[i]), this);
+			Player temp = new Player(playerData[i],RiskData.InitialArmiesCount.getArmiesCount(playerData.length), this);
+			temp.setStrategy(createBehavior(behaviors[i]));
 			players.add(temp);
 			setChanged();
 			notifyObservers(temp.getName());
