@@ -1,7 +1,6 @@
 package risk.model.util;
 
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -14,6 +13,11 @@ import javax.swing.JScrollPane;
 import risk.model.gamemode.GameDriver;
 import risk.model.player.Player;
 
+/**
+ * Displays the logging window for the game, implements Observer pattern.
+ * @author Gunpreet
+ * @author Amitt
+ */
 public class GameLogger extends JFrame implements Observer {
 
 	/**
@@ -101,7 +105,7 @@ public class GameLogger extends JFrame implements Observer {
 		System.out.println("Observer");
 		this.setSize(400, 800);
 		JScrollPane scroll = new JScrollPane(frame);
-		scroll.setPreferredSize(getSize());
+		scroll.setPreferredSize(new Dimension(160, 200));
 		this.add(scroll);
 		this.validate();
 		this.setVisible(true);
