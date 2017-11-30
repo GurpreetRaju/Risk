@@ -162,7 +162,7 @@ public class AggressiveStrategy implements PlayerStrategy {
 				driver.continuePhase();
 			}
 			else {
-				driver.announceGameOver();
+				driver.announceGameOver(driver.getPlayers().get(0).getName());
 			}
 		}
 		else{
