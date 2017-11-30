@@ -18,22 +18,18 @@ public class AggressiveStrategy implements PlayerStrategy {
 	/**
 	 * GameDriver instance for benevolent player.
 	 */
-	GameDriver driver = new GameDriver();
+	private GameDriver driver = new GameDriver();
 	
 	/**
 	 * Object of TurnManager class.
 	 */
 	private TurnManager turnManager;
 	
-	/**
-	 * Stores the current player.
-	 */
-	Player player = driver.getCurrentPlayer();
 	
 	/**
 	 * Stores the list of country nodes of the player.
 	 */
-	ArrayList<CountryNode> countries = player.getCountries();
+	ArrayList<CountryNode> countries = new ArrayList<CountryNode>();
 	
 	/**
 	 * Stores the strongest country of the player.
@@ -46,6 +42,7 @@ public class AggressiveStrategy implements PlayerStrategy {
 	 */
 	@Override
 	public void reinforcementPhase(int armies, String[] countryList) {
+		countries = driver.getPlayerCountries();
 		/*sort countries according to armies count in descending order.*/
 		Collections.sort(countries, new Comparator<CountryNode>(){
 
@@ -72,18 +69,18 @@ public class AggressiveStrategy implements PlayerStrategy {
 		}
 		
 		/*get the integer round-off of the armies to be alloted to each strong country.*/
-		int armiesToBeReinforced = (int)(player.getArmiesCount()/countOfStrongCountries);
+		int armiesToBeReinforced = (int)(driver.getCurrentPlayer().getArmiesCount()/countOfStrongCountries);
 		for( CountryNode country: strongCountryList){
 			country.addArmy(armiesToBeReinforced);
-			player.removeArmies(armiesToBeReinforced);
+			driver.getCurrentPlayer().removeArmies(armiesToBeReinforced);
 		}
 		
 		/*Move the armies remaining into the first strong country in the list.*/
-		int playerArmiesLeft = player.getArmiesCount();
+		int playerArmiesLeft = driver.getCurrentPlayer().getArmiesCount();
 				
 		if(!(playerArmiesLeft == 0)){
 			strongCountryList.get(0).addArmy(playerArmiesLeft);
-			player.removeArmies(playerArmiesLeft);
+			driver.getCurrentPlayer().removeArmies(playerArmiesLeft);
 		}
 		
 		driver.changePhase();
@@ -101,10 +98,10 @@ public class AggressiveStrategy implements PlayerStrategy {
 			
 			/*calculate number of dice for attacker.*/
 			int aArmies = aCountry.getArmiesCount();
-			if(player.getTurn() && aArmies>4) {
+			if(driver.getCurrentPlayer().getTurn() && aArmies>4) {
 				aArmies = 3;
 			}
-			else if(player.getTurn()) {
+			else if(driver.getCurrentPlayer().getTurn()) {
 				aArmies -= 1;
 			}
 			else if(aArmies>2) {
@@ -115,7 +112,7 @@ public class AggressiveStrategy implements PlayerStrategy {
 			CountryNode dCountry = null;
 			Collections.shuffle(aCountry.getNeighbours());
 			for (CountryNode neighbour : aCountry.getNeighbours()) {
-				if (!neighbour.getOwner().getName().equals(player.getName())) {
+				if (!neighbour.getOwner().getName().equals(driver.getCurrentPlayer().getName())) {
 					dCountry = neighbour;
 					break;
 				}
@@ -123,10 +120,10 @@ public class AggressiveStrategy implements PlayerStrategy {
 			
 			/*calculate the number of dice for defender.*/
 			int dArmies = dCountry.getArmiesCount();
-			if(player.getTurn() && dArmies>4) {
+			if(driver.getCurrentPlayer().getTurn() && dArmies>4) {
 				dArmies = 3;
 			}
-			else if(player.getTurn()) {
+			else if(driver.getCurrentPlayer().getTurn()) {
 				dArmies -= 1;
 			}
 			else if(dArmies>2) {
@@ -140,7 +137,7 @@ public class AggressiveStrategy implements PlayerStrategy {
 			
 			/*check if defender country can be occupied.*/
 			if(dCountry.getArmiesCount()==0) {
-				dCountry.setOwner(player);
+				dCountry.setOwner(driver.getCurrentPlayer());
 				turnManager.setWonCard(true);
 				
 				System.out.println("Country "+ dCountry.getCountryName() +" won by " + dCountry.getOwner().getName() + ", new armies "+dCountry.getArmiesCount());
@@ -149,8 +146,8 @@ public class AggressiveStrategy implements PlayerStrategy {
 				int moveArmies = 1;
 				dCountry.addArmy(moveArmies);
 				aCountry.removeArmies(moveArmies);
-				if(driver.getMap().continentWonByPlayer(player, dCountry)) {
-					player.addContinent(dCountry.getContinent());
+				if(driver.getMap().continentWonByPlayer(driver.getCurrentPlayer(), dCountry)) {
+					driver.getCurrentPlayer().addContinent(dCountry.getContinent());
 				}
 			}
 			driver.setPlayerOut(dCountry.getOwner());
