@@ -3,6 +3,7 @@ package risk.controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import risk.model.Stats;
 import risk.model.gamemode.Mode;
 import risk.model.gamemode.SingleMode;
 import risk.model.gamemode.TournamentMode;
@@ -27,6 +28,31 @@ public class MainController {
 	 * ActionListener to add listener to "Play Game" button.
 	 */
 	private ActionListener playGameListener;
+	
+	/**
+	 * Mode class object reference
+	 */
+	private Mode gameMode;
+	
+	/**
+	 * MainController class instance reference
+	 */
+	private static MainController mController;
+	
+	/**
+	 * private constructor for Singleton pattern imlementation
+	 */
+	private MainController() {}
+	
+	/**
+	 * Get instance of MainController class
+	 */
+	public static MainController getInstance() {
+		if(mController==null) {
+			mController = new MainController();
+		}
+		return mController;
+	}
 	
 	/**
 	 * Method to initialize setupBox and listeners.
@@ -80,15 +106,15 @@ public class MainController {
 	private void init() {
 		String mode = this.setupBox.gameMode();
 		if(mode.equals("single")) {
-			Mode gameMode;
 			String map = setupBox.getMapInfo("map");
 			String bmp = setupBox.getMapInfo("bmp");
 			String[][] players = setupBox.getPlayerInfo();
 			if(bmp!=null) {
-				gameMode = new SingleMode(map, bmp, players, 0);
+				gameMode = new SingleMode(map, bmp, players, 0, this);
 			}else {
-				gameMode = new SingleMode(map, players, 0);	
+				gameMode = new SingleMode(map, players, 0, this);	
 			}
+			gameMode.start();
 		}
 		else if(mode.equals("tournament")){
 			getTournamentInfo();
@@ -100,13 +126,14 @@ public class MainController {
 	
 	private void getTournamentInfo() {
 		TournamentInfo infoView = new TournamentInfo();
+		MainController mC = this;
 		infoView.setListeners(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent a) {
 				System.out.print("Hello");
-				Mode tournament = new TournamentMode(infoView.getGamesCount(), infoView.getMapDetails(),
-						infoView.getPlayerBehaviorDetails(), infoView.getMovesCount());
-				tournament.start();
+				gameMode = new TournamentMode(infoView.getGamesCount(), infoView.getMapDetails(),
+						infoView.getPlayerBehaviorDetails(), infoView.getMovesCount(), mC);
+				gameMode.start();
 				infoView.dispose();
 			}
 		});
@@ -115,5 +142,21 @@ public class MainController {
 	public void setResults(String[][] winners) {
 		ResultView result = new ResultView(winners);
 	}
-
+	
+	/**
+	 * notify mode (TournamentMode/SingleMode) class about winner of game
+	 */
+	public void notifyGameResult(String winnerPlayer) {
+		if(gameMode!=null) {
+			gameMode.updateResults(winnerPlayer);
+		}
+		else {
+			System.out.print("Error here");
+		}
+	}
+	
+	public void setMode(Mode mode) {
+		this.gameMode = mode;
+	}
+	
 }

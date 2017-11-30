@@ -12,4 +12,8 @@ public interface PlayerStrategy {
 
 	public String placeArmy(String[] strings, String string);
 
+	public int selectDiceNumber(int diceToRoll, String pName);
+
+	public int moveArmies(int aArmies, int maxArmies, String message);
+
 }
