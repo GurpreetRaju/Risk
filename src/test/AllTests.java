@@ -9,6 +9,7 @@ import test.risk.model.TestGameDriver;
 import test.risk.model.TestPlayer;
 import test.risk.model.map.TestMapFile;
 import test.risk.model.map.TestMapModel;
+import test.risk.model.map.TestMapReader;
 import test.risk.model.map.TestMapValidation;
 import test.risk.model.map.TestMapWriter;
 
@@ -23,7 +24,8 @@ import test.risk.model.map.TestMapWriter;
 				TestPlayer.class,
 				TestGameDriver.class,
 				TestMapModel.class,
-				TestMapWriter.class
+				TestMapWriter.class,
+				TestMapReader.class
 			})
 
 public class AllTests {
