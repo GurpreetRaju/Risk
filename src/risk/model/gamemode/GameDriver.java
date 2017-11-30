@@ -105,13 +105,12 @@ public class GameDriver extends Observable {
 	
 	/**
 	 * Starts the game.
-	 * @param newPlayerData String array to store elements of player type.
-	 * @param behaviors Defines the behavior of the corresponding players.
+	 * @param newPlayerData String array to store elements of player name and type.
 	 */
-	public void runGame(String[] playerData, String[] behaviors) {
+	public void runGame(String[][] playerData) {
 		setChanged();
 		notifyObservers("Startup");
-		createPlayers(playerData, behaviors);
+		createPlayers(playerData);
 		startUpPhase();
 		turnManager.startTurn(this.currentPlayer);
 		setChanged();
@@ -123,11 +122,11 @@ public class GameDriver extends Observable {
 	 * @param playerData name of players
 	 * @param behaviors behavior of players
 	 */
-	public void createPlayers(String[] playerData, String[] behaviors) {
+	public void createPlayers(String[][] playerData) {
 		players = new ArrayList<Player>();
 		for(int i=0; i < playerData.length; i++){
-			Player temp = new Player(playerData[i],RiskData.InitialArmiesCount.getArmiesCount(playerData.length), this);
-			temp.setStrategy(createBehavior(behaviors[i]));
+			Player temp = new Player(playerData[i][0],RiskData.InitialArmiesCount.getArmiesCount(playerData.length), this);
+			temp.setStrategy(createBehavior(playerData[i][1]));
 			players.add(temp);
 			setChanged();
 			notifyObservers(temp.getName());
@@ -141,22 +140,20 @@ public class GameDriver extends Observable {
 	 */
 	private PlayerStrategy createBehavior(String strategy) {
 			PlayerStrategy pStrategy = null;
-			switch(strategy) {
-				case "human":
-					new HumanStrategy(this);
-					break;
-				case "benevolent":
-					new BenevolentStrategy();
-					break;
-				case "aggressive":
-					new AggressiveStrategy();
-					break;
-				case "cheater":
-					new CheaterStrategy();
-					break;
-				case "random":
-					new RandomStrategy();
-					break;
+			if(strategy.equals("human")){
+				pStrategy = new HumanStrategy(this);
+			}
+			else if(strategy.equals("benevolent")) {
+				pStrategy = new BenevolentStrategy();
+			}
+			else if(strategy.equals("aggressive")){
+				pStrategy = new AggressiveStrategy();
+			}
+			else if(strategy.equals("cheater")) {
+				pStrategy = new CheaterStrategy();
+			}
+			else if(strategy.equals("random")) {
+				pStrategy = new RandomStrategy();
 			}
 			return pStrategy;
 	}

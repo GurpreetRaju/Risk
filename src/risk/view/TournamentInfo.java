@@ -29,6 +29,7 @@ public class TournamentInfo extends JFrame{
 	private JSpinner playerCount;
 	private JPanel playerPanel;
 	private ArrayList<JComboBox<String>> behaviors;
+	private ArrayList<JTextField> names;
 	private JSpinner gameCount;
 	private JSpinner moveCount;
 	private Container frame; 
@@ -150,6 +151,7 @@ public class TournamentInfo extends JFrame{
 		playerPanel.removeAll();
 		playerPanel.setLayout(new GridBagLayout());
 		behaviors = new ArrayList<JComboBox<String>>();
+		names = new ArrayList<JTextField>();
 		String[] tempBeh = {"aggressive", "benevolent", "cheater", "human","random"};
 		for(int i=0; i< (int) playerCount.getValue(); i++) {
 			GridBagConstraints c = new GridBagConstraints();
@@ -160,18 +162,27 @@ public class TournamentInfo extends JFrame{
 			JComboBox<String> behavior = new JComboBox<String>(tempBeh);
 			behaviors.add(behavior);
 			playerPanel.add(behavior, c);
+			c.gridx = 2;
+			playerPanel.add(new JLabel(" Name: "),c);
+			c.gridx = 3;
+			JTextField name = new JTextField(8);
+			names.add(name);
+			playerPanel.add(name,c);
 		}
 		revalidate();
 		pack();
 		repaint();
 	}
 	
-	public String[] getPlayerBehaviorDetails() {
-		ArrayList<String> b = new ArrayList<String>();
-		for(JComboBox<String> cb: behaviors) {
-			b.add((String) cb.getSelectedItem());
+	public String[][] getPlayerBehaviorDetails() {
+		ArrayList<String[]> b = new ArrayList<String[]>();
+		for(int i=0;i<names.size();i++) {
+			String[] temp = new String[2];
+			temp[1] = (String) behaviors.get(i).getSelectedItem();
+			temp[0] = names.get(i).getText();
+			b.add(temp);
 		}
-		return b.toArray(new String[b.size()]);
+		return b.toArray(new String[b.size()][]);
 	}
 	
 	public String[] getMapDetails() {

@@ -83,11 +83,11 @@ public class MainController {
 			Mode gameMode;
 			String map = setupBox.getMapInfo("map");
 			String bmp = setupBox.getMapInfo("bmp");
-			String[] players = setupBox.getPlayerInfo();
+			String[][] players = setupBox.getPlayerInfo();
 			if(bmp!=null) {
-				gameMode = new SingleMode(map, bmp, players, setupBox.getPlayerBehavior(players), 0);
+				gameMode = new SingleMode(map, bmp, players, 0);
 			}else {
-				gameMode = new SingleMode(map, players, setupBox.getPlayerBehavior(players), 0);	
+				gameMode = new SingleMode(map, players, 0);	
 			}
 		}
 		else if(mode.equals("tournament")){

@@ -99,7 +99,7 @@ public class GameController {
 	 * @param newDriver GameDriver instance.
 	 * @param newSetupBox SetUpDialog object.
 	 */
-	public GameController(String newMap, String newMapImage, String[] playerNames, String[] behaviors, int moveLimit) {
+	public GameController(String newMap, String newMapImage, String[][] playerNames, int moveLimit) {
 		mapGUI = new MapView(newMapImage);
 		setupBox = new SetUpDialog();
 		driver = new GameDriver(newMap, moveLimit);
@@ -107,7 +107,7 @@ public class GameController {
 		playerInfoGUI = new PlayerInfoView();
 		playerInfoGUI.setPlayerInfo(playerNames);
 		init();
-		driver.runGame(playerNames, behaviors);
+		driver.runGame(playerNames);
 	}
 	
 	/**
@@ -115,7 +115,7 @@ public class GameController {
 	 * @param newDriver GameDriver instance.
 	 * @param newSetupBox SetUpDialog object
 	 */
-	public GameController(String newMap, String[] playerNames, String[] behaviors, int moveLimit) {
+	public GameController(String newMap, String[][] playerNames, int moveLimit) {
 		mapGUI = new MapView();
 		setupBox = new SetUpDialog();
 		driver = new GameDriver(newMap, moveLimit);
@@ -123,7 +123,7 @@ public class GameController {
 		playerInfoGUI = new PlayerInfoView();
 		playerInfoGUI.setPlayerInfo(playerNames);
 		init();
-		driver.runGame(playerNames, behaviors);
+		driver.runGame(playerNames);
 	}
 	
 	/**

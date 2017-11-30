@@ -37,9 +37,9 @@ public class PlayerInfoView extends JPanel implements Observer{
 	 * Sets the player Info view content.
 	 * @param playerNames Names of the players.
 	 */
-	public void setPlayerInfo(String[] playerNames) {
-		for(String name : playerNames){
-			JLabel comp = new JLabel(name);
+	public void setPlayerInfo(String[][] playerNames) {
+		for(String[] name : playerNames){
+			JLabel comp = new JLabel(name[0]);
 			Border border = comp.getBorder();
 			Border margin = new EmptyBorder(10,10,10,10);
 			comp.setBorder(new CompoundBorder(border, margin));

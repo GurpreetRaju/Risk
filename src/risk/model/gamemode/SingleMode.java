@@ -5,13 +5,13 @@ import risk.view.MapView;
 
 public class SingleMode implements Mode{
 
-	public SingleMode(String map, String bmp, String[] players, String[] behaviors, int moveLimit) {
-		GameController controller = new GameController(map, bmp, players, behaviors, moveLimit);
+	public SingleMode(String map, String bmp, String[][] players, int moveLimit) {
+		GameController controller = new GameController(map, bmp, players, moveLimit);
 	}
 
 	
-	public SingleMode(String map, String[] players, String[] playerBehavior, int i) {
-		GameController controller = new GameController(map, players, playerBehavior, i);
+	public SingleMode(String map, String[][] players, int i) {
+		GameController controller = new GameController(map, players, i);
 	}
 
 

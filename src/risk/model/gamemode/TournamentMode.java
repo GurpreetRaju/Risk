@@ -21,9 +21,9 @@ public class TournamentMode implements Mode{
 	private int moveLimit = 0;
 	
 	/**
-	 * List of players behaviors.
+	 * List of players and behaviors.
 	 */
-	private String[] behaviors;
+	private String[][] behaviors;
 	
 	/**
 	 * List of URLs of Maps 
@@ -58,7 +58,7 @@ public class TournamentMode implements Mode{
 		this.mController = newController;
 	}
 
-	public TournamentMode(int gamesCount, String[] mapDetails, String[] playerBehaviorDetails, int movesCount) {
+	public TournamentMode(int gamesCount, String[] mapDetails, String[][] playerBehaviorDetails, int movesCount) {
 		games = gamesCount;
 		maps = mapDetails;
 		behaviors = playerBehaviorDetails;
@@ -72,7 +72,7 @@ public class TournamentMode implements Mode{
 	}
 	
 	public void start() {
-		GameController gController = new GameController(maps[currentMap],behaviors,behaviors,moveLimit);
+		GameController gController = new GameController(maps[currentMap],behaviors,moveLimit);
 	}
 	
 	
