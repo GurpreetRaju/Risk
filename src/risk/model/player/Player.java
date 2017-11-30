@@ -369,6 +369,7 @@ public class Player {
 			}
 		}
 		if(countriesList.isEmpty()) {
+			driver.nottifyObservers(driver.getTurnManager().getPhase());
 			driver.changePhase();
 		}
 		else {
@@ -438,7 +439,7 @@ public class Player {
 		else if(aArmies>2) {
 			aArmies = 2;
 		}
-		return driver.setUpBoxInput(1, aArmies,this.name+"! Please select number of dice to roll.");
+		return this.strategy.selectDiceNumber(aArmies,name);
 	}
 	
 	/**
@@ -679,6 +680,17 @@ public class Player {
 		}else{
 			return this.strategy.placeArmy(getCountriesNames(), getName());
 		}
+	}
+	
+	/**
+	 * 
+	 * @param aArmies
+	 * @param i
+	 * @param string
+	 * @return
+	 */
+	public int moveArmies(int aArmies, int maxArmies, String message) {
+		return this.strategy.moveArmies(aArmies, maxArmies, message);
 	}
 	
 }

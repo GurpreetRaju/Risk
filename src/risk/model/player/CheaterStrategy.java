@@ -18,6 +18,10 @@ public class CheaterStrategy implements PlayerStrategy {
 	 */
 	private GameDriver driver;
 	
+	public CheaterStrategy(GameDriver nDriver) {
+		driver = nDriver;
+	}
+	
 	/**
 	 * Reinforcement phase of cheater player that doubles the number of armies on all its countries
 	 * @see risk.model.player.PlayerStrategy#reinforcementPhase(int, java.lang.String[])
@@ -28,6 +32,7 @@ public class CheaterStrategy implements PlayerStrategy {
 			driver.getCountry(country).addArmy(driver.getCountry(country).getArmiesCount());
 		}
 		driver.getCurrentPlayer().setArmies(0);
+		driver.nottifyObservers(driver.getTurnManager().getPhase());
 		driver.changePhase();
 
 	}
@@ -42,6 +47,10 @@ public class CheaterStrategy implements PlayerStrategy {
 			for (CountryNode neighbour : driver.getCountry(country).getNeighbours()) {
 				neighbour.setOwner(driver.getCurrentPlayer());
 			}
+		}
+		driver.nottifyObservers(driver.getTurnManager().getPhase());
+		if(driver.checkGameState()) {
+			driver.announceGameOver(driver.getCurrentPlayer().getName());
 		}
 	}
 
@@ -59,6 +68,7 @@ public class CheaterStrategy implements PlayerStrategy {
 				}
 			}
 		}
+		driver.nottifyObservers(driver.getTurnManager().getPhase());
 		driver.changePhase();
 	}
 
@@ -68,6 +78,17 @@ public class CheaterStrategy implements PlayerStrategy {
 	@Override
 	public String placeArmy(String[] strings, String string) {
 		return strings[new Random().nextInt(strings.length)];
+	}
+
+	@Override
+	public int selectDiceNumber(int diceToRoll, String pName) {
+		
+		return diceToRoll;
+	}
+
+	@Override
+	public int moveArmies(int aArmies, int maxArmies, String message) {
+		return new Random().nextInt(maxArmies+1-aArmies) + aArmies;
 	}
 
 }

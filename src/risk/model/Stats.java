@@ -16,11 +16,6 @@ public class Stats {
 		mode = newMode;
 	}
 	
-	/**
-	 * notify mode (TournamentMode/SingleMode) class about winner of game
-	 */
-	public static void notifyGameResult(String winnerPlayer) {
-		mode.updateResults(winnerPlayer);
-	}
+	
 	
 }

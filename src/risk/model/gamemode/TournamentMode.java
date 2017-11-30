@@ -58,7 +58,8 @@ public class TournamentMode implements Mode{
 		this.mController = newController;
 	}
 
-	public TournamentMode(int gamesCount, String[] mapDetails, String[][] playerBehaviorDetails, int movesCount) {
+	public TournamentMode(int gamesCount, String[] mapDetails, String[][] playerBehaviorDetails, int movesCount, MainController newController) {
+		mController = newController;
 		games = gamesCount;
 		maps = mapDetails;
 		behaviors = playerBehaviorDetails;
@@ -90,6 +91,7 @@ public class TournamentMode implements Mode{
 		}
 		else {
 			currentGame++;
+			start();
 		}
 	}
 

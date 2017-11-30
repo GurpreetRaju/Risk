@@ -20,6 +20,10 @@ public class BenevolentStrategy implements PlayerStrategy {
 	 */
 	private GameDriver driver = new GameDriver();
 	
+	public BenevolentStrategy(GameDriver nDriver) {
+		driver = nDriver;
+	}
+	
 	/**
 	 * Reinforcement phase of benevolent player that reinforces its weakest countries.
 	 * @see risk.model.player.PlayerStrategy#reinforcementPhase(int, java.lang.String[])
@@ -64,6 +68,7 @@ public class BenevolentStrategy implements PlayerStrategy {
 			weakCountryList.get(0).addArmy(playerArmiesLeft);
 			player.removeArmies(playerArmiesLeft);
 		}
+		driver.nottifyObservers(driver.getTurnManager().getPhase());
 		driver.changePhase();
 	}
 
@@ -74,6 +79,7 @@ public class BenevolentStrategy implements PlayerStrategy {
 	@Override
 	public void attackPhase(ArrayList<String> countryList) {
 		/*skip attack phase.*/
+		driver.nottifyObservers(driver.getTurnManager().getPhase());
 		driver.changePhase();
 	}
 	
@@ -98,6 +104,7 @@ public class BenevolentStrategy implements PlayerStrategy {
 		int average = (int)(weakest.getArmiesCount() + strongest.getArmiesCount()) / 2;
 		weakest.addArmy(average);
 		strongest.removeArmies(average);
+		driver.nottifyObservers(driver.getTurnManager().getPhase());
 		driver.changePhase();
 	}
 
@@ -123,6 +130,17 @@ public class BenevolentStrategy implements PlayerStrategy {
 			}
 		});
 		return countryList;
+	}
+
+	@Override
+	public int selectDiceNumber(int diceToRoll, String pName) {
+		
+		return diceToRoll;
+	}
+
+	@Override
+	public int moveArmies(int aArmies, int maxArmies, String message) {
+		return new Random().nextInt(maxArmies+1-aArmies) + aArmies;
 	}
 
 }

@@ -63,25 +63,27 @@ public class TurnManager {
 	 * calls <code>issueCard()</code> method from <code>GameDriver</code>.
 	 */
 	public void changePhase() {
-		if(this.getPhase().equals("Reinforcement")) {
-			this.setPhase("Attack");
-			getCurrentPlayer().attackPhase();
-		}
-		else if(this.getPhase().equals("Attack")) {
-			if(wonCard) {
-				driver.issueCard();
-				wonCard = false;
+		if(!isGameOver()) {
+			if(this.getPhase().equals("Reinforcement")) {
+				this.setPhase("Attack");
+				getCurrentPlayer().attackPhase();
 			}
-			this.setPhase("Fortification");
-			getCurrentPlayer().fortificationPhase();
-		}
-		else if(this.getPhase().equals("Fortification") && !isGameOver()) {
-			driver.setNextPlayerTurn();
-			this.setPhase("Reinforcement");
-			getCurrentPlayer().reinforcementPhase();
-		}
-		else {
-			driver.announceGameOver(getCurrentPlayer().getName());
+			else if(this.getPhase().equals("Attack")) {
+				if(wonCard) {
+					driver.issueCard();
+					wonCard = false;
+				}
+				this.setPhase("Fortification");
+				getCurrentPlayer().fortificationPhase();
+			}
+			else if(this.getPhase().equals("Fortification")) {
+				driver.setNextPlayerTurn();
+				this.setPhase("Reinforcement");
+				getCurrentPlayer().reinforcementPhase();
+			}
+			else {
+				driver.announceGameOver(getCurrentPlayer().getName());
+			}
 		}
 	}
 	
@@ -97,14 +99,16 @@ public class TurnManager {
 	 * Refreshes the phases.
 	 */
 	public void continuePhase() {
-		if(this.getPhase().equals("Reinforcement")) {
-			getCurrentPlayer().reinforcementPhase();
-		}
-		else if(this.getPhase().equals("Attack")) {
-			getCurrentPlayer().attackPhase();
-		}
-		else if(this.getPhase().equals("Fortification")) {
-			getCurrentPlayer().fortificationPhase();
+		if(!isGameOver()) {
+			if(this.getPhase().equals("Reinforcement")) {
+				getCurrentPlayer().reinforcementPhase();
+			}
+			else if(this.getPhase().equals("Attack")) {
+				getCurrentPlayer().attackPhase();
+			}
+			else if(this.getPhase().equals("Fortification")) {
+				getCurrentPlayer().fortificationPhase();
+			}
 		}
 	}
 

@@ -30,6 +30,11 @@ public class RandomStrategy implements PlayerStrategy {
 	 * Count the number of attacks.
 	 */
 	private int countAttacks = 0;
+	
+	public RandomStrategy(GameDriver nDriver) {
+		driver = nDriver;
+		turnManager = driver.getTurnManager();
+	}
 
 	/**
 	 * Reinforcement phase of random player that reinforces random a random country.
@@ -41,6 +46,7 @@ public class RandomStrategy implements PlayerStrategy {
 		CountryNode country = driver.getCountry(countryList[new Random().nextInt(countryList.length)]);
 		country.addArmy(armies);
 		driver.getCurrentPlayer().setArmies(0);
+		driver.nottifyObservers(driver.getTurnManager().getPhase());
 		driver.changePhase();
 	}
 
@@ -112,6 +118,7 @@ public class RandomStrategy implements PlayerStrategy {
 			}
 			driver.setPlayerOut(dCountry.getOwner());
 			if(!driver.checkGameState()) {
+				driver.nottifyObservers(driver.getTurnManager().getPhase());
 				driver.continuePhase();
 			}
 			else {
@@ -119,6 +126,7 @@ public class RandomStrategy implements PlayerStrategy {
 			}
 		}
 		else{
+			driver.nottifyObservers(driver.getTurnManager().getPhase());
 			driver.changePhase();
 		}
 
@@ -143,6 +151,7 @@ public class RandomStrategy implements PlayerStrategy {
 		}
 		country.getNeighbours().get(new Random().nextInt(country.getNeighbours().size())).addArmy(armies);
 		country.removeArmies(armies);
+		driver.nottifyObservers(driver.getTurnManager().getPhase());
 		driver.changePhase();
 	}
 
@@ -152,6 +161,16 @@ public class RandomStrategy implements PlayerStrategy {
 	@Override
 	public String placeArmy(String[] strings, String string) {
 		return strings[new Random().nextInt(strings.length)];
+	}
+
+	@Override
+	public int selectDiceNumber(int diceToRoll, String pName) {
+		return diceToRoll;
+	}
+
+	@Override
+	public int moveArmies(int aArmies, int maxArmies, String message) {
+		return new Random().nextInt(maxArmies+1-aArmies) + aArmies;
 	}
 
 }

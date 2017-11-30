@@ -5,6 +5,7 @@ import java.util.Observable;
 import java.util.Random;
 
 import risk.controller.GameController;
+import risk.controller.MainController;
 import risk.model.Card;
 import risk.model.RiskData;
 import risk.model.Stats;
@@ -108,13 +109,10 @@ public class GameDriver extends Observable {
 	 * @param newPlayerData String array to store elements of player name and type.
 	 */
 	public void runGame(String[][] playerData) {
-		setChanged();
-		notifyObservers("Startup");
+		nottifyObservers("Startup");
 		createPlayers(playerData);
 		startUpPhase();
 		turnManager.startTurn(this.currentPlayer);
-		setChanged();
-		notifyObservers("Reinforcement");
 	}
 	
 	/**
@@ -128,8 +126,7 @@ public class GameDriver extends Observable {
 			Player temp = new Player(playerData[i][0],RiskData.InitialArmiesCount.getArmiesCount(playerData.length), this);
 			temp.setStrategy(createBehavior(playerData[i][1]));
 			players.add(temp);
-			setChanged();
-			notifyObservers(temp.getName());
+			nottifyObservers(temp.getName());
 		}
 	}
 	
@@ -144,16 +141,16 @@ public class GameDriver extends Observable {
 				pStrategy = new HumanStrategy(this);
 			}
 			else if(strategy.equals("benevolent")) {
-				pStrategy = new BenevolentStrategy();
+				pStrategy = new BenevolentStrategy(this);
 			}
 			else if(strategy.equals("aggressive")){
-				pStrategy = new AggressiveStrategy();
+				pStrategy = new AggressiveStrategy(this);
 			}
 			else if(strategy.equals("cheater")) {
-				pStrategy = new CheaterStrategy();
+				pStrategy = new CheaterStrategy(this);
 			}
 			else if(strategy.equals("random")) {
-				pStrategy = new RandomStrategy();
+				pStrategy = new RandomStrategy(this);
 			}
 			return pStrategy;
 	}
@@ -163,11 +160,13 @@ public class GameDriver extends Observable {
 	 * @param playerData String array to store elements of player type.
 	 */
 	public void startUpPhase() {
-		
+
+		System.out.print("checkpoint 1");
 		dividingCountries(map.getMapData());
-		
+		System.out.print("checkpoint 2");
 		updatePlayerView();
-		
+
+		System.out.print("checkpoint 3");
 		/*Distribute armies to countries as per player's choice.*/
 		int totalArmiesDiv = players.get(0).getArmiesCount();
 		for(int i1=0;i1<totalArmiesDiv ;i1++){
@@ -178,6 +177,8 @@ public class GameDriver extends Observable {
 				p.removeArmies(1);
 			}
 		}
+
+		System.out.print("checkpoint 4");
 		updateMap();
 	}
 	
@@ -234,8 +235,7 @@ public class GameDriver extends Observable {
 		}
 		this.currentPlayer.setTurnTrue();
 		this.getCurrentPlayer().setArmies(this.getCurrentPlayer().getArmies());
-		setChanged();
-		notifyObservers("Cards");
+		nottifyObservers("Cards");
 	}
 	
 	/**
@@ -302,22 +302,20 @@ public class GameDriver extends Observable {
 	 * Delegate method to call method from TurnManager class to continue phases.
 	 */
 	public void continuePhase() {
-		moveCounter();
-		turnManager.continuePhase();
-		updateMap();
-		setChanged();
-		notifyObservers(turnManager.getPhase());
+		if(moveCounter()) {
+			updateMap();
+			turnManager.continuePhase();
+		}
 	}
 
 	/**
 	 * Delegate method to call method from TurnManager class to change between phases.
 	 */
 	public void changePhase() {
-		moveCounter();
-		turnManager.changePhase();
-		updateMap();
-		setChanged();
-		notifyObservers(turnManager.getPhase());
+		if(moveCounter()) {
+			turnManager.changePhase();
+			updateMap();
+		}
 	}
 	
 	/**
@@ -418,8 +416,7 @@ public class GameDriver extends Observable {
 	 */
 	public void announceAttack(String attackerCountry, String defenderCountry) {
 		this.resultNotify = "Attack Attacker Country: "+attackerCountry+"  Defender Country: "+defenderCountry+"  ";
-		setChanged();
-		notifyObservers(resultNotify);
+		nottifyObservers(resultNotify);
 		/*Announce attack on phase view.*/
 		CountryNode dCountry = map.getCountry(defenderCountry);
 		Player defender = dCountry.getOwner();
@@ -439,23 +436,18 @@ public class GameDriver extends Observable {
 			s += j +" ";
 		}
 		resultNotify += "<br>" + s;
-		System.out.println(resultNotify);
-		setChanged();
-		notifyObservers(resultNotify);
+		nottifyObservers(resultNotify);
 		battle(dCountry, defender, aCountry, aArmies, dArmies, aResults, dResults);
-		setChanged();
-		notifyObservers(resultNotify);
+		nottifyObservers(resultNotify);
 		/*check if defender country has armies left.*/
 		if(dCountry.getArmiesCount()==0) {
 			dCountry.setOwner(currentPlayer);
 			turnManager.setWonCard(true);
 			/*Notify change in ownership of a country.*/
 			resultNotify += "<br>" + " Country "+ dCountry.getCountryName() +" won by " + dCountry.getOwner().getName() + ", new armies "+dCountry.getArmiesCount();
-			setChanged();
-			notifyObservers(resultNotify);
-			System.out.println("Country "+ dCountry.getCountryName() +" won by " + dCountry.getOwner().getName() + ", new armies "+dCountry.getArmiesCount());
+			nottifyObservers(resultNotify);
 			/*move countries from attacker country to new acquired country.*/
-			int moveArmies = controller.setUpBoxInput(aArmies, aCountry.getArmiesCount()-1, "Select armies to move:");
+			int moveArmies = currentPlayer.moveArmies(aArmies, aCountry.getArmiesCount()-1, "Select armies to move:");
 			dCountry.addArmy(moveArmies);
 			aCountry.removeArmies(moveArmies);
 			if(map.continentWonByPlayer(currentPlayer, dCountry)) {
@@ -587,9 +579,10 @@ public class GameDriver extends Observable {
 	 * Call Phase View to show game over
 	 */
 	public void announceGameOver(String winner) {
-		notifyObservers("GameOver");
+		nottifyObservers("GameOver");
 		controller.removeAllControls();
-		Stats.notifyGameResult(winner);
+		System.out.print("Winner "+winner);
+		MainController.getInstance().notifyGameResult(winner);
 	}
 	
 	/**
@@ -624,15 +617,27 @@ public class GameDriver extends Observable {
 		controller.setFortificationControls(array);
 	}
 	
-	private void moveCounter() {
+	private boolean moveCounter() {
 		if(moveLimit!=0) {
 			if(moveCounter==moveLimit) {
+				turnManager.setGameOver(true);
 				announceGameOver("draw");
+				return false;
 			}
 			else {
 				moveCounter++;
 			}
 		}
+		return true;
+	}
+	
+	public TurnManager getTurnManager() {
+		return this.turnManager;
+	}
+	
+	public void nottifyObservers(String msg) {
+		setChanged();
+		notifyObservers(msg);
 	}
 
 }

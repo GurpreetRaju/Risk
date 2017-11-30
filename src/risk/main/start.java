@@ -19,8 +19,7 @@ public class start {
           creating and showing this application's GUI.*/
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                MainController c = new MainController();
-                c.initialize();
+                MainController.getInstance().initialize();
             }
         });
     }

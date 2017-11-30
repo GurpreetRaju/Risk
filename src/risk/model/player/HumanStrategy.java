@@ -31,4 +31,14 @@ public class HumanStrategy implements PlayerStrategy{
 		return (String) driver.placeArmyDialog(countries, name+" Place your army");
 	}
 
+	@Override
+	public int selectDiceNumber(int diceToRoll, String pName) {
+		return driver.setUpBoxInput(1, diceToRoll, pName+"! Please select number of dice to roll.");
+	}
+
+	@Override
+	public int moveArmies(int aArmies, int maxArmies, String message) {
+		return driver.setUpBoxInput(aArmies, maxArmies, "Select armies to move:");
+	}
+
 }
