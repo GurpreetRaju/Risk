@@ -79,7 +79,7 @@ public class TurnManager {
 			getCurrentPlayer().reinforcementPhase();
 		}
 		else {
-			driver.announceGameOver();
+			driver.announceGameOver(getCurrentPlayer().getName());
 		}
 	}
 	

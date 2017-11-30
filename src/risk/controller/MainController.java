@@ -3,6 +3,7 @@ package risk.controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import risk.model.gamemode.Mode;
 import risk.model.gamemode.SingleMode;
 import risk.model.gamemode.TournamentMode;
 import risk.view.SetUpDialog;
@@ -78,14 +79,14 @@ public class MainController {
 	private void init() {
 		String mode = this.setupBox.gameMode();
 		if(mode.equals("single")) {
-			GameController controller;
+			Mode gameMode;
 			String map = setupBox.getMapInfo("map");
 			String bmp = setupBox.getMapInfo("bmp");
 			String[] players = setupBox.getPlayerInfo();
 			if(bmp!=null) {
-	    		controller = new GameController(map, bmp, players, setupBox.getPlayerBehavior(players), 0);
+				gameMode = new SingleMode(map, bmp, players, setupBox.getPlayerBehavior(players), 0);
 			}else {
-				controller = new GameController(map, players, setupBox.getPlayerBehavior(players), 0);	
+				gameMode = new SingleMode(map, players, setupBox.getPlayerBehavior(players), 0);	
 			}
 		}
 		else if(mode.equals("tournament")){
@@ -102,7 +103,7 @@ public class MainController {
 			@Override
 			public void actionPerformed(ActionEvent a) {
 				System.out.print("Hello");
-				TournamentMode tournament = new TournamentMode(infoView.getGamesCount(), infoView.getMapDetails(),
+				Mode tournament = new TournamentMode(infoView.getGamesCount(), infoView.getMapDetails(),
 						infoView.getPlayerBehaviorDetails(), infoView.getMovesCount());
 				tournament.start();
 				infoView.dispose();
