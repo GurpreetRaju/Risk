@@ -27,11 +27,6 @@ public class RandomStrategy implements PlayerStrategy {
 	private TurnManager turnManager;
 	
 	/**
-	 * Stores the current player.
-	 */
-	private Player player = driver.getCurrentPlayer();
-	
-	/**
 	 * Count the number of attacks.
 	 */
 	private int countAttacks = 0;
@@ -63,10 +58,10 @@ public class RandomStrategy implements PlayerStrategy {
 			
 			/*calculate number of dice for attacker.*/
 			int aArmies = aCountry.getArmiesCount();
-			if(player.getTurn() && aArmies>4) {
+			if(driver.getCurrentPlayer().getTurn() && aArmies>4) {
 				aArmies = 3;
 			}
-			else if(player.getTurn()) {
+			else if(driver.getCurrentPlayer().getTurn()) {
 				aArmies -= 1;
 			}
 			else if(aArmies>2) {
@@ -77,7 +72,7 @@ public class RandomStrategy implements PlayerStrategy {
 			CountryNode dCountry = null;
 			Collections.shuffle(aCountry.getNeighbours());
 			for (CountryNode neighbour : aCountry.getNeighbours()) {
-				if (!neighbour.getOwner().getName().equals(player.getName())) {
+				if (!neighbour.getOwner().getName().equals(driver.getCurrentPlayer().getName())) {
 					dCountry = neighbour;
 					break;
 				}
@@ -85,10 +80,10 @@ public class RandomStrategy implements PlayerStrategy {
 			
 			/*calculate the number of dice for defender.*/
 			int dArmies = dCountry.getArmiesCount();
-			if(player.getTurn() && dArmies>4) {
+			if(driver.getCurrentPlayer().getTurn() && dArmies>4) {
 				dArmies = 3;
 			}
-			else if(player.getTurn()) {
+			else if(driver.getCurrentPlayer().getTurn()) {
 				dArmies -= 1;
 			}
 			else if(dArmies>2) {
@@ -102,7 +97,7 @@ public class RandomStrategy implements PlayerStrategy {
 			
 			/*check if defender country can be occupied.*/
 			if(dCountry.getArmiesCount()==0) {
-				dCountry.setOwner(player);
+				dCountry.setOwner(driver.getCurrentPlayer());
 				turnManager.setWonCard(true);
 				
 				System.out.println("Country "+ dCountry.getCountryName() +" won by " + dCountry.getOwner().getName() + ", new armies "+dCountry.getArmiesCount());
@@ -111,8 +106,8 @@ public class RandomStrategy implements PlayerStrategy {
 				int moveArmies = 1;
 				dCountry.addArmy(moveArmies);
 				aCountry.removeArmies(moveArmies);
-				if(driver.getMap().continentWonByPlayer(player, dCountry)) {
-					player.addContinent(dCountry.getContinent());
+				if(driver.getMap().continentWonByPlayer(driver.getCurrentPlayer(), dCountry)) {
+					driver.getCurrentPlayer().addContinent(dCountry.getContinent());
 				}
 			}
 			driver.setPlayerOut(dCountry.getOwner());
