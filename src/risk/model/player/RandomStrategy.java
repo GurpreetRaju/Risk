@@ -1,28 +1,138 @@
 package risk.model.player;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 import risk.model.gamemode.GameDriver;
 import risk.model.map.CountryNode;
+import risk.model.turnmanager.TurnManager;
 
+/**
+ * Class for Random player that implements the PlayerStrategy interface.
+ * @author Amitt
+ * @author Gunpreet
+ * @version 1.3
+ */
 public class RandomStrategy implements PlayerStrategy {
+	
+	/**
+	 * GameDriver instance for Cheater player.
+	 */
 	private GameDriver driver;
+	
+	/**
+	 * Object of TurnManager class.
+	 */
+	private TurnManager turnManager;
+	
+	/**
+	 * Stores the current player.
+	 */
+	Player player = driver.getCurrentPlayer();
+	
+	/**
+	 * Count the number of attacks.
+	 */
+	private int countAttacks = 0;
 
+	/**
+	 * Reinforcement phase of random player that reinforces random a random country.
+	 * @see risk.model.player.PlayerStrategy#reinforcementPhase(int, java.lang.String[])
+	 */
 	@Override
 	public void reinforcementPhase(int armies, String[] countryList) {
-		CountryNode country = driver.getCountry(countryList[new Random ().nextInt(countryList.length)]);
+		countAttacks = 0;
+		CountryNode country = driver.getCountry(countryList[new Random().nextInt(countryList.length)]);
 		country.addArmy(armies);
 		driver.getCurrentPlayer().setArmies(0);
 		driver.changePhase();
 	}
 
+	/**
+	 * Attack phase: random player  attacks a random number of times a random country.
+	 * @see risk.model.player.PlayerStrategy#attackPhase(java.util.ArrayList)
+	 */
 	@Override
 	public void attackPhase(ArrayList<String> countryList) {
-		// TODO Auto-generated method stub
+		CountryNode randomCountry = driver.getCountry(countryList.get(new Random().nextInt(countryList.size())));
+		int numberOfAttacks = new Random().nextInt(30);
+		if(randomCountry.getArmiesCount() > 1 && numberOfAttacks > countAttacks){
+			countAttacks++;
+			CountryNode aCountry = randomCountry;
+			
+			/*calculate number of dice for attacker.*/
+			int aArmies = aCountry.getArmiesCount();
+			if(player.getTurn() && aArmies>4) {
+				aArmies = 3;
+			}
+			else if(player.getTurn()) {
+				aArmies -= 1;
+			}
+			else if(aArmies>2) {
+				aArmies = 2;
+			}
+			
+			/*randomly select a country to be attacked.*/
+			CountryNode dCountry = null;
+			Collections.shuffle(aCountry.getNeighbours());
+			for (CountryNode neighbour : aCountry.getNeighbours()) {
+				if (!neighbour.getOwner().getName().equals(player.getName())) {
+					dCountry = neighbour;
+					break;
+				}
+			}
+			
+			/*calculate the number of dice for defender.*/
+			int dArmies = dCountry.getArmiesCount();
+			if(player.getTurn() && dArmies>4) {
+				dArmies = 3;
+			}
+			else if(player.getTurn()) {
+				dArmies -= 1;
+			}
+			else if(dArmies>2) {
+				dArmies = 2;
+			}
+			
+			/*find the attack result.*/
+			ArrayList<Integer> aResults = driver.diceRoll(aArmies);
+			ArrayList<Integer> dResults = driver.diceRoll(dArmies);
+			driver.battle(dCountry, dCountry.getOwner(), aCountry, aArmies, dArmies, aResults, dResults);
+			
+			/*check if defender country can be occupied.*/
+			if(dCountry.getArmiesCount()==0) {
+				dCountry.setOwner(player);
+				turnManager.setWonCard(true);
+				
+				System.out.println("Country "+ dCountry.getCountryName() +" won by " + dCountry.getOwner().getName() + ", new armies "+dCountry.getArmiesCount());
+				
+				/*move countries from attacker country to newly acquired country.*/
+				int moveArmies = 1;
+				dCountry.addArmy(moveArmies);
+				aCountry.removeArmies(moveArmies);
+				if(driver.getMap().continentWonByPlayer(player, dCountry)) {
+					player.addContinent(dCountry.getContinent());
+				}
+			}
+			driver.setPlayerOut(dCountry.getOwner());
+			if(!driver.checkGameState()) {
+				driver.continuePhase();
+			}
+			else {
+				driver.announceGameOver(driver.getPlayers().get(0).getName());
+			}
+		}
+		else{
+			driver.changePhase();
+		}
 
 	}
 
+	/**
+	 * Fortification phase of random player: fortifies a random country  
+	 * @see risk.model.player.PlayerStrategy#fortificationPhase(java.util.ArrayList)
+	 */
 	@Override
 	public void fortificationPhase(ArrayList<String> countryList) {
 		ArrayList<CountryNode> countries = new ArrayList<CountryNode>() ;

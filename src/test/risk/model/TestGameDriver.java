@@ -99,8 +99,8 @@ public class TestGameDriver {
 		ArrayList<CountryNode> countries1 = new ArrayList<CountryNode>();
 		countries1.add(country4);
 		countries1.add(country5);
-		player1 = new Player("Player1", 15, countries, new HumanStrategy(driver), driver);
-		player2 = new Player("Player2", 10, countries1, new HumanStrategy(driver), driver);
+		player1 = new Player("Player1", 15, countries, driver);
+		player2 = new Player("Player2", 10, countries1, driver);
 		country1.addArmy(1);
 		country2.addArmy(1);
 		country3.addArmy(1);
@@ -136,8 +136,8 @@ public class TestGameDriver {
 		ArrayList<CountryNode> countries1 = new ArrayList<CountryNode>();
 		countries1.add(country4);
 		countries1.add(country5);
-		player1 = new Player("Player1", 15, countries, new HumanStrategy(driver),driver);
-		player2 = new Player("Player2", 10, countries1, new HumanStrategy(driver),driver);
+		player1 = new Player("Player1", 15, countries, driver);
+		player2 = new Player("Player2", 10, countries1, driver);
 		country1.addArmy(1);
 		country2.addArmy(1);
 		country3.addArmy(1);

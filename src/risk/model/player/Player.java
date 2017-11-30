@@ -93,9 +93,8 @@ public class Player {
 	 * Initialize player object with name.
 	 * @param name name of player.
 	 */
-	public Player(String name, PlayerStrategy newStrategy, GameDriver nDriver) {
+	public Player(String name, GameDriver nDriver) {
 		this.name = name;
-		this.strategy = newStrategy;
 		this.driver = nDriver;
 		this.countries = new ArrayList<CountryNode>();
 		this.continents = new ArrayList<MapNode>();
@@ -107,8 +106,8 @@ public class Player {
 	 * @param name name of the player.
 	 * @param newArmies armies of the player.
 	 */
-	public Player(String name, int newArmies, PlayerStrategy newStrategy, GameDriver nDriver) {
-		this(name, newStrategy, nDriver);
+	public Player(String name, int newArmies, GameDriver nDriver) {
+		this(name, nDriver);
 		this.armiesCount = newArmies;
 		this.mapData = new ArrayList<MapNode>();
 	}
@@ -119,8 +118,8 @@ public class Player {
 	 * @param newArmies armies of the player.
 	 * @param countriesList ArrayList of all countries owned by player.
 	 */
-	public Player(String name, int newArmies, ArrayList<CountryNode> countriesList, PlayerStrategy newStrategy, GameDriver nDriver) {
-		this(name, newStrategy, nDriver);
+	public Player(String name, int newArmies, ArrayList<CountryNode> countriesList, GameDriver nDriver) {
+		this(name, nDriver);
 		this.armiesCount = newArmies;
 		this.mapData = new ArrayList<MapNode>();
 		for(CountryNode c: countriesList) {

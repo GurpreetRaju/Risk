@@ -10,6 +10,8 @@ import risk.model.map.CountryNode;
 
 /**
  * Class for Benevolent player that implements the PlayerStrategy interface.
+ * @author Gunpreet
+ * @version 1.3
  */
 public class BenevolentStrategy implements PlayerStrategy {
 	
@@ -35,7 +37,7 @@ public class BenevolentStrategy implements PlayerStrategy {
 	@Override
 	public void reinforcementPhase(int armies, String[] countryList) {
 		
-		//sort countries according to armies count.
+		/*sort countries according to armies count.*/
 		Collections.sort(countries, new Comparator<CountryNode>(){
 
 			@Override
@@ -44,7 +46,7 @@ public class BenevolentStrategy implements PlayerStrategy {
 			}
 		}); 
 		
-		//get the list of weak countries.
+		/*get the list of weak countries.*/
 		int countOfWeakCountries = 1;
 		ArrayList<CountryNode> weakCountryList = new ArrayList<CountryNode>();
 		weakCountryList.add(countries.get(0));
@@ -58,14 +60,14 @@ public class BenevolentStrategy implements PlayerStrategy {
 			}
 		}
 		
-		//get the integer round-off of the armies to be alloted to each weak country.
+		/*get the integer round-off of the armies to be alloted to each weak country.*/
 		int armiesToBeReinforced = (int)(player.getArmiesCount()/countOfWeakCountries);
 		for( CountryNode country: weakCountryList){
 			country.addArmy(armiesToBeReinforced);
 			player.removeArmies(armiesToBeReinforced);
 		}
 		
-		//Move the armies remaining into the first weakest country in the list.
+		/*Move the armies remaining into the first weakest country in the list.*/
 		int playerArmiesLeft = player.getArmiesCount();
 				
 		if(!(playerArmiesLeft == 0)){
@@ -82,7 +84,7 @@ public class BenevolentStrategy implements PlayerStrategy {
 	 */
 	@Override
 	public void attackPhase(ArrayList<String> countryList) {
-		//skip attack phase.
+		/*skip attack phase.*/
 		driver.changePhase();
 	}
 	
@@ -92,7 +94,7 @@ public class BenevolentStrategy implements PlayerStrategy {
 	 */
 	@Override
 	public void fortificationPhase(ArrayList<String> countryList) {
-		//fortify the weakest country.
+		/*fortify the weakest country.*/
 		CountryNode weakest = countries.get(0);
 		CountryNode strongest = countries.get(countries.size()-1);
 		int average = (int)(weakest.getArmiesCount() + strongest.getArmiesCount()) / 2;
