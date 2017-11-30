@@ -100,6 +100,7 @@ public class SetUpDialog {
 	/**
 	 * Places army on the selected countries.
 	 * @param countryList List of countries where the player can place armies.
+	 * @param message Message to be displayed for the dialog box.
 	 * @return country name selected.
 	 */
 	public String placeArmyDialog(String[] countryList, String message) {
@@ -208,7 +209,7 @@ public class SetUpDialog {
 	public String[] getPlayerBehavior(String[] playerInfo) {
 		String[] behaviors = new String[playerInfo.length];
 		for(int i=0;i<playerInfo.length;i++) {
-			behaviors[i] = "Human";
+			behaviors[i] = "human";
 		}
 		return behaviors;
 	}

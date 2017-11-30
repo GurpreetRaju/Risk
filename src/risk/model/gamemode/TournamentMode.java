@@ -3,7 +3,7 @@ package risk.model.gamemode;
 import risk.controller.GameController;
 import risk.controller.MainController;
 
-public class TournamentMode {
+public class TournamentMode implements Mode{
 	
 	/**
 	 * Object reference to MainController object
@@ -41,6 +41,16 @@ public class TournamentMode {
 	private String[][] winners;
 	
 	/**
+	 * Current map on which game is playing
+	 */
+	private int currentMap;
+	
+	/**
+	 *  Current game number playing
+	 */
+	private int currentGame;
+	
+	/**
 	 *  Constructor for TournamentMode class.
 	 *  @param newController object of MainController class.
 	 */
@@ -54,17 +64,31 @@ public class TournamentMode {
 		behaviors = playerBehaviorDetails;
 		moveLimit = movesCount;
 		winners = new String[mapDetails.length][gamesCount];
+		currentMap = 0;
+		currentGame = 1;
 	}
 	
 	public void start() {
-		for(int m = 0; m < maps.length; m++) {
-			for(int g = 0; g < games; g++) {
-				GameController gController = new GameController(maps[m],behaviors,behaviors,moveLimit);
-				winners[m][g] = gController.start(behaviors,behaviors);
-			}
-		}
+		GameController gController = new GameController(maps[currentMap],behaviors,behaviors,moveLimit);
 	}
 	
 	
-	
+
+	public void updateResults(String winner) {
+		winners[currentMap][currentGame] = winner;
+		if(currentGame==games) {
+			if(currentMap<(maps.length-1)) {
+				currentMap++;
+				currentGame = 1;
+				start();
+			}
+			else {
+				//Show results
+			}
+		}
+		else {
+			currentGame++;
+		}
+	}
+
 }

@@ -97,7 +97,7 @@ public class GameController {
 	/**
 	 * Controller class constructor to initialize GameDriver and SetUpDialog class objects.
 	 * @param newDriver GameDriver instance.
-	 * @param newSetupBox SetUpDialog object
+	 * @param newSetupBox SetUpDialog object.
 	 */
 	public GameController(String newMap, String newMapImage, String[] playerNames, String[] behaviors, int moveLimit) {
 		mapGUI = new MapView(newMapImage);
@@ -123,6 +123,7 @@ public class GameController {
 		playerInfoGUI = new PlayerInfoView();
 		playerInfoGUI.setPlayerInfo(playerNames);
 		init();
+		driver.runGame(playerNames, behaviors);
 	}
 	
 	/**
@@ -146,6 +147,7 @@ public class GameController {
 	/**
 	 * Calls the placeArmyDialog function of SetUpDialog class.
 	 * @param countriesNamesNoArmy list of countries with no armies. 
+	 * @param message message explaining the purpose of input.
 	 * @return the country selected by the user to place army.
 	 */
 	public String placeArmyDialog(String[] countriesNamesNoArmy, String message) {
@@ -265,11 +267,6 @@ public class GameController {
 
 	public void setFortificationControls(String[] array) {
 		controlsGUI.fortificationControls(array);		
-	}
-
-	public String start(String[] playerNames, String[] behaviors) {
-		driver.runGame(playerNames, behaviors);
-		return "draw";
 	}
 	
 }

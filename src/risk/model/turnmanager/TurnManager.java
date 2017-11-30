@@ -34,6 +34,7 @@ public class TurnManager {
 	
 	/**
 	 * Empty constructor to create object for observer.
+	 * @param nDriver GameDriver instance.
 	 */
 	public TurnManager(GameDriver nDriver){
 		driver = nDriver;
@@ -42,6 +43,7 @@ public class TurnManager {
 	/**
 	 * Constructor to set the phase name.
 	 * @param string Phase name.
+	 * @param nDriver GameDriver instance.
 	 */
 	public TurnManager(String string, GameDriver nDriver){
 		this(nDriver);
@@ -79,7 +81,7 @@ public class TurnManager {
 			getCurrentPlayer().reinforcementPhase();
 		}
 		else {
-			driver.announceGameOver();
+			driver.announceGameOver(getCurrentPlayer().getName());
 		}
 	}
 	

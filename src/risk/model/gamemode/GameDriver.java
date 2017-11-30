@@ -7,13 +7,18 @@ import java.util.Random;
 import risk.controller.GameController;
 import risk.model.Card;
 import risk.model.RiskData;
+import risk.model.Stats;
 import risk.model.map.CountryNode;
 import risk.model.map.Map;
 import risk.model.map.MapNode;
+import risk.model.player.AggressiveStrategy;
+import risk.model.player.BenevolentStrategy;
+import risk.model.player.CheaterStrategy;
 import risk.model.player.HumanStrategy;
 import risk.model.player.Player;
+import risk.model.player.PlayerStrategy;
+import risk.model.player.RandomStrategy;
 import risk.model.turnmanager.TurnManager;
-import risk.view.*;
 
 /**
  * This class controls the turns - Startup phase, Fortification, reinforcement and attack phase.
@@ -59,14 +64,20 @@ public class GameDriver extends Observable {
 	 */
 	private String resultNotify;
 	
-	private int moveLimit = 0;;
+	/**
+	 * Number of limits for game
+	 */
+	private int moveLimit = 0;
+	
+	/**
+	 * Counts the number of moves
+	 */
+	private int moveCounter = 0;
 	
 	/**
 	 * Constructor initialize the GUI and  map class object.
 	 * Constructor is private so objects can not be created directly for this class.
-	 * @param moveLimit Number of moves limited to game
-	 * @param behaviors list of behaviors of players
-	 * @param playerNames names of players
+	 * @param newMoveLimit Number of moves limited to game
 	 * @param newMap url of map game to be played on
 	 */
 	public GameDriver(String newMap, int newMoveLimit) {
@@ -94,23 +105,68 @@ public class GameDriver extends Observable {
 	
 	/**
 	 * Starts the game.
+	 * @param newPlayerData String array to store elements of player type.
+	 * @param behaviors Defines the behavior of the corresponding players.
 	 */
-	public void runGame(String[] newPlayerData, String[] behaviors) {
+	public void runGame(String[] playerData, String[] behaviors) {
 		setChanged();
 		notifyObservers("Startup");
-		startUpPhase(newPlayerData);
+		createPlayers(playerData, behaviors);
+		startUpPhase();
 		turnManager.startTurn(this.currentPlayer);
 		setChanged();
 		notifyObservers("Reinforcement");
 	}
 	
 	/**
+	 * Create player objects
+	 * @param playerData name of players
+	 * @param behaviors behavior of players
+	 */
+	public void createPlayers(String[] playerData, String[] behaviors) {
+		players = new ArrayList<Player>();
+		for(int i=0; i < playerData.length; i++){
+			Player temp = new Player(playerData[i],RiskData.InitialArmiesCount.getArmiesCount(playerData.length), createBehavior(behaviors[i]), this);
+			players.add(temp);
+			setChanged();
+			notifyObservers(temp.getName());
+		}
+	}
+	
+	/**
+	 * Create PlayerStartegy object from string
+	 * @param strategy strategy for which object is required
+	 * @return object of PlayerStrategy
+	 */
+	private PlayerStrategy createBehavior(String strategy) {
+			PlayerStrategy pStrategy = null;
+			switch(strategy) {
+				case "human":
+					new HumanStrategy(this);
+					break;
+				case "benevolent":
+					new BenevolentStrategy();
+					break;
+				case "aggressive":
+					new AggressiveStrategy();
+					break;
+				case "cheater":
+					new CheaterStrategy();
+					break;
+				case "random":
+					new RandomStrategy();
+					break;
+			}
+			return pStrategy;
+	}
+
+	/**
 	 * This method starts the startup phase of game. It assigns countries to players.
 	 * @param playerData String array to store elements of player type.
 	 */
-	public void startUpPhase(String[] playerData) {
+	public void startUpPhase() {
 		
-		dividingCountries(playerData,map.getMapData());
+		dividingCountries(map.getMapData());
 		
 		updatePlayerView();
 		
@@ -132,14 +188,7 @@ public class GameDriver extends Observable {
 	 * @param playerData list of players
 	 * @param mapData arraylist containing MapNode Objects representing continents
 	 */
-	public void dividingCountries(String[] playerData, ArrayList<MapNode> mapData) {
-		players = new ArrayList<Player>();
-		for(String newPlayer: playerData){
-			Player temp = new Player(newPlayer,RiskData.InitialArmiesCount.getArmiesCount(playerData.length), new HumanStrategy(this), this);
-			players.add(temp);
-			setChanged();
-			notifyObservers(temp.getName());
-		}
+	public void dividingCountries(ArrayList<MapNode> mapData) {
 		players.get(0).setTurnTrue();
 		this.currentPlayer = players.get(0);
 		int i = 0;
@@ -255,16 +304,18 @@ public class GameDriver extends Observable {
 	 * Delegate method to call method from TurnManager class to continue phases.
 	 */
 	public void continuePhase() {
+		moveCounter();
 		turnManager.continuePhase();
 		updateMap();
 		setChanged();
 		notifyObservers(turnManager.getPhase());
 	}
-	
+
 	/**
 	 * Delegate method to call method from TurnManager class to change between phases.
 	 */
 	public void changePhase() {
+		moveCounter();
 		turnManager.changePhase();
 		updateMap();
 		setChanged();
@@ -415,12 +466,16 @@ public class GameDriver extends Observable {
 		}
 		map.updateMap();
 		setPlayerOut(defender);
-		checkGameState();
-		continuePhase();
+		if(!checkGameState()) {
+			continuePhase();
+		}
+		else {
+			announceGameOver(players.get(0).getName());
+		}
 	}
 	
 	/**
-	 * This method decides the result of battle between attacking country and defecding country and update the state of countries.
+	 * This method decides the result of battle between attacking country and defending country and update the state of countries.
 	 * @param dCountry country defending the attack
 	 * @param defender player defending the attack
 	 * @param aCountry attacking country
@@ -533,9 +588,10 @@ public class GameDriver extends Observable {
 	/**
 	 * Call Phase View to show game over
 	 */
-	public void announceGameOver() {
+	public void announceGameOver(String winner) {
 		notifyObservers("GameOver");
 		controller.removeAllControls();
+		Stats.notifyGameResult(winner);
 	}
 	
 	/**
@@ -568,6 +624,17 @@ public class GameDriver extends Observable {
 
 	public void fortificationControls(String[] array) {
 		controller.setFortificationControls(array);
+	}
+	
+	private void moveCounter() {
+		if(moveLimit!=0) {
+			if(moveCounter==moveLimit) {
+				announceGameOver("draw");
+			}
+			else {
+				moveCounter++;
+			}
+		}
 	}
 
 }
