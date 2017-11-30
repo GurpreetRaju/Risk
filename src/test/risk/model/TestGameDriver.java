@@ -169,9 +169,8 @@ public class TestGameDriver {
 		MapNode m = new MapNode("Asia", countries, 2);
 		mapData = new ArrayList<MapNode>();
 		mapData.add(m);
-		String[] playerData = {"Player3","Player4"};
-		String[] behaviors = {"human", "human"};
-		driver.createPlayers(playerData, behaviors);
+		String[][] playerData = {{"Player3","human"},{"Player4","human"}};
+		driver.createPlayers(playerData);
 		driver.dividingCountries(mapData);
 		assertEquals(2,driver.getCurrentPlayer().getPlayerCountryCount());
 	}
