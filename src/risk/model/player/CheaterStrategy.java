@@ -8,6 +8,8 @@ import risk.model.map.CountryNode;
 
 /**
  * Class for Cheater player that implements the PlayerStrategy interface.
+ * @author Amitt
+ * @version 1.3
  */
 public class CheaterStrategy implements PlayerStrategy {
 

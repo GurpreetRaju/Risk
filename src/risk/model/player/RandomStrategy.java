@@ -10,6 +10,9 @@ import risk.model.turnmanager.TurnManager;
 
 /**
  * Class for Random player that implements the PlayerStrategy interface.
+ * @author Amitt
+ * @author Gunpreet
+ * @version 1.3
  */
 public class RandomStrategy implements PlayerStrategy {
 	
