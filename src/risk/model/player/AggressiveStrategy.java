@@ -5,8 +5,10 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Random;
 
+import risk.controller.GameController;
 import risk.model.gamemode.GameDriver;
 import risk.model.map.CountryNode;
+import risk.model.turnmanager.TurnManager;
 
 /**
  * Class for Aggressive player that implements the PlayerStrategy interface.
@@ -17,6 +19,16 @@ public class AggressiveStrategy implements PlayerStrategy {
 	 * GameDriver instance for benevolent player.
 	 */
 	GameDriver driver = new GameDriver();
+	
+	/**
+	 * Object of TurnManager class.
+	 */
+	private TurnManager turnManager;
+	
+	/**
+	 * Object of Controller class.
+	 */
+	private GameController controller;
 	
 	/**
 	 * Stores the current player.
@@ -89,17 +101,74 @@ public class AggressiveStrategy implements PlayerStrategy {
 	 */
 	@Override
 	public void attackPhase(ArrayList<String> countryList) {
-		//to be implemented
-		
-		/*
-		 if(strongest.getArmiesCount() > 1){
-			CountryNode toBeAttacked = strongest.getNeighbours().get(new Random().nextInt(strongest.getNeighbours().size()));
+		if(strongest.getArmiesCount() > 1){
+			CountryNode aCountry = strongest;
 			
+			//calculate number of dice for attacker.
+			int aArmies = aCountry.getArmiesCount();
+			if(player.getTurn() && aArmies>4) {
+				aArmies = 3;
+			}
+			else if(player.getTurn()) {
+				aArmies -= 1;
+			}
+			else if(aArmies>2) {
+				aArmies = 2;
+			}
+			
+			//randomly select a country to be attacked.
+			CountryNode dCountry = null;
+			Collections.shuffle(aCountry.getNeighbours());
+			for (CountryNode neighbour : aCountry.getNeighbours()) {
+				if (!neighbour.getOwner().getName().equals(player.getName())) {
+					dCountry = neighbour;
+					break;
+				}
+			}
+			
+			//calculate the number of dice for defender.
+			int dArmies = dCountry.getArmiesCount();
+			if(player.getTurn() && dArmies>4) {
+				dArmies = 3;
+			}
+			else if(player.getTurn()) {
+				dArmies -= 1;
+			}
+			else if(dArmies>2) {
+				dArmies = 2;
+			}
+			
+			//find the attack result.
+			ArrayList<Integer> aResults = driver.diceRoll(aArmies);
+			ArrayList<Integer> dResults = driver.diceRoll(dArmies);
+			driver.battle(dCountry, dCountry.getOwner(), aCountry, aArmies, dArmies, aResults, dResults);
+			
+			/*check if defender country can be occupied.*/
+			if(dCountry.getArmiesCount()==0) {
+				dCountry.setOwner(player);
+				turnManager.setWonCard(true);
+				
+				System.out.println("Country "+ dCountry.getCountryName() +" won by " + dCountry.getOwner().getName() + ", new armies "+dCountry.getArmiesCount());
+				/*move countries from attacker country to newly acquired country.*/
+				int moveArmies = 1;
+				dCountry.addArmy(moveArmies);
+				aCountry.removeArmies(moveArmies);
+				if(driver.getMap().continentWonByPlayer(player, dCountry)) {
+					player.addContinent(dCountry.getContinent());
+				}
+			}
+			driver.setPlayerOut(dCountry.getOwner());
+			if(!driver.checkGameState()) {
+				driver.continuePhase();
+			}
+			else {
+				driver.announceGameOver(player.getName());
+			}
 		}
 		else{
 			driver.changePhase();
 		}
-		*/
+		
 	}
 
 	/**
@@ -117,6 +186,9 @@ public class AggressiveStrategy implements PlayerStrategy {
 
 	}
 
+	/**
+	 * Distribute armies in startup phase.
+	 */
 	@Override
 	public String placeArmy(String[] strings, String string) {
 		return strings[new Random().nextInt(strings.length)];

@@ -7,7 +7,7 @@ public class Stats {
 	/**
 	 * reference to Mode object 
 	 */
-	private Mode mode;
+	private static Mode mode;
 	
 	/**
 	 * 
@@ -16,8 +16,11 @@ public class Stats {
 		mode = newMode;
 	}
 	
-	public void notifyGameResult() {
-		mode.updateResults();
+	/**
+	 * 
+	 */
+	public static void notifyGameResult(String winnerPlayer) {
+		mode.updateResults(winnerPlayer);
 	}
 	
 }

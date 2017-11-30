@@ -7,6 +7,7 @@ import java.util.Random;
 import risk.controller.GameController;
 import risk.model.Card;
 import risk.model.RiskData;
+import risk.model.Stats;
 import risk.model.map.CountryNode;
 import risk.model.map.Map;
 import risk.model.map.MapNode;
@@ -59,14 +60,20 @@ public class GameDriver extends Observable {
 	 */
 	private String resultNotify;
 	
-	private int moveLimit = 0;;
+	/**
+	 * Number of limits for game
+	 */
+	private int moveLimit = 0;
+	
+	/**
+	 * Counts the number of moves
+	 */
+	private int moveCounter = 0;
 	
 	/**
 	 * Constructor initialize the GUI and  map class object.
 	 * Constructor is private so objects can not be created directly for this class.
-	 * @param moveLimit Number of moves limited to game
-	 * @param behaviors list of behaviors of players
-	 * @param playerNames names of players
+	 * @param newMoveLimit Number of moves limited to game
 	 * @param newMap url of map game to be played on
 	 */
 	public GameDriver(String newMap, int newMoveLimit) {
@@ -94,6 +101,8 @@ public class GameDriver extends Observable {
 	
 	/**
 	 * Starts the game.
+	 * @param newPlayerData String array to store elements of player type.
+	 * @param behaviors Defines the behavior of the corresponding players.
 	 */
 	public void runGame(String[] newPlayerData, String[] behaviors) {
 		setChanged();
@@ -255,16 +264,18 @@ public class GameDriver extends Observable {
 	 * Delegate method to call method from TurnManager class to continue phases.
 	 */
 	public void continuePhase() {
+		moveCounter();
 		turnManager.continuePhase();
 		updateMap();
 		setChanged();
 		notifyObservers(turnManager.getPhase());
 	}
-	
+
 	/**
 	 * Delegate method to call method from TurnManager class to change between phases.
 	 */
 	public void changePhase() {
+		moveCounter();
 		turnManager.changePhase();
 		updateMap();
 		setChanged();
@@ -419,12 +430,12 @@ public class GameDriver extends Observable {
 			continuePhase();
 		}
 		else {
-			announceGameOver();
+			announceGameOver(players.get(0).getName());
 		}
 	}
 	
 	/**
-	 * This method decides the result of battle between attacking country and defecding country and update the state of countries.
+	 * This method decides the result of battle between attacking country and defending country and update the state of countries.
 	 * @param dCountry country defending the attack
 	 * @param defender player defending the attack
 	 * @param aCountry attacking country
@@ -537,9 +548,10 @@ public class GameDriver extends Observable {
 	/**
 	 * Call Phase View to show game over
 	 */
-	public void announceGameOver() {
+	public void announceGameOver(String winner) {
 		notifyObservers("GameOver");
 		controller.removeAllControls();
+		Stats.notifyGameResult(winner);
 	}
 	
 	/**
@@ -572,6 +584,17 @@ public class GameDriver extends Observable {
 
 	public void fortificationControls(String[] array) {
 		controller.setFortificationControls(array);
+	}
+	
+	private void moveCounter() {
+		if(moveLimit!=0) {
+			if(moveCounter==moveLimit) {
+				announceGameOver("draw");
+			}
+			else {
+				moveCounter++;
+			}
+		}
 	}
 
 }
