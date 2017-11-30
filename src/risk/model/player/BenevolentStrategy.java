@@ -101,6 +101,9 @@ public class BenevolentStrategy implements PlayerStrategy {
 		driver.changePhase();
 	}
 
+	/**
+	 * Distribute armies in startup phase.
+	 */
 	@Override
 	public String placeArmy(String[] strings, String string) {
 		return strings[new Random().nextInt(strings.length)];

@@ -73,9 +73,7 @@ public class GameDriver extends Observable {
 	/**
 	 * Constructor initialize the GUI and  map class object.
 	 * Constructor is private so objects can not be created directly for this class.
-	 * @param moveLimit Number of moves limited to game
-	 * @param behaviors list of behaviors of players
-	 * @param playerNames names of players
+	 * @param newMoveLimit Number of moves limited to game
 	 * @param newMap url of map game to be played on
 	 */
 	public GameDriver(String newMap, int newMoveLimit) {
@@ -103,6 +101,8 @@ public class GameDriver extends Observable {
 	
 	/**
 	 * Starts the game.
+	 * @param newPlayerData String array to store elements of player type.
+	 * @param behaviors Defines the behavior of the corresponding players.
 	 */
 	public void runGame(String[] newPlayerData, String[] behaviors) {
 		setChanged();
@@ -435,7 +435,7 @@ public class GameDriver extends Observable {
 	}
 	
 	/**
-	 * This method decides the result of battle between attacking country and defecding country and update the state of countries.
+	 * This method decides the result of battle between attacking country and defending country and update the state of countries.
 	 * @param dCountry country defending the attack
 	 * @param defender player defending the attack
 	 * @param aCountry attacking country
