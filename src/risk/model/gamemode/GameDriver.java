@@ -37,7 +37,7 @@ import risk.model.turnmanager.TurnManager;
 public class GameDriver extends Observable {
 	
 	/**
-	 * Object of Map class.
+	 * map variable to store reference of class Map
 	 */
 	private Map map;
 	
@@ -47,22 +47,22 @@ public class GameDriver extends Observable {
 	private ArrayList<Player> players;
 	
 	/**
-	 * Object of Controller class.
+	 * controller variable to store reference of class GameController
 	 */
 	private GameController controller;
 		
 	/**
-	 * Object of TurnManager class.
+	 * turnManager variable to store reference of class TurnManager
 	 */
 	private TurnManager turnManager;
 	
 	/**
-	 * Object of Player class.
+	 * currentPlayer variable to store reference of class Player
 	 */
 	private Player currentPlayer;
 
 	/**
-	 * Pile of cards
+	 * List of cards
 	 */
 	private ArrayList<Card> cards;
 	
@@ -163,6 +163,7 @@ public class GameDriver extends Observable {
 
 	/**
 	 * This method starts the startup phase of game. It assigns countries to players.
+	 * @see updateMap()
 	 * @param playerData String array to store elements of player type.
 	 */
 	public void startUpPhase() {
@@ -183,6 +184,7 @@ public class GameDriver extends Observable {
 	
 	/**
 	 * This method create player objects and divide countries among them.
+	 * @see notifyObservers
 	 * @param playerData list of players
 	 * @param mapData arraylist containing MapNode Objects representing continents
 	 */
@@ -302,6 +304,7 @@ public class GameDriver extends Observable {
 
 	/**
 	 * Delegate method to call method from TurnManager class to continue phases.
+	 * @see updateMap()
 	 */
 	public void continuePhase() {
 		updateMap();
@@ -310,6 +313,7 @@ public class GameDriver extends Observable {
 
 	/**
 	 * Delegate method to call method from TurnManager class to change between phases.
+	 * @see updateMap()
 	 */
 	public void changePhase() {
 		turnManager.changePhase();
@@ -318,6 +322,7 @@ public class GameDriver extends Observable {
 	
 	/**
 	 * Delegate method to call updateMap method from map class.
+	 * @see updateMap()
 	 */
 	public void updateMap() {
 		map.updateMap();
@@ -600,18 +605,31 @@ public class GameDriver extends Observable {
 		this.currentPlayer = player1;
 	}
 
+	/**
+	 * @return place army dialog
+	 * @param player1 player to be set as current player
+	 */
 	public Object placeArmyDialog(String[] countries, String string) {
 		return controller.placeArmyDialog(countries, string);
 	}
 
+	/**
+	 * control reinforcements
+	 */
 	public void reinforcementControls(int armies, String[] countryList) {
 		controller.setReinforcementControls(armies, countryList);
 	}
 
+	/**
+	 * attack controls
+	 */
 	public void attackControls(String[] array) {
 		controller.setAttackControls(array);
 	}
 
+	/**
+	 * controls fortification
+	 */
 	public void fortificationControls(String[] array) {
 		controller.setFortificationControls(array);
 	}
@@ -630,10 +648,16 @@ public class GameDriver extends Observable {
 		return true;
 	}
 	
+	/**
+	 * @return turnManager
+	 */
 	public TurnManager getTurnManager() {
 		return this.turnManager;
 	}
 	
+	/**
+	 * observer pattern
+	 */
 	public void nottifyObservers(String msg) {
 		setChanged();
 		notifyObservers(msg);
