@@ -20,6 +20,10 @@ public class BenevolentStrategy implements PlayerStrategy {
 	 */
 	private GameDriver driver = new GameDriver();
 	
+	/**
+	 * Constructor to initialize gamedriver.
+	 * @param nDriver GameDriver Instance.
+	 */
 	public BenevolentStrategy(GameDriver nDriver) {
 		driver = nDriver;
 	}
@@ -81,22 +85,36 @@ public class BenevolentStrategy implements PlayerStrategy {
 		return countryList;
 	}
 
+	/**
+	* @return number of dice rolls
+	*/
 	@Override
 	public int selectDiceNumber(int diceToRoll, String pName) {
 		
 		return diceToRoll;
 	}
 
+	/**
+	 * Armies to be moved for fortification.
+	 */
 	@Override
 	public int moveArmies(int aArmies, int maxArmies, String message) {
 		return new Random().nextInt(maxArmies+1-aArmies) + aArmies;
 	}
 	
+	/**
+	* @return strategy name
+	*/
 	@Override
 	public String getStrategyName() {
 		return "benevolent";
 	}
 
+	/**
+	 * Benevolent Reinforcement.
+	 * @param armies armies to be reinforced.
+	 * @param countryList countries of the player.
+	 */
 	public void reinforcement(int armies, String[] countryList) {
 		ArrayList<CountryNode> countries = new ArrayList<CountryNode>();
 		/*get country node for corresponding country name.*/
@@ -139,6 +157,10 @@ public class BenevolentStrategy implements PlayerStrategy {
 		}
 	}
 	
+	/**
+	 * Benevolent fortification.
+	 * @param countryList countries of the player.
+	 */
 	public void fortify(ArrayList<String> countryList) {
 		ArrayList<CountryNode> countries = new ArrayList<CountryNode>();
 		/*get country node for corresponding country name.*/

@@ -2,9 +2,13 @@ package risk.model.player;
 
 import java.util.ArrayList;
 
+/**
+ * Interface for various Player Strategies.
+ */
 public interface PlayerStrategy {
+
 	/**
-	 * Execute the reinforcement phase accoding to startegy.
+	 * Execute the reinforcement phase according to strategy.
 	 * @param armies number of armies player can use to reinforce
 	 * @param countryList list of countries player owns
 	 */
