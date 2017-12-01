@@ -693,6 +693,14 @@ public class Player {
 		return this.strategy.moveArmies(aArmies, maxArmies, message);
 	}
 	
+	public String getPlayerStrategy(){
+		return this.strategy.getStrategyName();
+	}
+
+	public void setMapData(ArrayList<MapNode> newMapData) {
+		this.mapData = newMapData;
+	}
+	
 }
 
 

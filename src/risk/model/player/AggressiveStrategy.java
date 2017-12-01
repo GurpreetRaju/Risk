@@ -121,6 +121,7 @@ public class AggressiveStrategy implements PlayerStrategy {
 		return new Random().nextInt(maxArmies+1-aArmies) + aArmies;
 	}
 	
+
 	public void reinforcement(int armies,String [] countryList) {
 		ArrayList<CountryNode> countries = new ArrayList<CountryNode>();
 		/*get country node for corresponding country name.*/
@@ -155,4 +156,11 @@ public class AggressiveStrategy implements PlayerStrategy {
 			}
 		}
 	}
+
+	@Override
+	public String getStrategyName() {
+		return "aggressive";
+	}
+
+
 }

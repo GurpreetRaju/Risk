@@ -2,9 +2,11 @@ package risk.view;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
@@ -17,6 +19,8 @@ import javax.swing.JTextField;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.filechooser.FileNameExtensionFilter;
+
+import risk.controller.MainController;
 
 
 /**
@@ -46,6 +50,34 @@ public class SetUpDialog {
 	 * Stores the path of the map file uploaded.
 	 */
 	private String mapRead = null;
+	
+	public void loadSaveGameOption(){
+		JFrame frame1 = new JFrame();
+		frame1.setLayout(new BoxLayout(frame1.getContentPane(),BoxLayout.Y_AXIS));
+		JButton newGame = new JButton("New Game");
+		JButton loadGame = new JButton("Load Game");
+		frame1.add(newGame);
+		frame1.add(loadGame);
+		frame1.pack();
+		frame1.setVisible(true);
+		newGame.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				MainController.getInstance().singleGameInit();
+			}
+			
+		});
+		loadGame.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				MainController.getInstance().singleGameLoadInit();
+				
+			}
+			
+		});
+	}
 	
 	/**
 	 * Ask user to enter an integer value.

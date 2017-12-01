@@ -1,6 +1,13 @@
 package risk.model.gamemode;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Observable;
 import java.util.Random;
 
@@ -8,7 +15,6 @@ import risk.controller.GameController;
 import risk.controller.MainController;
 import risk.model.Card;
 import risk.model.RiskData;
-import risk.model.Stats;
 import risk.model.map.CountryNode;
 import risk.model.map.Map;
 import risk.model.map.MapNode;
@@ -31,7 +37,7 @@ import risk.model.turnmanager.TurnManager;
 public class GameDriver extends Observable {
 	
 	/**
-	 * Object of Map class.
+	 * map variable to store reference of class Map
 	 */
 	private Map map;
 	
@@ -41,22 +47,22 @@ public class GameDriver extends Observable {
 	private ArrayList<Player> players;
 	
 	/**
-	 * Object of Controller class.
+	 * controller variable to store reference of class GameController
 	 */
 	private GameController controller;
 		
 	/**
-	 * Object of TurnManager class.
+	 * turnManager variable to store reference of class TurnManager
 	 */
 	private TurnManager turnManager;
 	
 	/**
-	 * Object of Player class.
+	 * currentPlayer variable to store reference of class Player
 	 */
 	private Player currentPlayer;
 
 	/**
-	 * Pile of cards
+	 * List of cards
 	 */
 	private ArrayList<Card> cards;
 	
@@ -124,6 +130,7 @@ public class GameDriver extends Observable {
 		players = new ArrayList<Player>();
 		for(int i=0; i < playerData.length; i++){
 			Player temp = new Player(playerData[i][0],RiskData.InitialArmiesCount.getArmiesCount(playerData.length), this);
+			temp.setMapData(map.getMapData());
 			temp.setStrategy(createBehavior(playerData[i][1]));
 			players.add(temp);
 			nottifyObservers("Player created and  added "+temp.getName());
@@ -157,6 +164,7 @@ public class GameDriver extends Observable {
 
 	/**
 	 * This method starts the startup phase of game. It assigns countries to players.
+	 * @see updateMap()
 	 * @param playerData String array to store elements of player type.
 	 */
 	public void startUpPhase() {
@@ -177,6 +185,7 @@ public class GameDriver extends Observable {
 	
 	/**
 	 * This method create player objects and divide countries among them.
+	 * @see notifyObservers
 	 * @param playerData list of players
 	 * @param mapData arraylist containing MapNode Objects representing continents
 	 */
@@ -296,6 +305,7 @@ public class GameDriver extends Observable {
 
 	/**
 	 * Delegate method to call method from TurnManager class to continue phases.
+	 * @see updateMap()
 	 */
 	public void continuePhase() {
 		updateMap();
@@ -304,6 +314,7 @@ public class GameDriver extends Observable {
 
 	/**
 	 * Delegate method to call method from TurnManager class to change between phases.
+	 * @see updateMap()
 	 */
 	public void changePhase() {
 		turnManager.changePhase();
@@ -312,6 +323,7 @@ public class GameDriver extends Observable {
 	
 	/**
 	 * Delegate method to call updateMap method from map class.
+	 * @see updateMap()
 	 */
 	public void updateMap() {
 		map.updateMap();
@@ -514,7 +526,7 @@ public class GameDriver extends Observable {
 	/**
 	 * delegate method to call setUpBoxInput from controller class.
 	 * @param min minimum value user can select 
-	 * @param max maximum vlaue user can select
+	 * @param max maximum value user can select
 	 * @param message message explaining the purpose of input
 	 * @return a number selected by user
 	 */
@@ -537,7 +549,7 @@ public class GameDriver extends Observable {
 	}
 	
 	/**
-	 * This method return maxuimum value in a arraylist.
+	 * This method return maximum value in a arraylist.
 	 * @param array list from which max value to be searched
 	 * @return index of maximum value in list
 	 */
@@ -594,18 +606,31 @@ public class GameDriver extends Observable {
 		this.currentPlayer = player1;
 	}
 
+	/**
+	 * @return place army dialog
+	 * @param player1 player to be set as current player
+	 */
 	public Object placeArmyDialog(String[] countries, String string) {
 		return controller.placeArmyDialog(countries, string);
 	}
 
+	/**
+	 * control reinforcements
+	 */
 	public void reinforcementControls(int armies, String[] countryList) {
 		controller.setReinforcementControls(armies, countryList);
 	}
 
+	/**
+	 * attack controls
+	 */
 	public void attackControls(String[] array) {
 		controller.setAttackControls(array);
 	}
 
+	/**
+	 * controls fortification
+	 */
 	public void fortificationControls(String[] array) {
 		controller.setFortificationControls(array);
 	}
@@ -624,13 +649,92 @@ public class GameDriver extends Observable {
 		return true;
 	}
 	
+	/**
+	 * @return turnManager
+	 */
 	public TurnManager getTurnManager() {
 		return this.turnManager;
 	}
 	
+	/**
+	 * observer pattern
+	 */
 	public void nottifyObservers(String msg) {
 		setChanged();
 		notifyObservers(msg);
+	}
+	
+	
+	public void saveGameDataToFile() {   
+		
+	    try {
+	    	String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
+	    	File file = new File("SaveGame"+ timeStamp+".sav");
+	        FileOutputStream fileStream = new FileOutputStream(file);   
+	        ObjectOutputStream objectStream = new ObjectOutputStream(fileStream);   
+	        
+	        /*Map file path.*/
+	        objectStream.writeObject(SingleMode.getMapName());
+	        
+	        /*Number of players.*/
+	        objectStream.writeObject(players.size());
+	        
+	        /*Player data.*/
+	        for(Player player: this.players){
+		        objectStream.writeObject(player.getName());
+		        objectStream.writeObject(player.getPlayerStrategy());
+		        objectStream.writeObject(player.getCountries().size());
+		        for(CountryNode country: player.getCountries()){
+		        	objectStream.writeObject(country.getCountryName());
+		        	objectStream.writeObject(country.getArmiesCount());
+		        }
+	        }
+	        
+	        /*Current player.*/
+	        objectStream.writeObject(getCurrentPlayer().getName());
+	        
+	        /*Current phase.*/
+	        objectStream.writeObject(turnManager.getPhase()+"\n");
+	        
+	        objectStream.close();   
+	        fileStream.close(); 
+	        System.out.println("Game saved successfully");
+	    
+	    }catch(Exception e) {   
+	        System.out.println("Failed to save game state. "+e);   
+	    }   
+	}
+	
+	public static void loadGameDataFromFile(File file){ 
+
+		try{
+			FileInputStream saveFile = new FileInputStream(file);
+			ObjectInputStream save = new ObjectInputStream(saveFile);
+			
+			String filePath = (String) save.readObject();
+			int playerCount = (int) save.readObject();
+			
+			for(int i= 0; i< playerCount; i++){
+				Player player = (Player) save.readObject();
+				String playerStrategy = (String) save.readObject();
+				ArrayList<String> countries = new ArrayList<String>();
+				ArrayList<Integer> armies = new ArrayList<Integer>();
+				int countryCount = (int) save.readObject();
+				for(int j = 0; j < countryCount; j++){
+					countries.add((String) save.readObject());
+					armies.add((Integer) save.readObject());
+				}
+			}
+			
+			Player currentPlayer = (Player) save.readObject();
+			
+			String phaseName = (String) save.readObject();
+			
+			save.close();
+			
+		}catch(Exception exc){
+			System.out.println("Failed to load file");
+		}
 	}
 
 }

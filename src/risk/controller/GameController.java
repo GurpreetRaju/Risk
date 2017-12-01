@@ -2,6 +2,7 @@ package risk.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.Serializable;
 
 import risk.model.gamemode.GameDriver;
 import risk.model.util.GameLogger;
@@ -22,45 +23,45 @@ import risk.view.mapeditor.MapFrame;
  * @author Gurpreet
  * @author Amitt
  */
-public class GameController {
+public class GameController{
 	
 	/**
-	 * Stores instance of GameDriver class.
+	 * driver variable storing the reference of the class GameDriver.
 	 */
 	private GameDriver driver;
 
 	/**
-	 * PhaseView object.
+	 * phaseView variable storing the reference of the class PhaseView.
 	 */
 	private PhaseView phaseView;
 	
 	/**
-	 * World Domiantion object 
+	 * dominationView variable storing the reference of the class WorldDominationView.
 	 */
 	private WorldDominationView dominationView;
 	
 	/**
-	 * Stores object of CardsView class.
+	 * cardsGUI variable storing the reference of the class CardsView.
 	 */
 	private CardsView cardsGUI;
 	
 	/**
-	 * Stores object of ControlsView class.
+	 * controlsGUI variable storing the reference of the class ControlsView.
 	 */
 	private ControlsView controlsGUI;
 	
 	/**
-	 * Stores object of MapView class.
+	 * mapGUI variable storing the reference of the class MapView.
 	 */
 	private MapView mapGUI;
 	
 	/**
-	 * Stores object of PlayerInfoView class.
+	 * playerInfoGUI variable storing the reference of the class PlayerInfoView.
 	 */
 	private PlayerInfoView playerInfoGUI;
 	
 	/**
-	 * Stores object of SetUpDialog class.
+	 * setupBox variable storing the reference of the class SetUpDialog.
 	 */
 	private SetUpDialog setupBox;
 	
@@ -70,7 +71,12 @@ public class GameController {
 	private ActionListener addArmiesListner;
 	
 	/**
-	 * Stores object of GameLogger
+	 * ActionListener to add listener to "Save Game" button.
+	 */
+	private ActionListener saveGameListener;
+	
+	/**
+	 * gameLogger variable storing the instance of the class GameLogger.
 	 */
 	private GameLogger gameLogger;
 	
@@ -142,6 +148,7 @@ public class GameController {
 		driver.addObserver(cardsGUI);
 		driver.addObserver(gameLogger);
 		driver.getMap().addObserver(mapGUI);
+		this.setSaveGameListener();
 	}
 	
 	/**
@@ -257,16 +264,38 @@ public class GameController {
 		controlsGUI.removeAll();
 	}
 
+	/**
+	* set the reinforcement controls using number of armies and names of countries
+	*/
 	public void setReinforcementControls(int armies, String[] countryList) {
 		controlsGUI.reinforcementControls(armies, countryList);
 	}
 
+	/**
+	* set attack controls using string array
+	*/
 	public void setAttackControls(String[] array) {
 		controlsGUI.attackControls(array);
 	}
 
+	/**
+	* set fortification controls using string array
+	*/
 	public void setFortificationControls(String[] array) {
 		controlsGUI.fortificationControls(array);		
+	}
+	
+	/**
+	 * Sets Action Listeners for save game.
+	 */
+	public void setSaveGameListener() {
+		saveGameListener = new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				driver.saveGameDataToFile();
+			}
+		};
+		controlsGUI.saveGameButtonAction(this.saveGameListener);
 	}
 	
 }

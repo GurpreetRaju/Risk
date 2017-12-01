@@ -32,7 +32,7 @@ public class CheaterStrategy implements PlayerStrategy {
 			driver.getCountry(country).addArmy(driver.getCountry(country).getArmiesCount());
 		}
 		driver.getCurrentPlayer().setArmies(0);
-		driver.nottifyObservers(driver.getTurnManager().getPhase());
+		driver.nottifyObservers("");
 		driver.changePhase();
 
 	}
@@ -45,10 +45,12 @@ public class CheaterStrategy implements PlayerStrategy {
 	public void attackPhase(ArrayList<String> countryList) {
 		for (String country : countryList) {
 			for (CountryNode neighbour : driver.getCountry(country).getNeighbours()) {
+				Player defender = neighbour.getOwner();
 				neighbour.setOwner(driver.getCurrentPlayer());
+				driver.nottifyObservers("Country "+neighbour.getCountryName()+" won by player "+driver.getCurrentPlayer());
+				driver.setPlayerOut(defender);
 			}
 		}
-		driver.nottifyObservers(driver.getTurnManager().getPhase());
 		if(driver.checkGameState()) {
 			driver.announceGameOver(driver.getCurrentPlayer().getName());
 		}
@@ -64,11 +66,12 @@ public class CheaterStrategy implements PlayerStrategy {
 		for (String country : countryList) {
 			for (CountryNode neighbour : driver.getCountry(country).getNeighbours()) {
 				if (!neighbour.getOwner().equals(driver.getCurrentPlayer())) {
-					driver.getCountry(country).addArmy(driver.getCountry(country).getArmiesCount());
+					CountryNode pCountry = driver.getCountry(country);
+					pCountry.addArmy(pCountry.getArmiesCount());
+					driver.nottifyObservers("Player "+driver.getCurrentPlayer().getName()+" added doubled armies on country "+country+", new armies "+pCountry.getArmiesCount());
 				}
 			}
 		}
-		driver.nottifyObservers(driver.getTurnManager().getPhase());
 		driver.changePhase();
 	}
 
@@ -90,5 +93,11 @@ public class CheaterStrategy implements PlayerStrategy {
 	public int moveArmies(int aArmies, int maxArmies, String message) {
 		return new Random().nextInt(maxArmies+1-aArmies) + aArmies;
 	}
+	
+	@Override
+	public String getStrategyName() {
+		return "cheater";
+	}
+
 
 }

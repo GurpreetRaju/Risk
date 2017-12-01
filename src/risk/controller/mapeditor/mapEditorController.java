@@ -28,17 +28,17 @@ import risk.view.mapeditor.NewMap;
 public class mapEditorController {
 
 	/**
-	 * object of MapFileChooser class used for calling the class methods 
+	 * mapChooser variable for storing the reference of the class MapFileChooser
 	 */
 	private MapFileChooser mapChooser;
 
 	/**
-	 * object of ExistingMapEditor class used for calling the class methods 
+	 * existingMapEditor variable for storing the reference of the class ExistingMapEditor 
 	 */
 	private ExistingMapEditor existingMapEditor;
 
 	/**
-	 * reference to NewMap object.
+	 * newMap variable for storing the reference of the class NewMap.
 	 */
 	private NewMap newMap;
 
@@ -53,22 +53,22 @@ public class mapEditorController {
 	public String path = "";
 
 	/**
-	 * Creates object of MapModel class.
+	 * creates a new variable and storing the reference of the class
 	 */
 	private MapModel mapModel = new MapModel();
 	
 	/**
-	 * Reference variable for existing map frame
+	 * existingMap stores the reference of the class ExistingMap
 	 */
 	ExistingMap existingMap;
 	
 	/**
-	 * Object for existing map frame
+	 *  creates a new variable and storing the reference of the class
 	 */
 	ExistingMap existingMap1 = new ExistingMap();
 	
 	/**
-	 * Object for MapReader class.
+	 * creates a new variable and storing the reference of the class
 	 */
 	MapReader mapReader = new MapReader();
 
@@ -163,18 +163,27 @@ public class mapEditorController {
 		newMap = new NewMap();
 		newMap.setVisible(true);
 
+		/**
+		*action listener for adding the continent
+		*/
 		newMap.addActionsToBtnAddContinent(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				newMap.enableContinentFields();
 			}
 		});
 
+		/**
+		*action listener for adding the country.
+		*/
 		newMap.addActionsToBtnAddCountry(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				newMap.enableCountryfield();
 			}
 		});
 
+		/**
+		*action listener to save all the selected changes.
+		*/
 		newMap.addActionsToBtnDone(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String cn = newMap.getContinentName();
@@ -203,6 +212,9 @@ public class mapEditorController {
 			}
 		});
 
+		/**
+		*action listener for adding the neighbours
+		*/
 		newMap.addActionsToBtnAddNeighbours(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				newMap.enableJList();
@@ -220,6 +232,9 @@ public class mapEditorController {
 			}
 		});
 
+		/**
+		*action listener for deleting the neighbours
+		*/
 		newMap.addActionsToBtnDeleteNeighbours(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				newMap.enableJList_1();
@@ -238,6 +253,9 @@ public class mapEditorController {
 			}
 		});
 
+		/**
+		*action listener for selecting the neighbours.
+		*/
 		newMap.addActionsToBtnSelectedNeighbours(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(newMap.getNeighboursList().isEmpty()) {
@@ -283,7 +301,9 @@ public class mapEditorController {
 			}
 		});
 
-		
+		/**
+		*action listener for deleting the selected neighbours
+		*/
 		newMap.addActionsToBtnDeleteSelectedNeighbours(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(newMap.getNeighboursList_1().isEmpty()) {
@@ -326,6 +346,9 @@ public class mapEditorController {
 		});
 
 
+		/**
+		*action listener for deleting the continent
+		*/
 		newMap.addActionsToBtnDeleteContinent(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ArrayList<MapNode> continents = mapModel.getContinents();
@@ -351,6 +374,9 @@ public class mapEditorController {
 			}
 		});
 
+		/**
+		*action listener for saving the changes.
+		*/
 		newMap.addActionsToBtnSave(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(mapModel.checkOnSaveMap()) {
@@ -367,6 +393,9 @@ public class mapEditorController {
 			}
 		});
 
+		/**
+		*action listener for deleting the country.
+		*/
 		newMap.addActionsToBtnDeleteCountry(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String selectedcountry = newMap.getCountryForDeletion();
@@ -392,6 +421,9 @@ public class mapEditorController {
 			}
 		});
 
+		/**
+		* action listener for adding the existing continent
+		*/
 		newMap.addActionsToBtnAdd(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Boolean continentExist = newMap.checkContinentExist();
@@ -447,18 +479,27 @@ public class mapEditorController {
 
 		/*actionListeners for all the existing map editor buttons*/
 		
+		/**
+		*action listener for adding the continent
+		*/
 		existingMapEditor.addActionsToBtnAddContinent(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				existingMapEditor.enableContinentFields();
 			}
 		});
 
+		/**
+		*action listener for adding the country
+		*/
 		existingMapEditor.addActionsToBtnAddCountry(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				existingMapEditor.enableCountryfield();
 			}
 		});
 
+		/**
+		*action listener for deleting the neighbours
+		*/
 		existingMapEditor.addActionsToBtnDeleteNeighbours(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				existingMapEditor.enableJList_1();
@@ -480,6 +521,9 @@ public class mapEditorController {
 			}
 		});
 
+		/**
+		*action listener for deleting the selected neighbours
+		*/
 		existingMapEditor.addActionsToBtnDeleteSelectedNeighbours(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(existingMapEditor.getNeighboursList_1().isEmpty()) {
@@ -515,7 +559,9 @@ public class mapEditorController {
 			}
 		});
 
-
+		/**
+		*action listener forsaving the changes made
+		*/
 		existingMapEditor.addActionsToBtnDone(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String cn = existingMapEditor.getContinentName();
@@ -541,6 +587,9 @@ public class mapEditorController {
 			}
 		});
 
+		/**
+		*action listener for adding the neighbours
+		*/
 		existingMapEditor.addActionsToBtnAddNeighbours(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				existingMapEditor.enableJList();
@@ -557,6 +606,9 @@ public class mapEditorController {
 			}
 		});
 
+		/**
+		*action listener for selecting the neighbours
+		*/
 		existingMapEditor.addActionsToBtnSelectedNeighbours(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(existingMapEditor.getNeighboursList().isEmpty()) {
@@ -593,6 +645,9 @@ public class mapEditorController {
 			}
 		});
 
+		/**
+		*action listener for deleting the continent
+		*/
 		existingMapEditor.addActionsToButtonDeleteContinent(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ArrayList<MapNode> continents = mapModel.getContinents();
@@ -621,7 +676,10 @@ public class mapEditorController {
 			}
 		});
 
-		/*actionListener for save button*/
+		
+		/**
+		*action listener for saving the changes
+		*/
 		existingMapEditor.addActionsToBtnSave(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(mapModel.checkOnSaveMap()) {
@@ -636,7 +694,10 @@ public class mapEditorController {
 			}
 		});
 
-		/*actionListener for delete country button*/
+		
+		/**
+		*action listener for deleting the country
+		*/
 		existingMapEditor.addActionsToBtnDeleteCountry(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String selectedcountry = existingMapEditor.getCountryForDeletion();
@@ -659,6 +720,9 @@ public class mapEditorController {
 			}
 		});
 
+		/**
+		*action listener for adding the existing continent
+		*/
 		existingMapEditor.addActionsToBtnAdd(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Boolean continentExist = existingMapEditor.checkContinentExist();
