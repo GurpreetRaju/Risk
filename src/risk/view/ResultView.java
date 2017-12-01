@@ -14,10 +14,26 @@ import javax.swing.border.EmptyBorder;
 
 public class ResultView extends JFrame{
 	
+	/**
+	 * Serial Version id for JFrame.
+	 * {@inheritDoc}
+	 */
+	private static final long serialVersionUID = 1257813257366300458L;
+
+	/**
+	 * Play Again button
+	 */
 	private JButton playAgain;
 	
+	/**
+	 * Result Close Button.
+	 */
 	private JButton close;
 	
+	/**
+	 * Result view frame display.
+	 * @param data Result view initialization.
+	 */
 	public ResultView(Object[][] data) {
 		playAgain = new JButton("Play again");
 		close = new JButton("Close");
@@ -29,6 +45,10 @@ public class ResultView extends JFrame{
 		init(data);
 	}
 
+	/**
+	 * Result view initialization.
+	 * @param data Result view initialization.
+	 */
 	private void init(Object[][] data) {
 		int columns = data[0].length;
 		String[] headings = new String[columns];
@@ -52,6 +72,10 @@ public class ResultView extends JFrame{
 		this.setVisible(true);
 	}
 	
+	/**
+	 * Add listener to Play Again button.
+	 * @param e ActionListener.
+	 */
 	public void addListenerToPlayAgainButton(ActionListener e) {
 		this.playAgain.addActionListener(e);
 	}

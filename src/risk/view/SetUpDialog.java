@@ -51,6 +51,9 @@ public class SetUpDialog {
 	 */
 	private String mapRead = null;
 	
+	/**
+	 * Loading the saved game.
+	 */
 	public void loadSaveGameOption(){
 		JFrame frame1 = new JFrame();
 		frame1.setLayout(new BoxLayout(frame1.getContentPane(),BoxLayout.Y_AXIS));
@@ -60,7 +63,7 @@ public class SetUpDialog {
 		frame1.add(loadGame);
 		frame1.pack();
 		frame1.setVisible(true);
-		
+		/* New Game button action listener */
 		newGame.addActionListener(new ActionListener(){
 
 			@Override
@@ -70,7 +73,7 @@ public class SetUpDialog {
 				
 			}
 		});
-		
+		/* Load Game button action listener */
 		loadGame.addActionListener(new ActionListener(){
 
 			@Override
@@ -263,6 +266,11 @@ public class SetUpDialog {
 		return "noMode";
 	}
 
+	/**
+	 * Gives the behaviours of the players.
+	 * @param playerInfo player data.
+	 * @return behaviours of the players
+	 */
 	public String[] getPlayerBehavior(String[] playerInfo) {
 		String[] behaviors = new String[playerInfo.length];
 		for(int i=0;i<playerInfo.length;i++) {
