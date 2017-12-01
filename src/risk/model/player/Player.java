@@ -679,6 +679,10 @@ public class Player {
 		this.strategy = newStrategy;
 	}
 
+	/**
+	 * Startup phase army distribution.
+	 * @return country on which the army is to be placed. 
+	 */
 	public String placeArmyOnStartUp() {
 		if(getCountriesNamesNoArmy().length!=0){
 			return this.strategy.placeArmy(getCountriesNamesNoArmy(), getName());
@@ -698,10 +702,17 @@ public class Player {
 		return this.strategy.moveArmies(aArmies, maxArmies, message);
 	}
 	
+	/**
+	 * @return player strategy
+	 */
 	public String getPlayerStrategy(){
 		return this.strategy.getStrategyName();
 	}
 
+	/**
+	 * Sets the mapdata for map.
+	 * @param newMapData List of MapNodes
+	 */
 	public void setMapData(ArrayList<MapNode> newMapData) {
 		this.mapData = newMapData;
 	}

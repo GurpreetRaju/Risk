@@ -31,6 +31,9 @@ public class GameLogger extends JFrame implements Observer {
 	 */
 	private JPanel panel;
 	
+	/**
+	 * Scroll Pane for the logging window.
+	 */
 	private JScrollPane scroll;
 	
 	/**
@@ -56,6 +59,10 @@ public class GameLogger extends JFrame implements Observer {
 		this.validate();
 	}
 	
+	/**
+	 * Main method to run the logger.
+	 * @param s command-line arguments.
+	 */
 	public static void main(String[] s) {
 		GameLogger g = new GameLogger();
 		for(int i=0;i<60;i++) {

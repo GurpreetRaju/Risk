@@ -49,6 +49,7 @@ public class TurnManager {
 		this(nDriver);
 		this.setPhase(string);
 	}
+	
 	/**
 	 * This method starts the turn from reinforcement phase
 	 * @param currentPlayer player having first turn
