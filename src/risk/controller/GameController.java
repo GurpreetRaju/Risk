@@ -3,8 +3,12 @@ package risk.controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 import risk.model.gamemode.GameDriver;
+import risk.model.map.CountryNode;
+import risk.model.map.Map;
+import risk.model.player.Player;
 import risk.model.util.GameLogger;
 import risk.view.CardsView;
 import risk.view.ControlsView;
@@ -130,6 +134,50 @@ public class GameController{
 		playerInfoGUI.setPlayerInfo(playerNames);
 		init();
 		driver.runGame(playerNames);
+	}
+	
+	/**
+	 * Controller constructor to load the saved game state.
+	 * @param newMap
+	 * @param currentPlayer 
+	 * @param armyCountList 
+	 * @param countryList 
+	 * @param players
+	 * @param phaseName 
+	 */
+	public GameController(String newMap, String[][] players, ArrayList<ArrayList<String>> countryList, ArrayList<ArrayList<Integer>> armyCountList, String currentPlayer, String phaseName){
+		mapGUI = new MapView();
+		setupBox = new SetUpDialog();
+		driver = new GameDriver(newMap, 0);
+		driver.setController(this);
+		playerInfoGUI = new PlayerInfoView();
+		int i = 0;
+		
+		for (ArrayList<String> countrylist: countryList){
+			int j=0;
+			ArrayList<CountryNode> list = new ArrayList<CountryNode>();
+			for(String country: countrylist){
+				CountryNode cn = driver.getMap().getCountry(country);
+				cn.setArmies(armyCountList.get(i).get(j));
+				list.add(cn);
+				j++;
+			}
+			Player player = new Player(players[i][0], 0, list, driver);
+			player.setStrategy(driver.createBehavior(players[i][1]));
+			if(player.getName().equals(currentPlayer)){
+				driver.setCurrentPlayer(player);
+			}
+			driver.setPlayerList(player);
+			i++;
+		}
+
+		playerInfoGUI.setPlayerInfo(players);
+		init();
+		driver.getTurnManager().setPhase(phaseName);
+		if(phaseName.trim().equals("Reinforcement")){
+			driver.getCurrentPlayer().assignArmies(driver.getCurrentPlayer().getArmies());
+		}
+		driver.continuePhase();
 	}
 	
 	/**

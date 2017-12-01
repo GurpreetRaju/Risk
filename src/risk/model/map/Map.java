@@ -72,6 +72,7 @@ public class Map extends Observable {
 		ArrayList<Object[]> newData = new ArrayList<Object[]>();
 		for(MapNode m : mapData){
 			for(CountryNode n : m.getCountries()){
+				
 				String[] tempObject = new String[5];
 				tempObject[0] = m.getContinentName() +", "+ m.getControlValue();
 				tempObject[1] = n.getCountryName();
@@ -79,6 +80,7 @@ public class Map extends Observable {
 				for(String s: n.getNeighbourCountriesString()){
 					neighbours = neighbours + s + ", ";
 				}
+				
 				tempObject[4] = neighbours;
 				if(n.getOwner()!=null){
 					tempObject[3] = n.getOwner().getName();
