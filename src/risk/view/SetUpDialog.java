@@ -51,6 +51,9 @@ public class SetUpDialog {
 	 */
 	private String mapRead = null;
 	
+	/**
+	 * This method display a dialog which ask user to select new game or load game using buttons
+	 */
 	public void loadSaveGameOption(){
 		JFrame frame1 = new JFrame();
 		frame1.setLayout(new BoxLayout(frame1.getContentPane(),BoxLayout.Y_AXIS));

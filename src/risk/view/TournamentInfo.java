@@ -19,21 +19,70 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-
+/**
+ * This class gather input from user regarding the tournament eg. Player names and behaviors, maps, moves etc.
+ * @author Gurpreet
+ *
+ */
 public class TournamentInfo extends JFrame{
-	
+	/**
+	 * Submit button
+	 */
 	private JButton submitButton;
+	
+	/**
+	 * Get input on number of maps
+	 */
 	private JSpinner mapCount;
+	
+	/**
+	 * Display map browse button
+	 */
 	private JPanel mapPanel;
+	
+	/**
+	 * reference to all textfields
+	 */
 	private ArrayList<JTextField> maps;
+	
+	/**
+	 * Get input on number of players
+	 */
 	private JSpinner playerCount;
+	
+	/**
+	 * display textfields and combobox for player name and behaviours
+	 */
 	private JPanel playerPanel;
+	
+	/**
+	 * Reference to comboboxes
+	 */
 	private ArrayList<JComboBox<String>> behaviors;
+	
+	/**
+	 * reference to textfields containing names of players
+	 */
 	private ArrayList<JTextField> names;
+	
+	/**
+	 * Get input on number of games to be played on each map
+	 */
 	private JSpinner gameCount;
+	
+	/**
+	 * input number of moves limited to each game
+	 */
 	private JSpinner moveCount;
+	
+	/**
+	 * refernce to the internal container of this frame
+	 */
 	private Container frame; 
 	
+	/**
+	 * Constructor: initialize all attributes
+	 */
 	public TournamentInfo(){
 		super("Enter tournament details");
 		mapCount = new JSpinner(new SpinnerNumberModel(1,1,5,1));
@@ -54,6 +103,9 @@ public class TournamentInfo extends JFrame{
 		this.setVisible(true);
 	}
 	
+	/**
+	 * Add listener to playerCount
+	 */
 	private void playerCountListener() {
 		playerCount.addChangeListener( new ChangeListener(){
 			public void stateChanged(ChangeEvent e) {
@@ -61,7 +113,10 @@ public class TournamentInfo extends JFrame{
 			}
 		});
 	}
-
+	
+	/**
+	 * Add listener to mapCount
+	 */
 	private void mapCountListener() {
 		mapCount.addChangeListener( new ChangeListener(){
 			public void stateChanged(ChangeEvent e) {
@@ -69,7 +124,10 @@ public class TournamentInfo extends JFrame{
 			}
 		});
 	}
-
+	
+	/**
+	 * Create layout in view, add constraints
+	 */
 	private void init() {
 		JPanel panel = new JPanel();
 		panel.setBorder(new EmptyBorder(10, 10, 10, 10));
@@ -112,10 +170,17 @@ public class TournamentInfo extends JFrame{
 		panel.add(submitButton, c);
 	}
 	
+	/**
+	 * Set listener on submit Button
+	 * @param actionListener action listener to be attached to submit sutton
+	 */
 	public void setListeners(ActionListener actionListener) {
 		submitButton.addActionListener(actionListener);
 	}
 	
+	/**
+	 * Update content to mapPanel
+	 */
 	private void addMapPanelContent() {
 		mapPanel.removeAll();
 		mapPanel.setLayout(new GridBagLayout());
@@ -147,6 +212,9 @@ public class TournamentInfo extends JFrame{
 		repaint();
 	}
 	
+	/**
+	 * Add components to Player panel
+	 */
 	private void addPlayerPanelContent() {
 		playerPanel.removeAll();
 		playerPanel.setLayout(new GridBagLayout());
@@ -174,6 +242,10 @@ public class TournamentInfo extends JFrame{
 		repaint();
 	}
 	
+	/**
+	 * 
+	 * @return multidimensional array conatining player names and their behaviors
+	 */
 	public String[][] getPlayerBehaviorDetails() {
 		ArrayList<String[]> b = new ArrayList<String[]>();
 		for(int i=0;i<names.size();i++) {
@@ -185,6 +257,10 @@ public class TournamentInfo extends JFrame{
 		return b.toArray(new String[b.size()][]);
 	}
 	
+	/**
+	 * 
+	 * @return Array of urls of maps
+	 */
 	public String[] getMapDetails() {
 		ArrayList<String> b = new ArrayList<String>();
 		for(JTextField cb: maps) {
@@ -193,10 +269,17 @@ public class TournamentInfo extends JFrame{
 		return b.toArray(new String[b.size()]);
 	}
 	
+	/**
+	 * @return number of games to be played
+	 */
 	public int getGamesCount() {
 		return (int) gameCount.getValue();
 	}
 	
+	/**
+	 * 
+	 * @return number of moved=s limited to each game
+	 */
 	public int getMovesCount() {
 		return (int) moveCount.getValue();
 	}
