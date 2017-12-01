@@ -28,11 +28,8 @@ public class CheaterStrategy implements PlayerStrategy {
 	 */
 	@Override
 	public void reinforcementPhase(int armies, String[] countryList) {
-		for (String country : countryList) {
-			driver.getCountry(country).addArmy(driver.getCountry(country).getArmiesCount());
-		}
-		driver.getCurrentPlayer().setArmies(0);
-		driver.nottifyObservers("");
+		reinforcement(countryList);
+		driver.nottifyObservers("Cheater player has doubled the armies of all its countries in Reinforcement phase");
 		driver.changePhase();
 
 	}
@@ -63,15 +60,8 @@ public class CheaterStrategy implements PlayerStrategy {
 	 */
 	@Override
 	public void fortificationPhase(ArrayList<String> countryList) {
-		for (String country : countryList) {
-			for (CountryNode neighbour : driver.getCountry(country).getNeighbours()) {
-				if (!neighbour.getOwner().equals(driver.getCurrentPlayer())) {
-					CountryNode pCountry = driver.getCountry(country);
-					pCountry.addArmy(pCountry.getArmiesCount());
-					driver.nottifyObservers("Player "+driver.getCurrentPlayer().getName()+" added doubled armies on country "+country+", new armies "+pCountry.getArmiesCount());
-				}
-			}
-		}
+		fortify(countryList);
+		driver.nottifyObservers("Cheater player has doubled the armies of its countries with diffrent owner of neighbouring countries");
 		driver.changePhase();
 	}
 
@@ -99,5 +89,22 @@ public class CheaterStrategy implements PlayerStrategy {
 		return "cheater";
 	}
 
+	public void reinforcement(String[] countryList) {
+		for (String country : countryList) {
+			driver.getCountry(country).addArmy(driver.getCountry(country).getArmiesCount());
+		}
+		driver.getCurrentPlayer().setArmies(0);
+	}
+	
+	public void fortify(ArrayList<String> countryList) {
+		for (String country : countryList) {
+			for (CountryNode neighbour : driver.getCountry(country).getNeighbours()) {
+				if (!neighbour.getOwner().equals(driver.getCurrentPlayer())) {
+					CountryNode pCountry = driver.getCountry(country);
+					pCountry.addArmy(pCountry.getArmiesCount());
+				}
+			}
+		}
+	}
 
 }
