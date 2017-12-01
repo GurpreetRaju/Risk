@@ -99,8 +99,9 @@ public class RandomStrategy implements PlayerStrategy {
 		if (armies == 0) {
 			armies = 1;
 		}
-		String neighbour = country.getNeighbours().get(new Random().nextInt(country.getNeighbours().size())).getCountryName();
-		driver.getArmiesShiftedAfterFortification(country.getCountryName(), neighbour, armies);
+		CountryNode neighbour = country.getNeighbours().get(new Random().nextInt(country.getNeighbours().size()));
+		country.removeArmies(armies);
+		neighbour.addArmy(armies);
 		driver.nottifyObservers(driver.getTurnManager().getPhase());
 		driver.changePhase();
 	}
