@@ -39,7 +39,7 @@ public class CardsView extends JPanel implements Observer {
 	private JButton exchangeCards;
 	
 	/**
-	 * Creates cards view.
+	 * Creates view for cards.
 	 */
 	public CardsView(){
 		JLabel label = new JLabel("Cards Here.");
@@ -83,7 +83,7 @@ public class CardsView extends JPanel implements Observer {
 	
 	/**
 	 * Observer pattern function for Observers to update when there is a notification from the observable.
-	 * It checks if the player has atleast 3 similar cards or 3 distinct cards or 5 cards.
+	 * It checks if the player already have atleast 3 similar cards or 3 distinct cards or 5 cards.
 	 * If user has 3 or more cards it asks player if he wants to exchange cards for armies.
 	 * if user has 5 armies it forces player to exchange card for armies.
 	 */
