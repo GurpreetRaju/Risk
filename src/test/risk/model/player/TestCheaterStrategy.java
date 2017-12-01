@@ -159,7 +159,7 @@ public class TestCheaterStrategy {
 		for(CountryNode c : driver.getCurrentPlayer().getCountries()) {
 			if(c.getArmiesCount()>1) {
 				for(CountryNode n: c.getNeighbourCountries()) {
-					if(n.getOwner().equals(driver.getCurrentPlayer())) {
+					if(!n.getOwner().equals(driver.getCurrentPlayer())) {
 						countriesList.add(c.getCountryName());
 						break;
 					}
