@@ -696,6 +696,10 @@ public class Player {
 	public String getPlayerStrategy(){
 		return this.strategy.getStrategyName();
 	}
+
+	public void setMapData(ArrayList<MapNode> newMapData) {
+		this.mapData = newMapData;
+	}
 	
 }
 
