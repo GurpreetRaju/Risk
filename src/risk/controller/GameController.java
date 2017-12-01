@@ -2,6 +2,7 @@ package risk.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.Serializable;
 
 import risk.model.gamemode.GameDriver;
 import risk.model.util.GameLogger;
@@ -22,7 +23,7 @@ import risk.view.mapeditor.MapFrame;
  * @author Gurpreet
  * @author Amitt
  */
-public class GameController {
+public class GameController{
 	
 	/**
 	 * Stores instance of GameDriver class.
@@ -68,6 +69,11 @@ public class GameController {
 	 * ActionListener to add listener to "Add Armies" button.
 	 */
 	private ActionListener addArmiesListner;
+	
+	/**
+	 * ActionListener to add listener to "Save Game" button.
+	 */
+	private ActionListener saveGameListener;
 	
 	/**
 	 * Stores object of GameLogger
@@ -142,6 +148,7 @@ public class GameController {
 		driver.addObserver(cardsGUI);
 		driver.addObserver(gameLogger);
 		driver.getMap().addObserver(mapGUI);
+		this.setSaveGameListener();
 	}
 	
 	/**
@@ -267,6 +274,19 @@ public class GameController {
 
 	public void setFortificationControls(String[] array) {
 		controlsGUI.fortificationControls(array);		
+	}
+	
+	/**
+	 * Sets Action Listeners for save game.
+	 */
+	public void setSaveGameListener() {
+		saveGameListener = new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				driver.saveGameDataToFile();
+			}
+		};
+		controlsGUI.saveGameButtonAction(this.saveGameListener);
 	}
 	
 }

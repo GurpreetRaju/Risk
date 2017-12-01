@@ -90,5 +90,11 @@ public class CheaterStrategy implements PlayerStrategy {
 	public int moveArmies(int aArmies, int maxArmies, String message) {
 		return new Random().nextInt(maxArmies+1-aArmies) + aArmies;
 	}
+	
+	@Override
+	public String getStrategyName() {
+		return "cheater";
+	}
+
 
 }

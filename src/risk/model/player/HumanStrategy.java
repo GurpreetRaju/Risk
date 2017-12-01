@@ -41,4 +41,9 @@ public class HumanStrategy implements PlayerStrategy{
 		return driver.setUpBoxInput(aArmies, maxArmies, "Select armies to move:");
 	}
 
+	@Override
+	public String getStrategyName() {
+		return "human";
+	}
+
 }

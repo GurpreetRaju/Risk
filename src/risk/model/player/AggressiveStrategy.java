@@ -149,4 +149,10 @@ public class AggressiveStrategy implements PlayerStrategy {
 	public int moveArmies(int aArmies, int maxArmies, String message) {
 		return new Random().nextInt(maxArmies+1-aArmies) + aArmies;
 	}
+	
+	@Override
+	public String getStrategyName() {
+		return "aggressive";
+	}
+
 }

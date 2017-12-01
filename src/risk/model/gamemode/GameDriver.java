@@ -1,6 +1,13 @@
 package risk.model.gamemode;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Observable;
 import java.util.Random;
 
@@ -8,7 +15,6 @@ import risk.controller.GameController;
 import risk.controller.MainController;
 import risk.model.Card;
 import risk.model.RiskData;
-import risk.model.Stats;
 import risk.model.map.CountryNode;
 import risk.model.map.Map;
 import risk.model.map.MapNode;
@@ -518,7 +524,7 @@ public class GameDriver extends Observable {
 	/**
 	 * delegate method to call setUpBoxInput from controller class.
 	 * @param min minimum value user can select 
-	 * @param max maximum vlaue user can select
+	 * @param max maximum value user can select
 	 * @param message message explaining the purpose of input
 	 * @return a number selected by user
 	 */
@@ -541,7 +547,7 @@ public class GameDriver extends Observable {
 	}
 	
 	/**
-	 * This method return maxuimum value in a arraylist.
+	 * This method return maximum value in a arraylist.
 	 * @param array list from which max value to be searched
 	 * @return index of maximum value in list
 	 */
@@ -635,6 +641,79 @@ public class GameDriver extends Observable {
 	public void nottifyObservers(String msg) {
 		setChanged();
 		notifyObservers(msg);
+	}
+	
+	
+	public void saveGameDataToFile() {   
+		
+	    try {
+	    	String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
+	    	File file = new File("SaveGame"+ timeStamp+".sav");
+	        FileOutputStream fileStream = new FileOutputStream(file);   
+	        ObjectOutputStream objectStream = new ObjectOutputStream(fileStream);   
+	        
+	        /*Map file path.*/
+	        objectStream.writeObject(SingleMode.getMapName());
+	        
+	        /*Number of players.*/
+	        objectStream.writeObject(players.size());
+	        
+	        /*Player data.*/
+	        for(Player player: this.players){
+		        objectStream.writeObject(player.getName());
+		        objectStream.writeObject(player.getPlayerStrategy());
+		        objectStream.writeObject(player.getCountries().size());
+		        for(CountryNode country: player.getCountries()){
+		        	objectStream.writeObject(country.getCountryName());
+		        	objectStream.writeObject(country.getArmiesCount());
+		        }
+	        }
+	        
+	        /*Current player.*/
+	        objectStream.writeObject(getCurrentPlayer().getName());
+	        
+	        /*Current phase.*/
+	        objectStream.writeObject(turnManager.getPhase()+"\n");
+	        
+	        objectStream.close();   
+	        fileStream.close(); 
+	        System.out.println("Game saved successfully");
+	    
+	    }catch(Exception e) {   
+	        System.out.println("Failed to save game state. "+e);   
+	    }   
+	}
+	
+	public static void loadGameDataFromFile(File file){ 
+
+		try{
+			FileInputStream saveFile = new FileInputStream(file);
+			ObjectInputStream save = new ObjectInputStream(saveFile);
+			
+			String filePath = (String) save.readObject();
+			int playerCount = (int) save.readObject();
+			
+			for(int i= 0; i< playerCount; i++){
+				Player player = (Player) save.readObject();
+				String playerStrategy = (String) save.readObject();
+				ArrayList<String> countries = new ArrayList<String>();
+				ArrayList<Integer> armies = new ArrayList<Integer>();
+				int countryCount = (int) save.readObject();
+				for(int j = 0; j < countryCount; j++){
+					countries.add((String) save.readObject());
+					armies.add((Integer) save.readObject());
+				}
+			}
+			
+			Player currentPlayer = (Player) save.readObject();
+			
+			String phaseName = (String) save.readObject();
+			
+			save.close();
+			
+		}catch(Exception exc){
+			System.out.println("Failed to load file");
+		}
 	}
 
 }
