@@ -139,6 +139,7 @@ public class MainController {
 
 	/**
 	* string array of winners passed to initialize the winners
+	* @param winners winners
 	*/
 	public void setResults(String[][] winners) {
 		ResultView result = new ResultView(winners);
