@@ -117,7 +117,8 @@ public class ControlsView extends JPanel {
 	 */
 	public void fortificationControls(String[] countryList) {
 		this.removeAll();
-
+		
+		/* comboBox containing country names*/
 		countriesList = new JComboBox<String>(countryList);
 		countriesList.setSelectedIndex(0);
 		
