@@ -63,7 +63,7 @@ public class SetUpDialog {
 		frame1.add(loadGame);
 		frame1.pack();
 		frame1.setVisible(true);
-		
+		/* New Game button actionlistener. */
 		newGame.addActionListener(new ActionListener(){
 
 			@Override
@@ -73,7 +73,7 @@ public class SetUpDialog {
 				
 			}
 		});
-		
+		/* Load Game button actionlistener. */
 		loadGame.addActionListener(new ActionListener(){
 
 			@Override
@@ -99,7 +99,6 @@ public class SetUpDialog {
 				}
 				MainController.getInstance().singleGameLoadInit(saveFileRead);	
 			}
-			
 		});
 	}
 	
@@ -266,6 +265,11 @@ public class SetUpDialog {
 		return "noMode";
 	}
 
+	/**
+	 * Get player behaviour.
+	 * @param playerInfo player data
+	 * @return behaviour of the players
+	 */
 	public String[] getPlayerBehavior(String[] playerInfo) {
 		String[] behaviors = new String[playerInfo.length];
 		for(int i=0;i<playerInfo.length;i++) {
