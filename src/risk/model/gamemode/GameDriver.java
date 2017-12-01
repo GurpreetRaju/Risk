@@ -112,7 +112,7 @@ public class GameDriver extends Observable {
 	
 	/**
 	 * Starts the game.
-	 * @param newPlayerData String array to store elements of player name and type.
+	 * @param playerData String array to store elements of player name and type.
 	 */
 	public void runGame(String[][] playerData) {
 		nottifyObservers("Startup phase: ");
@@ -124,7 +124,6 @@ public class GameDriver extends Observable {
 	/**
 	 * Create player objects
 	 * @param playerData name of players
-	 * @param behaviors behavior of players
 	 */
 	public void createPlayers(String[][] playerData) {
 		players = new ArrayList<Player>();
@@ -164,8 +163,7 @@ public class GameDriver extends Observable {
 
 	/**
 	 * This method starts the startup phase of game. It assigns countries to players.
-	 * @see updateMap()
-	 * @param playerData String array to store elements of player type.
+	 * @see #updateMap()
 	 */
 	public void startUpPhase() {
 		dividingCountries(map.getMapData());
@@ -186,7 +184,6 @@ public class GameDriver extends Observable {
 	/**
 	 * This method create player objects and divide countries among them.
 	 * @see notifyObservers
-	 * @param playerData list of players
 	 * @param mapData arraylist containing MapNode Objects representing continents
 	 */
 	public void dividingCountries(ArrayList<MapNode> mapData) {
@@ -305,7 +302,7 @@ public class GameDriver extends Observable {
 
 	/**
 	 * Delegate method to call method from TurnManager class to continue phases.
-	 * @see updateMap()
+	 * @see #updateMap()
 	 */
 	public void continuePhase() {
 		updateMap();
@@ -314,7 +311,7 @@ public class GameDriver extends Observable {
 
 	/**
 	 * Delegate method to call method from TurnManager class to change between phases.
-	 * @see updateMap()
+	 * @see #updateMap()
 	 */
 	public void changePhase() {
 		turnManager.changePhase();
@@ -323,7 +320,7 @@ public class GameDriver extends Observable {
 	
 	/**
 	 * Delegate method to call updateMap method from map class.
-	 * @see updateMap()
+	 * @see #updateMap()
 	 */
 	public void updateMap() {
 		map.updateMap();
@@ -581,7 +578,8 @@ public class GameDriver extends Observable {
 	}
 
 	/**
-	 * Call Phase View to show game over
+	 * Call Phase View to show game over.
+	 * @param winner Name of the winner or Draw if no winner.
 	 */
 	public void announceGameOver(String winner) {
 		nottifyObservers("GameOver");
@@ -608,7 +606,8 @@ public class GameDriver extends Observable {
 
 	/**
 	 * @return place army dialog
-	 * @param player1 player to be set as current player
+	 * @param countries country list to be displayed for choice.
+	 * @param string message for the dialogbox.
 	 */
 	public Object placeArmyDialog(String[] countries, String string) {
 		return controller.placeArmyDialog(countries, string);
@@ -616,20 +615,24 @@ public class GameDriver extends Observable {
 
 	/**
 	 * control reinforcements
+	 * @param countryList Country list to be displayed.
+	 * @param armies Armies assigned to the player.
 	 */
 	public void reinforcementControls(int armies, String[] countryList) {
 		controller.setReinforcementControls(armies, countryList);
 	}
 
 	/**
-	 * attack controls
+	 * attack controls.
+	 * @param array Country list to be displayed.
 	 */
 	public void attackControls(String[] array) {
 		controller.setAttackControls(array);
 	}
 
 	/**
-	 * controls fortification
+	 * controls fortification.
+	 * @param array Country list to be displayed.
 	 */
 	public void fortificationControls(String[] array) {
 		controller.setFortificationControls(array);
@@ -657,7 +660,8 @@ public class GameDriver extends Observable {
 	}
 	
 	/**
-	 * observer pattern
+	 * observer pattern.
+	 * @param msg Message to be displayed on game logger.
 	 */
 	public void nottifyObservers(String msg) {
 		setChanged();

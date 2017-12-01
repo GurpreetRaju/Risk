@@ -15,7 +15,7 @@ import org.junit.Test;
 public class TestBenevolentStrategy {
 
 	/**
-	 * @throws java.lang.Exception
+	 * @throws java.lang.Exception throws any Exception.
 	 */
 	@Before
 	public void setUp() throws Exception {

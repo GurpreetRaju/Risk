@@ -27,7 +27,7 @@ public class MapModel {
 	Hashtable<String, Boolean> continentTable = new Hashtable<String, Boolean>();
 	
 	/**
-	 * Reference to the MapNode object
+	 * mapNode variable stores reference of the class MapNode
 	 */
 	MapNode mapNode;
 	
@@ -187,7 +187,7 @@ public class MapModel {
 	 * @param s receives a country to traverse over its neighbors and set its boolean visited value as true.
 	 */
 	public void search(String s)
-    {
+        {
         /* Mark the current node as visited by setting it true */
         countryTable.put(s, true);
         for (MapNode mapNode : continents) {
@@ -211,7 +211,7 @@ public class MapModel {
     }
 	
 	/**
-	 * Function to save new map file.
+	 * Saving the new Map file.
 	 */
 	public void saveMapFile() {
 		mapWriter.writeMap(continents);
