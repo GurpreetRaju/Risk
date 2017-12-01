@@ -38,15 +38,10 @@ public class AggressiveStrategy implements PlayerStrategy {
 	 */
 	@Override
 	public void reinforcementPhase(int armies, String[] countryList) {
-		ArrayList<CountryNode> countries = new ArrayList<CountryNode>();
-		/*get country node for corresponding country name.*/
-		for(String c: countryList){
-			countries.add(driver.getCountry(c));
-		}
-		/*sort countries according to armies count in descending order.*/
-		countries = sortCountries(countries);
-		CountryNode strongest = countries.get(0);
-		driver.shiftArmiesOnReinforcement(strongest.getCountryName(), armies);
+		reinforcement(armies,countryList);
+		driver.notifyObservers("Armies moved according to Aggresive Strategy reinforcement");
+		driver.changePhase();
+		
 	}
 
 	/**
@@ -83,26 +78,16 @@ public class AggressiveStrategy implements PlayerStrategy {
 	 */
 	@Override
 	public void fortificationPhase(ArrayList<String> countryList) {
-		if(countryList.size()>1) {
-			ArrayList<CountryNode> countries = new ArrayList<CountryNode>();
-			/*get country node for corresponding country name.*/
-			for(String c: countryList){
-				countries.add(driver.getCountry(c));
-			}
-			
-			/*sort countries according to armies count in descending order.*/
-			countries = sortCountries(countries);
-			
-			CountryNode strongest = countries.get(0);
-			CountryNode c = countries.get(1);
-			/*fortify the strongest country.*/
-			if(c.getArmiesCount()>1) {
-				int mArmies = c.getArmiesCount()-1;
-				driver.getArmiesShiftedAfterFortification(strongest.getCountryName(), c.getCountryName(), mArmies);
-				driver.nottifyObservers(driver.getTurnManager().getPhase());
-			}
-			driver.changePhase();
-		}
+
+		fortify(countryList);
+		
+//		CountryNode weakest = countries.get(countries.size()-1);
+//		int average = (int)(weakest.getArmiesCount() + strongest.getArmiesCount()) / 2;
+//		strongest.addArmy(average);
+//		weakest.removeArmies(average);
+		driver.notifyObservers("Armies moved according to Aggresive Strategy fortification");
+		driver.changePhase();
+
 	}
 
 	/**
@@ -138,9 +123,44 @@ public class AggressiveStrategy implements PlayerStrategy {
 		return new Random().nextInt(maxArmies+1-aArmies) + aArmies;
 	}
 	
+
+	public void reinforcement(int armies,String [] countryList) {
+		ArrayList<CountryNode> countries = new ArrayList<CountryNode>();
+		/*get country node for corresponding country name.*/
+		for(String c: countryList){
+			countries.add(driver.getCountry(c));
+		}
+		/*sort countries according to armies count in descending order.*/
+		countries = sortCountries(countries);
+		CountryNode strongest = countries.get(0);
+		driver.getCurrentPlayer().shiftArmiesOnReinforcement(strongest.getCountryName(), armies);
+	}
+	
+	public void fortify(ArrayList<String> countryList) {
+		if(countryList.size()>1) {
+			ArrayList<CountryNode> countries = new ArrayList<CountryNode>();
+			/*get country node for corresponding country name.*/
+			for(String c: countryList){
+				countries.add(driver.getCountry(c));
+			}
+			
+			/*sort countries according to armies count in descending order.*/
+			countries = sortCountries(countries);
+			
+			CountryNode strongest = countries.get(0);
+			CountryNode c = countries.get(1);
+			/*fortify the strongest country.*/
+			if(c.getArmiesCount()>1) {
+				int mArmies = c.getArmiesCount()-1;
+				driver.getCurrentPlayer().getArmiesShiftedAfterFortification(c.getCountryName(), strongest.getCountryName(), mArmies);
+			}
+		}
+	}
+
 	@Override
 	public String getStrategyName() {
 		return "aggressive";
 	}
+
 
 }

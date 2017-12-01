@@ -1,4 +1,4 @@
-package test.risk.model;
+package test.risk.model.map;
 
 import static org.junit.Assert.*;
 
