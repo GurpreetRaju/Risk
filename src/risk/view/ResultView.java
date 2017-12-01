@@ -26,18 +26,18 @@ public class ResultView extends JFrame{
 	private static final long serialVersionUID = 1257813257366300458L;
 
 	/**
-	 * Play Again button
+	 * JButton it start a new game again
 	 */
 	private JButton playAgain;
 	
 	/**
-	 * Result Close Button.
+	 * This button closes the game
 	 */
 	private JButton close;
 	
 	/**
-	 * Result view frame display.
-	 * @param data Result view initialization.
+	 * Constructor for Result View
+	 * @param data data to be displayed on view
 	 */
 	public ResultView(Object[][] data) {
 		playAgain = new JButton("Play again");
@@ -51,8 +51,8 @@ public class ResultView extends JFrame{
 	}
 
 	/**
-	 * Result view initialization.
-	 * @param data Result view initialization.
+	 * Display data using table form
+	 * @param data data to be dislayed on view
 	 */
 	private void init(Object[][] data) {
 		int columns = data[0].length;
@@ -78,8 +78,8 @@ public class ResultView extends JFrame{
 	}
 	
 	/**
-	 * Add listener to Play Again button.
-	 * @param e ActionListener.
+	 * Add listener to playAgain button
+	 * @param e action listener to be added to play again button
 	 */
 	public void addListenerToPlayAgainButton(ActionListener e) {
 		this.playAgain.addActionListener(e);
