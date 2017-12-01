@@ -20,6 +20,10 @@ public class BenevolentStrategy implements PlayerStrategy {
 	 */
 	private GameDriver driver = new GameDriver();
 	
+	/**
+	 * Constructor to initialize gamedriver.
+	 * @param nDriver GameDriver Instance.
+	 */
 	public BenevolentStrategy(GameDriver nDriver) {
 		driver = nDriver;
 	}
@@ -42,7 +46,7 @@ public class BenevolentStrategy implements PlayerStrategy {
 	@Override
 	public void attackPhase(ArrayList<String> countryList) {
 		/*skip attack phase.*/
-		driver.nottifyObservers(driver.getTurnManager().getPhase());
+		driver.nottifyObservers("Skip"+driver.getTurnManager().getPhase());
 		driver.changePhase();
 	}
 	

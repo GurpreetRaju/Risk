@@ -18,6 +18,10 @@ public class CheaterStrategy implements PlayerStrategy {
 	 */
 	private GameDriver driver;
 	
+	/**
+	 * Constructor to initialize gamedriver.
+	 * @param nDriver GameDriver Instance.
+	 */
 	public CheaterStrategy(GameDriver nDriver) {
 		driver = nDriver;
 	}
