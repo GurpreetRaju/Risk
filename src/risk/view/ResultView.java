@@ -11,8 +11,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
+
 /**
- * This class display resukt of Tournament and Single Game mode
+ * This class displays result of Tournament and Single Game mode
  * @author Gurpreet
  *
  */
