@@ -11,7 +11,11 @@ import test.risk.model.map.TestMapModel;
 import test.risk.model.map.TestMapReader;
 import test.risk.model.map.TestMapValidation;
 import test.risk.model.map.TestMapWriter;
+import test.risk.model.player.TestAggressiveStrategy;
+import test.risk.model.player.TestBenevolentStrategy;
+import test.risk.model.player.TestCheaterStrategy;
 import test.risk.model.player.TestPlayer;
+import test.risk.model.player.TestRandomStrategy;
 
 /**
  * This Test Suite calls all the test classes.
@@ -25,7 +29,11 @@ import test.risk.model.player.TestPlayer;
 				TestGameDriver.class,
 				TestMapModel.class,
 				TestMapWriter.class,
-				TestMapReader.class
+				TestMapReader.class,
+				TestAggressiveStrategy.class,
+				TestBenevolentStrategy.class,
+				TestCheaterStrategy.class,
+				TestRandomStrategy.class
 			})
 
 public class AllTests {

@@ -106,8 +106,10 @@ public class GameController{
 	
 	/**
 	 * Controller class constructor to initialize GameDriver and SetUpDialog class objects.
-	 * @param newDriver GameDriver instance.
-	 * @param newSetupBox SetUpDialog object.
+	 * @param newMap Map file path.
+	 * @param newMapImage Map file image path.
+	 * @param moveLimit number of turns
+	 * @param playerNames names of the players.
 	 */
 	public GameController(String newMap, String newMapImage, String[][] playerNames, int moveLimit) {
 		mapGUI = new MapView(newMapImage);
@@ -122,8 +124,9 @@ public class GameController{
 	
 	/**
 	 * Controller class constructor to initialize GameDriver and SetUpDialog class objects.
-	 * @param newDriver GameDriver instance.
-	 * @param newSetupBox SetUpDialog object
+	 * @param newMap Map file path.
+	 * @param moveLimit number of turns
+	 * @param playerNames names of the players.
 	 */
 	public GameController(String newMap, String[][] playerNames, int moveLimit) {
 		mapGUI = new MapView();
@@ -138,12 +141,12 @@ public class GameController{
 	
 	/**
 	 * Controller constructor to load the saved game state.
-	 * @param newMap
-	 * @param currentPlayer 
-	 * @param armyCountList 
-	 * @param countryList 
-	 * @param players
-	 * @param phaseName 
+	 * @param newMap map file path
+	 * @param currentPlayer current player of the game
+	 * @param armyCountList army count for each country
+	 * @param countryList country list of each player
+	 * @param players game players
+	 * @param phaseName name of the phase ongoing.
 	 */
 	public GameController(String newMap, String[][] players, ArrayList<ArrayList<String>> countryList, ArrayList<ArrayList<Integer>> armyCountList, String currentPlayer, String phaseName){
 		mapGUI = new MapView();
@@ -314,6 +317,8 @@ public class GameController{
 
 	/**
 	* set the reinforcement controls using number of armies and names of countries
+	* @param countryList country list
+	* @param armies Armies assigned on reinforcement
 	*/
 	public void setReinforcementControls(int armies, String[] countryList) {
 		controlsGUI.reinforcementControls(armies, countryList);
@@ -321,6 +326,7 @@ public class GameController{
 
 	/**
 	* set attack controls using string array
+	* @param array country list
 	*/
 	public void setAttackControls(String[] array) {
 		controlsGUI.attackControls(array);
@@ -328,6 +334,7 @@ public class GameController{
 
 	/**
 	* set fortification controls using string array
+	* @param array country list
 	*/
 	public void setFortificationControls(String[] array) {
 		controlsGUI.fortificationControls(array);		

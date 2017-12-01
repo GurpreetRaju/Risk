@@ -61,7 +61,6 @@ public class TestMapReader {
 	
 	/**
 	 * This function is called before every test case.
-	 * @throws Exception any throwable exception.
 	 */
 	@Before
 	public void setUp(){
