@@ -41,16 +41,22 @@ public class CheaterStrategy implements PlayerStrategy {
 	@Override
 	public void attackPhase(ArrayList<String> countryList) {
 		for (String country : countryList) {
-			for (CountryNode neighbour : driver.getCountry(country).getNeighbours()) {
-				Player defender = neighbour.getOwner();
-				neighbour.setOwner(driver.getCurrentPlayer());
-				driver.nottifyObservers("Country "+neighbour.getCountryName()+" won by player "+driver.getCurrentPlayer());
-				driver.setPlayerOut(defender);
+			CountryNode aCountry = driver.getCountry(country);
+			for (CountryNode neighbour : (aCountry).getNeighbours()) {
+				if(neighbour.getOwner()!=driver.getCurrentPlayer()) {
+					if(neighbour.getOwner()==null) {
+						neighbour.setOwner(aCountry.getOwner());
+					}
+					else {
+						Player defender = neighbour.getOwner();
+						neighbour.setOwner(aCountry.getOwner());
+						driver.nottifyObservers("Country "+neighbour.getCountryName()+" won by player "+driver.getCurrentPlayer());
+						driver.setPlayerOut(defender);
+					}
+				}
 			}
 		}
-		if(driver.checkGameState()) {
-			driver.announceGameOver(driver.getCurrentPlayer().getName());
-		}
+		driver.announceGameOver(driver.getCurrentPlayer().getName());
 	}
 
 	/**

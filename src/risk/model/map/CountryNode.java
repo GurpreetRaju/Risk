@@ -128,7 +128,6 @@ public class CountryNode {
 			if(!this.owner.equals(player))
 			{
 				this.owner.removeCountry(this);
-				System.out.println("Country removed");
 			}
 		}
 		this.owner = player;
