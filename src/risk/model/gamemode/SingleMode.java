@@ -18,8 +18,13 @@ public class SingleMode implements Mode{
 	private GameController controller;
 	
 	/**
-	* constructor for initialzing the instance variables.
-	*/
+	 * Constructor for initializing the instance variables.
+	 * @param map stores .map file path
+	 * @param bmp stores .bmp file path
+	 * @param players player data.
+	 * @param moveLimit number of moves allowed.
+	 * @param nController MainController object.
+	 */
 	public SingleMode(String map, String bmp, String[][] players, int moveLimit, MainController nController) {
 		mController = nController;
 		myMap = map;

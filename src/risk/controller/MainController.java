@@ -146,6 +146,7 @@ public class MainController {
 	
 	/**
 	 * notify mode (TournamentMode/SingleMode) class about winner of game
+	 * @param winnerPlayer the name of the winner or draw.
 	 */
 	public void notifyGameResult(String winnerPlayer) {
 		if(gameMode!=null) {
@@ -157,7 +158,8 @@ public class MainController {
 	}
 	
 	/**
-	* initialize mode of the game
+	* initialize mode of the game.
+	* @param mode game mode to be set
 	*/
 	public void setMode(Mode mode) {
 		this.gameMode = mode;
