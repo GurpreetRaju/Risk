@@ -106,15 +106,8 @@ public class MainController {
 	private void init() {
 		String mode = this.setupBox.gameMode();
 		if(mode.equals("single")) {
-			String map = setupBox.getMapInfo("map");
-			String bmp = setupBox.getMapInfo("bmp");
-			String[][] players = setupBox.getPlayerInfo();
-			if(bmp!=null) {
-				gameMode = new SingleMode(map, bmp, players, 0, this);
-			}else {
-				gameMode = new SingleMode(map, players, 0, this);	
-			}
-			gameMode.start();
+			System.out.println("1");
+			this.setupBox.loadSaveGameOption();
 		}
 		else if(mode.equals("tournament")){
 			getTournamentInfo();
@@ -157,6 +150,27 @@ public class MainController {
 	
 	public void setMode(Mode mode) {
 		this.gameMode = mode;
+	}
+	
+	public Mode getMode(){
+		return this.gameMode;
+	}
+
+	public void singleGameInit() {
+		String map = setupBox.getMapInfo("map");
+		String bmp = setupBox.getMapInfo("bmp");
+		String[][] players = setupBox.getPlayerInfo();
+		if(bmp!=null) {
+			gameMode = new SingleMode(map, bmp, players, 0, this);
+		}else {
+			gameMode = new SingleMode(map, players, 0, this);	
+		}
+		gameMode.start();
+	}
+
+	public void singleGameLoadInit() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

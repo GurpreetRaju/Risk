@@ -123,4 +123,9 @@ public class RandomStrategy implements PlayerStrategy {
 		return new Random().nextInt(maxArmies+1-aArmies) + aArmies;
 	}
 
+	@Override
+	public String getStrategyName() {
+		return "random";
+	}
+
 }

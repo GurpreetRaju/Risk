@@ -69,11 +69,17 @@ public class ControlsView extends JPanel {
 	private JButton endPhase;
 	
 	/**
+	 * Button to save game.
+	 */
+	private JButton saveGame;
+	
+	/**
 	 * Constructor to display the Control section of the game for Reinforcement, Attack and Fortification phases.
 	 */
 	public ControlsView() {
 		JLabel label = new JLabel("Controls Here.");
 		this.setLayout(new FlowLayout());
+		saveGame = new JButton("Save Game");
 		this.add(label);
 		this.setBorder(BorderFactory.createLineBorder(Color.black));
 	}
@@ -98,6 +104,7 @@ public class ControlsView extends JPanel {
 		this.add(countriesList);
 		this.add(armiesSpinner);
 		this.add(addArmies);
+		this.add(saveGame);
 		this.revalidate();
 		this.repaint();
 	}
@@ -124,6 +131,7 @@ public class ControlsView extends JPanel {
 		this.add(neighborList);
 		this.add(armiesSpinner);
 		this.add(playMove);
+		this.add(saveGame);
 		
 		this.revalidate();
 		this.repaint();
@@ -135,6 +143,14 @@ public class ControlsView extends JPanel {
 	 */
 	public void playButtonAction(ActionListener a) {
 		this.playMove.addActionListener(a);
+	}
+	
+	/**
+	 * Sets ActionListener on save game button.
+	 * @param newAction ActionListener to be attached to the button.
+	 */
+	public void saveGameButtonAction(ActionListener newAction){
+		this.saveGame.addActionListener(newAction);
 	}
 	
 	/**
@@ -235,6 +251,7 @@ public class ControlsView extends JPanel {
 		this.add(neighborList);
 		this.add(playMove);
 		this.add(endPhase);
+		this.add(saveGame);
 		this.revalidate();
 		this.repaint();
 	}
