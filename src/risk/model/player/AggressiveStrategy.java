@@ -83,32 +83,26 @@ public class AggressiveStrategy implements PlayerStrategy {
 	 */
 	@Override
 	public void fortificationPhase(ArrayList<String> countryList) {
-		ArrayList<CountryNode> countries = new ArrayList<CountryNode>();
-		/*get country node for corresponding country name.*/
-		for(String c: countryList){
-			countries.add(driver.getCountry(c));
-		}
-		
-		/*sort countries according to armies count in descending order.*/
-		countries = sortCountries(countries);
-		
-		CountryNode strongest = countries.get(0);
-		
-		/*fortify the strongest country.*/
-		for(CountryNode c: countries) {
-			if(!c.equals(strongest) && c.getArmiesCount()>1) {
+		if(countryList.size()>1) {
+			ArrayList<CountryNode> countries = new ArrayList<CountryNode>();
+			/*get country node for corresponding country name.*/
+			for(String c: countryList){
+				countries.add(driver.getCountry(c));
+			}
+			
+			/*sort countries according to armies count in descending order.*/
+			countries = sortCountries(countries);
+			
+			CountryNode strongest = countries.get(0);
+			CountryNode c = countries.get(1);
+			/*fortify the strongest country.*/
+			if(c.getArmiesCount()>1) {
 				int mArmies = c.getArmiesCount()-1;
 				driver.getArmiesShiftedAfterFortification(strongest.getCountryName(), c.getCountryName(), mArmies);
 				driver.nottifyObservers(driver.getTurnManager().getPhase());
-				break;
 			}
+			driver.changePhase();
 		}
-		
-//		CountryNode weakest = countries.get(countries.size()-1);
-//		int average = (int)(weakest.getArmiesCount() + strongest.getArmiesCount()) / 2;
-//		strongest.addArmy(average);
-//		weakest.removeArmies(average);
-		driver.changePhase();
 	}
 
 	/**
