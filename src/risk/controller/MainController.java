@@ -107,7 +107,7 @@ public class MainController {
 		String mode = this.setupBox.gameMode();
 		if(mode.equals("single")) {
 			System.out.println("1");
-			this.setupBox.gameOptions();
+			this.setupBox.loadSaveGameOption();
 		}
 		else if(mode.equals("tournament")){
 			getTournamentInfo();
