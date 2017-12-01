@@ -98,8 +98,7 @@ public class CheaterStrategy implements PlayerStrategy {
 	}
 	
 	/**
-	 * Reinforcement phase impleemntation
-	 * @param armies number of armies to be placed
+	 * Reinforcement phase implementation
 	 * @param countryList list of countries player owns
 	 */
 	public void reinforcement(String[] countryList) {
@@ -111,7 +110,7 @@ public class CheaterStrategy implements PlayerStrategy {
 	
 	/**
 	 * Fortification implementation
-	 * @param countryList list of countries that can be fortfied
+	 * @param countryList list of countries that can be fortified
 	 */
 	public void fortify(ArrayList<String> countryList) {
 		for (String country : countryList) {
