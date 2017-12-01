@@ -195,6 +195,7 @@ public class ExistingMapEditor extends JFrame {
 
 	/**
 	 * NewMap constructor calls initialize method of the class
+	 * @see initialize()
 	 * @param editMap arraylist of continents.
 	 */
 	public ExistingMapEditor(ArrayList<MapNode> editMap) {
