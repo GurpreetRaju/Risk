@@ -1,9 +1,7 @@
 package risk.model.gamemode;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -570,7 +568,7 @@ public class GameDriver extends Observable {
 	}
 	
 	/**
-	 * 
+	 * Gets the list of players.
 	 * @return list of all players
 	 */
 	public ArrayList<Player> getPlayers(){
@@ -638,6 +636,10 @@ public class GameDriver extends Observable {
 		controller.setFortificationControls(array);
 	}
 	
+	/**
+	 * Checks if more turns are allowed or not.
+	 * @return boolean value 
+	 */
 	private boolean moveCounter() {
 		if(moveLimit!=0) {
 			if(moveCounter==moveLimit) {
@@ -668,7 +670,9 @@ public class GameDriver extends Observable {
 		notifyObservers(msg);
 	}
 	
-	
+	/**
+	 * Save Game data to a file.
+	 */
 	public void saveGameDataToFile() {   
 		
 	    try {

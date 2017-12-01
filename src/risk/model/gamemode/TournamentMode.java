@@ -3,10 +3,13 @@ package risk.model.gamemode;
 import risk.controller.GameController;
 import risk.controller.MainController;
 
+/**
+ * Class to run game in Tournament Mode.
+ */
 public class TournamentMode implements Mode{
 	
 	/**
-	 * mController varaiable for storing the reference of class MainController
+	 * mController instance for storing the reference of class MainController.
 	 */
 	private MainController mController;
 	
@@ -53,6 +56,14 @@ public class TournamentMode implements Mode{
 		this.mController = newController;
 	}
 
+	/**
+	 * Constructor Overloading.
+	 * @param gamesCount number of games to be played
+	 * @param mapDetails number of maps
+	 * @param playerBehaviorDetails behaviours of players
+	 * @param movesCount number of turns
+	 * @param newController MainController instance.
+	 */
 	public TournamentMode(int gamesCount, String[] mapDetails, String[][] playerBehaviorDetails, int movesCount, MainController newController) {
 		mController = newController;
 		games = gamesCount;
@@ -75,8 +86,9 @@ public class TournamentMode implements Mode{
 	}
 	
 	/**
-	* updating results using winner obtained
-	*/
+	 * updating results using winner obtained
+	 * @param winner Winner name.
+	 */
 	public void updateResults(String winner) {
 		winners[currentMap][currentGame] = winner;
 		if(currentGame==games) {
@@ -95,6 +107,10 @@ public class TournamentMode implements Mode{
 		}
 	}
 
+	/**
+	 * Main method to run tournament mode.
+	 * @param arg command line arguments.
+	 */
 	public static void main(String[] arg) {
 		String[][] myPs = {{"Gur","aggressive"},{"Raj","aggressive"}};
 		String[] maps = {"D:\\Gurpreet\\Study\\Meng\\SEM6\\SOEN6441\\project\\World2005.map","D:\\Gurpreet\\Study\\Meng\\SEM6\\SOEN6441\\project\\World2005.bmp"};
