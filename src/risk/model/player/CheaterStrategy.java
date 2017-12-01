@@ -18,10 +18,6 @@ public class CheaterStrategy implements PlayerStrategy {
 	 */
 	private GameDriver driver;
 	
-	/**
-	 * Constructor to initialize gamedriver.
-	 * @param nDriver GameDriver Instance.
-	 */
 	public CheaterStrategy(GameDriver nDriver) {
 		driver = nDriver;
 	}
@@ -87,9 +83,8 @@ public class CheaterStrategy implements PlayerStrategy {
 	}
 
 	/**
-	 * Armies to be moved for fortification.
+	 * {@inheritDoc}
 	 */
-	@Override
 	public int moveArmies(int aArmies, int maxArmies, String message) {
 		return new Random().nextInt(maxArmies+1-aArmies) + aArmies;
 	}
@@ -101,11 +96,11 @@ public class CheaterStrategy implements PlayerStrategy {
 	public String getStrategyName() {
 		return "cheater";
 	}
-
+	
 	/**
-	 * Cheater Reinforcement.
-	 * @param armies armies to be reinforced.
-	 * @param countryList countries of the player.
+	 * Reinforcement phase impleemntation
+	 * @param armies number of armies to be placed
+	 * @param countryList list of countries player owns
 	 */
 	public void reinforcement(String[] countryList) {
 		for (String country : countryList) {
@@ -115,8 +110,8 @@ public class CheaterStrategy implements PlayerStrategy {
 	}
 	
 	/**
-	 * Cheater fortification.
-	 * @param countryList countries of the player.
+	 * Fortification implementation
+	 * @param countryList list of countries that can be fortfied
 	 */
 	public void fortify(ArrayList<String> countryList) {
 		for (String country : countryList) {

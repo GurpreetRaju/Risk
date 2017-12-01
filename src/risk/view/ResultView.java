@@ -11,7 +11,11 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
-
+/**
+ * This class display resukt of Tournament and Single Game mode
+ * @author Gurpreet
+ *
+ */
 public class ResultView extends JFrame{
 	
 	/**
