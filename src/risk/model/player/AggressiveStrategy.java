@@ -43,16 +43,10 @@ public class AggressiveStrategy implements PlayerStrategy {
 		for(String c: countryList){
 			countries.add(driver.getCountry(c));
 		}
-		
 		/*sort countries according to armies count in descending order.*/
 		countries = sortCountries(countries);
-		
 		CountryNode strongest = countries.get(0);
 		driver.shiftArmiesOnReinforcement(strongest.getCountryName(), armies);
-
-		driver.nottifyObservers(driver.getTurnManager().getPhase());
-		driver.changePhase();
-
 	}
 
 	/**

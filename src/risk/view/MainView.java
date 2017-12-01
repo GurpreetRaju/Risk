@@ -112,6 +112,7 @@ public class MainView extends JFrame{
         layout.putConstraint(SpringLayout.NORTH, controlsArea, 0, SpringLayout.NORTH, playerData);
         layout.putConstraint(SpringLayout.SOUTH, controlsArea, -5, SpringLayout.SOUTH, contentPane);
         this.pack();
+        this.validate();
 	}
 
 	/**
