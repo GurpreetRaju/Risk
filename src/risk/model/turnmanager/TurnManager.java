@@ -78,7 +78,7 @@ public class TurnManager {
 			}
 			else if(this.getPhase().equals("Fortification")) {
 				driver.setNextPlayerTurn();
-				if(isGameOver()) {
+				if(!isGameOver()) {
 					this.setPhase("Reinforcement");
 					getCurrentPlayer().reinforcementPhase();
 				}

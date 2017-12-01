@@ -115,7 +115,7 @@ public class GameDriver extends Observable {
 	 * @param newPlayerData String array to store elements of player name and type.
 	 */
 	public void runGame(String[][] playerData) {
-		nottifyObservers("Startup"+ playerData);
+		nottifyObservers("Startup phase: ");
 		createPlayers(playerData);
 		startUpPhase();
 		turnManager.startTurn(this.currentPlayer);
@@ -132,7 +132,7 @@ public class GameDriver extends Observable {
 			Player temp = new Player(playerData[i][0],RiskData.InitialArmiesCount.getArmiesCount(playerData.length), this);
 			temp.setStrategy(createBehavior(playerData[i][1]));
 			players.add(temp);
-			nottifyObservers(temp.getName());
+			nottifyObservers("Player created and  added "+temp.getName());
 		}
 	}
 	
@@ -166,25 +166,18 @@ public class GameDriver extends Observable {
 	 * @param playerData String array to store elements of player type.
 	 */
 	public void startUpPhase() {
-
-		System.out.print("checkpoint 1");
 		dividingCountries(map.getMapData());
-		System.out.print("checkpoint 2");
 		updatePlayerView();
-
-		System.out.print("checkpoint 3");
 		/*Distribute armies to countries as per player's choice.*/
 		int totalArmiesDiv = players.get(0).getArmiesCount();
 		for(int i1=0;i1<totalArmiesDiv ;i1++){
-			System.out.print("Armies divided"+players.get(0).getArmiesCount());
 			for(Player p: players){
 				String s = p.placeArmyOnStartUp();
 				p.getCountry(s).addArmy(1);
+				nottifyObservers(p.getName()+" placed 1 army on "+s);
 				p.removeArmies(1);
 			}
 		}
-
-		System.out.print("checkpoint 4");
 		updateMap();
 	}
 	
@@ -196,6 +189,7 @@ public class GameDriver extends Observable {
 	public void dividingCountries(ArrayList<MapNode> mapData) {
 		players.get(0).setTurnTrue();
 		this.currentPlayer = players.get(0);
+		nottifyObservers("Player "+players.get(0)+" has first turn");
 		int i = 0;
 		/*Random distribution of countries among the players.*/
 		for(MapNode m : mapData){
@@ -206,6 +200,7 @@ public class GameDriver extends Observable {
 				}
 			}
 		}
+		nottifyObservers("Countries divided to players");
 	}
 	
 	/**
@@ -241,8 +236,8 @@ public class GameDriver extends Observable {
 			this.currentPlayer = players.get(currentPlayerIndex+1);
 		}
 		this.currentPlayer.setTurnTrue();
+		nottifyObservers("Turn changed to "+ this.currentPlayer.getName());
 		this.getCurrentPlayer().setArmies(this.getCurrentPlayer().getArmies());
-		nottifyObservers("Cards");
 	}
 	
 	/**
@@ -362,9 +357,11 @@ public class GameDriver extends Observable {
 	 */
 	public void shiftArmiesOnReinforcement(String countrySelected, int armies) {
 		if(this.currentPlayer.shiftArmiesOnReinforcement(countrySelected, armies)==0) {
+			nottifyObservers(getTurnManager().getPhase());
 			changePhase();
 		}
 		else {
+			nottifyObservers(getTurnManager().getPhase());
 			continuePhase();
 		}
 	}
@@ -418,8 +415,7 @@ public class GameDriver extends Observable {
 	 * @param defenderCountry country defending against attack
 	 */
 	public void announceAttack(String attackerCountry, String defenderCountry) {
-		this.resultNotify = "Attack Attacker Country: "+attackerCountry+"  Defender Country: "+defenderCountry+"  ";
-		nottifyObservers(resultNotify);
+		nottifyObservers("Attack announced Attacker Country: "+attackerCountry+"  Defender Country: "+defenderCountry);
 		/*Announce attack on phase view.*/
 		CountryNode dCountry = map.getCountry(defenderCountry);
 		Player defender = dCountry.getOwner();
@@ -432,28 +428,28 @@ public class GameDriver extends Observable {
 		ArrayList<Integer> dResults = diceRoll(dArmies);
 		String s = this.currentPlayer+" dice : ";
 		for(int i : aResults) {
-			s += i +" ";
+			s += i +", ";
 		}
-		s+= "<br>" + defender+" dice: ";
+		s+= defender+" dice: ";
 		for(int j : dResults) {
 			s += j +" ";
 		}
-		resultNotify += "<br>" + s;
-		nottifyObservers(resultNotify);
+		nottifyObservers(s);
 		battle(dCountry, defender, aCountry, aArmies, dArmies, aResults, dResults);
-		nottifyObservers(resultNotify);
+		nottifyObservers("Armies left in attacker Country "+ aCountry.getCountryName()+" "+aCountry.getArmiesCount());
+		nottifyObservers("Armies left in defender Country "+ dCountry.getCountryName()+" "+dCountry.getArmiesCount());
 		/*check if defender country has armies left.*/
 		if(dCountry.getArmiesCount()==0) {
 			dCountry.setOwner(currentPlayer);
 			turnManager.setWonCard(true);
 			/*Notify change in ownership of a country.*/
-			resultNotify += "<br>" + " Country "+ dCountry.getCountryName() +" won by " + dCountry.getOwner().getName() + ", new armies "+dCountry.getArmiesCount();
-			nottifyObservers(resultNotify);
+			nottifyObservers("Country "+ dCountry.getCountryName() +" won by " + dCountry.getOwner().getName() + ", new armies "+dCountry.getArmiesCount());
 			/*move countries from attacker country to new acquired country.*/
 			int moveArmies = currentPlayer.moveArmies(aArmies, aCountry.getArmiesCount()-1, "Select armies to move:");
 			dCountry.addArmy(moveArmies);
 			aCountry.removeArmies(moveArmies);
 			if(map.continentWonByPlayer(currentPlayer, dCountry)) {
+				nottifyObservers("Player "+ currentPlayer.getName() +" conquered " + dCountry.getContinent());
 				currentPlayer.addContinent(dCountry.getContinent());
 			}
 		}
@@ -479,23 +475,23 @@ public class GameDriver extends Observable {
 	 */
 	public void battle(CountryNode dCountry, Player defender, CountryNode aCountry, int aArmies, int dArmies,ArrayList<Integer> aResults,ArrayList<Integer> dResults) {
 		/*Compare the results to decide battle result.*/
+		int i=1;
 		while(!aResults.isEmpty() && !dResults.isEmpty()) {
 			int aMax = max(aResults);
 			int dMax = max(dResults);
 			if(aResults.get(aMax)>dResults.get(dMax)) {
 				dCountry.removeArmy();
 				/*Show army removed from defender country.*/
-				resultNotify += "<br>" + " Winner Country: "+aCountry.getCountryName();
-				System.out.println("Army removed from defender country, new armies "+dCountry.getArmiesCount());
+				nottifyObservers("Battle "+i+" result : Winner Country: "+aCountry.getCountryName()+" Army removed from "+ dCountry.getCountryName());
 			}
 			else {
 				aCountry.removeArmy();
-				resultNotify += "<br>" + "Winner Country: "+dCountry.getCountryName();
-				/*Show army removed from attacker country*/
-				System.out.println("Army removed from attacker country, new armies "+aCountry.getArmiesCount());
+				nottifyObservers("Battle result : Winner Country: "+dCountry.getCountryName()+" Army removed from "+ aCountry.getCountryName());
+				
 			}
 			aResults.remove(aMax);
 			dResults.remove(dMax);
+			i++;
 		}
 	}
 	

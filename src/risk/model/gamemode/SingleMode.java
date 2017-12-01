@@ -44,7 +44,7 @@ public class SingleMode implements Mode{
 	}
 	
 	public static void main(String[] arg) {
-		String[][] myPs = {{"Gur","aggressive"},{"Raj","aggressive"}};
+		String[][] myPs = {{"Gur","human"},{"Raj","human"}};
 		SingleMode s = new SingleMode("D:\\Gurpreet\\Study\\Meng\\SEM6\\SOEN6441\\project\\World2005.map", "D:\\Gurpreet\\Study\\Meng\\SEM6\\SOEN6441\\project\\World2005.bmp", myPs, 0, MainController.getInstance());
 		MainController.getInstance().setMode(s);
 		s.start();
