@@ -17,11 +17,20 @@ import javax.swing.border.EmptyBorder;
  *
  */
 public class ResultView extends JFrame{
-	
+	/**
+	 * JButton it start a new game again
+	 */
 	private JButton playAgain;
 	
+	/**
+	 * This button closes the game
+	 */
 	private JButton close;
 	
+	/**
+	 * Constructor for Result View
+	 * @param data data to be displayed on view
+	 */
 	public ResultView(Object[][] data) {
 		playAgain = new JButton("Play again");
 		close = new JButton("Close");
@@ -32,7 +41,10 @@ public class ResultView extends JFrame{
 		});
 		init(data);
 	}
-
+	/**
+	 * Display data using table form
+	 * @param data data to be dislayed on view
+	 */
 	private void init(Object[][] data) {
 		int columns = data[0].length;
 		String[] headings = new String[columns];
@@ -56,6 +68,10 @@ public class ResultView extends JFrame{
 		this.setVisible(true);
 	}
 	
+	/**
+	 * Adda listener to playAgain button
+	 * @param e action listener to be added to play again button
+	 */
 	public void addListenerToPlayAgainButton(ActionListener e) {
 		this.playAgain.addActionListener(e);
 	}
