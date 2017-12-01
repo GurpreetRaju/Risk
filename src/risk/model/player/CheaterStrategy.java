@@ -18,6 +18,10 @@ public class CheaterStrategy implements PlayerStrategy {
 	 */
 	private GameDriver driver;
 	
+	/**
+	 * Constructor to initialize gamedriver.
+	 * @param nDriver GameDriver Instance.
+	 */
 	public CheaterStrategy(GameDriver nDriver) {
 		driver = nDriver;
 	}
@@ -45,6 +49,7 @@ public class CheaterStrategy implements PlayerStrategy {
 				Player defender = neighbour.getOwner();
 				neighbour.setOwner(driver.getCurrentPlayer());
 				driver.nottifyObservers("Country "+neighbour.getCountryName()+" won by player "+driver.getCurrentPlayer());
+				System.out.println(defender.getCountries().size());
 				driver.setPlayerOut(defender);
 			}
 		}

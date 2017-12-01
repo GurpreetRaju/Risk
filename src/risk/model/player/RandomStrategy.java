@@ -31,8 +31,15 @@ public class RandomStrategy implements PlayerStrategy {
 	 */
 	private int countAttacks = 0;
 	
+	/**
+	 * Count the number of random attacks.
+	 */
 	private int randomAttacknumber = 0;
 	
+	/**
+	 * Constructor to initialize gamedriver and turn manager.
+	 * @param nDriver GameDriver Instance.
+	 */
 	public RandomStrategy(GameDriver nDriver) {
 		driver = nDriver;
 		turnManager = driver.getTurnManager();
@@ -61,7 +68,6 @@ public class RandomStrategy implements PlayerStrategy {
 			countAttacks++;
 			CountryNode aCountry = randomCountry;
 			
-			
 			/*randomly select a country to be attacked.*/
 			CountryNode dCountry = null;
 			Collections.shuffle(aCountry.getNeighbours());
@@ -71,6 +77,7 @@ public class RandomStrategy implements PlayerStrategy {
 					break;
 				}
 			}
+			driver.nottifyObservers("Attack: Attacker: "+ aCountry.getCountryName()+ "Defender: "+dCountry.getCountryName());
 			driver.announceAttack(aCountry.getCountryName(), dCountry.getCountryName());
 		}		
 		else{
