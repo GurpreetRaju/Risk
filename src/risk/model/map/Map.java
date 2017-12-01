@@ -233,4 +233,13 @@ public class Map extends Observable {
 		return false;
 
 	}
+	
+	/**
+	 * Set map Data to mapData
+	 * @param mapData2 ArrayList of MapNode objects
+	 */
+	public void setMapData(ArrayList<MapNode> mapData2) {
+		this.mapData = mapData2;
+		
+	}
 }
