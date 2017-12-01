@@ -74,7 +74,7 @@ public class TestRandomStrategy {
 	 * TestStubs
 	 */
 	@Before
-	public void setUp() throws Exception {
+	public void setUp(){
 		driver = new GameDriver();
 		
 		country1 = new CountryNode("Country1", null, null, null);
