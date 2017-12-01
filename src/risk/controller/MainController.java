@@ -2,6 +2,7 @@ package risk.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 import risk.model.Stats;
 import risk.model.gamemode.Mode;
@@ -168,9 +169,9 @@ public class MainController {
 		gameMode.start();
 	}
 
-	public void singleGameLoadInit() {
-		// TODO Auto-generated method stub
-		
+	public void singleGameLoadInit(String saveFileRead) {
+		gameMode = new SingleMode();
+		((SingleMode) gameMode).loadGameDataFromFile(new File(saveFileRead));
 	}
 	
 }

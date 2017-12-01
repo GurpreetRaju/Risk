@@ -327,6 +327,7 @@ public class Player {
 	 * This method runs the reinforcement phase
 	 */
 	public void reinforcementPhase(){
+		System.out.print("Checkpoint 1");
 		strategy.reinforcementPhase(armiesCount, getCountriesNames());
 	}
 	

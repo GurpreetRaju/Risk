@@ -141,7 +141,7 @@ public class GameDriver extends Observable {
 	 * @param strategy strategy for which object is required
 	 * @return object of PlayerStrategy
 	 */
-	private PlayerStrategy createBehavior(String strategy) {
+	public PlayerStrategy createBehavior(String strategy) {
 			PlayerStrategy pStrategy = null;
 			if(strategy.equals("human")){
 				pStrategy = new HumanStrategy(this);
@@ -678,38 +678,6 @@ public class GameDriver extends Observable {
 	    }catch(Exception e) {   
 	        System.out.println("Failed to save game state. "+e);   
 	    }   
-	}
-	
-	public static void loadGameDataFromFile(File file){ 
-
-		try{
-			FileInputStream saveFile = new FileInputStream(file);
-			ObjectInputStream save = new ObjectInputStream(saveFile);
-			
-			String filePath = (String) save.readObject();
-			int playerCount = (int) save.readObject();
-			
-			for(int i= 0; i< playerCount; i++){
-				Player player = (Player) save.readObject();
-				String playerStrategy = (String) save.readObject();
-				ArrayList<String> countries = new ArrayList<String>();
-				ArrayList<Integer> armies = new ArrayList<Integer>();
-				int countryCount = (int) save.readObject();
-				for(int j = 0; j < countryCount; j++){
-					countries.add((String) save.readObject());
-					armies.add((Integer) save.readObject());
-				}
-			}
-			
-			Player currentPlayer = (Player) save.readObject();
-			
-			String phaseName = (String) save.readObject();
-			
-			save.close();
-			
-		}catch(Exception exc){
-			System.out.println("Failed to load file");
-		}
 	}
 
 }

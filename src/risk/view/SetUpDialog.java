@@ -60,20 +60,41 @@ public class SetUpDialog {
 		frame1.add(loadGame);
 		frame1.pack();
 		frame1.setVisible(true);
+		
 		newGame.addActionListener(new ActionListener(){
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				frame1.dispose();
 				MainController.getInstance().singleGameInit();
+				
 			}
-			
 		});
+		
 		loadGame.addActionListener(new ActionListener(){
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				MainController.getInstance().singleGameLoadInit();
-				
+				frame1.dispose();
+				JFrame saveFileLoad = new JFrame("Saved File Chooser");
+				saveFileLoad.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				saveFileLoad.validate();
+				saveFileLoad.setVisible(true);
+				/*JFileChooser to ask user to choose a map file.*/
+				JFileChooser jfc = new JFileChooser();
+				jfc.setCurrentDirectory(new File("./"));
+				FileNameExtensionFilter filter = new FileNameExtensionFilter(null, "sav");
+				jfc.setFileFilter(filter);
+
+				int returnValue = jfc.showOpenDialog(frame);
+				String saveFileRead = null;
+				/*Get the path of the map file chosen*/
+				if (returnValue == JFileChooser.APPROVE_OPTION) {
+					File selectedFile = jfc.getSelectedFile();
+					saveFileRead = selectedFile.getAbsolutePath();
+					saveFileLoad.dispose();
+				}
+				MainController.getInstance().singleGameLoadInit(saveFileRead);	
 			}
 			
 		});
