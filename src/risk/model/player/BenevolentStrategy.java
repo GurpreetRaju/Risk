@@ -81,22 +81,33 @@ public class BenevolentStrategy implements PlayerStrategy {
 		return countryList;
 	}
 
-	@Override
+	/**
+	 * {@inheritDoc}
+	 */
 	public int selectDiceNumber(int diceToRoll, String pName) {
 		
 		return diceToRoll;
 	}
 
-	@Override
+	/**
+	 * {@inheritDoc}
+	 */
 	public int moveArmies(int aArmies, int maxArmies, String message) {
 		return new Random().nextInt(maxArmies+1-aArmies) + aArmies;
 	}
 	
-	@Override
+	/**
+	 * {@inheritDoc}
+	 */
 	public String getStrategyName() {
 		return "benevolent";
 	}
-
+	
+	/**
+	 * Reinforcement phase impleemntation
+	 * @param armies number of armies to be placed
+	 * @param countryList list of countries player owns
+	 */
 	public void reinforcement(int armies, String[] countryList) {
 		ArrayList<CountryNode> countries = new ArrayList<CountryNode>();
 		/*get country node for corresponding country name.*/
@@ -139,6 +150,10 @@ public class BenevolentStrategy implements PlayerStrategy {
 		}
 	}
 	
+	/**
+	 * Fortification implementation
+	 * @param countryList list of countries that can be fortfied
+	 */
 	public void fortify(ArrayList<String> countryList) {
 		ArrayList<CountryNode> countries = new ArrayList<CountryNode>();
 		/*get country node for corresponding country name.*/

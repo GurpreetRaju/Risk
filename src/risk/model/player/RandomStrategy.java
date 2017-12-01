@@ -94,32 +94,46 @@ public class RandomStrategy implements PlayerStrategy {
 	/**
 	 * Distribute armies in startup phase.
 	 */
-	@Override
 	public String placeArmy(String[] strings, String string) {
 		return strings[new Random().nextInt(strings.length)];
 	}
 
-	@Override
+	/**
+	 * {@inheritDoc}
+	 */
 	public int selectDiceNumber(int diceToRoll, String pName) {
 		return diceToRoll;
 	}
 
-	@Override
+	/**
+	 * {@inheritDoc}
+	 */
 	public int moveArmies(int aArmies, int maxArmies, String message) {
 		return new Random().nextInt(maxArmies+1-aArmies) + aArmies;
 	}
 
-	@Override
+	/**
+	 * {@inheritDoc}
+	 */
 	public String getStrategyName() {
 		return "random";
 	}
 	
+	/**
+	 * Reinforcement phase impleemntation
+	 * @param armies number of armies to be placed
+	 * @param countryList list of countries player owns
+	 */
 	public void reinforcement(int armies, String[] countryList) {
 		randomAttacknumber = new Random().nextInt(6);
 		String country = countryList[new Random().nextInt(countryList.length)];
 		driver.getCurrentPlayer().shiftArmiesOnReinforcement(country, armies);
 	}
 	
+	/**
+	 * Fortification implementation
+	 * @param countryList list of countries that can be fortfied
+	 */
 	public void fortify(ArrayList<String> countryList) {
 		ArrayList<CountryNode> countries = new ArrayList<CountryNode>() ;
 		for (String countryName : countryList) {

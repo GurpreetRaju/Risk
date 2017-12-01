@@ -82,7 +82,9 @@ public class CheaterStrategy implements PlayerStrategy {
 		return diceToRoll;
 	}
 
-	@Override
+	/**
+	 * {@inheritDoc}
+	 */
 	public int moveArmies(int aArmies, int maxArmies, String message) {
 		return new Random().nextInt(maxArmies+1-aArmies) + aArmies;
 	}
@@ -94,7 +96,12 @@ public class CheaterStrategy implements PlayerStrategy {
 	public String getStrategyName() {
 		return "cheater";
 	}
-
+	
+	/**
+	 * Reinforcement phase impleemntation
+	 * @param armies number of armies to be placed
+	 * @param countryList list of countries player owns
+	 */
 	public void reinforcement(String[] countryList) {
 		for (String country : countryList) {
 			driver.getCountry(country).addArmy(driver.getCountry(country).getArmiesCount());
@@ -102,6 +109,10 @@ public class CheaterStrategy implements PlayerStrategy {
 		driver.getCurrentPlayer().setArmies(0);
 	}
 	
+	/**
+	 * Fortification implementation
+	 * @param countryList list of countries that can be fortfied
+	 */
 	public void fortify(ArrayList<String> countryList) {
 		for (String country : countryList) {
 			for (CountryNode neighbour : driver.getCountry(country).getNeighbours()) {
