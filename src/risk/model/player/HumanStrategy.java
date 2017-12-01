@@ -15,6 +15,7 @@ public class HumanStrategy implements PlayerStrategy{
 	 * Reference to gameDriver object
 	 */
 	private GameDriver driver;
+	
 	/**
 	 * Constructor for HumanStrategy
 	 * @param newDriver object of GameDriver class
@@ -44,7 +45,7 @@ public class HumanStrategy implements PlayerStrategy{
 	
 	/**
 	 * Fortification implementation
-	 * @param countryList list of countries that can be fortfied
+	 * @param countryList list of countries that can be fortified
 	 */
 	public void fortificationPhase(ArrayList<String> countryList) {
 		driver.fortificationControls(countryList.toArray(new String[countryList.size()]));
