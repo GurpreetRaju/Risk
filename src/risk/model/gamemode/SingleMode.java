@@ -47,19 +47,22 @@ public class SingleMode implements Mode{
 		myMoveLimit = moveLimit;
 	}
 
+	/**
+	 * Empty constructor for object creation.
+	 */
 	public SingleMode() {}
 
 	/**
-	* udating results using the winner player
-	*/
+	 * updating results using the winner player
+	 */
 	public void updateResults(String winnerPlayer) {
 		String[][] data = {{myMap , winnerPlayer}};
 		mController.setResults(data);
 	}
 	
 	/**
-	* initializing the instance variables depending upon condition 
-	*/
+	 * initializing the instance variables depending upon condition 
+	 */
 	public void start() {
 		if(myBmp!=null) {
 			controller = new GameController(myMap, myBmp, myPlayers, myMoveLimit);
@@ -69,22 +72,27 @@ public class SingleMode implements Mode{
 		}
 	}
 	
+	/**
+	 * Main method to run single mode.
+	 * @param arg command line arguments.
+	 */
 	public static void main(String[] arg) {
 		String[][] myPs = {{"Gur","human"},{"Raj","human"}};
-//		SingleMode s = new SingleMode("D:\\Gurpreet\\Study\\Meng\\Projects\\Risk\\data\\map\\World2005.map", "D:\\Gurpreet\\Study\\Meng\\Projects\\Risk\\data\\map\\World2005.bmp", myPs, 0, MainController.getInstance());
-//		MainController.getInstance().setMode(s);
-//		s.start();
 		SingleMode s = new SingleMode();
 		s.loadGameDataFromFile(new File("D:\\Gurpreet\\Study\\Meng\\Projects\\Risk\\SaveGame2017.11.30.23.36.53.sav"));
 	}
 	
 	/**
-	* @return map
-	*/
+	 * @return map
+	 */
 	public static String getMapName(){
 		return myMap;
 	}
 	
+	/**
+	 * Loads game from saved file.
+	 * @param file file to be loaded.
+	 */
 	public void loadGameDataFromFile(File file){ 
 
 		try{
