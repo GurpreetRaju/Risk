@@ -1,4 +1,4 @@
-package test.risk.model;
+package test.risk.model.player;
 
 import static org.junit.Assert.*;
 import java.util.ArrayList;
