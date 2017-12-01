@@ -17,6 +17,12 @@ import risk.model.player.Player;
 import risk.model.player.PlayerStrategy;
 import risk.model.player.RandomStrategy;
 
+/**
+ * TestCase for RandomStrategy
+ * @author Gurpreet
+ *
+ */
+
 public class TestRandomStrategy {
 
 	/**
@@ -63,9 +69,12 @@ public class TestRandomStrategy {
 	 * Reference for MapNode object
 	 */
 	private ArrayList<MapNode> mapData;
-
+	
+	/**
+	 * TestStubs
+	 */
 	@Before
-	public void setUp() throws Exception {
+	public void setUp(){
 		driver = new GameDriver();
 		
 		country1 = new CountryNode("Country1", null, null, null);
@@ -93,7 +102,10 @@ public class TestRandomStrategy {
 		
 		
 	}
-
+	
+	/**
+	 * test reiforcement method
+	 */
 	@Test
 	public void testeinforcement() {
 		mapData = new ArrayList<MapNode>();
@@ -135,7 +147,9 @@ public class TestRandomStrategy {
 		
 	}
 	
-	
+	/**
+	 * test placearmy method
+	 */
 	@Test
 	public void testPlaceArmy() {
 		int count = 0;

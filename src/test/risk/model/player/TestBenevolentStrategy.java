@@ -17,7 +17,7 @@ import risk.model.player.PlayerStrategy;
 import risk.model.player.RandomStrategy;
 
 /**
- * @author outreachy
+ * @author amitt
  *
  */
 public class TestBenevolentStrategy {
@@ -66,9 +66,12 @@ public class TestBenevolentStrategy {
 	 * Reference for MapNode object
 	 */
 	private ArrayList<MapNode> mapData;
-
+	
+	/**
+	 * Test stubs
+	 */
 	@Before
-	public void setUp() throws Exception {
+	public void setUp() {
 		driver = new GameDriver();
 		
 		country1 = new CountryNode("Country1", null, null, null);
@@ -96,7 +99,10 @@ public class TestBenevolentStrategy {
 		
 		
 	}
-
+	
+	/**
+	 * Test Reinforcement Phase method
+	 */
 	@Test
 	public void testeinforcement() {
 		mapData = new ArrayList<MapNode>();
@@ -131,6 +137,9 @@ public class TestBenevolentStrategy {
 		
 	}
 	
+	/**
+	 * Test Fortify Phase method
+	 */
 	@Test
 	public void testFortify() {
 		mapData = new ArrayList<MapNode>();
@@ -174,6 +183,9 @@ public class TestBenevolentStrategy {
 		assertEquals(9,country3.getArmiesCount());
 	}
 	
+	/**
+	 * Test placeArmy method
+	 */
 	@Test
 	public void testPlaceArmy() {
 		int count = 0;

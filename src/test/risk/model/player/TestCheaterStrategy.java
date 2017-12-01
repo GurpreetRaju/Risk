@@ -64,8 +64,11 @@ public class TestCheaterStrategy {
 	 */
 	private ArrayList<MapNode> mapData;
 
+	/**
+	 * Test stubs
+	 */
 	@Before
-	public void setUp() throws Exception {
+	public void setUp(){
 		driver = new GameDriver();
 		
 		country1 = new CountryNode("Country1", null, null, null);
@@ -93,9 +96,11 @@ public class TestCheaterStrategy {
 		
 		
 	}
-
+	/**
+	 * Test Reinforcement Phase method
+	 */
 	@Test
-	public void testeinforcement() {
+	public void testReinforcement() {
 		mapData = new ArrayList<MapNode>();
 		ArrayList<CountryNode> countries = new ArrayList<CountryNode>();
 		countries.add(country1);
@@ -128,6 +133,9 @@ public class TestCheaterStrategy {
 		
 	}
 	
+	/**
+	 * Test Fortify Phase method
+	 */
 	@Test
 	public void testFortify() {
 		mapData = new ArrayList<MapNode>();
@@ -171,6 +179,9 @@ public class TestCheaterStrategy {
 		assertEquals(8,country3.getArmiesCount());
 	}
 	
+	/**
+	 * Test PlaceArmy method
+	 */
 	@Test
 	public void testPlaceArmy() {
 		int count = 0;

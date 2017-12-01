@@ -15,6 +15,10 @@ import risk.model.player.Player;
 import risk.model.player.PlayerStrategy;
 import risk.model.player.RandomStrategy;
 
+/**
+ * TestCase for AggressiveStrategy
+ * @author Gurpreet Amitt
+ */
 public class TestAggressiveStrategy {
 	
 	/**
@@ -61,9 +65,12 @@ public class TestAggressiveStrategy {
 	 * Reference for MapNode object
 	 */
 	private ArrayList<MapNode> mapData;
-
+	
+	/**
+	 * Setup stubs for tests
+	 */
 	@Before
-	public void setUp() throws Exception {
+	public void setUp() {
 		driver = new GameDriver();
 		
 		country1 = new CountryNode("Country1", null, null, null);
@@ -88,10 +95,11 @@ public class TestAggressiveStrategy {
 		ArrayList<CountryNode> countries1 = new ArrayList<CountryNode>();
 		countries1.add(country4);
 		countries1.add(country5);
-		
-		
 	}
-
+	
+	/**
+	 * Test Reinfircement method of AggressiveStrategy
+	 */
 	@Test
 	public void testeinforcement() {
 		mapData = new ArrayList<MapNode>();
@@ -122,10 +130,11 @@ public class TestAggressiveStrategy {
 		driver.getCurrentPlayer().setArmies(driver.getCurrentPlayer().getArmies());
 		((AggressiveStrategy) aggressive).reinforcement(driver.getPlayerArmies(), driver.getCurrentPlayer().getCountriesNames());
 		assertEquals(9, country2.getArmiesCount());
-		
-		
 	}
 	
+	/**
+	 * Test fortify method
+	 */
 	@Test
 	public void testFortify() {
 		mapData = new ArrayList<MapNode>();
@@ -169,6 +178,9 @@ public class TestAggressiveStrategy {
 		assertEquals(9,country2.getArmiesCount());
 	}
 	
+	/**
+	 * Test placeArmy method
+	 */
 	@Test
 	public void testPlaceArmy() {
 		int count = 0;
