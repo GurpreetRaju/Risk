@@ -12,6 +12,7 @@ import risk.model.map.CountryNode;
 import risk.model.map.MapNode;
 import risk.model.player.AggressiveStrategy;
 import risk.model.player.Player;
+import risk.model.player.PlayerStrategy;
 import risk.model.player.RandomStrategy;
 
 public class TestAggressiveStrategy {
@@ -64,7 +65,7 @@ public class TestAggressiveStrategy {
 	@Before
 	public void setUp() throws Exception {
 		driver = new GameDriver();
-		mapData = new ArrayList<MapNode>();
+		
 		country1 = new CountryNode("Country1", null, null, null);
 		country2 = new CountryNode("Country2", null, null, null);
 		country3 = new CountryNode("Country3", null, null, null);
@@ -87,15 +88,13 @@ public class TestAggressiveStrategy {
 		ArrayList<CountryNode> countries1 = new ArrayList<CountryNode>();
 		countries1.add(country4);
 		countries1.add(country5);
-		MapNode continent = new MapNode("Continent", countries, 6);
-		mapData.add(continent);
-		MapNode continent1 = new MapNode("Continent1", countries1, 6);
-		mapData.add(continent1);
+		
 		
 	}
 
 	@Test
 	public void testreinforcement() {
+		mapData = new ArrayList<MapNode>();
 		ArrayList<CountryNode> countries = new ArrayList<CountryNode>();
 		countries.add(country1);
 		countries.add(country2);
@@ -103,26 +102,26 @@ public class TestAggressiveStrategy {
 		ArrayList<CountryNode> countries1 = new ArrayList<CountryNode>();
 		countries1.add(country4);
 		countries1.add(country5);
+		MapNode continent = new MapNode("Continent", countries, 6);
+		mapData.add(continent);
+		MapNode continent1 = new MapNode("Continent1", countries1, 6);
+		mapData.add(continent1);
 		player1 = new Player("Player1", 15, countries, driver);
 		player2 = new Player("Player2", 10, countries1, driver);
-		country1.addArmy(1);
-		country2.addArmy(1);
-		country3.addArmy(1);
-		country4.addArmy(1);
-		country5.addArmy(1);
 		player1.setTurnTrue();
 		player2.setTurnFalse();
 		driver.setPlayerList(player1);
 		driver.setPlayerList(player2);
 		driver.setCurrentPlayer(player1);
-		player1.setStrategy(new AggressiveStrategy(driver));
+		PlayerStrategy aggressive = new AggressiveStrategy(driver);
+		player1.setStrategy(aggressive);
 		player2.setStrategy(new RandomStrategy(driver));
 		country1.addArmy(4);
 		country2.addArmy(6);
 		country3.addArmy(3);
 		driver.getCurrentPlayer().setArmies(driver.getCurrentPlayer().getArmies());
-		driver.getCurrentPlayer().reinforcementPhase();
-		assertEquals(15, country2.getArmiesCount());
+		((AggressiveStrategy) aggressive).reinforcement(driver.getPlayerArmies(), driver.getCurrentPlayer().getCountriesNames());
+		assertEquals(9, country2.getArmiesCount());
 	}
 
 }
