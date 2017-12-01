@@ -15,7 +15,7 @@ import risk.view.mapeditor.MapFrame;
 public class MainController {
 	
 	/**
-	 * Stores object of SetUpDialog class.
+	 * setupBox variable used to store reference of class SetUpDialog
 	 */
 	private SetUpDialog setupBox;
 	
@@ -30,12 +30,12 @@ public class MainController {
 	private ActionListener playGameListener;
 	
 	/**
-	 * Mode class object reference
+	 * gameMode variable stores reference of class Mode
 	 */
 	private Mode gameMode;
 	
 	/**
-	 * MainController class instance reference
+	 * mController variable stores reference of class MainController
 	 */
 	private static MainController mController;
 	
@@ -46,6 +46,7 @@ public class MainController {
 	
 	/**
 	 * Get instance of MainController class
+	 * @return initialize the instance of class MainController
 	 */
 	public static MainController getInstance() {
 		if(mController==null) {
@@ -117,6 +118,9 @@ public class MainController {
 		}
 	}
 	
+	/**
+	* starting the game mode
+	*/
 	private void getTournamentInfo() {
 		TournamentInfo infoView = new TournamentInfo();
 		MainController mC = this;
@@ -132,6 +136,9 @@ public class MainController {
 		});
 	}
 
+	/**
+	* string array of winners passed to initialize the winners
+	*/
 	public void setResults(String[][] winners) {
 		ResultView result = new ResultView(winners);
 	}
@@ -148,10 +155,16 @@ public class MainController {
 		}
 	}
 	
+	/**
+	* initialize mode of the game
+	*/
 	public void setMode(Mode mode) {
 		this.gameMode = mode;
 	}
 	
+	/**
+	* @return game mode
+	*/
 	public Mode getMode(){
 		return this.gameMode;
 	}
