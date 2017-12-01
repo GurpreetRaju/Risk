@@ -69,7 +69,7 @@ public class TestGameDriver {
 	 */
 	@Before
 	public void setPlayerAndMapData(){
-		driver = new GameDriver();
+		driver = new GameDriver(".//data//test//testMap3.map",0);
 		country1 = new CountryNode("Country1", null, null, null);
 		country2 = new CountryNode("Country2", null, null, null);
 		country3 = new CountryNode("Country3", null, null, null);
@@ -170,6 +170,7 @@ public class TestGameDriver {
 		mapData = new ArrayList<MapNode>();
 		mapData.add(m);
 		String[][] playerData = {{"Player3","human"},{"Player4","human"}};
+//		driver.getMap().setMapData(mapData);
 		driver.createPlayers(playerData);
 		driver.dividingCountries(mapData);
 		assertEquals(2,driver.getCurrentPlayer().getPlayerCountryCount());
