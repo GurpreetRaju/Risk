@@ -62,11 +62,11 @@ public class SingleMode implements Mode{
 	
 	public static void main(String[] arg) {
 		String[][] myPs = {{"Gur","human"},{"Raj","human"}};
-//		SingleMode s = new SingleMode("/Users/stylethinking/Documents/workspace/Risk/data/map/World2005.map", "/Users/stylethinking/Documents/workspace/Risk/data/map/World2005.bmp", myPs, 0, MainController.getInstance());
+//		SingleMode s = new SingleMode("D:\\Gurpreet\\Study\\Meng\\Projects\\Risk\\data\\map\\World2005.map", "D:\\Gurpreet\\Study\\Meng\\Projects\\Risk\\data\\map\\World2005.bmp", myPs, 0, MainController.getInstance());
 //		MainController.getInstance().setMode(s);
 //		s.start();
 		SingleMode s = new SingleMode();
-		s.loadGameDataFromFile(new File("/Users/stylethinking/Documents/workspace/Risk/SaveGame2017.11.30.23.07.59.sav"));
+		s.loadGameDataFromFile(new File("D:\\Gurpreet\\Study\\Meng\\Projects\\Risk\\SaveGame2017.11.30.23.36.53.sav"));
 	}
 	
 	/**
