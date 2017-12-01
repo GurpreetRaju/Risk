@@ -27,6 +27,10 @@ public class AggressiveStrategy implements PlayerStrategy {
 	 */
 	private TurnManager turnManager;
 	
+	/**
+	 * Constructor to initialize gamedriver and turn manager.
+	 * @param nDriver GameDriver Instance.
+	 */
 	public AggressiveStrategy(GameDriver nDriver) {
 		driver = nDriver;
 		turnManager = driver.getTurnManager();
@@ -114,18 +118,25 @@ public class AggressiveStrategy implements PlayerStrategy {
 	}
 
 	/**
-	* @return number of dice rolls
-	*/
+	 * @return number of dice rolls
+	 */
 	public int selectDiceNumber(int diceToRoll, String name) {
 		return diceToRoll; //Assuming player chooses maximum number of dice to roll
 	}
 
+	/**
+	 * Armies to be moved for fortification.
+	 */
 	@Override
 	public int moveArmies(int aArmies, int maxArmies, String message) {
 		return new Random().nextInt(maxArmies+1-aArmies) + aArmies;
 	}
 	
-
+	/**
+	 * Aggressive Reinforcement.
+	 * @param armies armies to be reinforced.
+	 * @param countryList countries of the player.
+	 */
 	public void reinforcement(int armies,String [] countryList) {
 		ArrayList<CountryNode> countries = new ArrayList<CountryNode>();
 		/*get country node for corresponding country name.*/
@@ -138,6 +149,10 @@ public class AggressiveStrategy implements PlayerStrategy {
 		driver.getCurrentPlayer().shiftArmiesOnReinforcement(strongest.getCountryName(), armies);
 	}
 	
+	/**
+	 * Aggressive fortification.
+	 * @param countryList countries of the player.
+	 */
 	public void fortify(ArrayList<String> countryList) {
 		if(countryList.size()>1) {
 			ArrayList<CountryNode> countries = new ArrayList<CountryNode>();
@@ -160,8 +175,8 @@ public class AggressiveStrategy implements PlayerStrategy {
 	}
 
 	/**
-	* getting the name of strategy
-	*/
+	 * Gives the name of strategy.
+	 */
 	@Override
 	public String getStrategyName() {
 		return "aggressive";

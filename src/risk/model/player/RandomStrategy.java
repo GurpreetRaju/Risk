@@ -31,8 +31,15 @@ public class RandomStrategy implements PlayerStrategy {
 	 */
 	private int countAttacks = 0;
 	
+	/**
+	 * Count of random attacks.
+	 */
 	private int randomAttacknumber = 0;
 	
+	/**
+	 * Constructor to initialize gamedriver and turn manager.
+	 * @param nDriver GameDriver Instance.
+	 */
 	public RandomStrategy(GameDriver nDriver) {
 		driver = nDriver;
 		turnManager = driver.getTurnManager();
@@ -99,27 +106,45 @@ public class RandomStrategy implements PlayerStrategy {
 		return strings[new Random().nextInt(strings.length)];
 	}
 
+	/**
+	 * The number of dice to be rolled.
+	 */
 	@Override
 	public int selectDiceNumber(int diceToRoll, String pName) {
 		return diceToRoll;
 	}
 
+	/**
+	 * Armies to be moved.
+	 */
 	@Override
 	public int moveArmies(int aArmies, int maxArmies, String message) {
 		return new Random().nextInt(maxArmies+1-aArmies) + aArmies;
 	}
 
+	/**
+	 * @return name of the strategy.
+	 */
 	@Override
 	public String getStrategyName() {
 		return "random";
 	}
 	
+	/**
+	 * Random Reinforcement
+	 * @param armies armies to be reinforced.
+	 * @param countryList list of countries of the player.
+	 */
 	public void reinforcement(int armies, String[] countryList) {
 		randomAttacknumber = new Random().nextInt(6);
 		String country = countryList[new Random().nextInt(countryList.length)];
 		driver.getCurrentPlayer().shiftArmiesOnReinforcement(country, armies);
 	}
 	
+	/**
+	 * Random forification.
+	 * @param countryList list of countries of the player.
+	 */
 	public void fortify(ArrayList<String> countryList) {
 		ArrayList<CountryNode> countries = new ArrayList<CountryNode>() ;
 		for (String countryName : countryList) {
