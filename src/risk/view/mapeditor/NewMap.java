@@ -295,8 +295,9 @@ public class NewMap extends JFrame {
 		gbc_btnAddCountry.gridx = 1;
 		gbc_btnAddCountry.gridy = 5;
 		contentPane.add(btnAddCountry, gbc_btnAddCountry);
-
-		comboBox = new JComboBox();			/*continent list.*/
+		
+		/* continent list */
+		comboBox = new JComboBox();			
 		comboBox.setToolTipText("Choose existing continent to add new country");
 		GridBagConstraints gbc_comboBox = new GridBagConstraints();
 		gbc_comboBox.gridwidth = 3;
@@ -336,8 +337,9 @@ public class NewMap extends JFrame {
 		gbc_btnDeleteCountry.gridx = 1;
 		gbc_btnDeleteCountry.gridy = 8;
 		contentPane.add(btnDeleteCountry, gbc_btnDeleteCountry);
-
-		comboBox_2 = new JComboBox();			/*list of countries.*/
+		
+		/* list of countries*/
+		comboBox_2 = new JComboBox();			
 		GridBagConstraints gbc_comboBox_2 = new GridBagConstraints();
 		ArrayList<String> choice = new ArrayList<>();
 		gbc_comboBox_2.gridwidth = 3;
@@ -347,7 +349,8 @@ public class NewMap extends JFrame {
 		gbc_comboBox_2.gridy = 8;
 		contentPane.add(comboBox_2, gbc_comboBox_2);
 
-		btnAdd = new JButton("Add Country");			/*adding countries*/
+		/* adding countries */
+		btnAdd = new JButton("Add Country");			
 		btnAdd.setBackground(new Color(240, 255, 255));
 		btnAdd.setFont(new Font("Bookman Old Style", Font.BOLD, 13));
 		GridBagConstraints gbc_btnAdd = new GridBagConstraints();
@@ -388,6 +391,7 @@ public class NewMap extends JFrame {
 		gbc_btnAddNeighbours.gridy = 14;
 		contentPane.add(btnAddNeighbours, gbc_btnAddNeighbours);
 
+		/* list of countries for adding as neighbours*/
 		comboBox_1 = new JComboBox();
 		GridBagConstraints gbc_comboBox_11 = new GridBagConstraints();
 		comboBox_1.setToolTipText("Select country for adding neighbours");
@@ -440,6 +444,7 @@ public class NewMap extends JFrame {
 		gbc_btnDeleteNeighbours.gridy = 20;
 		contentPane.add(btnDeleteNeighbours, gbc_btnDeleteNeighbours);
 		
+		/* List of countries */
 		comboBox_4 = new JComboBox();
 		GridBagConstraints gbc_comboBox_4 = new GridBagConstraints();
 		gbc_comboBox_4.insets = new Insets(0, 0, 5, 5);
