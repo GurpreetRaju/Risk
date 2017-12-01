@@ -66,13 +66,16 @@ public class CheaterStrategy implements PlayerStrategy {
 	}
 
 	/**
-	 * Distribute armies in startup phase.
+	 * Distributing armies in the startup phase
 	 */
 	@Override
 	public String placeArmy(String[] strings, String string) {
 		return strings[new Random().nextInt(strings.length)];
 	}
 
+	/**
+	* @return number of dice roll
+	*/
 	@Override
 	public int selectDiceNumber(int diceToRoll, String pName) {
 		
@@ -84,6 +87,9 @@ public class CheaterStrategy implements PlayerStrategy {
 		return new Random().nextInt(maxArmies+1-aArmies) + aArmies;
 	}
 	
+	/**
+	* @return strategy name
+	*/
 	@Override
 	public String getStrategyName() {
 		return "cheater";

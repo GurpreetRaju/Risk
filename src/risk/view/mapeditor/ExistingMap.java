@@ -62,7 +62,7 @@ public class ExistingMap extends JFrame {
 	}
 
 	/**
-	 * Initialize the contents of the frame.
+	 * Initializing the the existing Map Frame.
 	 */
 	public void initialize() {
 		this.setLocationRelativeTo(null);
@@ -89,7 +89,8 @@ public class ExistingMap extends JFrame {
 			String[] contName = {existingMap.get(i).getContinentName(), Integer.toString(existingMap.get(i).getControlValue())};
 			model1.addRow(contName);
 		}
-
+		
+		/* Initializing jTable */
 		JTable table1 = new JTable(model1);
 		table1.setToolTipText("Map file displayed here");
 		GridBagConstraints gbc_table1 = new GridBagConstraints();
@@ -100,7 +101,8 @@ public class ExistingMap extends JFrame {
 		gbc_table1.gridx = 0;
 		gbc_table1.gridy = 0;
 		contentPane.add(getContentPane().add(new JScrollPane(table1)), gbc_table1);
-
+		
+		/* Initializing jTable */
 		String[] column2 = {"Countries"};
 		DefaultTableModel model2 = new DefaultTableModel(column2, 0);
 		JTable table2 = new JTable(model2);
@@ -113,7 +115,8 @@ public class ExistingMap extends JFrame {
 		gbc_table2.gridx = 2;
 		gbc_table2.gridy = 0;
 		contentPane.add(getContentPane().add(new JScrollPane(table2)), gbc_table2);
-
+		
+		/* Initializing jTable */
 		String[] column3 = {"N Countries"};
 		DefaultTableModel model3 = new DefaultTableModel(column3, 0);
 		JTable table3 = new JTable(model3);
@@ -126,7 +129,8 @@ public class ExistingMap extends JFrame {
 		gbc_table3.gridx = 4;
 		gbc_table3.gridy = 0;
 		contentPane.add(getContentPane().add(new JScrollPane(table3)), gbc_table3);
-
+		
+		/* adding action listener on jTable*/
 		table1.addMouseListener(new java.awt.event.MouseAdapter() {
 			@Override
 			public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -143,7 +147,8 @@ public class ExistingMap extends JFrame {
 				}
 			}
 		});
-
+		
+		/* adding action listener on jTable*/
 		table2.addMouseListener(new java.awt.event.MouseAdapter() {
 			@Override
 			public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -194,7 +199,7 @@ public class ExistingMap extends JFrame {
 	}
 	
 	/**
-	 * displays dialog box with success message.
+	 * dialog box with success message.
 	 */
 	public void successfullLoad() {
 		JOptionPane.showMessageDialog(contentPane, "Map file validated => Click ok to load the map data", "Message", JOptionPane.INFORMATION_MESSAGE);
