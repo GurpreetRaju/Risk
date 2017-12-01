@@ -93,7 +93,7 @@ public class TestAggressiveStrategy {
 	}
 
 	@Test
-	public void testreinforcement() {
+	public void testeinforcement() {
 		mapData = new ArrayList<MapNode>();
 		ArrayList<CountryNode> countries = new ArrayList<CountryNode>();
 		countries.add(country1);
@@ -122,6 +122,68 @@ public class TestAggressiveStrategy {
 		driver.getCurrentPlayer().setArmies(driver.getCurrentPlayer().getArmies());
 		((AggressiveStrategy) aggressive).reinforcement(driver.getPlayerArmies(), driver.getCurrentPlayer().getCountriesNames());
 		assertEquals(9, country2.getArmiesCount());
+		
+		
+	}
+	
+	@Test
+	public void testFortify() {
+		mapData = new ArrayList<MapNode>();
+		ArrayList<CountryNode> countries = new ArrayList<CountryNode>();
+		countries.add(country1);
+		countries.add(country2);
+		countries.add(country3);
+		ArrayList<CountryNode> countries1 = new ArrayList<CountryNode>();
+		countries1.add(country4);
+		countries1.add(country5);
+		MapNode continent = new MapNode("Continent", countries, 6);
+		mapData.add(continent);
+		MapNode continent1 = new MapNode("Continent1", countries1, 6);
+		mapData.add(continent1);
+		player1 = new Player("Player1", 15, countries, driver);
+		player2 = new Player("Player2", 10, countries1, driver);
+		player1.setTurnTrue();
+		player2.setTurnFalse();
+		driver.setPlayerList(player1);
+		driver.setPlayerList(player2);
+		driver.setCurrentPlayer(player1);
+		PlayerStrategy aggressive = new AggressiveStrategy(driver);
+		player1.setStrategy(aggressive);
+		player2.setStrategy(new RandomStrategy(driver));
+		country1.addArmy(4);
+		country2.addArmy(6);
+		country3.addArmy(3);
+		ArrayList<String> countriesList = new ArrayList<String>();
+		for(CountryNode c : driver.getCurrentPlayer().getCountries()) {
+			if(c.getArmiesCount()>1) {
+				for(CountryNode n: c.getNeighbourCountries()) {
+					if(n.getOwner().equals(driver.getCurrentPlayer())) {
+						countriesList.add(c.getCountryName());
+						break;
+					}
+				}
+			}
+		}
+		
+		((AggressiveStrategy) aggressive).fortify(countriesList);
+		assertEquals(9,country2.getArmiesCount());
+	}
+	
+	@Test
+	public void testPlaceArmy() {
+		int count = 0;
+		String [] countries = new String [5];
+		for (int i = 0; i<countries.length;i++) {
+			countries[i] = "country" + i;
+		}
+		PlayerStrategy aggressive = new AggressiveStrategy(driver);
+		String value = ((AggressiveStrategy) aggressive).placeArmy(countries, "player1");
+		for (String country: countries) {
+			if (country.equals(value)) {
+				count++;
+			}
+		}
+		assertEquals(1, count);
 	}
 
 }
