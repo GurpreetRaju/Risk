@@ -11,12 +11,20 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
+
 /**
- * This class display resukt of Tournament and Single Game mode
+ * This class displays result of Tournament and Single Game mode
  * @author Gurpreet
  *
  */
 public class ResultView extends JFrame{
+	
+	/**
+	 * Serial Version id for JFrame.
+	 * {@inheritDoc}
+	 */
+	private static final long serialVersionUID = 1257813257366300458L;
+
 	/**
 	 * JButton it start a new game again
 	 */
@@ -41,6 +49,7 @@ public class ResultView extends JFrame{
 		});
 		init(data);
 	}
+
 	/**
 	 * Display data using table form
 	 * @param data data to be dislayed on view
@@ -69,7 +78,7 @@ public class ResultView extends JFrame{
 	}
 	
 	/**
-	 * Adda listener to playAgain button
+	 * Add listener to playAgain button
 	 * @param e action listener to be added to play again button
 	 */
 	public void addListenerToPlayAgainButton(ActionListener e) {
