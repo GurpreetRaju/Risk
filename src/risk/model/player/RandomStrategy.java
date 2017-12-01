@@ -45,10 +45,8 @@ public class RandomStrategy implements PlayerStrategy {
 	@Override
 	public void reinforcementPhase(int armies, String[] countryList) {
 		countAttacks = 0;
-		randomAttacknumber = new Random().nextInt(6);
-		String country = countryList[new Random().nextInt(countryList.length)];
-		driver.shiftArmiesOnReinforcement(country, armies);
-		driver.nottifyObservers(driver.getTurnManager().getPhase());
+		reinforcement(armies, countryList);
+		driver.nottifyObservers("Random Player has reinforced a random country");
 		driver.changePhase();
 	}
 
@@ -88,20 +86,8 @@ public class RandomStrategy implements PlayerStrategy {
 	 */
 	@Override
 	public void fortificationPhase(ArrayList<String> countryList) {
-		ArrayList<CountryNode> countries = new ArrayList<CountryNode>() ;
-		for (String countryName : countryList) {
-			if (driver.getCountry(countryName).getArmiesCount() > 1) {
-				countries.add(driver.getCountry(countryName));
-			}
-		}
-		CountryNode country = countries.get(new Random ().nextInt(countries.size()));
-		int armies = new Random().nextInt(country.getArmiesCount()+1)-1;
-		if (armies == 0) {
-			armies = 1;
-		}
-		String neighbour = country.getNeighbours().get(new Random().nextInt(country.getNeighbours().size())).getCountryName();
-		driver.getArmiesShiftedAfterFortification(country.getCountryName(), neighbour, armies);
-		driver.nottifyObservers(driver.getTurnManager().getPhase());
+		fortify(countryList);
+		driver.nottifyObservers("Random player has fortified a random country");
 		driver.changePhase();
 	}
 
@@ -126,6 +112,28 @@ public class RandomStrategy implements PlayerStrategy {
 	@Override
 	public String getStrategyName() {
 		return "random";
+	}
+	
+	public void reinforcement(int armies, String[] countryList) {
+		randomAttacknumber = new Random().nextInt(6);
+		String country = countryList[new Random().nextInt(countryList.length)];
+		driver.getCurrentPlayer().shiftArmiesOnReinforcement(country, armies);
+	}
+	
+	public void fortify(ArrayList<String> countryList) {
+		ArrayList<CountryNode> countries = new ArrayList<CountryNode>() ;
+		for (String countryName : countryList) {
+			if (driver.getCountry(countryName).getArmiesCount() > 1) {
+				countries.add(driver.getCountry(countryName));
+			}
+		}
+		CountryNode country = countries.get(new Random ().nextInt(countries.size()));
+		int armies = new Random().nextInt(country.getArmiesCount()+1)-1;
+		if (armies == 0) {
+			armies = 1;
+		}
+		CountryNode neighbour = country.getNeighbours().get(new Random().nextInt(country.getNeighbours().size()));
+		driver.getCurrentPlayer().getArmiesShiftedAfterFortification(country.getCountryName(), neighbour.getCountryName(), armies);
 	}
 
 }

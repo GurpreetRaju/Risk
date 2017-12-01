@@ -17,6 +17,9 @@ public class SingleMode implements Mode{
 	private int myMoveLimit;
 	private GameController controller;
 	
+	/**
+	* constructor for initialzing the instance variables.
+	*/
 	public SingleMode(String map, String bmp, String[][] players, int moveLimit, MainController nController) {
 		mController = nController;
 		myMap = map;
@@ -25,7 +28,9 @@ public class SingleMode implements Mode{
 		myMoveLimit = moveLimit;
 	}
 
-	
+	/**
+	* constructor for initialzing the instance variables.
+	*/
 	public SingleMode(String map, String[][] players, int moveLimit, MainController nController) {
 		mController = nController;
 		myMap = map;
@@ -33,15 +38,19 @@ public class SingleMode implements Mode{
 		myMoveLimit = moveLimit;
 	}
 
-
 	public SingleMode() {}
 
-
+	/**
+	* udating results using the winner player
+	*/
 	public void updateResults(String winnerPlayer) {
 		String[][] data = {{myMap , winnerPlayer}};
 		mController.setResults(data);
 	}
 	
+	/**
+	* initializing the instance variables depending upon condition 
+	*/
 	public void start() {
 		if(myBmp!=null) {
 			controller = new GameController(myMap, myBmp, myPlayers, myMoveLimit);
@@ -60,6 +69,9 @@ public class SingleMode implements Mode{
 		s.loadGameDataFromFile(new File("/Users/stylethinking/Documents/workspace/Risk/SaveGame2017.11.30.23.07.59.sav"));
 	}
 	
+	/**
+	* @return map
+	*/
 	public static String getMapName(){
 		return myMap;
 	}

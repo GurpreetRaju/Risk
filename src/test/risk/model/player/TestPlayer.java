@@ -1,4 +1,4 @@
-package test.risk.model;
+package test.risk.model.player;
 
 import static org.junit.Assert.*;
 import java.util.ArrayList;
@@ -147,11 +147,11 @@ public class TestPlayer {
 		testPlayer.addCountry(new CountryNode("test", null, null, null));
 		testPlayer.addCountry(new CountryNode("test2", null, null, null));
 		testPlayer.addCountry(new CountryNode("test3", null, null, null));
-		testPlayer.addCountry(new CountryNode(null, null, null, null));
-		testPlayer.addCountry(new CountryNode(null, null, null, null));
-		testPlayer.addCountry(new CountryNode(null, null, null, null));
-		testPlayer.addCountry(new CountryNode(null, null, null, null));
-		testPlayer.addCountry(new CountryNode(null, null, null, null));
+		testPlayer.addCountry(new CountryNode("test4", null, null, null));
+		testPlayer.addCountry(new CountryNode("test4", null, null, null));
+		testPlayer.addCountry(new CountryNode("test4", null, null, null));
+		testPlayer.addCountry(new CountryNode("test4", null, null, null));
+		testPlayer.addCountry(new CountryNode("test4", null, null, null));
 		assertEquals(4,testPlayer.getArmies());
 	}
 	

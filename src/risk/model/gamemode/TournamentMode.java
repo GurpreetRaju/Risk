@@ -6,7 +6,7 @@ import risk.controller.MainController;
 public class TournamentMode implements Mode{
 	
 	/**
-	 * Object reference to MainController object
+	 * mController varaiable for storing the reference of class MainController
 	 */
 	private MainController mController;
 	
@@ -67,11 +67,16 @@ public class TournamentMode implements Mode{
 		currentGame = 1;
 	}
 	
+	/**
+	* initializing the instance variable of the class 
+	*/
 	public void start() {
 		GameController gController = new GameController(maps[currentMap],behaviors,moveLimit);
 	}
 	
-	
+	/**
+	* updating results using winner obtained
+	*/
 	public void updateResults(String winner) {
 		winners[currentMap][currentGame] = winner;
 		if(currentGame==games) {

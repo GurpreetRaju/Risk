@@ -30,45 +30,7 @@ public class BenevolentStrategy implements PlayerStrategy {
 	 */
 	@Override
 	public void reinforcementPhase(int armies, String[] countryList) {
-		ArrayList<CountryNode> countries = new ArrayList<CountryNode>();
-		/*get country node for corresponding country name.*/
-		for(String c: countryList){
-			countries.add(driver.getCountry(c));
-		}
-		
-		/*sort countries according to armies count in descending order.*/
-		countries = sortCountries(countries);
-		
-		/*get the list of weak countries.*/
-		int countOfWeakCountries = 1;
-		ArrayList<CountryNode> weakCountryList = new ArrayList<CountryNode>();
-		weakCountryList.add(countries.get(0));
-		for(int i= 1; i < countries.size(); i++){
-			if(countries.get(i).getArmiesCount() == countries.get(i-1).getArmiesCount()){
-				weakCountryList.add(countries.get(i));
-				countOfWeakCountries++;
-			}
-			else{
-				break;
-			}
-		}
-		Player player = driver.getCurrentPlayer();
-		
-		/*get the integer round-off of the armies to be alloted to each weak country.*/
-		int armiesToBeReinforced = (int)(player.getArmiesCount()/countOfWeakCountries);
-		for( CountryNode country: weakCountryList){
-			driver.shiftArmiesOnReinforcement(country.getCountryName(), armiesToBeReinforced);
-//			country.addArmy(armiesToBeReinforced);
-//			player.removeArmies(armiesToBeReinforced);
-		}
-		
-		/*Move the armies remaining into the first weakest country in the list.*/
-		int playerArmiesLeft = player.getArmiesCount();
-				
-		if(!(playerArmiesLeft == 0)){
-			weakCountryList.get(0).addArmy(playerArmiesLeft);
-			player.removeArmies(playerArmiesLeft);
-		}
+		reinforcement(armies, countryList);
 		driver.nottifyObservers(driver.getTurnManager().getPhase());
 		driver.changePhase();
 	}
@@ -90,20 +52,7 @@ public class BenevolentStrategy implements PlayerStrategy {
 	 */
 	@Override
 	public void fortificationPhase(ArrayList<String> countryList) {
-		ArrayList<CountryNode> countries = new ArrayList<CountryNode>();
-		/*get country node for corresponding country name.*/
-		for(String c: countryList){
-			countries.add(driver.getCountry(c));
-		}
-		
-		/*sort countries according to armies count in descending order.*/
-		countries = sortCountries(countries);
-		
-		/*fortify the weakest country.*/
-		CountryNode weakest = countries.get(0);
-		CountryNode strongest = countries.get(countries.size()-1);
-		int average = (int)(weakest.getArmiesCount() + strongest.getArmiesCount()) / 2;
-		driver.getArmiesShiftedAfterFortification(strongest.getCountryName(), weakest.getCountryName(), average);
+		fortify(countryList);
 		driver.nottifyObservers(driver.getTurnManager().getPhase());
 		driver.changePhase();
 	}
@@ -148,5 +97,63 @@ public class BenevolentStrategy implements PlayerStrategy {
 		return "benevolent";
 	}
 
+	public void reinforcement(int armies, String[] countryList) {
+		ArrayList<CountryNode> countries = new ArrayList<CountryNode>();
+		/*get country node for corresponding country name.*/
+		for(String c: countryList){
+			countries.add(driver.getCountry(c));
+		}
+		
+		/*sort countries according to armies count in descending order.*/
+		countries = sortCountries(countries);
+		
+		/*get the list of weak countries.*/
+		int countOfWeakCountries = 1;
+		ArrayList<CountryNode> weakCountryList = new ArrayList<CountryNode>();
+		weakCountryList.add(countries.get(0));
+		for(int i= 1; i < countries.size(); i++){
+			if(countries.get(i).getArmiesCount() == countries.get(i-1).getArmiesCount()){
+				weakCountryList.add(countries.get(i));
+				countOfWeakCountries++;
+			}
+			else{
+				break;
+			}
+		}
+		Player player = driver.getCurrentPlayer();
+		
+		/*get the integer round-off of the armies to be alloted to each weak country.*/
+		int armiesToBeReinforced = (int)(armies/countOfWeakCountries);
+		for( CountryNode country: weakCountryList){
+			driver.getCurrentPlayer().shiftArmiesOnReinforcement(country.getCountryName(), armiesToBeReinforced);
+//			country.addArmy(armiesToBeReinforced);
+//			player.removeArmies(armiesToBeReinforced);
+		}
+		
+		/*Move the armies remaining into the first weakest country in the list.*/
+		int playerArmiesLeft = player.getArmiesCount();
+				
+		if(!(playerArmiesLeft == 0)){
+			weakCountryList.get(0).addArmy(playerArmiesLeft);
+			player.removeArmies(playerArmiesLeft);
+		}
+	}
+	
+	public void fortify(ArrayList<String> countryList) {
+		ArrayList<CountryNode> countries = new ArrayList<CountryNode>();
+		/*get country node for corresponding country name.*/
+		for(String c: countryList){
+			countries.add(driver.getCountry(c));
+		}
+		
+		/*sort countries according to armies count in descending order.*/
+		countries = sortCountries(countries);
+		
+		/*fortify the weakest country.*/
+		CountryNode weakest = countries.get(0);
+		CountryNode strongest = countries.get(countries.size()-1);
+		int average = (int)(weakest.getArmiesCount() + strongest.getArmiesCount()) / 2;
+		driver.getCurrentPlayer().getArmiesShiftedAfterFortification(strongest.getCountryName(), weakest.getCountryName(), average);
+	}
 
 }
