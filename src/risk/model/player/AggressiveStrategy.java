@@ -113,7 +113,9 @@ public class AggressiveStrategy implements PlayerStrategy {
 		return countryList;
 	}
 
-	
+	/**
+	* @return number of dice rolls
+	*/
 	public int selectDiceNumber(int diceToRoll, String name) {
 		return diceToRoll; //Assuming player chooses maximum number of dice to roll
 	}
@@ -157,6 +159,9 @@ public class AggressiveStrategy implements PlayerStrategy {
 		}
 	}
 
+	/**
+	* getting the name of strategy
+	*/
 	@Override
 	public String getStrategyName() {
 		return "aggressive";
