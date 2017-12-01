@@ -27,7 +27,7 @@ public class CountryNode {
 	private int[] coordiantes;
 	
 	/**
-	 * Store name of player to whom this country belongs.
+	 * Stores the name of player to whom this country belongs.
 	 */
 	private Player owner;
 	
@@ -235,7 +235,7 @@ public class CountryNode {
 	}
   
 	/**
-	 * Decrements the army count by 1.
+	 * Decreases the count of armies by 1.
 	 */
 	public void removeArmy() {
 		armies = armies-1;	
@@ -258,7 +258,7 @@ public class CountryNode {
 	}
 	
 	/**
-	 * Subtract multiple armies from country
+	 * Subtract multiple armies from the country
 	 * @param moveArmies number of armies to subtract
 	 */
 	public void removeArmies(int moveArmies) {

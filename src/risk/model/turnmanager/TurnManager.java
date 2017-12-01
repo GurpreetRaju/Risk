@@ -126,7 +126,7 @@ public class TurnManager {
 	 * @param phase the phase to set
 	 */
 	public void setPhase(String phase) {
-		this.phase = phase;
+		this.phase = phase.trim();
 	}
 
 	/**
