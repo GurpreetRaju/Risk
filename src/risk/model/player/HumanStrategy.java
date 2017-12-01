@@ -13,7 +13,8 @@ public class HumanStrategy implements PlayerStrategy{
 	}
 
 	public void reinforcementPhase(int armies, String[] countryList) {
-		driver.reinforcementControls(armies, countryList);
+		System.out.print("Checkpoint 2");
+		driver.reinforcementControls(armies, countryList);		
 		driver.setControlsActionListeners();
 	}
 

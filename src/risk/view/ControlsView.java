@@ -91,6 +91,8 @@ public class ControlsView extends JPanel {
 	 */
 	public void reinforcementControls(int armiesCount, String[] countryList) {
 		this.removeAll();
+
+		System.out.print("Checkpoint 3");
 		armiesAvailable = "Armies Available:" + String.valueOf(armiesCount);
 		System.out.println(armiesCount);
 		SpinnerModel sm = new SpinnerNumberModel(1, 1, armiesCount, 1); 
