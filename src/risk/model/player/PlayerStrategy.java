@@ -6,39 +6,54 @@ import java.util.ArrayList;
  * Interface for various Player Strategies.
  */
 public interface PlayerStrategy {
-	
+
 	/**
-	 * Reinforcement phase of player that reinforces its strongest countries.
+	 * Execute the reinforcement phase according to strategy.
+	 * @param armies number of armies player can use to reinforce
+	 * @param countryList list of countries player owns
 	 */
 	public void reinforcementPhase(int armies, String[] countryList);
 	
 	/**
-	 * Attack phase for the player.
+	 * Attack phase implementation
+	 * @param countryList list of countries attacker owns
 	 */
 	public void attackPhase(ArrayList<String> countryList);
 	
 	/**
-	 * Fortification phase of the player.
+	 * Execute fortification move, moving some armies from one country to another
+	 * @param countryList List of countries player can fortify
 	 */
 	public void fortificationPhase(ArrayList<String> countryList);
-
+	
 	/**
-	 * Distribute armies in startup phase.
+	 * This method implements the player choosing a country to place a army on.
+	 * @param strings list of countries player can place army on
+	 * @param string message to be shown to player
+	 * @return chosen country on which army has to be placed
 	 */
 	public String placeArmy(String[] strings, String string);
-
+	
 	/**
-	 * @return number of dice rolls
+	 * Player selecting number of dice to roll in attack phase as either attacker or defender
+	 * @param diceToRoll max number of dice plaer can roll
+	 * @param pName name of player choosing the dice
+	 * @return return the chosen number of dice
 	 */
 	public int selectDiceNumber(int diceToRoll, String pName);
 
 	/**
-	 * Armies to be moved for fortification.
+	 * Moving armies after attacker won a battle
+	 * @param aArmies minimum number of armies player must move
+	 * @param maxArmies maximum number of armies player can move
+	 * @param message message for the player
+	 * @return number of armies chosen by player for move
 	 */
 	public int moveArmies(int aArmies, int maxArmies, String message);
 	
 	/**
-	 * Gives the name of strategy.
+	 * Name of strategy player currently use
+	 * @return name of strategy
 	 */
 	public String getStrategyName();
 
