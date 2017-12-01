@@ -15,5 +15,7 @@ public interface PlayerStrategy {
 	public int selectDiceNumber(int diceToRoll, String pName);
 
 	public int moveArmies(int aArmies, int maxArmies, String message);
+	
+	public String getStrategyName();
 
 }
