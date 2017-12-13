@@ -93,6 +93,7 @@ public class TournamentMode implements Mode{
 		winners[currentMap][currentGame] = winner;
 		if(currentGame==games) {
 			if(currentMap<(maps.length-1)) {
+				System.out.print("******************Tournament Continue*********************** : Tournament.java: 96");
 				currentMap++;
 				currentGame = 1;
 				start();
@@ -102,6 +103,7 @@ public class TournamentMode implements Mode{
 			}
 		}
 		else {
+			System.out.print("******************Tournament Continue*********************** : Tournament.java: 106");
 			currentGame++;
 			start();
 		}
@@ -112,8 +114,8 @@ public class TournamentMode implements Mode{
 	 * @param arg command line arguments.
 	 */
 	public static void main(String[] arg) {
-		String[][] myPs = {{"Gur","aggressive"},{"Raj","aggressive"}};
-		String[] maps = {"D:\\Gurpreet\\Study\\Meng\\SEM6\\SOEN6441\\project\\World2005.map","D:\\Gurpreet\\Study\\Meng\\SEM6\\SOEN6441\\project\\World2005.bmp"};
+		String[][] myPs = {{"Gur","benevolent"},{"Raj","aggressive"}};
+		String[] maps = {"D:\\Gurpreet\\Study\\Meng\\SEM6\\SOEN6441\\project\\World2005.map","D:\\Gurpreet\\Study\\Meng\\SEM6\\SOEN6441\\project\\World2005.map"};
 		TournamentMode s = new TournamentMode(2,maps, myPs, 10, MainController.getInstance());
 		MainController.getInstance().setMode(s);
 		s.start();

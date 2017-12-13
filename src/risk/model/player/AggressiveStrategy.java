@@ -45,7 +45,6 @@ public class AggressiveStrategy implements PlayerStrategy {
 		reinforcement(armies,countryList);
 		driver.nottifyObservers("Armies moved according to Aggresive Strategy reinforcement");
 		driver.changePhase();
-		
 	}
 
 	/**

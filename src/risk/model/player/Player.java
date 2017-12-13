@@ -163,6 +163,7 @@ public class Player {
 	 */
 	public String[] getCountriesNames() {
 		String[] names = new String[this.countries.size()];
+		System.out.print("Player.java : 166 : "+this.countries.size());
 		for(int i=0;i<names.length;i++){
 			names[i] = this.countries.get(i).getCountryName();
 			System.out.println(names[i]);

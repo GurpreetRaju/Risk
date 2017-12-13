@@ -41,6 +41,11 @@ public class TurnManager {
 	}
 	
 	/**
+	 * Continue a phase
+	 */
+	public boolean continuePhase;
+		
+	/**
 	 * Constructor to set the phase name.
 	 * @param string Phase name.
 	 * @param nDriver GameDriver instance.
@@ -48,6 +53,7 @@ public class TurnManager {
 	public TurnManager(String string, GameDriver nDriver){
 		this(nDriver);
 		this.setPhase(string);
+		this.continuePhase = true;
 	}
 	
 	/**
@@ -56,7 +62,18 @@ public class TurnManager {
 	 */
 	public void startTurn(Player currentPlayer) {
 		currentPlayer.setArmies(this.getCurrentPlayer().getArmies());
-		currentPlayer.reinforcementPhase();
+	}
+	
+	/**
+	 * 
+	 */
+	public void turnPlay() {
+		if(this.continuePhase) {
+			continuePhase();
+		}
+		else {
+			changePhase();
+		}
 	}
 	
 	/**
@@ -156,6 +173,14 @@ public class TurnManager {
 	 */
 	public void setWonCard(boolean wonCard) {
 		this.wonCard = wonCard;
+	}
+
+	public void setChangePhase() {
+		this.continuePhase = false;
+	}
+	
+	public void setContinuePhase() {
+		this.continuePhase = true;
 	}
 
 }

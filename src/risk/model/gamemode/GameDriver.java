@@ -117,6 +117,10 @@ public class GameDriver extends Observable {
 		createPlayers(playerData);
 		startUpPhase();
 		turnManager.startTurn(this.currentPlayer);
+		while(!turnManager.isGameOver()) {
+			turnManager.turnPlay();
+		}
+		
 	}
 	
 	/**
@@ -226,16 +230,18 @@ public class GameDriver extends Observable {
 	 */
 	public void setNextPlayerTurn() {
 		int currentPlayerIndex = players.indexOf(getCurrentPlayer());
-		this.currentPlayer.setTurnFalse();
-		if (currentPlayerIndex == players.size()-1){
-			moveCounter();
-			this.currentPlayer = players.get(0);
-		}else{
-			this.currentPlayer = players.get(currentPlayerIndex+1);
+		moveCounter();
+		if(!turnManager.isGameOver()) {
+			this.currentPlayer.setTurnFalse();
+			if (currentPlayerIndex == players.size()-1){
+				this.currentPlayer = players.get(0);
+			}else{
+				this.currentPlayer = players.get(currentPlayerIndex+1);
+			}
+			this.currentPlayer.setTurnTrue();
+			nottifyObservers("Turn changed to "+ this.currentPlayer.getName());
+			this.getCurrentPlayer().setArmies(this.getCurrentPlayer().getArmies());
 		}
-		this.currentPlayer.setTurnTrue();
-		nottifyObservers("Turn changed to "+ this.currentPlayer.getName());
-		this.getCurrentPlayer().setArmies(this.getCurrentPlayer().getArmies());
 	}
 	
 	/**
@@ -304,7 +310,7 @@ public class GameDriver extends Observable {
 	 */
 	public void continuePhase() {
 		updateMap();
-		turnManager.continuePhase();
+		turnManager.setContinuePhase();
 	}
 
 	/**
@@ -312,7 +318,7 @@ public class GameDriver extends Observable {
 	 * @see #updateMap()
 	 */
 	public void changePhase() {
-		turnManager.changePhase();
+		turnManager.setChangePhase();
 		updateMap();
 	}
 	
@@ -459,9 +465,6 @@ public class GameDriver extends Observable {
 		if(!checkGameState()) {
 			continuePhase();
 		}
-		else {
-			announceGameOver(players.get(0).getName());
-		}
 	}
 	
 	/**
@@ -582,7 +585,7 @@ public class GameDriver extends Observable {
 	public void announceGameOver(String winner) {
 		nottifyObservers("GameOver");
 		controller.removeAllControls();
-		System.out.print("Winner "+winner);
+		System.out.print("****************Winner******************* "+winner);
 		MainController.getInstance().notifyGameResult(winner);
 	}
 	
@@ -649,6 +652,7 @@ public class GameDriver extends Observable {
 			}
 			else {
 				moveCounter++;
+				System.out.print("Moves:" + moveCounter);
 			}
 		}
 		return true;
