@@ -46,7 +46,9 @@ public class MainController {
 	/**
 	 * private constructor for Singleton pattern imlementation
 	 */
-	private MainController() {}
+	private MainController() {
+		setupBox = new SetUpDialog();
+	}
 	
 	/**
 	 * Get instance of MainController class
@@ -63,62 +65,15 @@ public class MainController {
 	 * Method to initialize setupBox and listeners.
 	 */
 	public void initialize() {
-		setupBox = new SetUpDialog();
-		chooseMapEditorOrPlayGame();
-		mapEditorListener();
-		playGameListener();
-	}
-
-	/**
-	 * Sets listener for Edit Map button.
-	 */
-	public void mapEditorListener() {
-		mapEditListener =  new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				MapFrame newMapFrame = new MapFrame();
-				setupBox.chooseOptionFrame().dispose();
-			}
-		};
-		this.setupBox.mapEditAction(mapEditListener);
-	}
-	
-	/**
-	 * Sets listener for Play Game button.
-	 */
-	public void playGameListener() {
-		playGameListener =  new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				init();
-				setupBox.chooseOptionFrame().dispose();
-			}
-		};
-		this.setupBox.playGameAction(playGameListener);
-	}
-	
-	/**
-	 * Calls chooseMapEditorOrPlayGame() function of the SetUpDialog class to display Edit Map and Play Game options.
-	 */
-	public void chooseMapEditorOrPlayGame() {
-		this.setupBox.chooseMapEditorOrPlayGame();
-	}
-	
-	/**
-	 * This method is responsible for taking input from user to whether user wants 
-	 * to play tournament or single game, and accordingly create the tournament or single game object.
-	 */
-	private void init() {
 		String mode = this.setupBox.gameMode();
 		if(mode.equals("single")) {
-			System.out.println("1");
 			this.setupBox.loadSaveGameOption();
 		}
 		else if(mode.equals("tournament")){
 			getTournamentInfo();
 		}
 		else {
-			init();
+			initialize();
 		}
 	}
 	
@@ -131,7 +86,6 @@ public class MainController {
 		infoView.setListeners(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent a) {
-				System.out.print("Hello");
 				gameMode = new TournamentMode(infoView.getGamesCount(), infoView.getMapDetails(),
 						infoView.getPlayerBehaviorDetails(), infoView.getMovesCount(), mC);
 				gameMode.start();

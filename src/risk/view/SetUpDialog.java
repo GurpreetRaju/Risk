@@ -37,16 +37,6 @@ public class SetUpDialog {
 	private JFrame frame;
 	
 	/**
-	 * Button to edit map.
-	 */
-	private JButton mapEdit;
-	
-	/**
-	 * Button to begin the game.
-	 */
-	private JButton playGame;
-	
-	/**
 	 * Stores the path of the map file uploaded.
 	 */
 	private String mapRead = null;
@@ -204,43 +194,11 @@ public class SetUpDialog {
 	}
 	
 	/**
-	 * Displays frame to choose from Map Edit and Play Game options at the start.
-	 */
-	public void chooseMapEditorOrPlayGame() {
-		frame = new JFrame("Choose one:");
-		frame.setSize(new Dimension(200,200));
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		mapEdit = new JButton("Edit Map");
-		playGame = new JButton("Play Game");
-		frame.setLayout(new FlowLayout());
-		frame.add(mapEdit);
-		frame.add(playGame);
-		frame.validate();
-		frame.setVisible(true);
-	}
-	
-	/**
 	 * Returns the frame to be used to dispose it after selection of an option.
 	 * @return JFrame
 	 */
 	public JFrame chooseOptionFrame() {
 		return this.frame;
-	}
-	
-	/**
-	 * Sets action listener to map edit button.
-	 * @param newAction ActionListener for map edit button.
-	 */
-	public void mapEditAction(ActionListener newAction) {
-		this.mapEdit.addActionListener(newAction);
-	}
-	
-	/**
-	 * Sets action listener to Play Game button.
-	 * @param newAction ActionListener for Play Game button
-	 */
-	public void playGameAction(ActionListener newAction) {
-		this.playGame.addActionListener(newAction);
 	}
 	
 	/**
