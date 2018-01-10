@@ -8,7 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
- * main window controlling the dice view
+ * Controls the Dice View on the main window.
  */
 public class DiceRollView extends JPanel{
 	
@@ -19,7 +19,7 @@ public class DiceRollView extends JPanel{
 	private static final long serialVersionUID = 2080193456450432494L;
 
 	/**
-	 * Creating the dice roll view.
+	 * Creates Dice roll view.
 	 */
 	public DiceRollView(){
 		JLabel label = new JLabel("Dice Here.");

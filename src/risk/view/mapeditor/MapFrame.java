@@ -40,22 +40,22 @@ public class MapFrame extends JFrame {
 	mapEditorController obj = new mapEditorController();
 	
 	/**
-	 * Stores the information of existing Map
+	 * Stores the existing map button information.
 	 */
 	JButton btnExistingMap;
 	
 	/**
-	 * Stores the information of new button
+	 * Stores the new map button information.
 	 */
 	JButton btnNewMap;
 	
 	/**
-	 * Stores the action selected for new map or existing map
+	 * Stores the selected Action of creating new map or editing existing.
 	 */
 	static String selectedAction ="";
 
 	/**
-	 * MapFrame constructor calling the initialize method that is used to initialize the contents of jframe.
+	 * MapFrame constructor calls initialize method of the class.
 	 */
 	public MapFrame() {
 		initialize();

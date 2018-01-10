@@ -1,7 +1,7 @@
 package risk.model.turnmanager;
 
-import risk.model.gamemode.GameDriver;
-import risk.model.player.Player;
+import risk.model.GameDriver;
+import risk.model.Player;
 
 /**
  * This class manages the turn and its phases.
@@ -28,52 +28,25 @@ public class TurnManager {
 	private boolean wonCard = false;
 	
 	/**
-	 * Stores instance of GameDriver class.
-	 */
-	private GameDriver driver;
-	
-	/**
 	 * Empty constructor to create object for observer.
-	 * @param nDriver GameDriver instance.
 	 */
-	public TurnManager(GameDriver nDriver){
-		driver = nDriver;
+	public TurnManager(){
 	}
 	
-	/**
-	 * Continue a phase
-	 */
-	public boolean continuePhase;
-		
 	/**
 	 * Constructor to set the phase name.
 	 * @param string Phase name.
-	 * @param nDriver GameDriver instance.
 	 */
-	public TurnManager(String string, GameDriver nDriver){
-		this(nDriver);
+	public TurnManager(String string){
 		this.setPhase(string);
-		this.continuePhase = true;
 	}
-	
 	/**
 	 * This method starts the turn from reinforcement phase
 	 * @param currentPlayer player having first turn
 	 */
 	public void startTurn(Player currentPlayer) {
 		currentPlayer.setArmies(this.getCurrentPlayer().getArmies());
-	}
-	
-	/**
-	 * 
-	 */
-	public void turnPlay() {
-		if(this.continuePhase) {
-			continuePhase();
-		}
-		else {
-			changePhase();
-		}
+		currentPlayer.reinforcementPhase();
 	}
 	
 	/**
@@ -81,29 +54,25 @@ public class TurnManager {
 	 * calls <code>issueCard()</code> method from <code>GameDriver</code>.
 	 */
 	public void changePhase() {
-		if(!isGameOver()) {
-			if(this.getPhase().equals("Reinforcement")) {
-				this.setPhase("Attack");
-				getCurrentPlayer().attackPhase();
+		if(this.getPhase().equals("Reinforcement")) {
+			this.setPhase("Attack");
+			getCurrentPlayer().attackPhase();
+		}
+		else if(this.getPhase().equals("Attack")) {
+			if(wonCard) {
+				GameDriver.getInstance().issueCard();
+				wonCard = false;
 			}
-			else if(this.getPhase().equals("Attack")) {
-				if(wonCard) {
-					driver.issueCard();
-					wonCard = false;
-				}
-				this.setPhase("Fortification");
-				getCurrentPlayer().fortificationPhase();
-			}
-			else if(this.getPhase().equals("Fortification")) {
-				driver.setNextPlayerTurn();
-				if(!isGameOver()) {
-					this.setPhase("Reinforcement");
-					getCurrentPlayer().reinforcementPhase();
-				}
-			}
-			else {
-				driver.announceGameOver(getCurrentPlayer().getName());
-			}
+			this.setPhase("Fortification");
+			getCurrentPlayer().fortificationPhase();
+		}
+		else if(this.getPhase().equals("Fortification") && !isGameOver()) {
+			GameDriver.getInstance().setNextPlayerTurn();
+			this.setPhase("Reinforcement");
+			getCurrentPlayer().reinforcementPhase();
+		}
+		else {
+			GameDriver.getInstance().announceGameOver();
 		}
 	}
 	
@@ -112,23 +81,21 @@ public class TurnManager {
 	 * @return current player.
 	 */
 	private Player getCurrentPlayer() {
-		return driver.getCurrentPlayer();
+		return GameDriver.getInstance().getCurrentPlayer();
 	}
 
 	/**
 	 * Refreshes the phases.
 	 */
 	public void continuePhase() {
-		if(!isGameOver()) {
-			if(this.getPhase().equals("Reinforcement")) {
-				getCurrentPlayer().reinforcementPhase();
-			}
-			else if(this.getPhase().equals("Attack")) {
-				getCurrentPlayer().attackPhase();
-			}
-			else if(this.getPhase().equals("Fortification")) {
-				getCurrentPlayer().fortificationPhase();
-			}
+		if(this.getPhase().equals("Reinforcement")) {
+			getCurrentPlayer().reinforcementPhase();
+		}
+		else if(this.getPhase().equals("Attack")) {
+			getCurrentPlayer().attackPhase();
+		}
+		else if(this.getPhase().equals("Fortification")) {
+			getCurrentPlayer().fortificationPhase();
 		}
 	}
 
@@ -144,7 +111,7 @@ public class TurnManager {
 	 * @param phase the phase to set
 	 */
 	public void setPhase(String phase) {
-		this.phase = phase.trim();
+		this.phase = phase;
 	}
 
 	/**
@@ -173,14 +140,6 @@ public class TurnManager {
 	 */
 	public void setWonCard(boolean wonCard) {
 		this.wonCard = wonCard;
-	}
-
-	public void setChangePhase() {
-		this.continuePhase = false;
-	}
-	
-	public void setContinuePhase() {
-		this.continuePhase = true;
 	}
 
 }

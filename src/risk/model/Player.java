@@ -1,9 +1,7 @@
-package risk.model.player;
+package risk.model;
 
 import java.util.ArrayList;
 
-import risk.model.Card;
-import risk.model.gamemode.GameDriver;
 import risk.model.map.CountryNode;
 import risk.model.map.MapNode;
 
@@ -80,23 +78,11 @@ public class Player {
 	private CountryNode neighbourC;
 	
 	/**
-	 * Strategy for the player that can be changed on runtime
-	 */
-	private PlayerStrategy strategy;
-	
-	/**
-	 * Stores instance of GameDriver class.
-	 */
-	private GameDriver driver;
-	
-	/**
 	 * Initialize player object with name.
 	 * @param name name of player.
-	 * @param nDriver GameDriver instance.
 	 */
-	public Player(String name, GameDriver nDriver) {
+	public Player(String name) {
 		this.name = name;
-		this.driver = nDriver;
 		this.countries = new ArrayList<CountryNode>();
 		this.continents = new ArrayList<MapNode>();
 		this.cards = new ArrayList<Card>();
@@ -106,10 +92,12 @@ public class Player {
 	 * Initialize player object with name and armies.
 	 * @param name name of the player.
 	 * @param newArmies armies of the player.
-	 * @param nDriver GameDriver instance.
 	 */
-	public Player(String name, int newArmies, GameDriver nDriver) {
-		this(name, nDriver);
+	public Player(String name, int newArmies) {
+		this.name = name;
+		this.countries = new ArrayList<CountryNode>();
+		this.continents = new ArrayList<MapNode>();
+		this.cards = new ArrayList<Card>();
 		this.armiesCount = newArmies;
 		this.mapData = new ArrayList<MapNode>();
 	}
@@ -119,12 +107,14 @@ public class Player {
 	 * @param name name of the player.
 	 * @param newArmies armies of the player.
 	 * @param countriesList ArrayList of all countries owned by player.
-	 * @param nDriver GameDriver instance.
 	 */
-	public Player(String name, int newArmies, ArrayList<CountryNode> countriesList, GameDriver nDriver) {
-		this(name, nDriver);
+	public Player(String name, int newArmies, ArrayList<CountryNode> countriesList) {
+		this.name = name;
+		this.continents = new ArrayList<MapNode>();
+		this.cards = new ArrayList<Card>();
 		this.armiesCount = newArmies;
 		this.mapData = new ArrayList<MapNode>();
+		this.countries = new ArrayList<CountryNode>();
 		for(CountryNode c: countriesList) {
 			this.addCountry(c);
 		}
@@ -163,7 +153,6 @@ public class Player {
 	 */
 	public String[] getCountriesNames() {
 		String[] names = new String[this.countries.size()];
-		System.out.print("Player.java : 166 : "+this.countries.size());
 		for(int i=0;i<names.length;i++){
 			names[i] = this.countries.get(i).getCountryName();
 			System.out.println(names[i]);
@@ -331,8 +320,8 @@ public class Player {
 	 * This method runs the reinforcement phase
 	 */
 	public void reinforcementPhase(){
-		System.out.print("Checkpoint 1");
-		strategy.reinforcementPhase(armiesCount, getCountriesNames());
+		GameDriver.getInstance().getControlGUI().reinforcementControls(getArmiesCount(), getCountriesNames());
+		GameDriver.getInstance().setControlsActionListeners();
 	}
 	
 	/**
@@ -351,10 +340,11 @@ public class Player {
 			}
 		}
 		if(countriesList.isEmpty()) {
-			driver.changePhase();
+			GameDriver.getInstance().changePhase();
 		}
 		else {
-			strategy.attackPhase(countriesList);
+			GameDriver.getInstance().getControlGUI().attackControls(countriesList.toArray(new String[countriesList.size()]));
+			GameDriver.getInstance().setAttackListeners();
 		}
 	}
 	
@@ -374,11 +364,11 @@ public class Player {
 			}
 		}
 		if(countriesList.isEmpty()) {
-			driver.nottifyObservers(driver.getTurnManager().getPhase());
-			driver.changePhase();
+			GameDriver.getInstance().changePhase();
 		}
 		else {
-			strategy.fortificationPhase(countriesList);
+			GameDriver.getInstance().getControlGUI().fortificationControls(countriesList.toArray(new String[countriesList.size()]));
+			GameDriver.getInstance().setFortificationLiteners();
 		}
 	}
 	
@@ -444,7 +434,7 @@ public class Player {
 		else if(aArmies>2) {
 			aArmies = 2;
 		}
-		return this.strategy.selectDiceNumber(aArmies,name);
+		return GameDriver.getInstance().setUpBoxInput(1, aArmies,this.name+"! Please select number of dice to roll.");
 	}
 	
 	/**
@@ -672,52 +662,7 @@ public class Player {
 		return false;
 	}
 	
-	/**
-	 * Set a new strategy for player.
-	 * @param newStrategy set the strategy for the player.
-	 */
-	public void setStrategy(PlayerStrategy newStrategy) {
-		this.strategy = newStrategy;
-	}
 
-	/**
-	 * Startup phase army distribution.
-	 * @return country on which the army is to be placed. 
-	 */
-	public String placeArmyOnStartUp() {
-		if(getCountriesNamesNoArmy().length!=0){
-			return this.strategy.placeArmy(getCountriesNamesNoArmy(), getName());
-		}else{
-			return this.strategy.placeArmy(getCountriesNames(), getName());
-		}
-	}
-	
-	/**
-	 * calls movearmies for attack.
-	 * @param aArmies minimum armies the attacker could move.
-	 * @param maxArmies Maximum armies that can be moved.
-	 * @param message dialogbox message.
-	 * @return strategy
-	 */
-	public int moveArmies(int aArmies, int maxArmies, String message) {
-		return this.strategy.moveArmies(aArmies, maxArmies, message);
-	}
-	
-	/**
-	 * @return player strategy
-	 */
-	public String getPlayerStrategy(){
-		return this.strategy.getStrategyName();
-	}
-
-	/**
-	 * Sets the mapdata for map.
-	 * @param newMapData List of MapNodes
-	 */
-	public void setMapData(ArrayList<MapNode> newMapData) {
-		this.mapData = newMapData;
-	}
-	
 }
 
 

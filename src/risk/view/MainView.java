@@ -18,32 +18,32 @@ public class MainView extends JFrame{
 	private static final long serialVersionUID = 1L;
 	
 	/**
-	 * static mainView variable that can only be accessed by class and storing the reference of the class
+	 * MainView object.
 	 */
 	private static MainView mainView;
 	
 	/**
-	 * playerData variable storing the reference of the class PlayerInfoView.
+	 * PlayerInfoView class object.
 	 */
 	private PlayerInfoView playerData;
 	
 	/**
-	 * map variable storing the reference of class MapView.
+	 * MapView class object.
 	 */
 	private MapView map;
 	
 	/**
-	 * controlArea variable storing the reference of class ControlView
+	 * ControlsView class object.
 	 */
 	private ControlsView controlsArea;
 	
 	/**
-	 * phaseArea variable storing the reference of PhaseView class
+	 * PhaseView class object.
 	 */
 	private PhaseView phaseArea;
 	
 	/**
-	 * dominationView variable storing the reference of the class WorldDominationView
+	 * WorldDominationView class object.
 	 */
 	private WorldDominationView dominationView;
 	
@@ -90,7 +90,7 @@ public class MainView extends JFrame{
         layout.putConstraint(SpringLayout.NORTH, phaseArea, 5, SpringLayout.NORTH, contentPane);
         layout.putConstraint(SpringLayout.SOUTH, phaseArea, -5,  SpringLayout.NORTH, playerData);
         
-	/*playerData constraints.*/
+		/*playerData constraints.*/
         layout.putConstraint(SpringLayout.WEST, playerData, 5,  SpringLayout.WEST, contentPane);
         layout.putConstraint(SpringLayout.SOUTH, playerData, -5,  SpringLayout.SOUTH, contentPane);
         
@@ -112,7 +112,6 @@ public class MainView extends JFrame{
         layout.putConstraint(SpringLayout.NORTH, controlsArea, 0, SpringLayout.NORTH, playerData);
         layout.putConstraint(SpringLayout.SOUTH, controlsArea, -5, SpringLayout.SOUTH, contentPane);
         this.pack();
-        this.validate();
 	}
 
 	/**

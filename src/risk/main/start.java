@@ -1,6 +1,6 @@
 package risk.main;
 
-import risk.controller.MainController;
+import risk.controller.Controller;
 
 /**
  * This class create a threat and call GameDriver class instance.
@@ -19,7 +19,8 @@ public class start {
           creating and showing this application's GUI.*/
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                MainController.getInstance().initialize();
+                Controller c = new Controller();
+                c.initialize();;
             }
         });
     }

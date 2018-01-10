@@ -17,8 +17,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import risk.model.gamemode.GameDriver;
-import risk.model.player.Player;
+import risk.model.GameDriver;
+import risk.model.Player;
 
 /**
  * This class implements the Card Exchange View.
@@ -39,7 +39,7 @@ public class CardsView extends JPanel implements Observer {
 	private JButton exchangeCards;
 	
 	/**
-	 * Creates view for cards.
+	 * Creates cards view.
 	 */
 	public CardsView(){
 		JLabel label = new JLabel("Cards Here.");
@@ -83,13 +83,13 @@ public class CardsView extends JPanel implements Observer {
 	
 	/**
 	 * Observer pattern function for Observers to update when there is a notification from the observable.
-	 * It checks if the player already have atleast 3 similar cards or 3 distinct cards or 5 cards.
+	 * It checks if the player has atleast 3 similar cards or 3 distinct cards or 5 cards.
 	 * If user has 3 or more cards it asks player if he wants to exchange cards for armies.
 	 * if user has 5 armies it forces player to exchange card for armies.
 	 */
 	@Override
 	public void update(Observable o, Object arg) {
-		Player player = ((GameDriver) o).getCurrentPlayer();
+		Player player = GameDriver.getInstance().getCurrentPlayer();
 		if (((String) arg).equals("Cards")){
 			if( player.getCards().size()>2 && player.getCards().size() <5){
 				if(player.haveDistinctCards() || player.haveThreeSameTypeCards()){					

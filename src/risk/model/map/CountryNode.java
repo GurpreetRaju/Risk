@@ -2,7 +2,7 @@ package risk.model.map;
 
 import java.util.ArrayList;
 
-import risk.model.player.Player;
+import risk.model.Player;
 
 /**
  * This class store the information of a country.
@@ -27,7 +27,7 @@ public class CountryNode {
 	private int[] coordiantes;
 	
 	/**
-	 * Stores the name of player to whom this country belongs.
+	 * Store name of player to whom this country belongs.
 	 */
 	private Player owner;
 	
@@ -128,6 +128,7 @@ public class CountryNode {
 			if(!this.owner.equals(player))
 			{
 				this.owner.removeCountry(this);
+				System.out.println("Country removed");
 			}
 		}
 		this.owner = player;
@@ -171,9 +172,14 @@ public class CountryNode {
 	 * @param o object of CountryNode
 	 * @return true of two objects are same; false if not.
 	 */
-	public boolean equals(Object o) {
+	public boolean equal(Object o) {
 		if(o instanceof CountryNode){
 			if(((CountryNode) o).countryName.equals(this.countryName)){
+				for(int i=0; i<this.getNeighbourCountries().length;i++) {
+					if(!this.getNeighbourCountries()[i].equals(((CountryNode)o).getNeighbourCountries()[i])) {
+						return false;
+					}
+				}
 				return true;
 			}
 		}
@@ -234,7 +240,7 @@ public class CountryNode {
 	}
   
 	/**
-	 * Decreases the count of armies by 1.
+	 * Decrements the army count by 1.
 	 */
 	public void removeArmy() {
 		armies = armies-1;	
@@ -257,7 +263,7 @@ public class CountryNode {
 	}
 	
 	/**
-	 * Subtract multiple armies from the country
+	 * Subtract multiple armies from country
 	 * @param moveArmies number of armies to subtract
 	 */
 	public void removeArmies(int moveArmies) {

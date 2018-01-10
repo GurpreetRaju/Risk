@@ -45,7 +45,8 @@ public class MapView extends JPanel implements Observer {
 	 */
 	public MapView(String newImage) {
 		this();
-		if(newImage!=null){
+		System.out.println("Not working");
+	    if(newImage!=null){
 	    	try {
 	    		image = ImageIO.read(new File(newImage));
 	    	} catch (IOException e) {

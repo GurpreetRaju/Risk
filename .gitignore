@@ -1,9 +1,6 @@
 # Compiled class file
 *.class
-#game save files
-*.sav
-#map files
-*.map
+
 *.DS_Store
 # Log file
 *.log

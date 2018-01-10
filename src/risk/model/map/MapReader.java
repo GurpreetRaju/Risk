@@ -51,10 +51,10 @@ public class MapReader {
 						String[] temp = sCurrentLine.split(",");
 						for(MapNode n : map){
 							if(n.getContinentName().equals(temp[3])){
-								if(!CountryNode.contains(stack, temp[0])){  /* check if the neighbor country object not already created */
+								if(!CountryNode.contains(stack, temp[0])){//check if the neighbor country object not already created
 									stack.add(new CountryNode(temp[0], null, null,null));
 								}
-								/* getting the countries from stack and its neighbouring co ordinates with their information */
+								//get country object from stack and update its neighbours and other information
 								CountryNode newCountry = CountryNode.getCountry(stack, temp[0]);
 								int[] newCoordinates = {Integer.parseInt(temp[1]),Integer.parseInt(temp[2])};
 								newCountry.setCoordinates(newCoordinates);

@@ -1,29 +1,15 @@
-package risk.model.gamemode;
+package risk.model;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.ObjectOutputStream;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Observable;
 import java.util.Random;
 
-import risk.controller.GameController;
-import risk.controller.MainController;
-import risk.model.Card;
-import risk.model.RiskData;
+import risk.controller.Controller;
 import risk.model.map.CountryNode;
 import risk.model.map.Map;
 import risk.model.map.MapNode;
-import risk.model.player.AggressiveStrategy;
-import risk.model.player.BenevolentStrategy;
-import risk.model.player.CheaterStrategy;
-import risk.model.player.HumanStrategy;
-import risk.model.player.Player;
-import risk.model.player.PlayerStrategy;
-import risk.model.player.RandomStrategy;
 import risk.model.turnmanager.TurnManager;
+import risk.view.*;
 
 /**
  * This class controls the turns - Startup phase, Fortification, reinforcement and attack phase.
@@ -35,7 +21,17 @@ import risk.model.turnmanager.TurnManager;
 public class GameDriver extends Observable {
 	
 	/**
-	 * map variable to store reference of class Map
+	 * Object of GameDriver class.
+	 */
+	private static GameDriver driver;
+	
+	/**
+	 * Object of PlayerInfoView class.
+	 */
+	private PlayerInfoView playerInfoGUI;
+	
+	/**
+	 * Object of Map class.
 	 */
 	private Map map;
 	
@@ -45,22 +41,27 @@ public class GameDriver extends Observable {
 	private ArrayList<Player> players;
 	
 	/**
-	 * controller variable to store reference of class GameController
+	 * Object of Controller class.
 	 */
-	private GameController controller;
+	private Controller controller;
+	
+	/**
+	 * Object of ControlsView class.
+	 */
+	private ControlsView controlsGUI;
 		
 	/**
-	 * turnManager variable to store reference of class TurnManager
+	 * Object of TurnManager class.
 	 */
 	private TurnManager turnManager;
 	
 	/**
-	 * currentPlayer variable to store reference of class Player
+	 * Object of Player class.
 	 */
 	private Player currentPlayer;
 
 	/**
-	 * List of cards
+	 * Pile of cards
 	 */
 	private ArrayList<Card> cards;
 	
@@ -70,113 +71,70 @@ public class GameDriver extends Observable {
 	private String resultNotify;
 	
 	/**
-	 * Number of limits for game
-	 */
-	private int moveLimit = 0;
-	
-	/**
-	 * Counts the number of moves
-	 */
-	private int moveCounter = 0;
-	
-	/**
-	 * Constructor initialize the GUI and  map class object.
-	 * Constructor is private so objects can not be created directly for this class.
-	 * @param newMoveLimit Number of moves limited to game
-	 * @param newMap url of map game to be played on
-	 */
-	public GameDriver(String newMap, int newMoveLimit) {
-		this();
-		moveLimit = newMoveLimit;
-		map = new Map(newMap);
-	}
-	
-	/**
 	 * Constructor initialize the GUI and  map class object.
 	 * Constructor is private so objects can not be created directly for this class.
 	 */
-	public GameDriver() {
-		turnManager = new TurnManager("Reinforcement", this);
+	private GameDriver() {
+		turnManager = new TurnManager("Reinforcement");
 		cards = Card.generateCardPile();
 	}
 
 	/**
+	 * <p>
+	 * This method create <b>one and only one</b> instance of GameDriver class.
+	 * This method is used to access only object of this class.
+	 * </p>
+	 * @return instance of GameDriver class.
+	 */
+	public static GameDriver getInstance() {
+		if(driver==null){
+			driver = new GameDriver();
+		}
+		return driver;
+	}
+	/**
 	 * Set controller in GameDriver class.
 	 * @param newController Used to set the Controller object.
 	 */
-	public void setController(GameController newController) {
+	public void setController(Controller newController) {
 		this.controller = newController;
 	}
 	
 	/**
 	 * Starts the game.
-	 * @param playerData String array to store elements of player name and type.
 	 */
-	public void runGame(String[][] playerData) {
-		nottifyObservers("Startup phase: ");
-		createPlayers(playerData);
-		startUpPhase();
+	public void runGame() {
+		setChanged();
+		notifyObservers("Startup");
+		String[] newPlayerData = controller.getPlayerInfo();
+		startUpPhase(newPlayerData);
 		turnManager.startTurn(this.currentPlayer);
-		while(!turnManager.isGameOver()) {
-			turnManager.turnPlay();
-		}
-		
+		setChanged();
+		notifyObservers("Reinforcement");
 	}
 	
-	/**
-	 * Create player objects
-	 * @param playerData name of players
-	 */
-	public void createPlayers(String[][] playerData) {
-		players = new ArrayList<Player>();
-		for(int i=0; i < playerData.length; i++){
-			Player temp = new Player(playerData[i][0],RiskData.InitialArmiesCount.getArmiesCount(playerData.length), this);
-			temp.setMapData(map.getMapData());
-			temp.setStrategy(createBehavior(playerData[i][1]));
-			players.add(temp);
-			nottifyObservers("Player created and  added "+temp.getName());
-		}
-	}
-	
-	/**
-	 * Create PlayerStartegy object from string
-	 * @param strategy strategy for which object is required
-	 * @return object of PlayerStrategy
-	 */
-	public PlayerStrategy createBehavior(String strategy) {
-			PlayerStrategy pStrategy = null;
-			if(strategy.equals("human")){
-				pStrategy = new HumanStrategy(this);
-			}
-			else if(strategy.equals("benevolent")) {
-				pStrategy = new BenevolentStrategy(this);
-			}
-			else if(strategy.equals("aggressive")){
-				pStrategy = new AggressiveStrategy(this);
-			}
-			else if(strategy.equals("cheater")) {
-				pStrategy = new CheaterStrategy(this);
-			}
-			else if(strategy.equals("random")) {
-				pStrategy = new RandomStrategy(this);
-			}
-			return pStrategy;
-	}
-
 	/**
 	 * This method starts the startup phase of game. It assigns countries to players.
-	 * @see #updateMap()
+	 * @param playerData String array to store elements of player type.
 	 */
-	public void startUpPhase() {
-		dividingCountries(map.getMapData());
+	public void startUpPhase(String[] playerData) {
+		
+		dividingCountries(playerData,map.getMapData());
+		
 		updatePlayerView();
+		
 		/*Distribute armies to countries as per player's choice.*/
 		int totalArmiesDiv = players.get(0).getArmiesCount();
 		for(int i1=0;i1<totalArmiesDiv ;i1++){
+			System.out.print("Armies divided"+players.get(0).getArmiesCount());
 			for(Player p: players){
-				String s = p.placeArmyOnStartUp();
+				String s;
+				if(p.getCountriesNamesNoArmy().length!=0){
+					s = controller.placeArmyDialog(p.getCountriesNamesNoArmy(), p.getName()+" Place your army");
+				}else{
+					s= controller.placeArmyDialog(p.getCountriesNames(),p.getName()+" Place your army");
+				}
 				p.getCountry(s).addArmy(1);
-				nottifyObservers(p.getName()+" placed 1 army on "+s);
 				p.removeArmies(1);
 			}
 		}
@@ -185,13 +143,19 @@ public class GameDriver extends Observable {
 	
 	/**
 	 * This method create player objects and divide countries among them.
-	 * @see notifyObservers
+	 * @param playerData list of players
 	 * @param mapData arraylist containing MapNode Objects representing continents
 	 */
-	public void dividingCountries(ArrayList<MapNode> mapData) {
+	public void dividingCountries(String[] playerData, ArrayList<MapNode> mapData) {
+		players = new ArrayList<Player>();
+		for(String newPlayer: playerData){
+			Player temp = new Player(newPlayer,RiskData.InitialArmiesCount.getArmiesCount(playerData.length));
+			players.add(temp);
+			setChanged();
+			notifyObservers(temp.getName());
+		}
 		players.get(0).setTurnTrue();
 		this.currentPlayer = players.get(0);
-		nottifyObservers("Player "+players.get(0)+" has first turn");
 		int i = 0;
 		/*Random distribution of countries among the players.*/
 		for(MapNode m : mapData){
@@ -202,7 +166,30 @@ public class GameDriver extends Observable {
 				}
 			}
 		}
-		nottifyObservers("Countries divided to players");
+	}
+
+	/**
+	 * Sets PlayerInfo view.
+	 * @param newView PlayerInfoView object initialized.
+	 */
+	public void setPlayerView(PlayerInfoView newView) {
+		this.playerInfoGUI = newView;
+	}
+
+	/**
+	 * Sets Map view.
+	 * @param newGui MapView object initialized.
+	 */
+	public void setMapView(MapView newGui) {
+		map.addObserver(newGui);
+	}
+
+	/**
+	 * Sets Controls view.
+	 * @param controlView ControlsView object initialized.
+	 */
+	public void setControlsView(ControlsView controlView) {
+		this.controlsGUI = controlView;
 	}
 	
 	/**
@@ -215,6 +202,7 @@ public class GameDriver extends Observable {
 			playerNames[i] = p.getName();
 			i++;
 		}
+		playerInfoGUI.setPlayerInfo(playerNames);
 	}
 
 	/**
@@ -230,18 +218,24 @@ public class GameDriver extends Observable {
 	 */
 	public void setNextPlayerTurn() {
 		int currentPlayerIndex = players.indexOf(getCurrentPlayer());
-		moveCounter();
-		if(!turnManager.isGameOver()) {
-			this.currentPlayer.setTurnFalse();
-			if (currentPlayerIndex == players.size()-1){
-				this.currentPlayer = players.get(0);
-			}else{
-				this.currentPlayer = players.get(currentPlayerIndex+1);
-			}
-			this.currentPlayer.setTurnTrue();
-			nottifyObservers("Turn changed to "+ this.currentPlayer.getName());
-			this.getCurrentPlayer().setArmies(this.getCurrentPlayer().getArmies());
+		this.currentPlayer.setTurnFalse();
+		if (currentPlayerIndex == players.size()-1){
+			this.currentPlayer = players.get(0);
+		}else{
+			this.currentPlayer = players.get(currentPlayerIndex+1);
 		}
+		this.currentPlayer.setTurnTrue();
+		this.getCurrentPlayer().setArmies(this.getCurrentPlayer().getArmies());
+		setChanged();
+		notifyObservers("Cards");
+	}
+
+	/**
+	 * Creates the object of Map Class by passing the map file path.
+	 * @param mapPath stores the path of the map file.
+	 */
+	public void createMapObject(String mapPath) {
+		map = new Map(mapPath);
 	}
 	
 	/**
@@ -303,28 +297,37 @@ public class GameDriver extends Observable {
 	public void setControlsActionListeners() {
 		this.controller.setActionListner();
 	}
-
+	
 	/**
-	 * Delegate method to call method from TurnManager class to continue phases.
-	 * @see #updateMap()
+	 * Gives the instance of ControlsView class.
+	 * @return ControlsView class object.
 	 */
-	public void continuePhase() {
-		updateMap();
-		turnManager.setContinuePhase();
+	public ControlsView getControlGUI() {
+		return this.controlsGUI;
 	}
 
 	/**
+	 * Delegate method to call method from TurnManager class to continue phases.
+	 */
+	public void continuePhase() {
+		turnManager.continuePhase();
+		updateMap();
+		setChanged();
+		notifyObservers(turnManager.getPhase());
+	}
+	
+	/**
 	 * Delegate method to call method from TurnManager class to change between phases.
-	 * @see #updateMap()
 	 */
 	public void changePhase() {
-		turnManager.setChangePhase();
+		turnManager.changePhase();
 		updateMap();
+		setChanged();
+		notifyObservers(turnManager.getPhase());
 	}
 	
 	/**
 	 * Delegate method to call updateMap method from map class.
-	 * @see #updateMap()
 	 */
 	public void updateMap() {
 		map.updateMap();
@@ -364,11 +367,9 @@ public class GameDriver extends Observable {
 	 */
 	public void shiftArmiesOnReinforcement(String countrySelected, int armies) {
 		if(this.currentPlayer.shiftArmiesOnReinforcement(countrySelected, armies)==0) {
-			nottifyObservers(getTurnManager().getPhase());
 			changePhase();
 		}
 		else {
-			nottifyObservers(getTurnManager().getPhase());
 			continuePhase();
 		}
 	}
@@ -422,7 +423,9 @@ public class GameDriver extends Observable {
 	 * @param defenderCountry country defending against attack
 	 */
 	public void announceAttack(String attackerCountry, String defenderCountry) {
-		nottifyObservers("Attack announced Attacker Country: "+attackerCountry+"  Defender Country: "+defenderCountry);
+		this.resultNotify = "Attack Attacker Country: "+attackerCountry+"  Defender Country: "+defenderCountry+"  ";
+		setChanged();
+		notifyObservers(resultNotify);
 		/*Announce attack on phase view.*/
 		CountryNode dCountry = map.getCountry(defenderCountry);
 		Player defender = dCountry.getOwner();
@@ -435,40 +438,44 @@ public class GameDriver extends Observable {
 		ArrayList<Integer> dResults = diceRoll(dArmies);
 		String s = this.currentPlayer+" dice : ";
 		for(int i : aResults) {
-			s += i +", ";
+			s += i +" ";
 		}
-		s+= defender+" dice: ";
+		s+= "<br>" + defender+" dice: ";
 		for(int j : dResults) {
 			s += j +" ";
 		}
-		nottifyObservers(s);
+		resultNotify += "<br>" + s;
+		System.out.println(resultNotify);
+		setChanged();
+		notifyObservers(resultNotify);
 		battle(dCountry, defender, aCountry, aArmies, dArmies, aResults, dResults);
-		nottifyObservers("Armies left in attacker Country "+ aCountry.getCountryName()+" "+aCountry.getArmiesCount());
-		nottifyObservers("Armies left in defender Country "+ dCountry.getCountryName()+" "+dCountry.getArmiesCount());
+		setChanged();
+		notifyObservers(resultNotify);
 		/*check if defender country has armies left.*/
 		if(dCountry.getArmiesCount()==0) {
 			dCountry.setOwner(currentPlayer);
 			turnManager.setWonCard(true);
 			/*Notify change in ownership of a country.*/
-			nottifyObservers("Country "+ dCountry.getCountryName() +" won by " + dCountry.getOwner().getName() + ", new armies "+dCountry.getArmiesCount());
+			resultNotify += "<br>" + " Country "+ dCountry.getCountryName() +" won by " + dCountry.getOwner().getName() + ", new armies "+dCountry.getArmiesCount();
+			setChanged();
+			notifyObservers(resultNotify);
+			System.out.println("Country "+ dCountry.getCountryName() +" won by " + dCountry.getOwner().getName() + ", new armies "+dCountry.getArmiesCount());
 			/*move countries from attacker country to new acquired country.*/
-			int moveArmies = currentPlayer.moveArmies(aArmies, aCountry.getArmiesCount()-1, "Select armies to move:");
+			int moveArmies = controller.setUpBoxInput(aArmies, aCountry.getArmiesCount()-1, "Select armies to move:");
 			dCountry.addArmy(moveArmies);
 			aCountry.removeArmies(moveArmies);
 			if(map.continentWonByPlayer(currentPlayer, dCountry)) {
-				nottifyObservers("Player "+ currentPlayer.getName() +" conquered " + dCountry.getContinent());
 				currentPlayer.addContinent(dCountry.getContinent());
 			}
 		}
 		map.updateMap();
 		setPlayerOut(defender);
-		if(!checkGameState()) {
-			continuePhase();
-		}
+		checkGameState();
+		continuePhase();
 	}
 	
 	/**
-	 * This method decides the result of battle between attacking country and defending country and update the state of countries.
+	 * This method decides the result of battle between attacking country and defecding country and update the state of countries.
 	 * @param dCountry country defending the attack
 	 * @param defender player defending the attack
 	 * @param aCountry attacking country
@@ -479,23 +486,23 @@ public class GameDriver extends Observable {
 	 */
 	public void battle(CountryNode dCountry, Player defender, CountryNode aCountry, int aArmies, int dArmies,ArrayList<Integer> aResults,ArrayList<Integer> dResults) {
 		/*Compare the results to decide battle result.*/
-		int i=1;
 		while(!aResults.isEmpty() && !dResults.isEmpty()) {
 			int aMax = max(aResults);
 			int dMax = max(dResults);
 			if(aResults.get(aMax)>dResults.get(dMax)) {
 				dCountry.removeArmy();
 				/*Show army removed from defender country.*/
-				nottifyObservers("Battle "+i+" result : Winner Country: "+aCountry.getCountryName()+" Army removed from "+ dCountry.getCountryName());
+				resultNotify += "<br>" + " Winner Country: "+aCountry.getCountryName();
+				System.out.println("Army removed from defender country, new armies "+dCountry.getArmiesCount());
 			}
 			else {
 				aCountry.removeArmy();
-				nottifyObservers("Battle result : Winner Country: "+dCountry.getCountryName()+" Army removed from "+ aCountry.getCountryName());
-				
+				resultNotify += "<br>" + "Winner Country: "+dCountry.getCountryName();
+				/*Show army removed from attacker country*/
+				System.out.println("Army removed from attacker country, new armies "+aCountry.getArmiesCount());
 			}
 			aResults.remove(aMax);
 			dResults.remove(dMax);
-			i++;
 		}
 	}
 	
@@ -524,7 +531,7 @@ public class GameDriver extends Observable {
 	/**
 	 * delegate method to call setUpBoxInput from controller class.
 	 * @param min minimum value user can select 
-	 * @param max maximum value user can select
+	 * @param max maximum vlaue user can select
 	 * @param message message explaining the purpose of input
 	 * @return a number selected by user
 	 */
@@ -547,7 +554,7 @@ public class GameDriver extends Observable {
 	}
 	
 	/**
-	 * This method return maximum value in a arraylist.
+	 * This method return maxuimum value in a arraylist.
 	 * @param array list from which max value to be searched
 	 * @return index of maximum value in list
 	 */
@@ -571,7 +578,7 @@ public class GameDriver extends Observable {
 	}
 	
 	/**
-	 * Gets the list of players.
+	 * 
 	 * @return list of all players
 	 */
 	public ArrayList<Player> getPlayers(){
@@ -579,14 +586,11 @@ public class GameDriver extends Observable {
 	}
 
 	/**
-	 * Call Phase View to show game over.
-	 * @param winner Name of the winner or Draw if no winner.
+	 * Call Phase View to show game over
 	 */
-	public void announceGameOver(String winner) {
-		nottifyObservers("GameOver");
+	public void announceGameOver() {
+		notifyObservers("GameOver");
 		controller.removeAllControls();
-		System.out.print("****************Winner******************* "+winner);
-		MainController.getInstance().notifyGameResult(winner);
 	}
 	
 	/**
@@ -603,118 +607,6 @@ public class GameDriver extends Observable {
 	 */
 	public void setCurrentPlayer(Player player1) {
 		this.currentPlayer = player1;
-	}
-
-	/**
-	 * @return place army dialog
-	 * @param countries country list to be displayed for choice.
-	 * @param string message for the dialogbox.
-	 */
-	public Object placeArmyDialog(String[] countries, String string) {
-		return controller.placeArmyDialog(countries, string);
-	}
-
-	/**
-	 * control reinforcements
-	 * @param countryList Country list to be displayed.
-	 * @param armies Armies assigned to the player.
-	 */
-	public void reinforcementControls(int armies, String[] countryList) {
-		controller.setReinforcementControls(armies, countryList);
-	}
-
-	/**
-	 * attack controls.
-	 * @param array Country list to be displayed.
-	 */
-	public void attackControls(String[] array) {
-		controller.setAttackControls(array);
-	}
-
-	/**
-	 * controls fortification.
-	 * @param array Country list to be displayed.
-	 */
-	public void fortificationControls(String[] array) {
-		controller.setFortificationControls(array);
-	}
-	
-	/**
-	 * Checks if more turns are allowed or not.
-	 * @return boolean value 
-	 */
-	private boolean moveCounter() {
-		if(moveLimit!=0) {
-			if(moveCounter==moveLimit) {
-				turnManager.setGameOver(true);
-				announceGameOver("draw");
-				return false;
-			}
-			else {
-				moveCounter++;
-				System.out.print("Moves:" + moveCounter);
-			}
-		}
-		return true;
-	}
-	
-	/**
-	 * @return turnManager
-	 */
-	public TurnManager getTurnManager() {
-		return this.turnManager;
-	}
-	
-	/**
-	 * observer pattern.
-	 * @param msg Message to be displayed on game logger.
-	 */
-	public void nottifyObservers(String msg) {
-		setChanged();
-		notifyObservers(msg);
-	}
-	
-	/**
-	 * Save Game data to a file.
-	 */
-	public void saveGameDataToFile() {   
-		
-	    try {
-	    	String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
-	    	File file = new File("SaveGame"+ timeStamp+".sav");
-	        FileOutputStream fileStream = new FileOutputStream(file);   
-	        ObjectOutputStream objectStream = new ObjectOutputStream(fileStream);   
-	        
-	        /*Map file path.*/
-	        objectStream.writeObject(SingleMode.getMapName());
-	        
-	        /*Number of players.*/
-	        objectStream.writeObject(players.size());
-	        
-	        /*Player data.*/
-	        for(Player player: this.players){
-		        objectStream.writeObject(player.getName());
-		        objectStream.writeObject(player.getPlayerStrategy());
-		        objectStream.writeObject(player.getCountries().size());
-		        for(CountryNode country: player.getCountries()){
-		        	objectStream.writeObject(country.getCountryName());
-		        	objectStream.writeObject(country.getArmiesCount());
-		        }
-	        }
-	        
-	        /*Current player.*/
-	        objectStream.writeObject(getCurrentPlayer().getName());
-	        
-	        /*Current phase.*/
-	        objectStream.writeObject(turnManager.getPhase()+"\n");
-	        
-	        objectStream.close();   
-	        fileStream.close(); 
-	        System.out.println("Game saved successfully");
-	    
-	    }catch(Exception e) {   
-	        System.out.println("Failed to save game state. "+e);   
-	    }   
 	}
 
 }

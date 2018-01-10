@@ -1,4 +1,4 @@
-package test.risk.model.player;
+package test.risk.model;
 
 import static org.junit.Assert.*;
 import java.util.ArrayList;
@@ -6,11 +6,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 import risk.model.Card;
-import risk.model.gamemode.GameDriver;
+import risk.model.GameDriver;
+import risk.model.Player;
 import risk.model.map.CountryNode;
 import risk.model.map.MapNode;
-import risk.model.player.HumanStrategy;
-import risk.model.player.Player;
 
 /**
  * Tests the Player class functions.
@@ -90,17 +89,11 @@ public class TestPlayer {
 	private Card card9;
 	
 	/**
-	 * GameDriver class object to access GameDriver class
-	 */
-	private GameDriver driver;
-	
-	/**
 	 * Called before each test case of this class is executed.
 	 * @throws Exception any throwable exception.
 	 */
 	@Before
 	public void setUp() throws Exception {
-		driver = new GameDriver();
 		country1 = new CountryNode("Country1", null, null, null);
 		country2 = new CountryNode("Country2", null, null, null);
 		country3 = new CountryNode("Country3", null, null, null);
@@ -134,7 +127,7 @@ public class TestPlayer {
 		
 		MapNode continent = new MapNode("Continent1", countries, 6);
 		mapData.add(continent);
-		testPlayer = new Player("TestPlayer",0,countries, driver);
+		testPlayer = new Player("TestPlayer",0,countries);
 	}
 
 	/**
@@ -147,11 +140,11 @@ public class TestPlayer {
 		testPlayer.addCountry(new CountryNode("test", null, null, null));
 		testPlayer.addCountry(new CountryNode("test2", null, null, null));
 		testPlayer.addCountry(new CountryNode("test3", null, null, null));
-		testPlayer.addCountry(new CountryNode("test4", null, null, null));
-		testPlayer.addCountry(new CountryNode("test4", null, null, null));
-		testPlayer.addCountry(new CountryNode("test4", null, null, null));
-		testPlayer.addCountry(new CountryNode("test4", null, null, null));
-		testPlayer.addCountry(new CountryNode("test4", null, null, null));
+		testPlayer.addCountry(new CountryNode(null, null, null, null));
+		testPlayer.addCountry(new CountryNode(null, null, null, null));
+		testPlayer.addCountry(new CountryNode(null, null, null, null));
+		testPlayer.addCountry(new CountryNode(null, null, null, null));
+		testPlayer.addCountry(new CountryNode(null, null, null, null));
 		assertEquals(4,testPlayer.getArmies());
 	}
 	

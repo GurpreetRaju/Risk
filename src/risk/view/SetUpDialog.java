@@ -2,11 +2,9 @@ package risk.view;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
@@ -15,12 +13,9 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
-import javax.swing.JTextField;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.filechooser.FileNameExtensionFilter;
-
-import risk.controller.MainController;
 
 
 /**
@@ -30,6 +25,11 @@ import risk.controller.MainController;
  * @version 1.0
  */
 public class SetUpDialog {
+	
+	/**
+	 * Array to store the names of players entered by user.
+	 */
+	private String[] playerNames;
 	
 	/**
 	 * JFrame for dialog boxes.
@@ -50,57 +50,6 @@ public class SetUpDialog {
 	 * Stores the path of the map file uploaded.
 	 */
 	private String mapRead = null;
-	
-	/**
-	 * This method display a dialog which ask user to select new game or load game using buttons
-	 */
-	public void loadSaveGameOption(){
-		JFrame frame1 = new JFrame();
-		frame1.setLayout(new BoxLayout(frame1.getContentPane(),BoxLayout.Y_AXIS));
-		JButton newGame = new JButton("New Game");
-		JButton loadGame = new JButton("Load Game");
-		frame1.add(newGame);
-		frame1.add(loadGame);
-		frame1.pack();
-		frame1.setVisible(true);
-		/* New Game button actionlistener. */
-		newGame.addActionListener(new ActionListener(){
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				frame1.dispose();
-				MainController.getInstance().singleGameInit();
-				
-			}
-		});
-		/* Load Game button actionlistener. */
-		loadGame.addActionListener(new ActionListener(){
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				frame1.dispose();
-				JFrame saveFileLoad = new JFrame("Saved File Chooser");
-				saveFileLoad.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-				saveFileLoad.validate();
-				saveFileLoad.setVisible(true);
-				/*JFileChooser to ask user to choose a map file.*/
-				JFileChooser jfc = new JFileChooser();
-				jfc.setCurrentDirectory(new File("./"));
-				FileNameExtensionFilter filter = new FileNameExtensionFilter(null, "sav");
-				jfc.setFileFilter(filter);
-
-				int returnValue = jfc.showOpenDialog(frame);
-				String saveFileRead = null;
-				/*Get the path of the map file chosen*/
-				if (returnValue == JFileChooser.APPROVE_OPTION) {
-					File selectedFile = jfc.getSelectedFile();
-					saveFileRead = selectedFile.getAbsolutePath();
-					saveFileLoad.dispose();
-				}
-				MainController.getInstance().singleGameLoadInit(saveFileRead);	
-			}
-		});
-	}
 	
 	/**
 	 * Ask user to enter an integer value.
@@ -127,30 +76,22 @@ public class SetUpDialog {
 	 * Ask user to enter name of player one by one.
 	 * @return string array containing number of players.
 	 */
-	public String[][] getPlayerInfo() {
+	public String[] getPlayerInfo() {
 		int n = getInput(2,6,"Enter number of Players");
-		String[][] playerNames = new String[n][2];
-		String[] behaviors = {"aggressive", "benevolent", "cheater", "human", "random"};
-		JPanel panel = new JPanel();
-		JTextField field = new JTextField(10);
-		JComboBox<String> options = new JComboBox<String>(behaviors);
-		panel.add(new JLabel("Name: "));
-		panel.add(field);
-		panel.add(new JLabel("Type: "));
-		panel.add(options);
-		for(int i=0;i< n;){
-			field.setText("");
-			options.setSelectedIndex(0);
-			int s = JOptionPane.showConfirmDialog(
+		System.out.println(n);
+		playerNames = new String[n];
+		
+		JFrame frame = new JFrame("InputDialog");
+		for(int i=1;i<=n;i++){
+			String s = (String)JOptionPane.showInputDialog(
 					frame,
-					panel,
-                    "Enter name of player "+ (i+1),
-                    JOptionPane.OK_CANCEL_OPTION);
+                    "Enter name of player "+ i,
+                    "Player Info",
+                    JOptionPane.PLAIN_MESSAGE);
 
-			if (s == JOptionPane.OK_OPTION) {
-				playerNames[i][0] = field.getText();
-				playerNames[i][1] = (String) options.getSelectedItem();
-				i++;
+			if ((s != null) && (s.length() > 0)) {
+				playerNames[i-1] = s;
+				System.out.println(s);
 			}
 		}
 		return playerNames;
@@ -159,7 +100,6 @@ public class SetUpDialog {
 	/**
 	 * Places army on the selected countries.
 	 * @param countryList List of countries where the player can place armies.
-	 * @param message Message to be displayed for the dialog box.
 	 * @return country name selected.
 	 */
 	public String placeArmyDialog(String[] countryList, String message) {
@@ -241,41 +181,6 @@ public class SetUpDialog {
 	 */
 	public void playGameAction(ActionListener newAction) {
 		this.playGame.addActionListener(newAction);
-	}
-	
-	/**
-	 * This method display a dialog box with two buttons for user to select game mode.
-	 * @return returns the string object containing game mode.
-	 */
-	public String gameMode() {
-		JFrame frame = new JFrame("Map File Chooser");
-		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		frame.validate();
-		frame.setVisible(true);
-		Object[] options = {"Single Mode", "Tournament Mode"};
-		int n = JOptionPane.showOptionDialog(frame,	"Please select a mode.", "Game Mode",	
-				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
-		frame.dispose();
-		if(n==0) {
-			return "single";
-		}
-		else if(n==1) {
-			return "tournament";
-		}
-		return "noMode";
-	}
-
-	/**
-	 * Get player behaviour.
-	 * @param playerInfo player data
-	 * @return behaviour of the players
-	 */
-	public String[] getPlayerBehavior(String[] playerInfo) {
-		String[] behaviors = new String[playerInfo.length];
-		for(int i=0;i<playerInfo.length;i++) {
-			behaviors[i] = "human";
-		}
-		return behaviors;
 	}
 
 }

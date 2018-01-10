@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Iterator;
 
-import risk.controller.GameController;
+import risk.controller.Controller;
 import risk.view.mapeditor.MapFrame;
 
 /**
@@ -27,7 +27,7 @@ public class MapModel {
 	Hashtable<String, Boolean> continentTable = new Hashtable<String, Boolean>();
 	
 	/**
-	 * mapNode variable stores reference of the class MapNode
+	 * Reference to the MapNode object
 	 */
 	MapNode mapNode;
 	
@@ -50,6 +50,11 @@ public class MapModel {
 	 * MapWriter object for writing the map contents to the map file
 	 */
 	MapWriter mapWriter = new MapWriter();
+	
+	/**
+	 * New controller object.
+	 */
+	Controller controller = new Controller();
 	
 	/**
 	 * Initializes the continent list with existing continents in the map file. 
@@ -100,13 +105,14 @@ public class MapModel {
 	public boolean checkOnSaveMap() {
 		Boolean saveMap = true;
 		for (MapNode i :continents) {
-			//a map file with zero countries cannot be saved.
 			if(i.getCountries().length == 0) {
 				saveMap = false;
 			}
-			/*connected map check*/
-			if(!connectedMap()) {
-				saveMap = false;
+			for (CountryNode country : i.getCountries()) {
+				/*connected map check*/
+				if(!connectedMap()) {
+					saveMap = false;
+				}
 			}
 		}
 		return saveMap;
@@ -187,7 +193,7 @@ public class MapModel {
 	 * @param s receives a country to traverse over its neighbors and set its boolean visited value as true.
 	 */
 	public void search(String s)
-        {
+    {
         /* Mark the current node as visited by setting it true */
         countryTable.put(s, true);
         for (MapNode mapNode : continents) {
@@ -198,11 +204,8 @@ public class MapModel {
 			        while (i.hasNext())
 			        {
 			            CountryNode n = i.next();
-			            try {
-			            	if (countryTable.get(n.getCountryName())==false)
-			            		search(n.getCountryName());
-			            }catch(NullPointerException e) {
-			            }
+			            if (countryTable.get(n.getCountryName())==false)
+			                search(n.getCountryName());
 			        }
 				}
 			}
@@ -211,7 +214,7 @@ public class MapModel {
     }
 	
 	/**
-	 * Saving the new Map file.
+	 * Function to save new map file.
 	 */
 	public void saveMapFile() {
 		mapWriter.writeMap(continents);

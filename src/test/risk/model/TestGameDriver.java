@@ -1,4 +1,4 @@
-package test.risk.model.gamemode;
+package test.risk.model;
 
 import static org.junit.Assert.*;
 
@@ -7,11 +7,10 @@ import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 
-import risk.model.gamemode.GameDriver;
+import risk.model.GameDriver;
+import risk.model.Player;
 import risk.model.map.CountryNode;
 import risk.model.map.MapNode;
-import risk.model.player.HumanStrategy;
-import risk.model.player.Player;
 
 
 /**
@@ -69,7 +68,7 @@ public class TestGameDriver {
 	 */
 	@Before
 	public void setPlayerAndMapData(){
-		driver = new GameDriver(".//data//test//testMap3.map",0);
+		driver = GameDriver.getInstance();
 		country1 = new CountryNode("Country1", null, null, null);
 		country2 = new CountryNode("Country2", null, null, null);
 		country3 = new CountryNode("Country3", null, null, null);
@@ -99,8 +98,8 @@ public class TestGameDriver {
 		ArrayList<CountryNode> countries1 = new ArrayList<CountryNode>();
 		countries1.add(country4);
 		countries1.add(country5);
-		player1 = new Player("Player1", 15, countries, driver);
-		player2 = new Player("Player2", 10, countries1, driver);
+		player1 = new Player("Player1", 15, countries);
+		player2 = new Player("Player2", 10, countries1);
 		country1.addArmy(1);
 		country2.addArmy(1);
 		country3.addArmy(1);
@@ -136,8 +135,8 @@ public class TestGameDriver {
 		ArrayList<CountryNode> countries1 = new ArrayList<CountryNode>();
 		countries1.add(country4);
 		countries1.add(country5);
-		player1 = new Player("Player1", 15, countries, driver);
-		player2 = new Player("Player2", 10, countries1, driver);
+		player1 = new Player("Player1", 15, countries);
+		player2 = new Player("Player2", 10, countries1);
 		country1.addArmy(1);
 		country2.addArmy(1);
 		country3.addArmy(1);
@@ -169,10 +168,8 @@ public class TestGameDriver {
 		MapNode m = new MapNode("Asia", countries, 2);
 		mapData = new ArrayList<MapNode>();
 		mapData.add(m);
-		String[][] playerData = {{"Player3","human"},{"Player4","human"}};
-//		driver.getMap().setMapData(mapData);
-		driver.createPlayers(playerData);
-		driver.dividingCountries(mapData);
+		String[] playerData = {"Player3","Player4"};
+		driver.dividingCountries(playerData, mapData);
 		assertEquals(2,driver.getCurrentPlayer().getPlayerCountryCount());
 	}
 }
